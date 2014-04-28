@@ -1,0 +1,25 @@
+{
+  "name": "eyeSpend",
+  "description": "web client for eyespend",
+  "version": "0.0.0",
+  "homepage": "http://eyespend.ru/",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular": "1.2.x",
+    "angular-route": "1.2.x",
+    "angular-loader": "1.2.x",
+    "angular-mocks": "~1.2.15",
+    "angular-sanitize": "~1.2.16",
+    "jquery": "~2.1.0",
+    "mockJSON": "*",
+    "ng-tags-input": "~2.0.1",
+    "toastr": "~2.0.1",
+    "datetimepicker": "~2.2.5",
+    "ngAutocomplete": "~1.0.0",
+    "angular-i18n": "~1.2.16",
+    "angular-sticky": "*",
+    "RandomColor": "https://github.com/sterlingwes/RandomColor.git",
+    "AngularGM": "~1.0.0"
+  }
+}

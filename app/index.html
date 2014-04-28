@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+
+<head>
+    <meta charset="utf-8">
+    <title>eyeSpend</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+    <link href="css/application.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="bower_components/toastr/toastr.css">
+    <link rel="stylesheet" href="../bower_components/ng-tags-input/ng-tags-input.css">
+    <link rel="stylesheet" href="../bower_components/datetimepicker/jquery.datetimepicker.css">
+    <link rel="stylesheet" href="css/app.css"> -->
+    <link rel="stylesheet" type="text/css" href="eyeSpend.min.css">
+</head>
+
+<body class="background-dark">
+    <div ng-class="{'overlay-open':overlayIsOpen}" id="all">
+        <div ng-include="'shell/shell.html'"></div>
+        <div class="content container">
+            <div ng-view></div>
+        </div>
+    </div>
+    <div ng-cloak ng-class="{open:overlayIsOpen, close: !overlayIsOpen, overlay:true, 'overlay-contentscale': true}">
+        <a id="overlay-close" ng-click="overlayIsOpen=false" href="javascript:void(0)">
+            <i class="fa fa-times fa-5x"></i>
+        </a>
+        <div gm-info-window="infoWindow" gm-info-window-options="infoWindowOptions">
+            <h4>{{transaction.Date}}</h4>
+            <div>{{transaction.Amount}}</div>
+        </div>
+        <gm-map gm-map-id="'myMap'" gm-center="mapCenter" gm-zoom="zoom" style="height:100%;">
+            <gm-markers gm-objects="markers"
+                          gm-id="object.id"
+                          gm-position="{lat: object.location.lat, lng: object.location.lng}">
+              </gm-markers>
+        </gm-map>
+    </div>
+    <!-- In production use:<script src="//AngularJSax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script> -->
+
+    <!-- angular scripts 
+    <script src="..bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular-route/angular-route.js"></script>
+    <script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="../bower_components/angular-mocks/angular-mocks.js"></script>
+    <script src="../bower_components/ng-tags-input/ng-tags-input.js"></script>-->
+
+    <!-- libs 
+    <script src="../bower_components/momentjs/moment.js"></script>
+    <script src="../bower_components/momentjs/lang/ru.js"></script>
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/toastr/toastr.js"></script>
+    <script src="lib/select2.js"></script>
+    <script src="../bower_components/datetimepicker/jquery.datetimepicker.js"></script>-->
+
+
+    <!-- bootsrapp
+    <script src="lib/bootstrap/dropdown.js"></script>
+    <script src="lib/bootstrap-select/bootstrap-select.js"></script>-->
+
+    <!-- application 
+    <script src="app.js"></script>
+    <script src="config.exceptionHandler.js"></script>
+    <script src="config.js"></script>
+    <script src="config.route.js"></script>
+
+    <script src="services/datacontext.js"></script>
+    <script src="services/directives.js"></script>
+    
+    <script src="common/common.js"></script>
+    <script src="common/logger.js"></script>
+
+    <script src="transactions/transactions.js"></script>
+    <script src="shell/shell.js"></script>-->
+
+    <!-- uncomment lines below use stubbed backend 
+    <script src="../bower_components/mockJSON/js/jquery.mockjson.js"></script>
+    <script src="services/modelStub.js"></script>
+    <script src="httpBackendStub.js"></script>-->
+
+    <script src="eyeSpend.min.js"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+    <script scr="http://modernizr.com/downloads/modernizr-latest.js"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="../bower_components/toastr/toastr.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="css/bootstrap-original/bootstrap.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="css/bootstrap-original/responsive.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="css/fontello/css/fontello.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="css/lib/bootstrap-switch.css"> -->
+</body>
+
+</html>
