@@ -52,7 +52,7 @@ module.exports = function(grunt) {
             combine: {
                 files: {
                     'app/eyeSpend.min.css': [
-                        'app/css/application.css',
+                        'app/css/application.min.css',
                         'bower_components/toastr/toastr.css',
                         'bower_components/ng-tags-input/ng-tags-input.css',
                         'bower_components/datetimepicker/jquery.datetimepicker.css',

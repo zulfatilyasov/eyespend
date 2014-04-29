@@ -16,15 +16,37 @@
         vm.sort = null;
 
         vm.showMap = function(transaction) {
-            $rootScope.overlayIsOpen = true;
             $rootScope.mapCenter = new google.maps.LatLng(transaction.Address.lat, transaction.Address.lng);
             $rootScope.zoom = 17;
             $rootScope.transaction = transaction;
             $rootScope.markers = [{
                 id: transaction.id,
-                location: transaction.Address
+                location: transaction.Address,
+                options: function() {
+                    return null;
+                }
             }];
+            $rootScope.overlayIsOpen = true;
         };
+
+        vm.pickAddress = function() {
+            $rootScope.markers = [{
+                id: 0,
+                location: {
+                    lat: 55.80,
+                    lng: 49.11
+                },
+                options: function() {
+                    return {
+                        draggable: true
+                    };
+                }
+            }];
+            $rootScope.zoom = 13;
+            $rootScope.mapCenter = new google.maps.LatLng(55.80, 49.11);
+            $rootScope.overlayIsOpen = true;
+        };
+
         vm.changeSorting = function(column) {
             vm.sort = transaxns.updateSorting(column);
         };
@@ -61,24 +83,38 @@
         }
 
         vm.toggleAdding = function() {
-            vm.isAdding = !vm.isAdding;
-            vm.curDateTime = date.format(date.now());
+            if (!vm.isAdding) {
+                vm.curDateTime = date.format(date.now());
+                vm.isAdding = !vm.isAdding;
+                common.$timeout(function() {
+                    vm.showTransactionForm = !vm.showTransactionForm;
+                }, 150);
+            } else {
+                vm.showTransactionForm = !vm.showTransactionForm;
+                vm.isAdding = !vm.isAdding;
+            }
         };
+
         vm.toggleEditing = function() {
             if (!vm.selectedTnx)
                 return;
             if (!vm.isEditing) {
                 vm.editedTnx = transaxns.copy(vm.selectedTnx);
-
+                vm.selectedTnxDate = date.format(vm.selectedTnx.Date);
                 common.$timeout(function() {
-                    vm.isEditing = true;
-                    vm.selectedTnxDate = date.format(vm.selectedTnx.Date);
+                    vm.isEditing = !vm.isEditing;
                 });
-            }
-            else{
                 common.$timeout(function() {
-                    vm.isEditing = false;
-                });   
+                    vm.showEditForm = !vm.showEditForm;
+                }, 300);
+            } else {
+                common.$timeout(function() {
+                    vm.showEditForm = !vm.showEditForm;
+                    vm.isEditing = !vm.isEditing;
+                });
+                common.$timeout(function() {
+                    vm.editedTnx = null;
+                }, 300);
             }
         };
         vm.saveTnx = function() {
@@ -86,7 +122,7 @@
             vm.selectedTnx.Amount = vm.editedTnx.Amount;
             vm.selectedTnx.Address = vm.editedTnx.Address;
             vm.selectedTnx.tags = vm.editedTnx.tags;
-            vm.isEditing = false;
+            vm.toggleEditing();
         };
         vm.addTag = function(tag) {
             if (_tagIsAlreadyAdded(tag)) {

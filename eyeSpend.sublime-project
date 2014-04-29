@@ -3,7 +3,8 @@
 	[
 		{
 			"follow_symlinks": true,
-			"path": "."
+			"path": "app",
+			"file_exclude_patterns":["*.min.js","*.min.css"]
 		}
 	]
 }
