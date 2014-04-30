@@ -7,7 +7,7 @@ body {
 }
 .menu {
     list-style: none;
-    border-bottom: 0.1em solid bla
+    border-bottom: 0.1em solid;
     margin-bottom: 2em;
     padding: 0 0 0.5em;
 }
@@ -43,22 +43,21 @@ table.dataTable th.sorting {
 }
 .logo h4 {
     font-size: 28px;
-    color: #818080;
     color:#fff;
 }
 .logo a, .logo strong{
     color: #fff;
 }
 .logo.sidebar-icons {
-    top: 0px;
+    top: 0;
     width: auto;
 }
 .logo {
-    top: 0px;
+    top: 0;
 }
 @media (max-width:1048px) {
     .logo {
-        top: 0px;
+        top: 0;
     }
 }
 .container {
@@ -73,7 +72,6 @@ table.dataTable th.sorting {
 tags-input .bootstrap .tags .tag-item, .bootstrap .tags .tag-item {
     display: inline-block;
     margin: 3px;
-    color: #fff;
     background: #56bc76;
     border-color: #47b268;
     -webkit-transition:all 0.2s;
@@ -227,11 +225,9 @@ tr:hover td{
 }
 
 tr.selected{
-    background: rgb(231, 124, 124);
     background-color: #9C6565 !important
 }
 tr.selected td{
-    background-color: rgb(231, 124, 124) !important;
     background-color: #9C6565 !important
 }
 /*.table-striped tbody>tr:not(.editorRow):nth-child(odd)>td{

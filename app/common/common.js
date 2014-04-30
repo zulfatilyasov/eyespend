@@ -18,9 +18,8 @@
     commonModule.factory('common', ['$q', '$rootScope', '$timeout', 'commonConfig', 'logger', common]);
 
     function common($q, $rootScope, $timeout, commonConfig, logger) {
-        var throttles = {};
 
-        var service = {
+        return {
             $broadcast: $broadcast,
             $q: $q,
             $timeout: $timeout,
@@ -29,10 +28,8 @@
             clone: clone
         };
 
-        return service;
-
         function activateController(promises, controllerId) {
-            return $q.all(promises).then(function(eventArgs) {
+            return $q.all(promises).then(function () {
                 var data = {
                     controllerId: controllerId
                 };

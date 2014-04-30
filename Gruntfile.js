@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
     grunt.initConfig({
         uglify: {
@@ -74,9 +74,9 @@ module.exports = function(grunt) {
                 options: {
                     interrupt: true,
                     livereload: true
-                },
-            },
-        },
+                }
+            }
+        }
     });
 
     grunt.loadNpmTasks('grunt-contrib-uglify');

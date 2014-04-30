@@ -2,18 +2,14 @@
     'use strict';
 
     var serviceId = 'datacontext';
-    angular.module('app').factory(serviceId, ['common', '$http', datacontext]);
-   
-    function datacontext(common, $http) {
+    angular.module('app').factory(serviceId, ['$http', datacontext]);
 
-        var service = {
-            getTransaxns: getTransaxns
-        };
-
+    function datacontext($http) {
         function getTransaxns() {
             return $http.get('/server/getTransactions');
         }
-
-        return service;
+        return {
+            getTransaxns: getTransaxns
+        };
     }
 })();

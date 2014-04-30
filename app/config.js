@@ -14,7 +14,7 @@
     var config = {
         appErrorPrefix: '[HT Error] ',
         events: events,
-        version: '1.0',
+        version: '1.0'
     };
 
     app.value('config', config);

@@ -1,11 +1,9 @@
-(function() {
+(function () {
     'use strict';
     var controllerId = 'transactions';
-    angular.module('app').controller(controllerId, ['common', 'datacontext', '$rootScope', 'date', 'transaxns', 'angulargmContainer', transactions]);
+    angular.module('app').controller(controllerId, ['common', '$rootScope', 'date', 'transaxns', transactions]);
 
-    function transactions(common, datacontext, $rootScope, date, transaxns, angulargmContainer) {
-        var getLogFn = common.logger.getLogFn;
-        var logInfo = getLogFn(controllerId);
+    function transactions(common, $rootScope, date, transaxns) {
         var editedTransactionCopy;
         var vm = this;
 
@@ -15,39 +13,43 @@
         vm.isAdding = false;
         vm.sort = null;
 
-        vm.showMap = function(transaction) {
+        vm.showMap = function (transaction) {
             $rootScope.mapCenter = new google.maps.LatLng(transaction.Address.lat, transaction.Address.lng);
             $rootScope.zoom = 17;
             $rootScope.transaction = transaction;
-            $rootScope.markers = [{
-                id: transaction.id,
-                location: transaction.Address,
-                options: function() {
-                    return null;
+            $rootScope.markers = [
+                {
+                    id: transaction.id,
+                    location: transaction.Address,
+                    options: function () {
+                        return null;
+                    }
                 }
-            }];
+            ];
             $rootScope.overlayIsOpen = true;
         };
 
-        vm.pickAddress = function() {
-            $rootScope.markers = [{
-                id: 0,
-                location: {
-                    lat: 55.80,
-                    lng: 49.11
-                },
-                options: function() {
-                    return {
-                        draggable: true
-                    };
+        vm.pickAddress = function () {
+            $rootScope.markers = [
+                {
+                    id: 0,
+                    location: {
+                        lat: 55.80,
+                        lng: 49.11
+                    },
+                    options: function () {
+                        return {
+                            draggable: true
+                        };
+                    }
                 }
-            }];
+            ];
             $rootScope.zoom = 13;
             $rootScope.mapCenter = new google.maps.LatLng(55.80, 49.11);
             $rootScope.overlayIsOpen = true;
         };
 
-        vm.changeSorting = function(column) {
+        vm.changeSorting = function (column) {
             vm.sort = transaxns.updateSorting(column);
         };
         // vm.search = function() {
@@ -60,33 +62,33 @@
         // };
         // vm.searchPattern = "";
 
-        vm.loadTags = function() {
+        vm.loadTags = function () {
             return common.$q.when(transaxns.userTags);
         };
 
         vm.getSortingForColumn = transaxns.getSortingForColumn;
         vm.total = transaxns.getTotalAmout;
 
-        vm.filterByTags = function() {
+        vm.filterByTags = function () {
             vm.trs = transaxns.filterByTags(vm.tags);
         };
 
-        vm.filterByDate = function(fromDate, toDate) {
+        vm.filterByDate = function (fromDate, toDate) {
             vm.trs = transaxns.filterByDate(fromDate, toDate);
             $rootScope.$apply();
         };
 
         function _tagIsAlreadyAdded(tag) {
-            return vm.tags.some(function(t) {
+            return vm.tags.some(function (t) {
                 return t.text === tag;
             });
         }
 
-        vm.toggleAdding = function() {
+        vm.toggleAdding = function () {
             if (!vm.isAdding) {
                 vm.curDateTime = date.format(date.now());
                 vm.isAdding = !vm.isAdding;
-                common.$timeout(function() {
+                common.$timeout(function () {
                     vm.showTransactionForm = !vm.showTransactionForm;
                 }, 150);
             } else {
@@ -95,36 +97,36 @@
             }
         };
 
-        vm.toggleEditing = function() {
+        vm.toggleEditing = function () {
             if (!vm.selectedTnx)
                 return;
             if (!vm.isEditing) {
                 vm.editedTnx = transaxns.copy(vm.selectedTnx);
                 vm.selectedTnxDate = date.format(vm.selectedTnx.Date);
-                common.$timeout(function() {
+                common.$timeout(function () {
                     vm.isEditing = !vm.isEditing;
                 });
-                common.$timeout(function() {
+                common.$timeout(function () {
                     vm.showEditForm = !vm.showEditForm;
                 }, 300);
             } else {
-                common.$timeout(function() {
+                common.$timeout(function () {
                     vm.showEditForm = !vm.showEditForm;
                     vm.isEditing = !vm.isEditing;
                 });
-                common.$timeout(function() {
+                common.$timeout(function () {
                     vm.editedTnx = null;
                 }, 300);
             }
         };
-        vm.saveTnx = function() {
+        vm.saveTnx = function () {
             vm.selectedTnx.Date = vm.editedTnx.Date;
             vm.selectedTnx.Amount = vm.editedTnx.Amount;
             vm.selectedTnx.Address = vm.editedTnx.Address;
             vm.selectedTnx.tags = vm.editedTnx.tags;
             vm.toggleEditing();
         };
-        vm.addTag = function(tag) {
+        vm.addTag = function (tag) {
             if (_tagIsAlreadyAdded(tag)) {
                 return;
             }
@@ -135,7 +137,7 @@
             vm.trs = transaxns.filterByTags(vm.tags);
         };
 
-        vm.addTnx = function() {
+        vm.addTnx = function () {
             if (!vm.newTnx) {
                 return;
             }
@@ -147,7 +149,7 @@
 
         function _getTransactions() {
             return transaxns.getTransaxns()
-                .then(function(trs) {
+                .then(function (trs) {
                     vm.trs = trs;
                     vm.minDate = transaxns.getMinDate();
                     vm.maxDate = transaxns.getMaxDate();
@@ -158,10 +160,11 @@
         function activate() {
             var promises = [_getTransactions()];
             common.activateController(promises, controllerId)
-                .then(function() {
+                .then(function () {
                     common.logger.logSuccess('Данные загружены');
                 });
         }
+
         activate();
     }
 })();
