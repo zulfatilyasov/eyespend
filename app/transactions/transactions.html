@@ -5,14 +5,7 @@
             <li>
                 <a href="javascript:void(0)" ng-click="vm.toggleAdding()"><i class="fa fa-plus"></i></a>
             </li>
-            <li>
-                <a href="javascript:void(0)"><i class="fa fa-trash-o"></i></a>
-            </li>
-            <li>
-                <a id="trigger-overlay" ng-click="vm.toggleEditing()" href="javascript:void(0)"><i
-                        class="fa fa-pencil"></i></a>
-            </li>
-        </ul>
+            </ul>
     </nav>
 </div>
 <div class="row">
@@ -146,10 +139,24 @@
                             </ul>
                         </div>
                     </td>
+                    <td>
+                        <ul ng-class="{visible:vm.selectedTnx.Id === transaction.Id}" class="rowActions">
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a ng-click="vm.toggleEditing()" href="javascript:void(0)">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </td>
                 </tr>
                 <tr class="editorRow" ng-repeat-end
                     ng-if="vm.editedTnx && vm.editedTnx.Id === transaction.Id">
-                    <td colspan="6">
+                    <td colspan="7">
                         <div class="row">
                             <form ng-class="{row:true, slider:true, closed:!vm.isEditing}">
                                 <div style="opacity:0"
@@ -159,7 +166,8 @@
                                             <div class="inputHost">
                                                 <label for="dateAndTimeEditor">Дата и время</label>
                                                 <br/>
-                                                <input type="text" id="dateAndTimeEditor" us-date-time-picker editor="editor"
+                                                <input type="text" id="dateAndTimeEditor" us-date-time-picker
+                                                       editor="editor"
                                                        ng-model="vm.selectedTnxDate">
                                             </div>
                                         </div>

@@ -152,6 +152,27 @@ tags-input .tags .tag-item.selected {
     background: rgba(51, 51, 51, 0.4);
     font-size: 14px;
 }
+ul.rowActions{
+    opacity: 0;
+    -webkit-transition: opacity 0.2s;
+    -moz-transition: opacity 0.2s;
+    -ms-transition: opacity 0.2s;
+    -o-transition: opacity 0.2s;
+    transition: opacity 0.2s;
+}
+ul.rowActions li{
+    display: inline-block;
+    padding: 4px;
+}
+ul.rowActions i{
+    font-size: 1.3em;
+}
+ul.rowActions li a{
+    color: #f8f8f8;
+}
+ul.rowActions li a:hover{
+    color: #ccc;
+}
 
 div.tags {
     -moz-appearance: inherit;

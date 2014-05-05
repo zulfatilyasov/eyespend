@@ -1,4 +1,5 @@
 module.exports = function (grunt) {
+    var target = grunt.option('target') || 'dev';
     var scripts = [
             'bower_components/angular/angular.js',
             'bower_components/angular-mocks/angular-mocks.js',
@@ -31,10 +32,7 @@ module.exports = function (grunt) {
             'app/common/common.js',
             'app/common/logger.js',
             'app/transactions/transactions.js',
-            'app/shell/shell.js',
-
-            'app/services/modelStub.js',
-            'app/httpBackendStub.js'
+            'app/shell/shell.js'
         ],
         styles = [
             'app/css/application.css',
@@ -54,6 +52,11 @@ module.exports = function (grunt) {
             compress: false,
             sourceMap : true
         };
+
+    if (target === 'dev') {
+        scripts.push('app/services/modelStub.js');
+        scripts.push('app/httpBackendStub.js');
+    }
 
     grunt.initConfig({
         uglify: {
@@ -97,6 +100,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
 
-    var target = grunt.option('target') || 'dev';
     grunt.registerTask('default', ['uglify:' + target, 'cssmin']);
 };
