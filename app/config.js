@@ -18,15 +18,43 @@
     };
 
     app.value('config', config);
-    
+
     app.config(['$logProvider', function ($logProvider) {
         if ($logProvider.debugEnabled) {
             $logProvider.debugEnabled(true);
         }
     }]);
-    
+
     app.config(['commonConfigProvider', function (cfg) {
         cfg.config.controllerActivateSuccessEvent = config.events.controllerActivateSuccess;
         cfg.config.spinnerToggleEvent = config.events.spinnerToggle;
     }]);
+
+    app.factory('authInterceptor', function ($rootScope, $q, $window, $location) {
+        return {
+            request: function (config) {
+                config.headers = config.headers || {};
+                if ($window.sessionStorage.token) {
+                    config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
+                }
+                return config;
+            },
+            response: function (response) {
+                $rootScope.loggedIn = true;
+                return response || $q.when(response);
+            },
+            responseError: function (response) {
+                console.log(response);
+                if (response.status === 401) {
+                    $location.path('/login');
+                    $rootScope.loggedIn = false;
+                }
+                return response || $q.when(response);
+            }
+        };
+    });
+
+    app.config(function ($httpProvider) {
+        $httpProvider.interceptors.push('authInterceptor');
+    });
 })();

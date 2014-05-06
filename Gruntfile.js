@@ -29,10 +29,12 @@ module.exports = function (grunt) {
             'app/services/constants.js',
             'app/services/date.js',
             'app/services/transaxns.js',
+            'app/services/loginService.js',
             'app/common/common.js',
             'app/common/logger.js',
             'app/transactions/transactions.js',
-            'app/shell/shell.js'
+            'app/shell/shell.js',
+            'app/login/login.js'
         ],
         styles = [
             'app/css/application.css',

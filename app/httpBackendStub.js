@@ -11,7 +11,10 @@
             })
             .run(function($httpBackend, mockJson, modelStub) {
                 $httpBackend.whenGET(/transactions\/.*/).passThrough();
+                $httpBackend.whenGET(/login\/.*/).passThrough();
                 $httpBackend.whenGET(/shell\/.*/).passThrough();
+                $httpBackend.whenPOST(/authenticate/).passThrough();
+                $httpBackend.whenGET(/api\/.*/).passThrough();
                 $httpBackend.whenGET('/server/getTransactions').respond(modelStub.generateTransactions());
             });
     }

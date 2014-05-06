@@ -1,4 +1,4 @@
-(function() {
+(function () {
 
     'use strict';
 
@@ -53,7 +53,7 @@
             if (tags.length === 0) {
                 return transactions.slice(0);
             }
-            return transactions.filter(function(t) {
+            return transactions.filter(function (t) {
                 for (var i = 0; i < tags.length; i++) {
                     for (var j = 0; j < t.tags.length; j++) {
                         if (t.tags[j].text === tags[i].text)
@@ -64,7 +64,7 @@
         }
 
         function filterByDate(fromDate, toDate) {
-            return transactions.filter(function(t) {
+            return transactions.filter(function (t) {
                 return (!fromDate || t.Date >= fromDate) && (!toDate || t.Date <= toDate);
             });
         }
@@ -79,13 +79,13 @@
         }
 
         function _userTagsContains(tagText) {
-            return userTags.some(function(t) {
+            return userTags.some(function (t) {
                 return t.text === tagText;
             });
         }
 
         function _getTagColor(tagText) {
-            var tag = userTags.filter(function(t) {
+            var tag = userTags.filter(function (t) {
                 return t.text === tagText;
             });
             if (tag.length && tag[0].color) {
@@ -127,12 +127,19 @@
             var def = common.$q.defer();
 
             datacontext.getTransaxns()
-                .then(function(tnxs) {
-                    transactions = tnxs.data.sort(_sortByDateDesc);
-                    transactions.forEach(function(t) {
-                        _colorAndSaveTags(t.tags);
-                    });
-                    def.resolve(transactions.slice(0));
+                .then(function (tnxs) {
+                    if (tnxs && tnxs.data instanceof Array) {
+                        transactions = tnxs.data.sort(_sortByDateDesc);
+                        transactions.forEach(function (t) {
+                            _colorAndSaveTags(t.tags);
+                        });
+                        def.resolve(transactions.slice(0));
+                    }
+                    else {
+                        def.reject();
+                    }
+                }, function (resp) {
+                    console.log(resp)
                 });
 
             return def.promise;

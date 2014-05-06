@@ -4,7 +4,7 @@
     var app = angular.module('app');
 
     app.constant('routes', getRoutes());
-    
+
     app.config(['$routeProvider', 'routes', routeConfigurator]);
     function routeConfigurator($routeProvider, routes) {
 
@@ -13,6 +13,7 @@
         });
         $routeProvider.otherwise({ redirectTo: '/' });
     }
+
     function getRoutes() {
         return [
             {
@@ -20,6 +21,14 @@
                 config: {
                     templateUrl: 'transactions/transactions.html',
                     title: 'transactions'
+                }
+
+            },
+            {
+                url: '/login',
+                config: {
+                    templateUrl: 'login/login.html',
+                    title: 'login'
                 }
             }
         ];

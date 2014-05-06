@@ -89,7 +89,7 @@
                 }]
             }).transactions;
             transactions = _populateProperties(transactions);
-            logSuccess("generated " + transactions.length + " fake transactions", transactions, true);
+//            logSuccess("generated " + transactions.length + " fake transactions ", JSON.stringify(transactions), true);
             return transactions;
         }
 

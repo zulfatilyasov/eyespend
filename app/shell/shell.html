@@ -1,4 +1,4 @@
-<header class="page-header" ng-controller="shell as vm">
+<header class="page-header" ng-hide="hideHeader" ng-controller="shell as vm">
     <div class="container">
         <div class="navbar">
             <a href="index.html">
@@ -11,12 +11,14 @@
             </a>
             <ul class="nav navbar-nav navbar-right pull-right">
                 <li class="hidden-xs">
-                    <a href="javascript:void(0)" id="settings" title="" data-toggle="popover" data-placement="bottom" data-original-title="Settings">
+                    <a href="javascript:void(0)" id="settings" title="" data-toggle="popover" data-placement="bottom"
+                       data-original-title="Settings">
                         <i class="fa fa-cog"></i>
                     </a>
                 </li>
                 <li class="hidden-xs dropdown">
-                    <a href="javascript:void(0)" title="Account" id="account" class="dropdown-toggle" data-toggle="dropdown">
+                    <a href="javascript:void(0)" title="Account" id="account" class="dropdown-toggle"
+                       data-toggle="dropdown">
                         <i class="fa fa-user"></i>
                     </a>
                     <ul id="account-menu" class="dropdown-menu account" role="menu">
@@ -48,7 +50,8 @@
                         <i class="fa fa-bars"></i>
                     </a>
                 </li>
-                <li class="hidden-xs"><a href="login.html"><i class="fa fa-sign-out"></i></a>
+                <li class="hidden-xs"><a href="javascript:void(0)" ng-click="vm.logout()">
+                    <i class="fa fa-sign-out"></i></a>
                 </li>
             </ul>
         </div>

@@ -151,9 +151,11 @@
             return transaxns.getTransaxns()
                 .then(function (trs) {
                     vm.trs = trs;
-                    vm.minDate = transaxns.getMinDate();
-                    vm.maxDate = transaxns.getMaxDate();
-                    vm.sort = transaxns.sort;
+                    if (trs.length) {
+                        vm.minDate = transaxns.getMinDate();
+                        vm.maxDate = transaxns.getMaxDate();
+                        vm.sort = transaxns.sort;
+                    }
                 });
         }
 
