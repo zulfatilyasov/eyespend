@@ -3,11 +3,18 @@
     var controllerId = 'login';
     angular.module('app').controller(controllerId, ['common', '$http', '$window', '$location', '$rootScope', 'login', login]);
 
-    function login(common, $http, $window, $location, $rootScope, login) {
+    function login(common, $location, login) {
         var vm = this;
 
         vm.submit = function () {
-            login.authenticate(vm.user);
+            var success = function () {
+                $location.path("/");
+            };
+            var error = function (message) {
+                vm.message = message;
+            };
+            login.authenticate(vm.user)
+                .then(success,error);
         };
 
         function activate() {

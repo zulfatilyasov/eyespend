@@ -87,7 +87,8 @@ module.exports = function (grunt) {
                 files: ['Gruntfile.js',
                     'app/**/*',
                     '!app/eyeSpend.min.css',
-                    '!app/eyeSpend.min.js'
+                    '!app/eyeSpend.min.js',
+                    '!app/eyeSpend.min.map'
                 ],
                 tasks: ['default'],
                 options: {

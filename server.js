@@ -1,33 +1,25 @@
-var connect = require('connect'),
-    connectRoute = require('connect-route'),
-    s = connect();
-
-s.use(connect.static(__dirname + '/app'));
-
-s.use(connect.json());
-s.use(connect.urlencoded());
-s.use(connect.multipart());
-
+var express = require('express');
 var expressJwt = require('express-jwt');
 var jwt = require('jsonwebtoken');
+var bodyParser = require('body-parser');
 var secret = 'eyespend-secret';
 
-s.use('/api', expressJwt({secret: secret}));
+var app = express();
+app.use(express.static(__dirname + '/app'));
+app.use('/api', expressJwt({secret: secret}));
+app.use(bodyParser());
 
+app.get('/api/transactions', function (req, res) {
+    console.log('user ' + req.user.email + ' is calling /api/transactions');
+    res.json(transactions);
+});
 
-s.use(connectRoute(function (app) {
-
-    app.get('/api/transactions', function (req, res) {
-        console.log('user ' + req.user.email + ' is calling /api/transactions');
-        res.end(JSON.stringify(transactions));
-    });
-
-    app.post('/authenticate', function (req, res) {
+app.post('/authenticate', function (req, res) {
         //TODO validate req.body.username and req.body.password
         //if is invalid, return 401
         console.log(req.body);
         if (!(req.body.username === 'foo@gmail.com' && req.body.password === 'bar')) {
-            res.end(401, 'Wrong user or password');
+            res.send(401, 'Wrong user or password');
             return;
         }
 
@@ -39,19 +31,15 @@ s.use(connectRoute(function (app) {
         };
 
         var token = jwt.sign(profile, secret, { expiresInMinutes: 60 * 5 });
-
-        res.end(JSON.stringify({ token: token }));
-        console.log('generated token ' + token);
+        res.json({ token: token });
     });
 
-}));
-
 var port = process.env.PORT || 3000;
-s.listen(process.env.PORT || 3000);
+app.listen(port);
 
 console.log('Express server started on port ' + port);
 
-//@todo: generate those tnsxs ranodmly
+//@todo: generate those tnsxs randomly
 var transactions = [
     {"Id": 1, "Amount": 160, "tags": [
         {"text": "банковская карта"},

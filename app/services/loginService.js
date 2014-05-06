@@ -8,19 +8,27 @@
         var isLogged = $window.sessionStorage.token || false;
 
         var authenticate = function (user) {
+            var def = common.$q.defer();
             $http
                 .post('/authenticate', user)
                 .success(function (data, status, headers, config) {
-                    $window.sessionStorage.token = data.token;
-                    isLogged = true;
-                    common.logger.logSuccess('Welcome');
-                    $rootScope.hideHeader = false;
-                    $location.path("/");
+                    if (status == 401) {
+                        delete $window.sessionStorage.token;
+                        def.reject("Неверный email или пароль");
+                    }
+                    else {
+                        $window.sessionStorage.token = data.token;
+                        isLogged = true;
+                        common.logger.logSuccess('Welcome');
+                        $rootScope.hideHeader = false;
+                        def.resolve();
+                    }
                 })
                 .error(function (data, status, headers, config) {
                     delete $window.sessionStorage.token;
-                    common.logger.logSuccess('Error: Invalid user or password');
+                    def.reject("Неверный email или пароль");
                 });
+            return def.promise;
         };
 
         var logout = function () {

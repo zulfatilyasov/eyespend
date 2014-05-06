@@ -39,12 +39,7 @@
                 }
                 return config;
             },
-            response: function (response) {
-                $rootScope.loggedIn = true;
-                return response || $q.when(response);
-            },
             responseError: function (response) {
-                console.log(response);
                 if (response.status === 401) {
                     $location.path('/login');
                     $rootScope.loggedIn = false;

@@ -3,6 +3,7 @@
         <header class="text-align-center">
             <h4>Введите email и пароль</h4>
         </header>
+        <div class="authError" ng-bind-html="vm.message"></div>
         <div class="body">
             <form class="no-margin" ng-submit="vm.submit()" method="get">
                 <fieldset>

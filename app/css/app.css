@@ -10,9 +10,13 @@ body.background-dark{
     background-attachment: fixed ;
 }
 .widget>header h4{
-    font-family: 'Open Sans Condensed' sans-serif;
+    font-family: 'Open Sans Condensed', sans-serif;
     font-size: 20px;
     font-weight: 300;
+}
+.authError{
+    color:red;
+    text-align: center;
 }
 .menu {
     list-style: none;
