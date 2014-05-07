@@ -38,14 +38,13 @@
                     config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
                 }
                 return config;
-            },
-            responseError: function (response) {
-                if (response.status === 401) {
-                    $location.path('/login');
-                    $rootScope.loggedIn = false;
-                }
-                return response || $q.when(response);
             }
+//            responseError: function (response) {
+//                if (response.status === 401) {
+//                    $location.path('/login');
+//                }
+//                return response || $q.when(response);
+//            }
         };
     });
 

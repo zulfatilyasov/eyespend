@@ -30,6 +30,13 @@
                     templateUrl: 'login/login.html',
                     title: 'login'
                 }
+            } ,
+            {
+                url: '/quickpass',
+                config: {
+                    templateUrl: 'quickpass/quickpass.html',
+                    title: 'quickpass'
+                }
             }
         ];
     }

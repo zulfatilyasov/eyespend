@@ -1,9 +1,9 @@
 (function () {
     'use strict';
-    var controllerId = 'login';
-    angular.module('app').controller(controllerId, ['common', '$location', 'login', login]);
+    var controllerId = 'quickPass';
+    angular.module('app').controller(controllerId, ['common', '$location', 'login', quickPass]);
 
-    function login(common, $location, login) {
+    function quickPass(common, $location, login) {
         var vm = this;
 
         vm.submit = function () {
@@ -13,7 +13,7 @@
             var error = function (message) {
                 vm.message = message;
             };
-            login.authenticate(vm.user)
+            login.quickPass({psw:vm.password})
                 .then(success, error);
         };
 

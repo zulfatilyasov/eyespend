@@ -15,29 +15,42 @@ app.get('/api/transactions', function (req, res) {
 });
 
 app.post('/authenticate', function (req, res) {
-        //TODO validate req.body.username and req.body.password
-        //if is invalid, return 401
-        console.log(req.body);
-        if (!(req.body.username === 'foo@gmail.com' && req.body.password === 'bar')) {
-            res.send(401, 'Wrong user or password');
-            return;
-        }
+    if (!(req.body.username === 'foo@gmail.com' && req.body.password === 'bar')) {
+        console.log( 'Wrong user or password');
+        res.send(401, 'Wrong user or password');
+        return;
+    }
 
-        var profile = {
-            first_name: 'Foo',
-            last_name: 'Bar',
-            email: 'foobar@gmail.com',
-            id: 123
-        };
+    res.json({ token: createTokenWithProfile() });
+});
 
-        var token = jwt.sign(profile, secret, { expiresInMinutes: 60 * 5 });
-        res.json({ token: token });
-    });
+app.post('/quickpass', function (req, res) {
+    if (!(req.body.psw === '123')) {
+        console.log('wrong disposable password');
+        res.send(401, 'Wrong password');
+        return;
+    }
+
+    res.json({ token: createTokenWithProfile() });
+});
+
+function createTokenWithProfile() {
+    var profile = {
+        first_name: 'Foo',
+        last_name: 'Bar',
+        email: 'foobar@gmail.com',
+        id: 123
+    };
+
+    return jwt.sign(profile, secret, { expiresInMinutes: 2 });
+}
 
 var port = process.env.PORT || 3000;
 app.listen(port);
 
 console.log('Express server started on port ' + port);
+
+
 
 //@todo: generate those tnsxs randomly
 var transactions = [

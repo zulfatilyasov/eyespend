@@ -15,7 +15,7 @@ body.background-dark{
     font-weight: 300;
 }
 .authError{
-    color:red;
+    color:rgb(255, 161, 161);
     text-align: center;
 }
 .menu {

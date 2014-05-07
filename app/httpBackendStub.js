@@ -13,6 +13,8 @@
                 $httpBackend.whenGET(/transactions\/.*/).passThrough();
                 $httpBackend.whenGET(/login\/.*/).passThrough();
                 $httpBackend.whenGET(/shell\/.*/).passThrough();
+                $httpBackend.whenGET(/quickpass\/.*/).passThrough();
+                $httpBackend.whenPOST(/quickpass/).passThrough();
                 $httpBackend.whenPOST(/authenticate/).passThrough();
                 $httpBackend.whenGET(/api\/.*/).passThrough();
                 $httpBackend.whenGET('/server/getTransactions').respond(modelStub.generateTransactions());

@@ -8,13 +8,13 @@
         var vm = this;
         vm.logout = login.logout;
 
-        $rootScope.$watch(function () {
-            return login.isLogged;
-        }, function (newValue, oldValue) {
-            if ( newValue !== oldValue ) {
-                $rootScope.hideHeader = login.isLogged == false;
-            }
-        });
+//        $rootScope.$watch(function () {
+//            return login.isLogged;
+//        }, function (newValue, oldValue) {
+//            if ( newValue !== oldValue ) {
+//                $rootScope.hideHeader = login.isLogged == false;
+//            }
+//        });
 
         function activate() {
             var promises = [];
