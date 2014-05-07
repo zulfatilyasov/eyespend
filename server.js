@@ -1,20 +1,32 @@
+var useRealServer = false;
+
 var express = require('express');
 var expressJwt = require('express-jwt');
 var jwt = require('jsonwebtoken');
 var bodyParser = require('body-parser');
+var request = require('request');
 var secret = 'eyespend-secret';
 
 var app = express();
 app.use(express.static(__dirname + '/app'));
-app.use('/api', expressJwt({secret: secret}));
+
+if (!useRealServer) {
+  app.use('/api', expressJwt({secret: secret}));
+}
 app.use(bodyParser());
 
 app.get('/api/transactions', function (req, res) {
-    console.log('user ' + req.user.email + ' is calling /api/transactions');
-    res.json(transactions);
+    if (useRealServer) {
+      var newUrl = 'http://127.0.0.1:9292/private/1/F2A8A206-E7E5-41B6-A886-2F54C0EA951D/transactions';
+      request(newUrl).pipe(res)
+    } else {
+      console.log('user ' + req.user.email + ' is calling /api/transactions');
+      res.json(transactions);
+    }
 });
 
 app.post('/authenticate', function (req, res) {
+    console.log('Authentication request');
     if (!(req.body.username === 'foo@gmail.com' && req.body.password === 'bar')) {
         console.log( 'Wrong user or password');
         res.send(401, 'Wrong user or password');
