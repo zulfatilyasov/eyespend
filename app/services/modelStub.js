@@ -24,20 +24,20 @@
             'аэропорт'
         ]; 
         var addresses = [{
-            lat: 48.858335,
-            lng: 2.294599
+            latitude: 48.858335,
+            longitude: 2.294599
         }, {
-            lat: 55.754069,
-            lng: 37.620849
+            latitude: 55.754069,
+            longitude: 37.620849
         }, {
-            lat: 55.780805,
-            lng: 49.214760
+            latitude: 55.780805,
+            longitude: 49.214760
         }, {
-            lat: 55.786657,
-            lng: 49.124310
+            latitude: 55.786657,
+            longitude: 49.124310
         }, {
-            lat: 40.759927,
-            lng: -73.985217
+            latitude: 40.759927,
+            longitude: -73.985217
         }];
 
         mockJson.data.DATE = [
@@ -60,7 +60,7 @@
         function _distictTags(array) {
             array = array.filter(function(elem, pos1) {
                 return array.every(function(t, pos2) {
-                        return pos1 == pos2 || t.text != elem.text;
+                        return pos1 == pos2 || t != elem;
                 });
             });
             return array;
@@ -69,10 +69,11 @@
         function _populateProperties(transactions) {
             for (var i = 0; i < transactions.length; i++) {
                 transactions[i].tags = _distictTags(transactions[i].tags);
-                transactions[i].Date = _randomDate(new Date(2012, 0, 1), new Date());
-                transactions[i].Id = i + 1;
+                transactions[i].timestamp = _randomDate(new Date(2012, 0, 1), new Date());
+                transactions[i].id = i + 1;
                 var randomIndex = Math.floor((Math.random() * addresses.length));
-                transactions[i].Address = addresses[randomIndex];
+                transactions[i].latitude = addresses[randomIndex].latitude;
+                transactions[i].longitude = addresses[randomIndex].longitude;
             }
             return transactions;
         }
@@ -80,16 +81,14 @@
         function generateTransactions() {
             var transactions = mockJson.generateFromTemplate({
                 "transactions|10-100": [{
-                    "Id": 0,
-                    "Amount|30-3000": 250,
-                    "tags|1-3": [{
-                        text: "@TAG"
-                    }],
-                    "Date": null
+                    "id": 0,
+                    "amount_in_base_currency|30-3000": 250,
+                    "tags|1-3": ["@TAG"],
+                    "timestamp": null
                 }]
             }).transactions;
             transactions = _populateProperties(transactions);
-//            logSuccess("generated " + transactions.length + " fake transactions ", JSON.stringify(transactions), true);
+            logSuccess("generated " + transactions.length + " fake transactions ", JSON.stringify(transactions), true);
             return transactions;
         }
 

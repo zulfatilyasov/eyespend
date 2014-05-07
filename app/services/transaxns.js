@@ -14,8 +14,8 @@
             };
 
         function _sortByDateDesc(a, b) {
-            var d1 = parseInt(a.Date);
-            var d2 = parseInt(b.Date);
+            var d1 = parseInt(a.timestamp);
+            var d2 = parseInt(b.timestamp);
             if (d1 > d2) {
                 return -1;
             } else if (d1 < d2) {
@@ -65,22 +65,26 @@
 
         function filterByDate(fromDate, toDate) {
             return transactions.filter(function (t) {
-                return (!fromDate || t.Date >= fromDate) && (!toDate || t.Date <= toDate);
+                return (!fromDate || t.timestamp >= fromDate) && (!toDate || t.timestamp <= toDate);
             });
         }
 
         function _colorAndSaveTags(tags) {
             for (var i = tags.length - 1; i >= 0; i--) {
-                tags[i].color = _getTagColor(tags[i].text);
-                if (_userTagsContains(tags[i].text) === false) {
+                var text = tags[i];
+                tags[i] = {
+                    text:text,
+                    color:_getTagColor(text)
+                };
+                if (_userTagsContains(tags[i]) === false) {
                     userTags.push(tags[i]);
                 }
             }
         }
 
-        function _userTagsContains(tagText) {
+        function _userTagsContains(tag) {
             return userTags.some(function (t) {
-                return t.text === tagText;
+                return t.text === tag.text;
             });
         }
 
@@ -97,29 +101,30 @@
 
         function copy(tnx) {
             return {
-                Id: tnx.Id,
-                Date: tnx.Date,
-                Amount: tnx.Amount,
+                id: tnx.id,
+                timestamp: tnx.timestamp,
+                amount_in_base_currency: tnx.amount_in_base_currency,
                 tags: tnx.tags,
-                Address: tnx.Address
+                latitude:tnx.latitude,
+                longitude:tnx.longitude
             };
         }
 
         function getTotalAmout() {
             var sum = 0;
             for (var i = 0; transactions && i < transactions.length; i++) {
-                sum += parseInt(transactions[i].Amount);
+                sum += parseInt(transactions[i].amount_in_base_currency);
             }
             return sum;
         }
 
         function getMinDate() {
-            var minDate = transactions[transactions.length - 1].Date;
+            var minDate = transactions[transactions.length - 1].timestamp;
             return date.format(minDate);
         }
 
         function getMaxDate() {
-            var maxDate = transactions[0].Date;
+            var maxDate = transactions[0].timestamp;
             return date.format(maxDate);
         }
 
@@ -154,11 +159,12 @@
             }
             _colorAndSaveTags(tnx.Tags);
             var newTransaxn = {
-                Id: 123,
-                Amount: parseInt(tnx.Amount),
+                id: 123,
+                amount_in_base_currency: parseInt(tnx.amount_in_base_currency),
                 tags: tnx.Tags.slice(0),
-                Date: tnx.DateTime,
-                Address: tnx.Place
+                timestamp: tnx.DateTime,
+                latitude:tnx.latitude,
+                longitude:tnx.longitudes
             };
             transactions.push(newTransaxn);
             return newTransaxn;

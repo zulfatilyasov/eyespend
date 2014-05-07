@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    
+
     var app = angular.module('app', [
         // Custom modules 
         "ngRoute",
@@ -11,14 +11,16 @@
         "sticky",
         "AngularGM"
     ]);
-    
-     app.run(['$rootScope', '$location','$window', function ($rootScope, $location, $window) {
-         $rootScope.$on('$locationChangeStart', function (event, currRoute, prevRoute) {
-             if (!$window.sessionStorage.token && currRoute.indexOf('quickpass') < 0){
-                 console.log('user is not logged redirecting');
-                 $rootScope.hideHeader = true;
-                 $location.path("/login");
-             }
-         });
-     }]);
+
+    app.run(['$rootScope', '$location', '$window', 'login', function ($rootScope, $location, $window, login) {
+        $rootScope.$on('$locationChangeStart', function (event, currRoute, prevRoute) {
+            if (!login.authenticated()) {
+                console.log('user is not logged redirecting');
+                $rootScope.hideHeader = true;
+                if (currRoute.indexOf('quickpass') < 0) {
+                    $location.path("/login");
+                }
+            }
+        });
+    }]);
 })();

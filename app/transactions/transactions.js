@@ -14,13 +14,16 @@
         vm.sort = null;
 
         vm.showMap = function (transaction) {
-            $rootScope.mapCenter = new google.maps.LatLng(transaction.Address.lat, transaction.Address.lng);
+            $rootScope.mapCenter = new google.maps.LatLng(transaction.latitude, transaction.longitude);
             $rootScope.zoom = 17;
             $rootScope.transaction = transaction;
             $rootScope.markers = [
                 {
                     id: transaction.id,
-                    location: transaction.Address,
+                    location: {
+                        lat:transaction.latitude,
+                        lng:transaction.longitude
+                    },
                     options: function () {
                         return null;
                     }
@@ -102,7 +105,7 @@
                 return;
             if (!vm.isEditing) {
                 vm.editedTnx = transaxns.copy(vm.selectedTnx);
-                vm.selectedTnxDate = date.format(vm.selectedTnx.Date);
+                vm.selectedTnxDate = date.format(vm.selectedTnx.timestamp);
                 common.$timeout(function () {
                     vm.isEditing = !vm.isEditing;
                 });
@@ -120,8 +123,8 @@
             }
         };
         vm.saveTnx = function () {
-            vm.selectedTnx.Date = vm.editedTnx.Date;
-            vm.selectedTnx.Amount = vm.editedTnx.Amount;
+            vm.selectedTnx.timestamp = vm.editedTnx.timestamp;
+            vm.selectedTnx.amount_in_base_currency = vm.editedTnx.amount_in_base_currency;
             vm.selectedTnx.Address = vm.editedTnx.Address;
             vm.selectedTnx.tags = vm.editedTnx.tags;
             vm.toggleEditing();

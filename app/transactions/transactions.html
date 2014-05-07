@@ -48,7 +48,7 @@
                 <div class="inputHost">
                     <label for="amountInput">Сумма</label>
                     <br/>
-                    <input type="text" value="" id="amountInput" ng-model="vm.newTnx.Amount">
+                    <input type="text" value="" id="amountInput" ng-model="vm.newTnx.amount_in_base_currency">
                 </div>
             </div>
             <div class="col-md-7">
@@ -94,17 +94,17 @@
             <table id="transactions-table" class="table tablestriped dataTable">
                 <thead>
                 <tr>
-                    <th ng-class="vm.getSortingForColumn('Id')" ng-click="vm.changeSorting('Id')">
+                    <th ng-class="vm.getSortingForColumn('id')" ng-click="vm.changeSorting('id')">
                         #
                     </th>
-                    <th ng-class="vm.getSortingForColumn('Date')" ng-click="vm.changeSorting('Date')"
+                    <th ng-class="vm.getSortingForColumn('timestamp')" ng-click="vm.changeSorting('timestamp')"
                         class="hidden-phone-landscape">
                         Дата
                     </th>
                     <th class="no-sort">
                         Время
                     </th>
-                    <th ng-class="vm.getSortingForColumn('Amount')" ng-click="vm.changeSorting('Amount')">
+                    <th ng-class="vm.getSortingForColumn('amount_in_base_currency')" ng-click="vm.changeSorting('amount_in_base_currency')">
                         Сумма
                         <span id="totalAmount" class="hidden-phone-landscape">{{vm.total()}} р.</span>
                     </th>
@@ -114,12 +114,12 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat-start="transaction in vm.trs|orderBy:vm.sort.column:vm.sort.descending"
-                    ng-class="{selected:vm.selectedTnx.Id === transaction.Id, striped:$index%2==0}"
+                    ng-class="{selected:vm.selectedTnx.id === transaction.id, striped:$index%2==0}"
                     ng-click="vm.selectedTnx = transaction">
-                    <td>{{transaction.Id}}</td>
-                    <td>{{transaction.Date | date:'dd MMMM yyyy'}}</td>
-                    <td>{{transaction.Date | date:'HH:mm'}}</td>
-                    <td>{{transaction.Amount}} р.</td>
+                    <td>{{transaction.id}}</td>
+                    <td>{{transaction.timestamp | date:'dd MMMM yyyy'}}</td>
+                    <td>{{transaction.timestamp | date:'HH:mm'}}</td>
+                    <td>{{transaction.amount_in_base_currency}} р.</td>
                     <td class="map">
                         <a href="javascript:void(0)" ng-click="vm.showMap(transaction)"
                            title="Показать на карте">
@@ -140,7 +140,7 @@
                         </div>
                     </td>
                     <td>
-                        <ul ng-class="{visible:vm.selectedTnx.Id === transaction.Id}" class="rowActions">
+                        <ul ng-class="{visible:vm.selectedTnx.id === transaction.id}" class="rowActions">
                             <li>
                                 <a href="javascript:void(0)">
                                     <i class="fa fa-trash-o"></i>
@@ -155,7 +155,7 @@
                     </td>
                 </tr>
                 <tr class="editorRow" ng-repeat-end
-                    ng-if="vm.editedTnx && vm.editedTnx.Id === transaction.Id">
+                    ng-if="vm.editedTnx && vm.editedTnx.id === transaction.id">
                     <td colspan="7">
                         <div class="row">
                             <form ng-class="{row:true, slider:true, closed:!vm.isEditing}">
@@ -176,7 +176,7 @@
                                                 <label for="editedAmount">Сумма</label>
                                                 <br/>
                                                 <input type="text" value="" id="editedAmount"
-                                                       ng-model="vm.editedTnx.Amount">
+                                                       ng-model="vm.editedTnx.amount_in_base_currency">
                                             </div>
                                         </div>
                                         <div class="col-md-7">

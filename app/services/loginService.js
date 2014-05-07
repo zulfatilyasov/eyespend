@@ -5,8 +5,6 @@
     angular.module('app').factory(serviceId, ['common', '$rootScope', '$http', '$window', '$location', login]);
 
     function login(common, $rootScope, $http, $window, $location) {
-        var isLogged = $window.sessionStorage.token || false;
-
         var success = function (def) {
             return function (data, status, headers, config) {
                 if (status == 401) {
@@ -14,7 +12,6 @@
                 }
                 else {
                     $window.sessionStorage.token = data.token;
-                    isLogged = true;
                     common.logger.logSuccess('Welcome');
                     $rootScope.hideHeader = false;
                     def.resolve();
@@ -44,7 +41,6 @@
 
         var logout = function () {
             delete $window.sessionStorage.token;
-            isLogged = false;
             $location.path("/login");
         };
 
@@ -55,12 +51,15 @@
                 .error(error(def));
             return def.promise;
         };
+        var authenticated = function(){
+            return !!$window.sessionStorage.token;
+        };
 
         return {
-            isLogged: isLogged,
             authenticate: authenticate,
             logout: logout,
-            quickPass: quickPass
+            quickPass: quickPass,
+            authenticated:authenticated
         };
     }
 })();
