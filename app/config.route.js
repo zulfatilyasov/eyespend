@@ -38,6 +38,14 @@
                     title: 'quickpass'
                 }
             }
+            ,
+            {
+                url: '/settings',
+                config: {
+                    templateUrl: 'settings/settings.html',
+                    title: 'settings'
+                }
+            }
         ];
     }
 })();

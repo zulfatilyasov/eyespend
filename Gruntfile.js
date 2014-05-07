@@ -35,7 +35,8 @@ module.exports = function (grunt) {
             'app/transactions/transactions.js',
             'app/shell/shell.js',
             'app/login/login.js',
-            'app/quickPass/quickPass.js'
+            'app/quickPass/quickPass.js',
+            'app/settings/settings.js'
         ],
         styles = [
             'app/css/application.css',

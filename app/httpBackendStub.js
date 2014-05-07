@@ -1,4 +1,4 @@
-(function() {
+(function () {
 
     console.log('======== ACHTUNG!!! USING STUBBED BACKEND ========');
 
@@ -6,13 +6,14 @@
 
     function initializeStubbedBackend() {
         angular.module('app')
-            .config(function($provide) {
+            .config(function ($provide) {
                 $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
             })
-            .run(function($httpBackend, mockJson, modelStub) {
+            .run(function ($httpBackend, mockJson, modelStub) {
                 $httpBackend.whenGET(/transactions\/.*/).passThrough();
                 $httpBackend.whenGET(/login\/.*/).passThrough();
                 $httpBackend.whenGET(/shell\/.*/).passThrough();
+                $httpBackend.whenGET(/settings\/.*/).passThrough();
                 $httpBackend.whenGET(/quickpass\/.*/).passThrough();
                 $httpBackend.whenPOST(/quickpass/).passThrough();
                 $httpBackend.whenPOST(/authenticate/).passThrough();
