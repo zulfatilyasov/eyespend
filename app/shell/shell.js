@@ -1,10 +1,10 @@
-(function() {
+(function () {
     'use strict';
 
     var controllerId = 'shell';
-    angular.module('app').controller(controllerId, ['common','$rootScope', 'config', 'login', shell]);
+    angular.module('app').controller(controllerId, ['common', '$rootScope', 'config', 'login', '$translate', shell]);
 
-    function shell(common, $rootScope, config, login) {
+    function shell(common, $rootScope, config, login, $translate) {
         var vm = this;
         var events = config.events;
         vm.logout = login.logout;
@@ -12,26 +12,43 @@
         function activate() {
             var promises = [];
             common.activateController(promises, controllerId)
-                .then(function() {
+                .then(function () {
                     common.logger.logSuccess('shell activated');
                 });
         }
 
-        function toggleSpinner(on) { $rootScope.showSpinner = on; }
+        vm.togglePopover = function () {
+            $('#languages-menu').fadeToggle();
+        };
+
+        vm.translate = function(lang){
+            $translate.use(lang);
+            vm.togglePopover();
+        };
+
+        function toggleSpinner(on) {
+            $rootScope.showSpinner = on;
+        }
 
         $rootScope.$on('$routeChangeStart',
-            function (event, next, current) { toggleSpinner(true); }
+            function (event, next, current) {
+                toggleSpinner(true);
+            }
         );
 
         $rootScope.$on(events.controllerActivateSuccess,
-            function (event, data) { toggleSpinner(false); }
+            function (event, data) {
+                toggleSpinner(false);
+            }
         );
 
         $rootScope.$on(events.spinnerToggle,
-            function (event, data) { toggleSpinner(data.show); }
+            function (event, data) {
+                toggleSpinner(data.show);
+            }
         );
 
         activate();
     }
-    
+
 })();

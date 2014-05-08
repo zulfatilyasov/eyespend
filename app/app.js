@@ -10,7 +10,8 @@
         "ngAutocomplete",
         "sticky",
         "AngularGM",
-        "ngAnimate"
+        "ngAnimate",
+        "pascalprecht.translate"
     ]);
 
     app.run(['$rootScope', '$location', '$window', 'login', function ($rootScope, $location, $window, login) {

@@ -30,6 +30,13 @@
         cfg.config.spinnerToggleEvent = config.events.spinnerToggle;
     }]);
 
+    app.config(['$translateProvider', function($translateProvider) {
+        $translateProvider
+            .translations('ru', translationsRu)
+            .translations('en', translationsEn)
+            .preferredLanguage('ru');
+    }]);
+
     app.factory('authInterceptor', function ($rootScope, $q, $window, $location) {
         return {
             request: function (config) {

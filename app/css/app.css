@@ -1,17 +1,17 @@
 html {
     -webkit-font-smoothing: subpixel-antialiased;
+    overflow: scroll;
 }
 
 body {
     font-size: 14px;
-    /*background: url(http://subtlepatterns.com/patterns/squairy_light.png);*/
 }
 
 body.background-dark {
     background-attachment: fixed;
 }
 
-header h4,.widget>header h4{
+header h4,.widget>header h4, header h4 a {
     font-family: 'Open Sans Condensed', sans-serif;
     font-size: 20px;
     font-weight: 300;
@@ -323,10 +323,6 @@ tags-input .tags .input {
     color: red !important;
 }
 
-/*td{
-    -webkit-transition:background-color 0.1s;
-    transition:background-color 0.1s;
-}*/
 .striped td {
     background: rgba(51, 51, 51, 0.25);
 }
@@ -358,6 +354,10 @@ div[ng-view].ng-enter {
     -webkit-animation: fadeInRight 0.7s;
     animation: fadeInRight 0.7s;
 }
+/*div[ng-view].ng-leave {*/
+    /*-webkit-animation: fadeOut 0.4s;*/
+    /*animation: fadeOut 0.4s;*/
+/*}*/
 
 .settings-section form{
     margin-left: 15px;

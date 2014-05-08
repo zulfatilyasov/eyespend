@@ -22,6 +22,7 @@
     "RandomColor": "https://github.com/sterlingwes/RandomColor.git",
     "AngularGM": "~1.0.0",
     "angular-animate": "~1.2.16",
-    "animate.css": "~3.1.1"
+    "animate.css": "~3.1.1",
+    "angular-translate": "~2.1.0"
   }
 }

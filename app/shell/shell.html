@@ -12,11 +12,28 @@
                 </a>
                 <ul class="nav navbar-nav navbar-right pull-right">
                     <li class="hidden-xs">
-                        <a href="javascript:void(0)" ng-href="#/settings" id="settings" title="Настройки"
-                           data-toggle="popover" data-placement="bottom"
-                           data-original-title="Settings">
+                        <a href="javascript:void(0)" ng-href="#/settings" id="settings" title="Настройки">
                             <i class="fa fa-cog"></i>
                         </a>
+                    </li>
+                    <li class="hidden-xs">
+                        <a href="javascript:void(0)" title="Языки" ng-click="vm.togglePopover()" id="globe"
+                           data-toggle="popover" data-placement="bottom"
+                           data-original-title="Settings">
+                            <i class="fa fa-globe"></i>
+                        </a>
+                        <ul id="languages-menu" class="dropdown-menu messages" role="menu">
+                            <li role="presentation">
+                                <a href="#" ng-click="vm.translate('ru')" class="message">
+                                    Русский
+                                </a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#" ng-click="vm.translate('en')" class="message">
+                                   Английский
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="hidden-xs"><a href="javascript:void(0)" title="Выйти" ng-click="vm.logout()">
                         <i class="fa fa-sign-out"></i></a>
