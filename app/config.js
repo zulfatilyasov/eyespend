@@ -38,13 +38,13 @@
                     config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
                 }
                 return config;
+            },
+            responseError: function (response) {
+                if (response.status === 401 && response.config.url.indexOf('quickpass') < 0) {
+                    $location.path('/login');
+                }
+                return response || $q.when(response);
             }
-//            responseError: function (response) {
-//                if (response.status === 401) {
-//                    $location.path('/login');
-//                }
-//                return response || $q.when(response);
-//            }
         };
     });
 

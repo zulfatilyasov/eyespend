@@ -5,6 +5,7 @@ module.exports = function (grunt) {
             'bower_components/angular-mocks/angular-mocks.js',
             'bower_components/angular-route/angular-route.js',
             'bower_components/angular-sanitize/angular-sanitize.js',
+            'bower_components/angular-animate/angular-animate.js',
 
             'bower_components/jquery/dist/jquery.js',
             'bower_components/toastr/toastr.js',
@@ -40,6 +41,7 @@ module.exports = function (grunt) {
         ],
         styles = [
             'app/css/application.css',
+            'bower_components/animate.css/animate.css',
             'bower_components/toastr/toastr.css',
             'bower_components/ng-tags-input/ng-tags-input.css',
             'bower_components/datetimepicker/jquery.datetimepicker.css',

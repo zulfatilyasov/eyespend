@@ -9,7 +9,7 @@
         var transactions = [],
             userTags = [],
             sort = {
-                column: 'Date',
+                column: 'timestamp',
                 descending: true
             };
 
@@ -71,11 +71,16 @@
 
         function _colorAndSaveTags(tags) {
             for (var i = tags.length - 1; i >= 0; i--) {
-                var text = tags[i];
-                tags[i] = {
-                    text:text,
-                    color:_getTagColor(text)
-                };
+                if (!tags[i].text) {
+                    var text = tags[i];
+                    tags[i] = {
+                        text: text,
+                        color: _getTagColor(text)
+                    };
+                }
+                else {
+                    tags[i].color = _getTagColor(tags[i].text);
+                }
                 if (_userTagsContains(tags[i]) === false) {
                     userTags.push(tags[i]);
                 }
@@ -103,17 +108,17 @@
             return {
                 id: tnx.id,
                 timestamp: tnx.timestamp,
-                amount_in_base_currency: tnx.amount_in_base_currency,
+                amountInBaseCurrency: tnx.amountInBaseCurrency,
                 tags: tnx.tags,
-                latitude:tnx.latitude,
-                longitude:tnx.longitude
+                latitude: tnx.latitude,
+                longitude: tnx.longitude
             };
         }
 
         function getTotalAmout() {
             var sum = 0;
             for (var i = 0; transactions && i < transactions.length; i++) {
-                sum += parseInt(transactions[i].amount_in_base_currency);
+                sum += parseInt(transactions[i].amountInBaseCurrency);
             }
             return sum;
         }
@@ -151,20 +156,21 @@
         }
 
         function add(tnx) {
-
             if (!tnx.DateTime) {
                 tnx.DateTime = date.now();
             } else {
                 tnx.DateTime = date.toUnix(tnx.DateTime);
             }
-            _colorAndSaveTags(tnx.Tags);
+
+            _colorAndSaveTags(tnx.tags);
+
             var newTransaxn = {
                 id: 123,
-                amount_in_base_currency: parseInt(tnx.amount_in_base_currency),
-                tags: tnx.Tags.slice(0),
+                amountInBaseCurrency: parseInt(tnx.amountInBaseCurrency),
+                tags: tnx.tags.slice(0),
                 timestamp: tnx.DateTime,
-                latitude:tnx.latitude,
-                longitude:tnx.longitudes
+                latitude: tnx.latitude,
+                longitude: tnx.longitudes
             };
             transactions.push(newTransaxn);
             return newTransaxn;

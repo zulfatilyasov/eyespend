@@ -22,7 +22,7 @@
     <div ng-class="{'overlay-open':overlayIsOpen}" id="all">
         <div ng-include="'shell/shell.html'"></div>
         <div class="content container">
-            <div ng-view></div>
+            <div ng-hide="showSpinner" ng-view></div>
         </div>
     </div>
     <div ng-class="{open:overlayIsOpen, close: !overlayIsOpen, overlay:true, 'overlay-contentscale': true}">

@@ -1,16 +1,76 @@
 <div style="position:relative" ng-controller="transactions as vm">
-<div sticky use-placeholder>
-    <nav id="sidebar" class="sidebar nav-collapse collapse sidebar-icons">
-        <ul id="side-nav" class="side-nav sidebar-icons">
-            <li>
-                <a href="javascript:void(0)" ng-click="vm.toggleAdding()"><i class="fa fa-plus"></i></a>
-            </li>
-            </ul>
-    </nav>
+<!--<div sticky use-placeholder>-->
+<!--<nav id="sidebar" class="sidebar nav-collapse collapse sidebar-icons">-->
+<!--<ul id="side-nav" class="side-nav sidebar-icons">-->
+<!--<li>-->
+<!--<a href="javascript:void(0)" ng-click="vm.toggleAdding()"><i class="fa fa-plus"></i></a>-->
+<!--</li>-->
+<!--</ul>-->
+<!--</nav>-->
+<!--</div>-->
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="page-title">Таблица расходов</h2>
+    </div>
 </div>
 <div class="row">
 <div class="col-md-12">
 <section class="widget">
+<div class="newTransactionWrapper">
+    <header>
+        <h4><a href="javascript:void(0)" ng-click="vm.toggleAdding()"><i class="fa fa-plus"></i> Новая запись</a></h4>
+    </header>
+    <form ng-class="{row:true, slider:true, closed:!vm.isAdding}">
+        <div ng-class="{transactionForm:true, visible:vm.showTransactionForm}">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="inputHost">
+                        <label for="dateAndTime">Дата и время</label>
+                        <br/>
+                        <input type="text" us-date-time-picker id="dateAndTime" ng-model="vm.curDateTime">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="inputHost">
+                        <label for="amountInput">Сумма</label>
+                        <br/>
+                        <input type="text" value="" id="amountInput" ng-model="vm.newTnx.amountInBaseCurrency">
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div style="width:100%" class="inputHost">
+                        <label>Теги</label>
+                        <br/>
+                        <tags-input ng-model="vm.newTnx.tags" min-Length="1" replace-spaces-with-dashes="false"
+                                    style="width: 250px" placeholder="Добавьте тег" class="bootstrap">
+                            <auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0"
+                                           max-results="5"></auto-complete>
+                        </tags-input>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="inputHost">
+                        <label for="newAddress">Местоположение</label>
+                        <br/>
+                        <input class="form-control" ng-autocomplete ng-model="vm.newTnx.Place"
+                               details="vm.newTnx.PlaceDetails" type="text" id="newAddress">
+                    </div>
+                    <br/>
+
+                    <div class="inputHost">
+                        <button type="button" class="btn btn-primary" ng-click="vm.addTnx()"
+                                data-placement="right">
+                            Добавить
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 <div class="row searchBlock">
     <div class="col-md-8">
         <div class="inputHost">
@@ -34,60 +94,7 @@
         </tags-input>
     </div>
 </div>
-<form ng-class="{row:true, slider:true, closed:!vm.isAdding}">
-    <div ng-class="{transactionForm:true, visible:vm.showTransactionForm}">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="inputHost">
-                    <label for="dateAndTime">Дата и время</label>
-                    <br/>
-                    <input type="text" us-date-time-picker id="dateAndTime" ng-model="vm.curDateTime">
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="inputHost">
-                    <label for="amountInput">Сумма</label>
-                    <br/>
-                    <input type="text" value="" id="amountInput" ng-model="vm.newTnx.amount_in_base_currency">
-                </div>
-            </div>
-            <div class="col-md-7">
-                <div style="width:100%" class="inputHost">
-                    <label>Теги</label>
-                    <br/>
-                    <tags-input ng-model="vm.newTnx.Tags" min-Length="1" replace-spaces-with-dashes="false"
-                                style="width: 250px" placeholder="Добавьте тег" class="bootstrap">
-                        <auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0"
-                                       max-results="5"></auto-complete>
-                    </tags-input>
-                </div>
-            </div>
 
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="inputHost">
-                    <label for="newAddress">Местоположение</label>
-                    <br/>
-                    <input class="form-control" ng-autocomplete ng-model="vm.newTnx.Place"
-                           details="vm.newTnx.PlaceDetails" type="text" id="newAddress">
-                </div>
-                <br/>
-
-                <div class="inputHost">
-                    <button type="button" class="btn btn-primary" ng-click="vm.addTnx()"
-                            data-placement="right">
-                        Добавить
-                    </button>
-                    <button type="button" class="btn dark-grey" ng-click="vm.toggleAdding()"
-                            data-placement="right">
-                        Отмена
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
 <div class="row">
     <div class="col-md-12">
         <div class="body">
@@ -104,7 +111,8 @@
                     <th class="no-sort">
                         Время
                     </th>
-                    <th ng-class="vm.getSortingForColumn('amount_in_base_currency')" ng-click="vm.changeSorting('amount_in_base_currency')">
+                    <th ng-class="vm.getSortingForColumn('amountInBaseCurrency')"
+                        ng-click="vm.changeSorting('amountInBaseCurrency')">
                         Сумма
                         <span id="totalAmount" class="hidden-phone-landscape">{{vm.total()}} р.</span>
                     </th>
@@ -119,7 +127,7 @@
                     <td>{{transaction.id}}</td>
                     <td>{{transaction.timestamp | date:'dd MMMM yyyy'}}</td>
                     <td>{{transaction.timestamp | date:'HH:mm'}}</td>
-                    <td>{{transaction.amount_in_base_currency}} р.</td>
+                    <td>{{transaction.amountInBaseCurrency}} р.</td>
                     <td class="map">
                         <a href="javascript:void(0)" ng-click="vm.showMap(transaction)"
                            title="Показать на карте">
@@ -176,7 +184,7 @@
                                                 <label for="editedAmount">Сумма</label>
                                                 <br/>
                                                 <input type="text" value="" id="editedAmount"
-                                                       ng-model="vm.editedTnx.amount_in_base_currency">
+                                                       ng-model="vm.editedTnx.amountInBaseCurrency">
                                             </div>
                                         </div>
                                         <div class="col-md-7">
@@ -220,7 +228,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div style="text-align: center" class="inputHost">
+                                            <div  style="margin-top: 10px" class="inputHost">
                                                 <button type="button" class="btn btn-primary"
                                                         ng-click="vm.saveTnx()" data-placement="right">
                                                     Сохранить

@@ -20,6 +20,8 @@
     "angular-i18n": "~1.2.16",
     "angular-sticky": "*",
     "RandomColor": "https://github.com/sterlingwes/RandomColor.git",
-    "AngularGM": "~1.0.0"
+    "AngularGM": "~1.0.0",
+    "angular-animate": "~1.2.16",
+    "animate.css": "~3.1.1"
   }
 }

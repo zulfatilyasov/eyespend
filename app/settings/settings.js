@@ -7,27 +7,35 @@
         var vm = this;
 
         vm.changePassword = function () {
+            var setErrorMessage = function(message){
+                vm.error =true;
+                vm.message = message;
+            };
             if (!vm.psw) {
-                vm.message = "Введите пароль";
+                setErrorMessage("Введите пароль");
                 return;
             }
             if (!vm.confirmation) {
-                vm.message = "Введите подтверждение";
+                setErrorMessage("Введите подтверждение пароля");
                 return;
             }
-            if (vm.psw !== vm.confirmaition) {
-                vm.message = "Пароли не совпадают";
+            if (vm.psw !== vm.confirmation) {
+                setErrorMessage("Пароли не совпадают");
                 return;
             }
-            var success = function () {
-                vm.message = "Пароль успешно изменен.";
+
+            var success = function (message) {
+                vm.error = false;
+                vm.message = message;
             };
-            var error = function () {
-                vm.message = "Произошла ошибка. Попробуйте еще раз.";
+            var error = function (message) {
+                setErrorMessage(message);
             };
-            login.changePassword(vm.psw)
+
+            login.changePassword({psw: vm.psw})
                 .then(success, error);
         };
+
 
         function activate() {
             var promises = [];

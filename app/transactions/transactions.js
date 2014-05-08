@@ -12,7 +12,8 @@
         vm.newTnx = null;
         vm.isAdding = false;
         vm.sort = null;
-
+        vm.showTransactionForm = false;
+        vm.curDateTime = date.format(date.now());
         vm.showMap = function (transaction) {
             $rootScope.mapCenter = new google.maps.LatLng(transaction.latitude, transaction.longitude);
             $rootScope.zoom = 17;
@@ -21,8 +22,8 @@
                 {
                     id: transaction.id,
                     location: {
-                        lat:transaction.latitude,
-                        lng:transaction.longitude
+                        lat: transaction.latitude,
+                        lng: transaction.longitude
                     },
                     options: function () {
                         return null;
@@ -124,7 +125,7 @@
         };
         vm.saveTnx = function () {
             vm.selectedTnx.timestamp = vm.editedTnx.timestamp;
-            vm.selectedTnx.amount_in_base_currency = vm.editedTnx.amount_in_base_currency;
+            vm.selectedTnx.amountInBaseCurrency = vm.editedTnx.amountInBaseCurrency;
             vm.selectedTnx.Address = vm.editedTnx.Address;
             vm.selectedTnx.tags = vm.editedTnx.tags;
             vm.toggleEditing();
@@ -144,8 +145,6 @@
             if (!vm.newTnx) {
                 return;
             }
-            // editedTransactionCopy = vm.selectedTnx.clone();
-            console.log(editedTransactionCopy);
             var newTransaxn = transaxns.add(vm.newTnx);
             vm.trs.push(newTransaxn);
         };

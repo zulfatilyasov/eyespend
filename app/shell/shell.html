@@ -1,60 +1,30 @@
-<header class="page-header" ng-hide="hideHeader" ng-controller="shell as vm">
-    <div class="container">
-        <div class="navbar">
-            <a href="index.html">
-                <div class="logo sidebar-icons">
-                    <!--<img src="../img/eyespendlogo.png"  style="display:inline-block;height:50px;width:50px" alt="">-->
-                    <h4 style="display:inline-block">
-                        Eye<strong>Spend</strong>
-                    </h4>
-                </div>
-            </a>
-            <ul class="nav navbar-nav navbar-right pull-right">
-                <li class="hidden-xs">
-                    <a href="javascript:void(0)" id="settings" title="" data-toggle="popover" data-placement="bottom"
-                       data-original-title="Settings">
-                        <i class="fa fa-cog"></i>
-                    </a>
-                </li>
-                <li class="hidden-xs dropdown">
-                    <a href="javascript:void(0)" title="Account" id="account" class="dropdown-toggle"
-                       data-toggle="dropdown">
-                        <i class="fa fa-user"></i>
-                    </a>
-                    <ul id="account-menu" class="dropdown-menu account" role="menu">
-                        <li role="presentation" class="account-picture">
-                            Ильясов Зульфат
-                        </li>
-                        <li role="presentation">
-                            <a href="form_account.html" class="link">
-                                <i class="fa fa-user"></i>
-                                Profile
-                            </a>
-                        </li>
-                        <li role="presentation">
-                            <a href="component_calendar.html" class="link">
-                                <i class="fa fa-calendar"></i>
-                                Calendar
-                            </a>
-                        </li>
-                        <li role="presentation">
-                            <a href="javascript:void(0)" class="link">
-                                <i class="fa fa-inbox"></i>
-                                Inbox
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="visible-xs">
-                    <a href="#" class="btn-navbar" data-toggle="collapse" data-target=".sidebar" title="">
-                        <i class="fa fa-bars"></i>
-                    </a>
-                </li>
-                <li class="hidden-xs"><a href="javascript:void(0)" ng-click="vm.logout()">
-                    <i class="fa fa-sign-out"></i></a>
-                </li>
-            </ul>
+<div ng-controller="shell as vm">
+    <header ng-hide="hideHeader" class="page-header">
+        <div class="container">
+            <div class="navbar">
+                <a href="index.html">
+                    <div class="logo sidebar-icons">
+                        <!--<img src="../img/eyespendlogo.png"  style="display:inline-block;height:50px;width:50px" alt="">-->
+                        <h4 style="display:inline-block">
+                            Eye<strong>Spend</strong>
+                        </h4>
+                    </div>
+                </a>
+                <ul class="nav navbar-nav navbar-right pull-right">
+                    <li class="hidden-xs">
+                        <a href="javascript:void(0)" ng-href="#/settings" id="settings" title="Настройки"
+                           data-toggle="popover" data-placement="bottom"
+                           data-original-title="Settings">
+                            <i class="fa fa-cog"></i>
+                        </a>
+                    </li>
+                    <li class="hidden-xs"><a href="javascript:void(0)" title="Выйти" ng-click="vm.logout()">
+                        <i class="fa fa-sign-out"></i></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
         </div>
-        <div class="clearfix"></div>
-    </div>
-</header>
+    </header>
+
+</div>

@@ -7,31 +7,72 @@
     <div class="row">
         <div class="col-md-12">
             <section class="widget">
-                <header>
-                    <h4><i class="fa fa-user"></i> Смена пароля</h4>
-                </header>
-                <div class="body">
-                    <form>
-                        <fieldset>
-                            <div class="control-group">
-                                <label class="control-label" for="prefix">Пароль<ul class="parsley-errors-list" id="parsley-id-8401"></ul></label>
-                                <div class="controls form-group">
-                                    <div class="col-sm-4"><input type="text" id="prefix" name="prefix" class="form-control" data-parsley-id="8401"></div>
+
+                <div class="settings-section">
+                    <header>
+                        <h4><i class="fa fa-lock"></i> Изменить пароль</h4>
+                    </header>
+                    <div class="body">
+                        <form>
+                            <fieldset>
+                                <div class="control-group">
+                                    <label class="control-label" for="prefix">Пароль
+                                        <ul class="parsley-errors-list"></ul>
+                                    </label>
+
+                                    <div class="controls form-group">
+                                        <div class="col-sm-4">
+                                            <input type="password" placeholder="Введите новый пароль" ng-model="vm.psw" name="prefix"
+                                                   class="form-control styledInput"
+                                                   data-parsley-id="8401">
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <br/>
-                            <div class="control-group">
-                                <label class="control-label" for="prefix">Поддтверждение пароля<ul class="parsley-errors-list" id="parsley-id-8401"></ul></label>
-                                <div class="controls form-group">
-                                    <div class="col-sm-4"><input type="text" id="prefix" name="prefix" class="form-control" data-parsley-id="8401"></div>
+                                <br/>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="prefix">Поддтверждение пароля
+                                        <ul class="parsley-errors-list"></ul>
+                                    </label>
+
+                                    <div class="controls form-group">
+                                        <div class="col-sm-4"><input placeholder="Введите подтверждение пароля" type="password" ng-model="vm.confirmation" name="prefix"
+                                                                     class="form-control styledInput"
+                                                                     data-parsley-id="8401"></div>
+                                    </div>
                                 </div>
+                            </fieldset>
+                            <div class="actionButton">
+                                <button type="submit" ng-click="vm.changePassword()" class="btn btn-primary">Сохранить</button>
+                                <span ng-class="{validationMessage: true, error:vm.error}" ng-bind-html="vm.message"></span>
                             </div>
-                        </fieldset>
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-primary">Сохранить</button>
-                            <button type="button" class="btn btn-default">Отмена</button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <header>
+                        <h4><i class="fa fa-user"></i> Изменить email</h4>
+                    </header>
+                    <div class="body">
+                        <form>
+                            <fieldset>
+                                <div class="control-group">
+                                    <label class="control-label">Email
+                                        <ul class="parsley-errors-list"></ul>
+                                    </label>
+
+                                    <div class="controls form-group">
+                                        <div class="col-sm-4"><input placeholder="Введите новый email" type="text" name="prefix"
+                                                                     class="form-control styledInput"
+                                                                     data-parsley-id="8401"></div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="actionButton">
+                                <button type="submit" class="btn btn-primary">Сохранить</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </section>
         </div>

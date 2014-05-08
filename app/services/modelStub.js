@@ -82,7 +82,7 @@
             var transactions = mockJson.generateFromTemplate({
                 "transactions|10-100": [{
                     "id": 0,
-                    "amount_in_base_currency|30-3000": 250,
+                    "amountInBaseCurrency|30-3000": 250,
                     "tags|1-3": ["@TAG"],
                     "timestamp": null
                 }]

@@ -29,6 +29,7 @@
         };
 
         function activateController(promises, controllerId) {
+            $broadcast(commonConfig.config.spinnerToggle, {show:false});
             return $q.all(promises).then(function () {
                 var data = {
                     controllerId: controllerId

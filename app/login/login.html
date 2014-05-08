@@ -1,47 +1,52 @@
-<div ng-controller="login as vm" class="single-widget-container">
-    <section class="widget login-widget">
-        <header class="text-align-center">
-            <h4>Введите email и пароль</h4>
-        </header>
-        <div class="authError" ng-bind-html="vm.message"></div>
-        <div class="body">
-            <form class="no-margin" ng-submit="vm.submit()" method="POST">
-                <fieldset>
-                    <div class="form-group no-margin">
-                        <label for="email">Email</label>
+<div ng-controller="login as vm">
+    <div class="row">
+        <div class="col-lg-12">
+            <section style="margin:0 auto" class="widget login-widget">
+                <header class="text-align-center">
+                    <h4>Введите email и пароль</h4>
+                </header>
+                <div class="authError" ng-bind-html="vm.message"></div>
+                <div class="body">
+                    <form class="no-margin" ng-submit="vm.submit()" method="POST">
+                        <fieldset>
+                            <div class="form-group no-margin">
+                                <label for="email">Email</label>
 
-                        <div class="input-group input-group-lg">
+                                <div class="input-group input-group-lg">
                                 <span class="input-group-addon">
                                     <i class="eicon-user"></i>
                                 </span>
-                            <input id="email" type="email" ng-model="vm.user.username" class="form-control input-lg"
-                                   placeholder="Ваш email">
-                        </div>
+                                    <input id="email" type="email" ng-model="vm.user.username" class="form-control input-lg"
+                                           placeholder="Ваш email">
+                                </div>
 
-                    </div>
+                            </div>
 
-                    <div style="margin-top: 10px" class="form-group">
-                        <label for="password">Пароль</label>
+                            <div style="margin-top: 10px" class="form-group">
+                                <label for="password">Пароль</label>
 
-                        <div class="input-group input-group-lg">
+                                <div class="input-group input-group-lg">
                                 <span class="input-group-addon">
                                     <i class="fa fa-lock"></i>
                                 </span>
-                            <input id="password" ng-model="vm.user.password" type="password"
-                                   class="form-control input-lg"
-                                   placeholder="Ваш пароль">
-                        </div>
+                                    <input id="password" ng-model="vm.user.password" type="password"
+                                           class="form-control input-lg"
+                                           placeholder="Ваш пароль">
+                                </div>
 
-                    </div>
-                </fieldset>
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-block btn-lg btn-danger">
-                        <span class="small-circle"><i class="fa fa-caret-right"></i></span>
-                        <small>Войти</small>
-                    </button>
-                    <div class="forgot"><a class="forgot" href="#">Забыли пароль?</a> <br/><a ng-href="#/quickpass" class="forgot">Ввести одноразовый пароль.</a></div>
+                            </div>
+                        </fieldset>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-block btn-lg btn-danger">
+                                <span class="small-circle"><i class="fa fa-caret-right"></i></span>
+                                <small>Войти</small>
+                            </button>
+                            <div class="forgot"><a class="forgot" href="#">Забыли пароль?</a> <br/><a ng-href="#/quickpass" class="forgot">Ввести одноразовый пароль.</a></div>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </section>
         </div>
-    </section>
+    </div>
+
 </div>

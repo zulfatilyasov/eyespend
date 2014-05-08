@@ -22,7 +22,7 @@
         var error = function (def) {
             return function (data, status, headers, config) {
                 delete $window.sessionStorage.token;
-                if (config.url === "/quickpass") {
+                if (config && config.url === "/quickpass") {
                     def.reject("Неверный пароль");
                 }
                 else {
@@ -51,15 +51,42 @@
                 .error(error(def));
             return def.promise;
         };
-        var authenticated = function(){
+
+        var authenticated = function () {
             return !!$window.sessionStorage.token;
+        };
+
+        var changeSuccess = function (def) {
+            return function (data, status, headers, config) {
+                if (status === 400) {
+                    def.reject("Произошла ошибка при смене пароля");
+                    return;
+                }
+                def.resolve("Пароль усешно изменен");
+                return;
+            };
+        };
+
+        var changeError = function (def) {
+            return function (data, status, headers, config) {
+                def.reject("Произошла ошибка при смене пароля");
+            };
+        };
+
+        var changePassword = function (psw) {
+            var def = common.$q.defer();
+            $http.post('/api/changePassword', psw)
+                .success(changeSuccess(def))
+                .error(changeError(def));
+            return def.promise;
         };
 
         return {
             authenticate: authenticate,
             logout: logout,
             quickPass: quickPass,
-            authenticated:authenticated
+            authenticated: authenticated,
+            changePassword: changePassword
         };
     }
 })();
