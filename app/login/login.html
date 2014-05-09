@@ -3,7 +3,7 @@
         <div class="col-lg-12">
             <section style="margin:0 auto" class="widget login-widget">
                 <header class="text-align-center">
-                    <h4>Введите email и пароль</h4>
+                    <h4 translate>TYPE_EMAIL_AND_PASSWORD</h4>
                 </header>
                 <div class="authError" ng-bind-html="vm.message"></div>
                 <div class="body">
@@ -17,13 +17,13 @@
                                     <i class="eicon-user"></i>
                                 </span>
                                     <input id="email" type="email" ng-model="vm.user.username" class="form-control input-lg"
-                                           placeholder="Ваш email">
+                                           placeholder="{{'YOUR_EMAIL'|translate}}">
                                 </div>
 
                             </div>
 
                             <div style="margin-top: 10px" class="form-group">
-                                <label for="password">Пароль</label>
+                                <label for="password" translate>PASSWORD</label>
 
                                 <div class="input-group input-group-lg">
                                 <span class="input-group-addon">
@@ -31,7 +31,7 @@
                                 </span>
                                     <input id="password" ng-model="vm.user.password" type="password"
                                            class="form-control input-lg"
-                                           placeholder="Ваш пароль">
+                                           placeholder="{{'YOUR_PASSWORD'|translate}}">
                                 </div>
 
                             </div>
@@ -39,9 +39,9 @@
                         <div class="form-actions">
                             <button type="submit" class="btn btn-block btn-lg btn-danger">
                                 <span class="small-circle"><i class="fa fa-caret-right"></i></span>
-                                <small>Войти</small>
+                                <small translate>LOGIN</small>
                             </button>
-                            <div class="forgot"><a class="forgot" href="#">Забыли пароль?</a> <br/><a ng-href="#/quickpass" class="forgot">Ввести одноразовый пароль.</a></div>
+                            <div class="forgot"><a class="forgot" href="#" translate>FORGOT_PASSWORD</a> <br/><a ng-href="#/quickpass" class="forgot" translate>ENTER_DISPOSABLE_PASSWORD</a></div>
                         </div>
                     </form>
                 </div>

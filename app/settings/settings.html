@@ -1,7 +1,7 @@
 <div ng-controller="settings as vm">
     <div class="row">
         <div class="col-md-12">
-            <h2 class="page-title">Настройки аккаунта</h2>
+            <h2 class="page-title" translate>ACCOUNT_SETTINGS</h2>
         </div>
     </div>
     <div class="row">
@@ -10,19 +10,20 @@
 
                 <div class="settings-section">
                     <header>
-                        <h4><i class="fa fa-lock"></i> Изменить пароль</h4>
+                        <h4><i class="fa fa-lock"></i> <span translate>CHANGE_PASSWORD</span></h4>
                     </header>
                     <div class="body">
                         <form>
                             <fieldset>
                                 <div class="control-group">
-                                    <label class="control-label" for="prefix">Пароль
+                                    <label class="control-label" for="prefix">
+                                        <span translate>PASSWORD</span>
                                         <ul class="parsley-errors-list"></ul>
                                     </label>
 
                                     <div class="controls form-group">
                                         <div class="col-sm-4">
-                                            <input type="password" placeholder="Введите новый пароль" ng-model="vm.psw" name="prefix"
+                                            <input type="password" placeholder="{{'TYPE_NEW_PASSWORD'|translate}}" ng-model="vm.psw" name="prefix"
                                                    class="form-control styledInput"
                                                    data-parsley-id="8401">
                                         </div>
@@ -31,19 +32,20 @@
                                 <br/>
 
                                 <div class="control-group">
-                                    <label class="control-label" for="prefix">Поддтверждение пароля
+                                    <label class="control-label" for="prefix">
+                                        <span translate>CONFIRMATION</span>
                                         <ul class="parsley-errors-list"></ul>
                                     </label>
 
                                     <div class="controls form-group">
-                                        <div class="col-sm-4"><input placeholder="Введите подтверждение пароля" type="password" ng-model="vm.confirmation" name="prefix"
+                                        <div class="col-sm-4"><input placeholder="{{'TYPE_PASSWORD_CONFIRMATION'|translate}}" type="password" ng-model="vm.confirmation" name="prefix"
                                                                      class="form-control styledInput"
                                                                      data-parsley-id="8401"></div>
                                     </div>
                                 </div>
                             </fieldset>
                             <div class="actionButton">
-                                <button type="submit" ng-click="vm.changePassword()" class="btn btn-primary">Сохранить</button>
+                                <button type="submit" ng-click="vm.changePassword()" class="btn btn-primary" translate>SAVE</button>
                                 <span ng-class="{validationMessage: true, error:vm.error}" ng-bind-html="vm.message"></span>
                             </div>
                         </form>
@@ -51,7 +53,7 @@
                 </div>
                 <div class="settings-section">
                     <header>
-                        <h4><i class="fa fa-user"></i> Изменить email</h4>
+                        <h4><i class="fa fa-user"></i> <span translate>CHANGE_EMAIL</span></h4>
                     </header>
                     <div class="body">
                         <form>
@@ -62,14 +64,14 @@
                                     </label>
 
                                     <div class="controls form-group">
-                                        <div class="col-sm-4"><input placeholder="Введите новый email" type="text" name="prefix"
+                                        <div class="col-sm-4"><input placeholder="{{'TYPE_NEW_EMAIL' | translate}}" type="text" name="prefix"
                                                                      class="form-control styledInput"
                                                                      data-parsley-id="8401"></div>
                                     </div>
                                 </div>
                             </fieldset>
                             <div class="actionButton">
-                                <button type="submit" class="btn btn-primary">Сохранить</button>
+                                <button type="submit" class="btn btn-primary" translate>SAVE</button>
                             </div>
                         </form>
                     </div>
