@@ -33,7 +33,7 @@
 
         var authenticate = function (user) {
             var def = common.$q.defer();
-            $http.post('/authenticate', user)
+            $http.post('/api/users/login', { authCodeOrEmail: user.username, password: user.password })
                 .success(success(def))
                 .error(error(def));
             return def.promise;

@@ -6,75 +6,98 @@ var expressJwt = require('express-jwt');
 var jwt = require('jsonwebtoken');
 var bodyParser = require('body-parser');
 var request = require('request');
+var httpProxy = require('http-proxy');
 var secret = 'eyespend-secret';
 
 var app = express();
+
 app.use(express.static(__dirname + '/app'));
 
-if (!useRealServer) {
-    app.use('/api', expressJwt({secret: secret}));
-}
-app.use(bodyParser());
+var ApiInjector = function apiInjector() {
+    var injectStubApi = function injectStubApi(app) {
+        app.use('/api/secure', expressJwt({secret: secret}));
 
-app.get('/api/transactions', function (req, res) {
-    if (useRealServer) {
-        console.log('redirecting request to the real backend');
-        var newUrl = 'http://127.0.0.1:9292/secure/transactions';
-        request({ 'url': newUrl, 'headers': { 'Authorization': req.headers.authorization } }).pipe(res)
-    } else {
-        console.log('user ' + req.user.email + ' is calling /api/transactions');
-        res.json(transactions);
-    }
-});
+        app.get('/api/secure/transactions', function (req, res) {
+            console.log('user ' + req.user.email + ' is calling /api/transactions');
+            res.json(transactions);
+        });
 
-app.post('/authenticate', function (req, res) {
-    console.log('Authentication request');
+        app.post('/api/users/login', function (req, res) {
+            console.log('Authentication request');
 
-    if (useRealServer) {
-        request.post('http://127.0.0.1:9292/users/login', { form: { auth_code_or_email: req.body.username, password: req.body.password } }).pipe(res)
-    } else {
-        if (!(req.body.username === 'foo@gmail.com' && req.body.password === 'bar')) {
-            console.log('Wrong user or password');
-            res.send(401, 'Wrong user or password');
-            return;
+            if (!(req.body.authCodeOrEmail === 'foo@gmail.com' && req.body.password === 'bar')) {
+                console.log('Wrong user or password');
+                res.send(401, 'Wrong user or password');
+                return;
+            }
+
+            res.json({ token: createTokenWithProfile() });
+        });
+
+        app.post('/quickpass', function (req, res) {
+            if (!(req.body.psw === '123')) {
+                console.log('wrong disposable password');
+                res.send(401, 'Wrong password');
+                return;
+            }
+            res.json({ token: createTokenWithProfile() });
+        });
+
+        app.post('/api/changePassword', function (req, res) {
+            if (!req.body.psw || req.body.psw.length < 6) {
+                console.log('new password is not valid');
+                res.send(400, 'Wrong password');
+                return;
+            }
+
+            console.log(req.body.psw);
+
+            res.send(200);
+        });
+
+        function createTokenWithProfile() {
+            var profile = {
+                first_name: 'Foo',
+                last_name: 'Bar',
+                email: 'foobar@gmail.com',
+                id: 123
+            };
+
+            return jwt.sign(profile, secret, { expiresInMinutes: 20 });
         }
-
-        res.json({ token: createTokenWithProfile() });
-    }
-});
-
-app.post('/quickpass', function (req, res) {
-    if (!(req.body.psw === '123')) {
-        console.log('wrong disposable password');
-        res.send(401, 'Wrong password');
-        return;
-    }
-    res.json({ token: createTokenWithProfile() });
-});
-
-app.post('/api/changePassword', function (req, res) {
-    if (!req.body.psw || req.body.psw.length < 6) {
-        console.log('new password is not valid');
-        res.send(400, 'Wrong password');
-        return;
     }
 
-    console.log(req.body.psw);
+    var injectRealApi = function injectRealApi(api) {
+        var apiProxy = function apiProxy(pattern, host, port) {
+            var proxy = new httpProxy.createProxyServer();
 
-    res.send(200);
-});
+            return function apiProxyHandler(req, res, next) {
+                if (req.url.match(pattern)) {
+                    req.url = '/' + req.url.split('/').slice(2).join('/'); // remove the '/api' part
+                    return proxy.proxyRequest(req, res, { target: 'http://127.0.0.1:9292' });
+                } else {
+                    return next();
+                }
+            };
+        };
 
+        app.use(apiProxy(/\/api\/.*/, 'localhost', 9292));
+    }
 
-function createTokenWithProfile() {
-    var profile = {
-        first_name: 'Foo',
-        last_name: 'Bar',
-        email: 'foobar@gmail.com',
-        id: 123
-    };
+    return {
+        injectRealApi: injectRealApi,
+        injectStubApi: injectStubApi
+    }
+};
 
-    return jwt.sign(profile, secret, { expiresInMinutes: 20 });
+if (useRealServer) {
+    (new ApiInjector()).injectRealApi(app);
+    app.use(bodyParser());
+} else {
+    app.use(bodyParser());
+    (new ApiInjector()).injectStubApi(app);
 }
+
 
 var port = process.env.PORT || 3000;
 app.listen(port);

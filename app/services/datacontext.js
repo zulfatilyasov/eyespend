@@ -6,7 +6,7 @@
 
     function datacontext($http) {
         function getTransaxns() {
-            return $http.get('/api/transactions');
+            return $http.get('/api/secure/transactions');
         }
         return {
             getTransaxns: getTransaxns
