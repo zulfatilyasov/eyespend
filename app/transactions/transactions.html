@@ -20,7 +20,7 @@
     <header>
         <h4><i class="fa fa-plus"></i> <a href="javascript:void(0)" translate ng-click="vm.toggleAdding()">NEW_TANSACTION</a></h4>
     </header>
-    <form ng-class="{row:true, slider:true, closed:!vm.isAdding}">
+    <form name="newTransactionForm" ng-class="{row:true, slider:true, closed:!vm.isAdding}">
         <div ng-class="{transactionForm:true, visible:vm.showTransactionForm}">
             <div class="row">
                 <div class="col-md-3">
@@ -34,7 +34,7 @@
                     <div class="inputHost">
                         <label for="amountInput" translate>AMOUNT</label>
                         <br/>
-                        <input type="text" value="" id="amountInput" ng-model="vm.newTnx.amountInBaseCurrency">
+                        <input type="number" id="amountInput" ng-model="vm.newTnx.amountInBaseCurrency">
                     </div>
                 </div>
                 <div class="col-md-7">
@@ -62,6 +62,7 @@
                     <div class="inputHost">
                         <button type="button" class="btn btn-primary" ng-click="vm.addTnx()"
                                 data-placement="right" translate>ADD_NEW</button>
+                        <span class="validationMessage error" ng-bind-html="vm.newTnx.validationMessage"></span>
                     </div>
                 </div>
             </div>
@@ -126,8 +127,10 @@
                     <td>{{transaction.timestamp | date:'HH:mm'}}</td>
                     <td>{{transaction.amountInBaseCurrency}} р.</td>
                     <td class="map">
-                        <a href="javascript:void(0)" ng-click="vm.showMap(transaction)"
-                           title="Показать на карте">
+                        <a ng-if="transaction.latitude && transaction.longitude"
+                           ng-click="vm.showMap(transaction)"
+                           title="{{'SHOW_ON_MAP'|translate}}"
+                           href="javascript:void(0)">
                             <i class="fa fa-map-marker fa-2x"></i>
                         </a>
                     </td>

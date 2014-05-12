@@ -21,7 +21,10 @@ var ApiInjector = function apiInjector() {
             console.log('user ' + req.user.email + ' is calling /api/transactions');
             res.json(transactions);
         });
-
+        app.post('/api/secure/updateTransaction', function (req, res) {
+            console.log('user updated transaction' + JSON.stringify(req.body.transaction));
+            res.send(200);
+        });
         app.post('/api/users/login', function (req, res) {
             console.log('Authentication request');
 
@@ -106,27 +109,26 @@ console.log('Express server started on port ' + port);
 
 //@todo: generate those tnsxs randomly
 var transactions = [
-    {"id": 1, "amountInBaseCurrency": 1644, "tags": ["продукты", "ресторан"], "timestamp": 1391265759, "latitude": 55.786657, "longitude": 49.12431},
-    {"id": 2, "amountInBaseCurrency": 2013, "tags": ["ресторан", "наличные"], "timestamp": 1356104367, "latitude": 55.780805, "longitude": 49.21476},
-    {"id": 3, "amountInBaseCurrency": 1801, "tags": ["коммунальные услуги", "ресторан"], "timestamp": 1339681816, "latitude": 48.858335, "longitude": 2.294599},
-    {"id": 4, "amountInBaseCurrency": 1778, "tags": ["коммунальные услуги", "наличные"], "timestamp": 1334169482, "latitude": 40.759927, "longitude": -73.985217},
-    {"id": 5, "amountInBaseCurrency": 2083, "tags": ["коммунальные услуги", "мвидео"], "timestamp": 1337107593, "latitude": 55.754069, "longitude": 37.620849},
-    {"id": 6, "amountInBaseCurrency": 113, "tags": ["мвидео"], "timestamp": 1337846427, "latitude": 55.780805, "longitude": 49.21476},
-    {"id": 7, "amountInBaseCurrency": 693, "tags": ["ресторан", "мвидео", "коммунальные услуги"], "timestamp": 1348262263, "latitude": 40.759927, "longitude": -73.985217},
-    {"id": 8, "amountInBaseCurrency": 1901, "tags": ["аптека", "кафе", "коммунальные услуги"], "timestamp": 1390972370, "latitude": 55.780805, "longitude": 49.21476},
-    {"id": 9, "amountInBaseCurrency": 2873, "tags": ["аэропорт", "банковская карта"], "timestamp": 1361971927, "latitude": 55.754069, "longitude": 37.620849},
-    {"id": 10, "amountInBaseCurrency": 792, "tags": ["подарок", "мвидео"], "timestamp": 1330153028, "latitude": 55.780805, "longitude": 49.21476},
-    {"id": 11, "amountInBaseCurrency": 1713, "tags": ["кафе"], "timestamp": 1355853300, "latitude": 55.786657, "longitude": 49.12431},
-    {"id": 12, "amountInBaseCurrency": 1825, "tags": ["ресторан", "кафе", "аэропорт"], "timestamp": 1356973438, "latitude": 40.759927, "longitude": -73.985217},
-    {"id": 13, "amountInBaseCurrency": 1733, "tags": ["мвидео", "кафе"], "timestamp": 1385742512, "latitude": 40.759927, "longitude": -73.985217},
-    {"id": 14, "amountInBaseCurrency": 73, "tags": ["ресторан", "аэропорт", "кино"], "timestamp": 1367246287, "latitude": 48.858335, "longitude": 2.294599},
-    {"id": 15, "amountInBaseCurrency": 2960, "tags": ["аэропорт"], "timestamp": 1395890253, "latitude": 40.759927, "longitude": -73.985217},
-    {"id": 16, "amountInBaseCurrency": 1001, "tags": ["наличные"], "timestamp": 1362921516, "latitude": 55.786657, "longitude": 49.12431},
-    {"id": 17, "amountInBaseCurrency": 2772, "tags": ["коммунальные услуги", "ресторан"], "timestamp": 1366669920, "latitude": 40.759927, "longitude": -73.985217},
-    {"id": 18, "amountInBaseCurrency": 951, "tags": ["коммунальные услуги", "кафе"], "timestamp": 1327560289, "latitude": 55.754069, "longitude": 37.620849},
-    {"id": 19, "amountInBaseCurrency": 848, "tags": ["наличные", "аэропорт", "подарок"], "timestamp": 1377247641, "latitude": 40.759927, "longitude": -73.985217},
-    {"id": 20, "amountInBaseCurrency": 1321, "tags": ["продукты", "коммунальные услуги"], "timestamp": 1371510557, "latitude": 55.786657, "longitude": 49.12431},
-    {"id": 21, "amountInBaseCurrency": 2009, "tags": ["заправка", "продукты", "банковская карта"], "timestamp": 1398650767, "latitude": 55.780805, "longitude": 49.21476},
-    {"id": 22, "amountInBaseCurrency": 1886, "tags": ["аптека", "банковская карта"], "timestamp": 1371904397, "latitude": 55.780805, "longitude": 49.21476},
-    {"id": 23, "amountInBaseCurrency": 1687, "tags": ["мвидео"], "timestamp": 1334148205, "latitude": 55.786657, "longitude": 49.12431}
+    {"id": 1, "amountInBaseCurrency": 2395, "tags": ["наличные"], "timestamp": 1397293599150, "latitude": 55.754069, "longitude": 37.620849},
+    {"id": 2, "amountInBaseCurrency": 1090, "tags": ["банковская карта"], "timestamp": 1391650932445, "latitude": 55.786657, "longitude": 49.12431},
+    {"id": 3, "amountInBaseCurrency": 1037, "tags": ["аэропорт"], "timestamp": 1393579556855, "latitude": 55.786657, "longitude": 49.12431},
+    {"id": 4, "amountInBaseCurrency": 2552, "tags": ["аптека", "продукты"], "timestamp": 1378872015043, "latitude": 55.754069, "longitude": 37.620849},
+    {"id": 5, "amountInBaseCurrency": 2655, "tags": ["аэропорт", "кино"], "timestamp": 1355617215484, "latitude": 48.858335, "longitude": 2.294599},
+    {"id": 6, "amountInBaseCurrency": 2830, "tags": ["аптека"], "timestamp": 1350416717126, "latitude": 55.754069, "longitude": 37.620849},
+    {"id": 7, "amountInBaseCurrency": 2385, "tags": ["коммунальные услуги", "аптека", "мвидео"], "timestamp": 1373493704133, "latitude": 55.786657, "longitude": 49.12431},
+    {"id": 8, "amountInBaseCurrency": 1219, "tags": ["ресторан", "банковская карта"], "timestamp": 1347377140589, "latitude": 48.858335, "longitude": 2.294599},
+    {"id": 9, "amountInBaseCurrency": 2504, "tags": ["аэропорт", "ресторан"], "timestamp": 1331547349424, "latitude": 55.754069, "longitude": 37.620849},
+    {"id": 10, "amountInBaseCurrency": 784, "tags": [], "timestamp": 1341627098450, "latitude": 55.780805, "longitude": 49.21476},
+    {"id": 11, "amountInBaseCurrency": 2170, "tags": [], "timestamp": 1374148231810, "latitude": 48.858335, "longitude": 2.294599},
+    {"id": 12, "amountInBaseCurrency": 1185, "tags": ["кафе", "продукты", "ресторан"], "timestamp": 1346887971899, "latitude": 48.858335, "longitude": 2.294599},
+    {"id": 13, "amountInBaseCurrency": 767, "tags": ["наличные", "мвидео", "банковская карта"], "timestamp": 1362973767757, "latitude": 55.780805, "longitude": 49.21476},
+    {"id": 14, "amountInBaseCurrency": 869, "tags": ["подарок", "наличные"], "timestamp": 1366785947006, "latitude": 48.858335, "longitude": 2.294599},
+    {"id": 15, "amountInBaseCurrency": 462, "tags": ["продукты"], "timestamp": 1344098727293, "latitude": 55.754069, "longitude": 37.620849},
+    {"id": 16, "amountInBaseCurrency": 2226, "tags": ["ресторан"], "timestamp": 1376976392623, "latitude": 55.780805, "longitude": 49.21476},
+    {"id": 17, "amountInBaseCurrency": 795, "tags": ["кино", "наличные"], "timestamp": 1376359801935, "latitude": 55.754069, "longitude": 37.620849},
+    {"id": 18, "amountInBaseCurrency": 1861, "tags": ["ресторан", "коммунальные услуги", "заправка"], "timestamp": 1335053988508, "latitude": 40.759927, "longitude": -73.985217},
+    {"id": 19, "amountInBaseCurrency": 986, "tags": ["кино", "ресторан"], "timestamp": 1338054873893, "latitude": 40.759927, "longitude": -73.985217},
+    {"id": 20, "amountInBaseCurrency": 248, "tags": ["ресторан", "банковская карта", "аптека"], "timestamp": 1385975449202, "latitude": 55.786657, "longitude": 49.12431},
+    {"id": 21, "amountInBaseCurrency": 706, "tags": ["кафе", "коммунальные услуги"], "timestamp": 1362796448458, "latitude": 55.754069, "longitude": 37.620849},
+    {"id": 22, "amountInBaseCurrency": 637, "tags": ["заправка", "банковская карта"], "timestamp": 1363059864153, "latitude": 55.786657, "longitude": 49.12431}
 ];

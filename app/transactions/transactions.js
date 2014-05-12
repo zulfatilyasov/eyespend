@@ -1,16 +1,16 @@
 (function () {
     'use strict';
     var controllerId = 'transactions';
-    angular.module('app').controller(controllerId, ['common', '$rootScope', 'date', 'transaxns', transactions]);
+    angular.module('app').controller(controllerId, ['common', '$rootScope', '$scope', 'date', 'transaxns', '$translate', transactions]);
 
-    function transactions(common, $rootScope, date, transaxns) {
-        var editedTransactionCopy;
+    function transactions(common, $rootScope, $scope, date, transaxns, $translate) {
         var vm = this;
 
         vm.tags = [];
         vm.trs = [];
         vm.newTnx = null;
         vm.isAdding = false;
+        vm.selectedTnx = null;
         vm.sort = null;
         vm.showTransactionForm = false;
         vm.curDateTime = date.format(date.now());
@@ -123,13 +123,19 @@
                 }, 300);
             }
         };
+
         vm.saveTnx = function () {
-            vm.selectedTnx.timestamp = vm.editedTnx.timestamp;
-            vm.selectedTnx.amountInBaseCurrency = vm.editedTnx.amountInBaseCurrency;
-            vm.selectedTnx.Address = vm.editedTnx.Address;
-            vm.selectedTnx.tags = vm.editedTnx.tags;
-            vm.toggleEditing();
+            transaxns.update(vm.editedTnx)
+                .then(function () {
+                    transaxns.copyTransactionProps(vm.selectedTnx, vm.editedTnx);
+                    vm.toggleEditing();
+                },
+                function (msg) {
+                    vm.editedTnx.errorMessage = msg;
+                }
+            );
         };
+
         vm.addTag = function (tag) {
             if (_tagIsAlreadyAdded(tag)) {
                 return;
@@ -142,6 +148,11 @@
         };
 
         vm.addTnx = function () {
+            if ($scope.newTransactionForm && !$scope.newTransactionForm.$valid) {
+                $translate('CHECK_FORM_DATA').then(function (msg) {
+                    vm.newTnx.validationMessage = msg
+                });
+            }
             if (!vm.newTnx) {
                 return;
             }

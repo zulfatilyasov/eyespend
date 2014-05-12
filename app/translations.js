@@ -33,7 +33,8 @@ var translationsRu = {
     FORGOT_PASSWORD:"Забыли пароль?",
     ENTER_DISPOSABLE_PASSWORD:"Ввести одноразовый пароль.",
     TYPE_DISPOSABLE_PASSWORD:"Введите одноразовый пароль",
-    ENTER_EMAIL_AND_PASSWORD:"Ввести email и пароль."
+    ENTER_EMAIL_AND_PASSWORD:"Ввести email и пароль.",
+    CHECK_FORM_DATA:"Неверные данные. Проверьте выделенные поля."
 };
 
 var translationsEn = {
@@ -71,5 +72,6 @@ var translationsEn = {
     FORGOT_PASSWORD:"Forgot password?",
     ENTER_DISPOSABLE_PASSWORD:"Enter disposable password.",
     TYPE_DISPOSABLE_PASSWORD:"Type disposable password",
-    ENTER_EMAIL_AND_PASSWORD:"Enter email and password."
+    ENTER_EMAIL_AND_PASSWORD:"Enter email and password.",
+    CHECK_FORM_DATA:"Invalid data. Please check form inputs."
 };

@@ -8,8 +8,12 @@
         function getTransaxns() {
             return $http.get('/api/secure/transactions');
         }
+        function updateTransaction(transaction){
+            return $http.post('/api/secure/updateTransaction', {transaction:transaction});
+        }
         return {
-            getTransaxns: getTransaxns
+            getTransaxns: getTransaxns,
+            updateTransaction:updateTransaction
         };
     }
 })();

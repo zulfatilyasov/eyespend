@@ -17,9 +17,10 @@
                 $httpBackend.whenGET(/quickpass\/.*/).passThrough();
                 $httpBackend.whenPOST(/quickpass/).passThrough();
                 $httpBackend.whenPOST(/authenticate/).passThrough();
-                $httpBackend.whenGET(/api\/.*/).passThrough();
-                $httpBackend.whenPOST(/api\/.*/).passThrough();
-                $httpBackend.whenGET('/server/getTransactions').respond(modelStub.generateTransactions());
+//                $httpBackend.whenGET(/api\/.*/).passThrough();
+//                $httpBackend.whenPOST(/api\/.*/).passThrough();
+                $httpBackend.whenGET('/api/secure/transactions').respond(modelStub.getTransactions());
+               $httpBackend.whenPOST('/api/secure/updateTransaction').respond(200);
             });
     }
 })();

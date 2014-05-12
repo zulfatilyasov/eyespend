@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     var serviceId = 'modelStub';
@@ -8,6 +8,7 @@
     function modelStub(common, mockJson) {
         var getLogFn = common.logger.getLogFn;
         var logSuccess = getLogFn(serviceId, 'success');
+        var transactions = null;
 
         mockJson.data.TAG = [
             'аптека',
@@ -22,23 +23,29 @@
             'подарок',
             'заправка',
             'аэропорт'
-        ]; 
-        var addresses = [{
-            latitude: 48.858335,
-            longitude: 2.294599
-        }, {
-            latitude: 55.754069,
-            longitude: 37.620849
-        }, {
-            latitude: 55.780805,
-            longitude: 49.214760
-        }, {
-            latitude: 55.786657,
-            longitude: 49.124310
-        }, {
-            latitude: 40.759927,
-            longitude: -73.985217
-        }];
+        ];
+        var addresses = [
+            {
+                latitude: 48.858335,
+                longitude: 2.294599
+            },
+            {
+                latitude: 55.754069,
+                longitude: 37.620849
+            },
+            {
+                latitude: 55.780805,
+                longitude: 49.214760
+            },
+            {
+                latitude: 55.786657,
+                longitude: 49.124310
+            },
+            {
+                latitude: 40.759927,
+                longitude: -73.985217
+            }
+        ];
 
         mockJson.data.DATE = [
             '1397750204',
@@ -50,7 +57,8 @@
         ];
 
         var service = {
-            generateTransactions: generateTransactions
+            getTransactions:getTransactions,
+            transactions:transactions
         };
 
         function _randomDate(start, end) {
@@ -58,9 +66,9 @@
         }
 
         function _distictTags(array) {
-            array = array.filter(function(elem, pos1) {
-                return array.every(function(t, pos2) {
-                        return pos1 == pos2 || t != elem;
+            array = array.filter(function (elem, pos1) {
+                return array.every(function (t, pos2) {
+                    return pos1 == pos2 || t != elem;
                 });
             });
             return array;
@@ -78,20 +86,26 @@
             return transactions;
         }
 
-        function generateTransactions() {
-            var transactions = mockJson.generateFromTemplate({
-                "transactions|10-100": [{
-                    "id": 0,
-                    "amountInBaseCurrency|30-3000": 250,
-                    "tags|1-3": ["@TAG"],
-                    "timestamp": null
-                }]
-            }).transactions;
-            transactions = _populateProperties(transactions);
-            logSuccess("generated " + transactions.length + " fake transactions ", JSON.stringify(transactions), true);
+        function getTransactions(){
             return transactions;
         }
 
+        function generateTransactions() {
+            transactions = mockJson.generateFromTemplate({
+                "transactions|10-100": [
+                    {
+                        "id": 0,
+                        "amountInBaseCurrency|30-3000": 250,
+                        "tags|1-3": ["@TAG"],
+                        "timestamp": null
+                    }
+                ]
+            }).transactions;
+            transactions = _populateProperties(transactions);
+            logSuccess("generated " + transactions.length + " fake transactions ");
+        }
+
+        generateTransactions();
         return service;
     }
 })();

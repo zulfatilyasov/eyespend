@@ -13,7 +13,7 @@
                 descending: true
             };
 
-        function _sortByDateDesc(a, b) {
+        function sortByDateDesc(a, b) {
             var d1 = parseInt(a.timestamp);
             var d2 = parseInt(b.timestamp);
             if (d1 > d2) {
@@ -23,6 +23,13 @@
             } else {
                 return 0;
             }
+        }
+
+        function copyTransactionProps(targetTransaction, sourceTransaction) {
+            targetTransaction.timestamp = sourceTransaction.timestamp;
+            targetTransaction.amountInBaseCurrency = sourceTransaction.amountInBaseCurrency;
+            targetTransaction.Address = sourceTransaction.Address;
+            targetTransaction.tags = sourceTransaction.tags;
         }
 
         function updateSorting(column) {
@@ -70,6 +77,8 @@
         }
 
         function _colorAndSaveTags(tags) {
+            if (!tags)
+                return;
             for (var i = tags.length - 1; i >= 0; i--) {
                 if (!tags[i].text) {
                     var text = tags[i];
@@ -139,7 +148,7 @@
             datacontext.getTransaxns()
                 .then(function (tnxs) {
                     if (tnxs && tnxs.data instanceof Array) {
-                        transactions = tnxs.data.sort(_sortByDateDesc);
+                        transactions = tnxs.data.sort(sortByDateDesc);
                         transactions.forEach(function (t) {
                             _colorAndSaveTags(t.tags);
                         });
@@ -155,6 +164,29 @@
             return def.promise;
         }
 
+        function getLocalTransaxns() {
+            return transactions.slice(0);
+        }
+
+        function update(tnx) {
+            var def = common.$q.defer();
+            datacontext.updateTransaction(tnx)
+                .then(function () {
+                    console.log("updated");
+                    var transaction = transactions.filter(function (t) {
+                        return t.guid == tnx.guid;
+                    });
+                    copyTransactionProps(transaction, tnx);
+                    def.resolve();
+                },
+                function(){
+                    console.log("error");
+                    def.reject("При сохранении проихошла ошибка.")
+                }
+            );
+            return def.promise;
+        }
+
         function add(tnx) {
             if (!tnx.DateTime) {
                 tnx.DateTime = date.now();
@@ -166,17 +198,18 @@
 
             var newTransaxn = {
                 id: 123,
-                amountInBaseCurrency: parseInt(tnx.amountInBaseCurrency),
-                tags: tnx.tags.slice(0),
+                amountInBaseCurrency: parseInt(tnx.amountInBaseCurrency) || 0,
+                tags: tnx.tags ? tnx.tags.slice(0) : [],
                 timestamp: tnx.DateTime,
                 latitude: tnx.latitude,
-                longitude: tnx.longitudes
+                longitude: tnx.longitude
             };
             transactions.push(newTransaxn);
             return newTransaxn;
         }
 
         return {
+            getLocalTransaxns: getLocalTransaxns,
             getTransaxns: getTransaxns,
             updateSorting: updateSorting,
             getSortingForColumn: getSortingForColumn,
@@ -188,7 +221,10 @@
             getMaxDate: getMaxDate,
             userTags: userTags,
             sort: sort,
-            copy: copy
+            copy: copy,
+            sortByDateDesc: sortByDateDesc,
+            copyTransactionProps: copyTransactionProps,
+            update:update
         };
     }
 })();

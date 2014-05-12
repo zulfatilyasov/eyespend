@@ -24,6 +24,10 @@ header h4,.widget>header h4, header h4 a {
     margin-bottom: 15px;
     padding-bottom: 8px;
 }
+input.ng-invalid-required, input.ng-invalid-number{
+    border-color:red !important;
+    color:white !important;
+}
 h2 {
     font-family: 'Open Sans Condensed', sans-serif;
 }
@@ -193,7 +197,6 @@ tags-input .tags .tag-item.selected {
     min-height: 0;
     padding: 4px 14px;
     color: #f8f8f8;
-    border: none;
     -webkit-transition: width 0.2s;
     transition: width 0.2s;
     font-family: 'Open Sans', sans-serif;
