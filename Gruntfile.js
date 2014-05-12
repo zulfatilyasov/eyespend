@@ -63,10 +63,10 @@ module.exports = function (grunt) {
             sourceMap : true
         };
 
-    if (target === 'dev') {
-        scripts.push('app/services/modelStub.js');
-        scripts.push('app/httpBackendStub.js');
-    }
+//    if (target === 'dev') {
+//        scripts.push('app/services/modelStub.js');
+//        scripts.push('app/httpBackendStub.js');
+//    }
 
     grunt.initConfig({
         uglify: {
