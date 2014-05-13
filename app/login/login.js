@@ -5,13 +5,14 @@
 
     function login(common, $location, login) {
         var vm = this;
-
+        vm.isEmail = false;
+        vm.user = {};
         vm.submit = function () {
-            if(!vm.user.username && !vm.user.password){
+            if(!vm.user.codeOrEmail && !vm.user.password){
                 vm.message = "Введите email и пароль";
                 return;
             }
-            else if(!vm.user.username){
+            else if(!vm.user.codeOrEmail){
                 vm.message = "Введите email";
                 return;
             }
@@ -29,6 +30,14 @@
 
             login.authenticate(vm.user)
                 .then(success, error);
+        };
+
+        function isNumeric(str){
+            return /^[0-9]+$/.test(str);
+        }
+
+        vm.codeOrEmailChanged = function(){
+            vm.isEmail = !isNumeric(vm.user.codeOrEmail);
         };
 
         function activate() {

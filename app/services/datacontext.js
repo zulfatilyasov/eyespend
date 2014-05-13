@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     var serviceId = 'datacontext';
@@ -8,12 +8,24 @@
         function getTransaxns() {
             return $http.get('/api/secure/transactions');
         }
-        function updateTransaction(transaction){
-            return $http.post('/api/secure/updateTransaction', {transaction:transaction});
+
+        function updateTransaction(transaction) {
+            return $http.post('/api/secure/updateTransaction', {transaction: transaction});
         }
+
+        function createTransaction(transaction) {
+            return $http.post('/api/secure/createTransaction', {transaction: transaction});
+        }
+
+        function deleteTransaction(tansaxnGuid) {
+            return $http.post('/api/secure/deleteTransaction', {guid: tansaxnGuid});
+        }
+
         return {
             getTransaxns: getTransaxns,
-            updateTransaction:updateTransaction
+            updateTransaction: updateTransaction,
+            createTransaction: createTransaction,
+            deleteTransaction: deleteTransaction
         };
     }
 })();

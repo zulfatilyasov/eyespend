@@ -47,7 +47,6 @@ module.exports = function(config) {
         'app/settings/settings.js',
 
         'app/services/modelStub.js',
-        'app/httpBackendStub.js',
         'test/unit/controllersSpec.js'
     ],
 

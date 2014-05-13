@@ -28,7 +28,7 @@
                     format: 'd.m.Y H:i',
                     onChangeDateTime: function(date, input) {
                         if(attrs.editor){
-                            scope.vm.editedTnx.Date = (new Date(date)).getTime();
+                            scope.vm.editedTnx.timestamp = (new Date(date)).getTime();
                             return;
                         }
                         if (!attrs.filter) {

@@ -25,13 +25,6 @@
             }
         }
 
-        function copyTransactionProps(targetTransaction, sourceTransaction) {
-            targetTransaction.timestamp = sourceTransaction.timestamp;
-            targetTransaction.amountInBaseCurrency = sourceTransaction.amountInBaseCurrency;
-            targetTransaction.Address = sourceTransaction.Address;
-            targetTransaction.tags = sourceTransaction.tags;
-        }
-
         function updateSorting(column) {
             if (sort.column == column) {
                 sort.descending = !sort.descending;
@@ -40,6 +33,14 @@
                 sort.descending = false;
             }
             return sort;
+        }
+
+        function getTransactionIndex(transactionGuid, array) {
+            for (var i = 0, len = array.length; i < len; i++) {
+                if (array[i].guid === transactionGuid) {
+                    return i;
+                }
+            }
         }
 
         function getSortingForColumn(column) {
@@ -115,7 +116,7 @@
 
         function copy(tnx) {
             return {
-                id: tnx.id,
+                guid: tnx.guid,
                 timestamp: tnx.timestamp,
                 amountInBaseCurrency: tnx.amountInBaseCurrency,
                 tags: tnx.tags,
@@ -172,14 +173,19 @@
             var def = common.$q.defer();
             datacontext.updateTransaction(tnx)
                 .then(function () {
-                    console.log("updated");
                     var transaction = transactions.filter(function (t) {
-                        return t.guid == tnx.guid;
+                        return t.guid === tnx.guid;
                     });
-                    copyTransactionProps(transaction, tnx);
+
+                    if (!transaction.length) {
+                        console.log("transaction not found");
+                        def.reject("Не удалось найти транзкцию");
+                        return;
+                    }
+                    angular.copy(tnx, transaction[0]);
                     def.resolve();
                 },
-                function(){
+                function () {
                     console.log("error");
                     def.reject("При сохранении проихошла ошибка.")
                 }
@@ -187,25 +193,47 @@
             return def.promise;
         }
 
-        function add(tnx) {
+        function create(tnx) {
+            var def = common.$q.defer();
             if (!tnx.DateTime) {
                 tnx.DateTime = date.now();
             } else {
                 tnx.DateTime = date.toUnix(tnx.DateTime);
             }
+            console.log(datacontext.createTransaction);
+            datacontext.createTransaction(tnx)
+                .then(function (guid) {
+                    _colorAndSaveTags(tnx.tags);
 
-            _colorAndSaveTags(tnx.tags);
+                    var newTransaxn = {
+                        guid: guid,
+                        amountInBaseCurrency: parseInt(tnx.amountInBaseCurrency) || 0,
+                        tags: tnx.tags ? angular.copy(tnx.tags) : [],
+                        timestamp: tnx.DateTime,
+                        latitude: tnx.latitude,
+                        longitude: tnx.longitude
+                    };
+                    transactions.push(newTransaxn);
+                    def.resolve(newTransaxn);
+                }, function () {
+                    def.reject();
+                });
+            return def.promise;
+        }
 
-            var newTransaxn = {
-                id: 123,
-                amountInBaseCurrency: parseInt(tnx.amountInBaseCurrency) || 0,
-                tags: tnx.tags ? tnx.tags.slice(0) : [],
-                timestamp: tnx.DateTime,
-                latitude: tnx.latitude,
-                longitude: tnx.longitude
-            };
-            transactions.push(newTransaxn);
-            return newTransaxn;
+        function remove(transactionGuid) {
+            var def = common.$q.defer();
+            datacontext.deleteTransaction(transactionGuid)
+                .then(function () {
+                    var index = getTransactionIndex(transactionGuid, transactions);
+                    transactions.splice(index, 1);
+                    def.resolve();
+                },
+                function () {
+                    def.reject("При удалении произошла ошибка.")
+                }
+            );
+            return def.promise;
         }
 
         return {
@@ -216,15 +244,15 @@
             filterByDate: filterByDate,
             filterByTags: filterByTags,
             getTotalAmout: getTotalAmout,
-            add: add,
+            create: create,
             getMinDate: getMinDate,
             getMaxDate: getMaxDate,
             userTags: userTags,
             sort: sort,
-            copy: copy,
             sortByDateDesc: sortByDateDesc,
-            copyTransactionProps: copyTransactionProps,
-            update:update
+            update: update,
+            getTransactionIndex: getTransactionIndex,
+            remove: remove
         };
     }
 })();

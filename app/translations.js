@@ -34,6 +34,8 @@ var translationsRu = {
     ENTER_DISPOSABLE_PASSWORD:"Ввести одноразовый пароль.",
     TYPE_DISPOSABLE_PASSWORD:"Введите одноразовый пароль",
     ENTER_EMAIL_AND_PASSWORD:"Ввести email и пароль.",
+    ENTER_CODE_OR_EMAIL:"Введите код активации или email",
+    CODE_OR_EMAIL:"Код активации или email",
     CHECK_FORM_DATA:"Неверные данные. Проверьте выделенные поля."
 };
 
@@ -73,5 +75,7 @@ var translationsEn = {
     ENTER_DISPOSABLE_PASSWORD:"Enter disposable password.",
     TYPE_DISPOSABLE_PASSWORD:"Type disposable password",
     ENTER_EMAIL_AND_PASSWORD:"Enter email and password.",
+    ENTER_CODE_OR_EMAIL:"Enter activation code or email",
+    CODE_OR_EMAIL:"Activation code or email",
     CHECK_FORM_DATA:"Invalid data. Please check form inputs."
 };

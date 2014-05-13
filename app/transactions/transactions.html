@@ -1,13 +1,4 @@
 <div style="position:relative" ng-controller="transactions as vm">
-<!--<div sticky use-placeholder>-->
-<!--<nav id="sidebar" class="sidebar nav-collapse collapse sidebar-icons">-->
-<!--<ul id="side-nav" class="side-nav sidebar-icons">-->
-<!--<li>-->
-<!--<a href="javascript:void(0)" ng-click="vm.toggleAdding()"><i class="fa fa-plus"></i></a>-->
-<!--</li>-->
-<!--</ul>-->
-<!--</nav>-->
-<!--</div>-->
 <div class="row">
     <div class="col-md-12">
         <h2 class="page-title" translate>EXPENSES_TABLE</h2>
@@ -18,7 +9,8 @@
 <section class="widget">
 <div class="newTransactionWrapper">
     <header>
-        <h4><i class="fa fa-plus"></i> <a href="javascript:void(0)" translate ng-click="vm.toggleAdding()">NEW_TANSACTION</a></h4>
+        <h4><i class="fa fa-plus"></i> <a href="javascript:void(0)" translate ng-click="vm.toggleAdding()">NEW_TANSACTION</a>
+        </h4>
     </header>
     <form name="newTransactionForm" ng-class="{row:true, slider:true, closed:!vm.isAdding}">
         <div ng-class="{transactionForm:true, visible:vm.showTransactionForm}">
@@ -59,9 +51,11 @@
                                details="vm.newTnx.PlaceDetails" type="text" id="newAddress">
                     </div>
                     <br/>
+
                     <div class="inputHost">
                         <button type="button" class="btn btn-primary" ng-click="vm.addTnx()"
-                                data-placement="right" translate>ADD_NEW</button>
+                                data-placement="right" translate>ADD_NEW
+                        </button>
                         <span class="validationMessage error" ng-bind-html="vm.newTnx.validationMessage"></span>
                     </div>
                 </div>
@@ -73,7 +67,8 @@
     <div class="col-md-8">
         <div class="inputHost">
             <label for="fromDate">
-                <span id="showTnxText" class="hidden-phone-landscape" translate>SHOW_TRANSACTIONS</span>&nbsp;<span translate>FROM</span>:
+                <span id="showTnxText" class="hidden-phone-landscape" translate>SHOW_TRANSACTIONS</span>&nbsp;<span
+                    translate>FROM</span>:
                 <input filter="filter" us-date-time-picker ng-model="vm.minDate" type="text" id="fromDate">
             </label>
         </div>
@@ -99,9 +94,6 @@
             <table id="transactions-table" class="table tablestriped dataTable">
                 <thead>
                 <tr>
-                    <th ng-class="vm.getSortingForColumn('id')" ng-click="vm.changeSorting('id')">
-                        #
-                    </th>
                     <th ng-class="vm.getSortingForColumn('timestamp')" ng-click="vm.changeSorting('timestamp')"
                         class="hidden-phone-landscape" translate>
                         DATE
@@ -120,9 +112,8 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat-start="transaction in vm.trs|orderBy:vm.sort.column:vm.sort.descending"
-                    ng-class="{selected:vm.selectedTnx.id === transaction.id, striped:$index%2==0}"
-                    ng-click="vm.selectedTnx = transaction">
-                    <td>{{transaction.id}}</td>
+                    ng-class="{selected:vm.selectedTnx.guid === transaction.guid, striped:$index%2==0}"
+                    ng-click="vm.selectTransaction(transaction, $event)">
                     <td>{{transaction.timestamp | date:'dd MMMM yyyy'}}</td>
                     <td>{{transaction.timestamp | date:'HH:mm'}}</td>
                     <td>{{transaction.amountInBaseCurrency}} р.</td>
@@ -148,14 +139,14 @@
                         </div>
                     </td>
                     <td>
-                        <ul ng-class="{visible:vm.selectedTnx.id === transaction.id}" class="rowActions">
+                        <ul ng-class="{visible:vm.selectedTnx.guid === transaction.guid}" class="rowActions">
                             <li>
-                                <a href="javascript:void(0)">
+                                <a href="javascript:void(0)" ng-click="vm.remove(transaction)">
                                     <i class="fa fa-trash-o"></i>
                                 </a>
                             </li>
                             <li>
-                                <a ng-click="vm.toggleEditing()" href="javascript:void(0)">
+                                <a ng-click="vm.toggleEditing(transaction)" href="javascript:void(0)">
                                     <i class="fa fa-pencil"></i>
                                 </a>
                             </li>
@@ -163,8 +154,8 @@
                     </td>
                 </tr>
                 <tr class="editorRow" ng-repeat-end
-                    ng-if="vm.editedTnx && vm.editedTnx.id === transaction.id">
-                    <td colspan="7">
+                    ng-if="vm.editedTnx && vm.editedTnx.guid === transaction.guid">
+                    <td colspan="6">
                         <div class="row">
                             <form ng-class="{row:true, slider:true, closed:!vm.isEditing}">
                                 <div style="opacity:0"
@@ -214,7 +205,8 @@
                                                 <button style="display:inline-block" type="button"
                                                         ng-click="vm.pickAddress()" class="btn btn-success">
                                                     <i style="font-size:15px;"
-                                                       class="fa fa-map-marker fa-1x"></i> <span translate>SHOW_ON_MAP</span>
+                                                       class="fa fa-map-marker fa-1x"></i> <span
+                                                        translate>SHOW_ON_MAP</span>
                                                 </button>
                                                 <div style="display:inline-block" translate>OR</div>
                                                 <input style="width:81%; display:inline-block"
@@ -228,15 +220,15 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div  style="margin-top: 10px" class="inputHost">
+                                            <div style="margin-top: 10px" class="inputHost">
                                                 <button type="button" class="btn btn-primary"
                                                         ng-click="vm.saveTnx()" data-placement="right">
                                                     <span translate>SAVE</span>
                                                 </button>
                                                 <button type="button" class="btn dark-grey"
-                                                        ng-click="vm.toggleEditing()"
+                                                        ng-click="vm.toggleEditing(transaction)"
                                                         data-placement="right" translate>
-                                                       <span translate>CANCEL</span>
+                                                    <span translate>CANCEL</span>
                                                 </button>
                                             </div>
                                         </div>

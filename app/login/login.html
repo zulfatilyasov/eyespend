@@ -3,26 +3,42 @@
         <div class="col-lg-12">
             <section style="margin:0 auto" class="widget login-widget">
                 <header class="text-align-center">
-                    <h4 translate>TYPE_EMAIL_AND_PASSWORD</h4>
+                    <h4 translate>ENTER_CODE_OR_EMAIL</h4>
                 </header>
                 <div class="authError" ng-bind-html="vm.message"></div>
                 <div class="body">
                     <form class="no-margin" ng-submit="vm.submit()" method="POST">
                         <fieldset>
-                            <div class="form-group no-margin">
-                                <label for="email">Email</label>
+                            <div class="form-group ">
+                                <label for="email" translate>CODE_OR_EMAIL</label>
 
                                 <div class="input-group input-group-lg">
                                 <span class="input-group-addon">
                                     <i class="eicon-user"></i>
                                 </span>
-                                    <input id="email" type="email" ng-model="vm.user.username" class="form-control input-lg"
-                                           placeholder="{{'YOUR_EMAIL'|translate}}">
+                                    <input id="email"
+                                           type="text"
+                                           ng-model="vm.user.codeOrEmail"
+                                           ng-keyup="vm.codeOrEmailChanged()"
+                                           class="form-control input-lg code-or-email"
+                                           placeholder="{{'CODE_OR_EMAIL'|translate}}">
                                 </div>
 
                             </div>
+                            <!--<div class="form-group no-margin">-->
+                                <!--<label for="email">Email</label>-->
 
-                            <div style="margin-top: 10px" class="form-group">
+                                <!--<div class="input-group input-group-lg">-->
+                                <!--<span class="input-group-addon">-->
+                                    <!--<i class="eicon-user"></i>-->
+                                <!--</span>-->
+                                    <!--<input id="email" type="email" ng-model="vm.user.username" class="form-control input-lg"-->
+                                           <!--placeholder="{{'YOUR_EMAIL'|translate}}">-->
+                                <!--</div>-->
+
+                            <!--</div>-->
+
+                            <div style="margin-top: 10px" class="form-group" ng-if="vm.isEmail">
                                 <label for="password" translate>PASSWORD</label>
 
                                 <div class="input-group input-group-lg">

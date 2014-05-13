@@ -78,7 +78,7 @@
             for (var i = 0; i < transactions.length; i++) {
                 transactions[i].tags = _distictTags(transactions[i].tags);
                 transactions[i].timestamp = _randomDate(new Date(2012, 0, 1), new Date());
-                transactions[i].id = i + 1;
+                transactions[i].guid = i + 1;
                 var randomIndex = Math.floor((Math.random() * addresses.length));
                 transactions[i].latitude = addresses[randomIndex].latitude;
                 transactions[i].longitude = addresses[randomIndex].longitude;
@@ -94,7 +94,7 @@
             transactions = mockJson.generateFromTemplate({
                 "transactions|10-100": [
                     {
-                        "id": 0,
+                        "guid": 0,
                         "amountInBaseCurrency|30-3000": 250,
                         "tags|1-3": ["@TAG"],
                         "timestamp": null

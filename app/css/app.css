@@ -11,39 +11,48 @@ body.background-dark {
     background-attachment: fixed;
 }
 
-header h4,.widget>header h4, header h4 a {
+header h4, .widget > header h4, header h4 a {
     font-family: 'Open Sans Condensed', sans-serif;
     font-size: 20px;
     font-weight: 300;
 }
-.logo h4{
+
+.logo h4 {
     font-family: "Open Sans", Arial, Helvetica, Sans-Serif;
 }
-.newTransactionWrapper{
+
+.newTransactionWrapper {
     border-bottom: 1px solid #e4e4e4;
     margin-bottom: 15px;
     padding-bottom: 8px;
 }
-input.ng-invalid-required, input.ng-invalid-number{
-    border-color:red !important;
-    color:white !important;
+
+input.ng-invalid-required, input.ng-invalid-number {
+    border-color: red !important;
+    color: white !important;
 }
+
 h2 {
     font-family: 'Open Sans Condensed', sans-serif;
 }
-header a{
+
+header a {
     color: #f8f8f8
 }
-header a:hover{
+
+header a:hover {
     text-decoration: none;
-    color:#ccc;
+    color: #ccc;
 }
-.validationMessage{
-    color:rgb(60, 231, 60);
+
+.validationMessage {
+    color: rgb(60, 231, 60);
 }
-.validationMessage.error{
-    color:#FF5E5E;
+
+.validationMessage.error {
+    color: #FF5E5E;
 }
+
 .authError {
     color: rgb(255, 161, 161);
     text-align: center;
@@ -342,9 +351,11 @@ tr:hover td {
 .editorRow:hover td {
     background-color: inherit !important;
 }
-.editorRow .transactionForm{
+
+.editorRow .transactionForm {
     padding: 20px 30px;
 }
+
 tr.selected {
     background-color: #9C6565 !important
 }
@@ -353,16 +364,36 @@ tr.selected td {
     background-color: #9C6565 !important
 }
 
+input.code-or-email {
+    font-size: 13px !important;
+}
+
 div[ng-view].ng-enter {
     -webkit-animation: fadeInRight 0.7s;
     animation: fadeInRight 0.7s;
 }
+
+div[ng-if].ng-enter {
+    -webkit-animation: fadeInRight 0.3s;
+    animation: fadeInRight 0.3s;
+}
+
+tr[ng-repeat-start].ng-enter {
+    -webkit-animation: fadeInRight 0.7s;
+    animation: fadeInRight 0.7s;
+}
+
+tr[ng-repeat-start].ng-leave {
+    -webkit-animation: fadeOutRight 0.5s;
+    animation: fadeOutRight 0.5s;
+}
+
 /*div[ng-view].ng-leave {*/
-    /*-webkit-animation: fadeOut 0.4s;*/
-    /*animation: fadeOut 0.4s;*/
+/*-webkit-animation: fadeOut 0.4s;*/
+/*animation: fadeOut 0.4s;*/
 /*}*/
 
-.settings-section form{
+.settings-section form {
     margin-left: 15px;
 }
 

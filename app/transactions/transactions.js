@@ -14,13 +14,38 @@
         vm.sort = null;
         vm.showTransactionForm = false;
         vm.curDateTime = date.format(date.now());
+
+        function editedTransactionNotValid() {
+            return !vm.editedTnx || !vm.editedTnx.guid || !vm.selectedTnx;
+        }
+
+        function validateAndAddErrors() {
+            if ($scope.newTransactionForm && !$scope.newTransactionForm.$valid) {
+                $translate('CHECK_FORM_DATA').then(function (msg) {
+                    vm.createError = msg;
+                });
+                return false;
+            }
+            if (!vm.newTnx) {
+                vm.createError = "некорректные данные";
+                return false;
+            }
+            return true;
+        }
+
+        vm.selectTransaction = function (transaction, $event) {
+            vm.selectedTnx = transaction;
+
+            $event.stopPropagation();
+        };
+
         vm.showMap = function (transaction) {
             $rootScope.mapCenter = new google.maps.LatLng(transaction.latitude, transaction.longitude);
             $rootScope.zoom = 17;
             $rootScope.transaction = transaction;
             $rootScope.markers = [
                 {
-                    id: transaction.id,
+                    id: transaction.guid,
                     location: {
                         lat: transaction.latitude,
                         lng: transaction.longitude
@@ -101,11 +126,11 @@
             }
         };
 
-        vm.toggleEditing = function () {
-            if (!vm.selectedTnx)
+        vm.toggleEditing = function (transaction) {
+            if (!vm.selectedTnx || !transaction || transaction.guid !== vm.selectedTnx.guid)
                 return;
             if (!vm.isEditing) {
-                vm.editedTnx = transaxns.copy(vm.selectedTnx);
+                vm.editedTnx = angular.copy(vm.selectedTnx);
                 vm.selectedTnxDate = date.format(vm.selectedTnx.timestamp);
                 common.$timeout(function () {
                     vm.isEditing = !vm.isEditing;
@@ -125,17 +150,37 @@
         };
 
         vm.saveTnx = function () {
-            transaxns.update(vm.editedTnx)
+            if (editedTransactionNotValid()) {
+                vm.editError = "Неверные данные";
+                console.error('Неверные данные при редактировании транзакции');
+                return;
+            }
+
+            return transaxns.update(vm.editedTnx)
                 .then(function () {
-                    transaxns.copyTransactionProps(vm.selectedTnx, vm.editedTnx);
+                    angular.copy(vm.editedTnx, vm.selectedTnx);
                     vm.toggleEditing();
                 },
                 function (msg) {
-                    vm.editedTnx.errorMessage = msg;
+                    vm.editError = msg;
                 }
             );
         };
-
+        vm.remove = function (transaction) {
+            if (!vm.selectedTnx || !transaction || vm.selectedTnx.guid !== transaction.guid)
+                return;
+            console.log(vm.selectedTnx.guid);
+            transaxns.remove(vm.selectedTnx.guid)
+                .then(function () {
+                    console.log(vm.selectedTnx.guid);
+                    var index = transaxns.getTransactionIndex(vm.selectedTnx.guid, vm.trs);
+                    vm.trs.splice(index, 1);
+                },
+                function (msg) {
+                    logError(msg);
+                }
+            );
+        };
         vm.addTag = function (tag) {
             if (_tagIsAlreadyAdded(tag)) {
                 return;
@@ -148,16 +193,17 @@
         };
 
         vm.addTnx = function () {
-            if ($scope.newTransactionForm && !$scope.newTransactionForm.$valid) {
-                $translate('CHECK_FORM_DATA').then(function (msg) {
-                    vm.newTnx.validationMessage = msg
-                });
-            }
-            if (!vm.newTnx) {
+            var newTransactionIsValid = validateAndAddErrors();
+            if (!newTransactionIsValid)
                 return;
-            }
-            var newTransaxn = transaxns.add(vm.newTnx);
-            vm.trs.push(newTransaxn);
+            transaxns.create(vm.newTnx)
+                .then(function (tnx) {
+                    vm.trs.push(tnx);
+                },
+                function (msg) {
+                    vm.createError = msg;
+                }
+            );
         };
 
         function _getTransactions() {
