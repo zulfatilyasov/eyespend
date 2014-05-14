@@ -7,7 +7,7 @@
 
     function transaxns(datacontext, common, color, date) {
         var transactions = [],
-            userTags = [],
+            _userTags = [],
             sort = {
                 column: 'timestamp',
                 descending: true
@@ -35,9 +35,13 @@
             return sort;
         }
 
-        function getTransactionIndex(transactionGuid, array) {
+        function getUserTags() {
+            return _userTags;
+        }
+
+        function getTransactionIndex(transactionId, array) {
             for (var i = 0, len = array.length; i < len; i++) {
-                if (array[i].guid === transactionGuid) {
+                if (array[i].id === transactionId) {
                     return i;
                 }
             }
@@ -63,11 +67,14 @@
             }
             return transactions.filter(function (t) {
                 for (var i = 0; i < tags.length; i++) {
-                    for (var j = 0; j < t.tags.length; j++) {
-                        if (t.tags[j].text === tags[i].text)
-                            return true;
+                    var tagFound = false;
+                    for (var j = 0; j < t.tags.length && !tagFound; j++) {
+                        tagFound = t.tags[j].text === tags[i].text
                     }
+                    if (!tagFound)
+                        return false;
                 }
+                return true;
             });
         }
 
@@ -92,19 +99,19 @@
                     tags[i].color = _getTagColor(tags[i].text);
                 }
                 if (_userTagsContains(tags[i]) === false) {
-                    userTags.push(tags[i]);
+                    _userTags.push(tags[i]);
                 }
             }
         }
 
         function _userTagsContains(tag) {
-            return userTags.some(function (t) {
+            return _userTags.some(function (t) {
                 return t.text === tag.text;
             });
         }
 
         function _getTagColor(tagText) {
-            var tag = userTags.filter(function (t) {
+            var tag = _userTags.filter(function (t) {
                 return t.text === tagText;
             });
             if (tag.length && tag[0].color) {
@@ -114,16 +121,6 @@
             }
         }
 
-        function copy(tnx) {
-            return {
-                guid: tnx.guid,
-                timestamp: tnx.timestamp,
-                amountInBaseCurrency: tnx.amountInBaseCurrency,
-                tags: tnx.tags,
-                latitude: tnx.latitude,
-                longitude: tnx.longitude
-            };
-        }
 
         function getTotalAmout() {
             var sum = 0;
@@ -169,12 +166,25 @@
             return transactions.slice(0);
         }
 
+        function setLocation(transaction) {
+            if(!transaction.placeDetails)
+                return;
+            try {
+                transaction.latitude = transaction.placeDetails.geometry.location.k;
+                transaction.longitude = transaction.placeDetails.geometry.location.A;
+            }
+            catch (e) {
+                console.error(e.message);
+            }
+        }
+
         function update(tnx) {
             var def = common.$q.defer();
+            setLocation(tnx);
             datacontext.updateTransaction(tnx)
                 .then(function () {
                     var transaction = transactions.filter(function (t) {
-                        return t.guid === tnx.guid;
+                        return t.id === tnx.id;
                     });
 
                     if (!transaction.length) {
@@ -186,7 +196,6 @@
                     def.resolve();
                 },
                 function () {
-                    console.log("error");
                     def.reject("При сохранении проихошла ошибка.")
                 }
             );
@@ -200,13 +209,13 @@
             } else {
                 tnx.DateTime = date.toUnix(tnx.DateTime);
             }
-            console.log(datacontext.createTransaction);
+            setLocation(tnx);
             datacontext.createTransaction(tnx)
-                .then(function (guid) {
+                .then(function (response) {
                     _colorAndSaveTags(tnx.tags);
 
                     var newTransaxn = {
-                        guid: guid,
+                        id: response.data,
                         amountInBaseCurrency: parseInt(tnx.amountInBaseCurrency) || 0,
                         tags: tnx.tags ? angular.copy(tnx.tags) : [],
                         timestamp: tnx.DateTime,
@@ -247,7 +256,7 @@
             create: create,
             getMinDate: getMinDate,
             getMaxDate: getMaxDate,
-            userTags: userTags,
+            getUserTags: getUserTags,
             sort: sort,
             sortByDateDesc: sortByDateDesc,
             update: update,

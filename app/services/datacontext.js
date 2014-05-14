@@ -18,14 +18,29 @@
         }
 
         function deleteTransaction(tansaxnGuid) {
-            return $http.post('/api/secure/deleteTransaction', {guid: tansaxnGuid});
+            return $http.post('/api/secure/deleteTransaction', {id: tansaxnGuid});
+        }
+
+        function authenticate(user) {
+            return $http.post('/api/users/login', { authCodeOrEmail: user.email, password: user.password });
+        }
+
+        function quickPass(psw) {
+            return $http.post('/quickpass', psw);
+        }
+
+        function changePsw(psw){
+            return $http.post('/api/changePassword', psw);
         }
 
         return {
             getTransaxns: getTransaxns,
             updateTransaction: updateTransaction,
             createTransaction: createTransaction,
-            deleteTransaction: deleteTransaction
+            deleteTransaction: deleteTransaction,
+            authenticate: authenticate,
+            quickPass: quickPass,
+            changePsw:changePsw
         };
     }
 })();

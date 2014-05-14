@@ -1,14 +1,14 @@
-(function() {
+(function () {
     'use strict';
 
     var commonModule = angular.module('common', []);
 
-    commonModule.provider('commonConfig', function() {
+    commonModule.provider('commonConfig', function () {
         this.config = {
 
         };
 
-        this.$get = function() {
+        this.$get = function () {
             return {
                 config: this.config
             };
@@ -25,11 +25,35 @@
             $timeout: $timeout,
             activateController: activateController,
             logger: logger,
-            clone: clone
+            clone: clone,
+            defer: defer
         };
 
+        function defer() {
+            var d = $q.defer();
+            decoratePromise(d.promise);
+            return d;
+        }
+
+        function decoratePromise(promise) {
+            promise.success = function (fn) {
+                promise.then(function (response) {
+                    fn(response.data, response.status, response.headers, response.config);
+                });
+                return promise;
+            };
+
+            promise.error = function (fn) {
+                promise.then(null, function (response) {
+                    fn(response.data, response.status, response.headers, response.config);
+                });
+                return promise;
+            };
+            return promise
+        }
+
         function activateController(promises, controllerId) {
-            $broadcast(commonConfig.config.spinnerToggle, {show:false});
+            $broadcast(commonConfig.config.spinnerToggle, {show: false});
             return $q.all(promises).then(function () {
                 var data = {
                     controllerId: controllerId

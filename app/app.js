@@ -11,7 +11,8 @@
         "sticky",
         "AngularGM",
         "ngAnimate",
-        "pascalprecht.translate"
+        "pascalprecht.translate",
+        "ngCookies"
     ]);
 
     app.run(['$rootScope', '$location', '$window', 'login', function ($rootScope, $location, $window, login) {

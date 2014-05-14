@@ -4,12 +4,15 @@
     angular.module('app').controller(controllerId, ['common', '$location', 'login', settings]);
 
     function settings(common, $location, login) {
+        var logSuccess = common.logger.getLogFn(controllerId, 'logSuccess');
+        var logError = common.logger.getLogFn(controllerId, 'logError');
         var vm = this;
 
         vm.changePassword = function () {
-            var setErrorMessage = function(message){
-                vm.error =true;
-                vm.message = message;
+            var setErrorMessage = function (message) {
+                vm.error = true;
+                logError(message);
+//                vm.message = message;
             };
             if (!vm.psw) {
                 setErrorMessage("Введите пароль");
@@ -26,7 +29,8 @@
 
             var success = function (message) {
                 vm.error = false;
-                vm.message = message;
+                logSuccess(message);
+//                vm.message = message;
             };
             var error = function (message) {
                 setErrorMessage(message);

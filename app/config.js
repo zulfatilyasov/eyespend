@@ -4,7 +4,7 @@
     var app = angular.module('app');
 
     toastr.options.timeOut = 4000;
-    toastr.options.positionClass = 'toast-bottom-right';
+    toastr.options.positionClass = 'toast-top-right';
 
     var events = {
         controllerActivateSuccess: 'controller.activateSuccess',
@@ -14,7 +14,8 @@
     var config = {
         appErrorPrefix: '[HT Error] ',
         events: events,
-        version: '1.0'
+        version: '1.0',
+        local: 'ru'
     };
 
     app.value('config', config);
@@ -30,24 +31,25 @@
         cfg.config.spinnerToggleEvent = config.events.spinnerToggle;
     }]);
 
-    app.config(['$translateProvider', function($translateProvider) {
+    app.config(['$translateProvider', function ($translateProvider) {
         $translateProvider
             .translations('ru', translationsRu)
             .translations('en', translationsEn)
-            .preferredLanguage('ru');
+            .preferredLanguage(config.local);
     }]);
 
-    app.factory('authInterceptor', function ($rootScope, $q, $window, $location) {
+    app.factory('authInterceptor', function ($rootScope, $q, $window, $location, $cookies) {
         return {
             request: function (config) {
                 config.headers = config.headers || {};
-                if ($window.sessionStorage.token) {
-                    config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
+                if ($cookies.token) {
+                    config.headers.Authorization = 'Bearer ' + $cookies.token;
                 }
                 return config;
             },
             responseError: function (response) {
                 if (response.status === 401 && response.config.url.indexOf('quickpass') < 0) {
+                    $rootScope.hideHeader = true;
                     $location.path('/login');
                 }
                 return response || $q.when(response);

@@ -19,24 +19,12 @@
                                     <input id="email"
                                            type="text"
                                            ng-model="vm.user.codeOrEmail"
-                                           ng-keyup="vm.codeOrEmailChanged()"
+                                           ng-keyup="vm.codeOrEmailChanged($event)"
                                            class="form-control input-lg code-or-email"
                                            placeholder="{{'CODE_OR_EMAIL'|translate}}">
                                 </div>
 
                             </div>
-                            <!--<div class="form-group no-margin">-->
-                                <!--<label for="email">Email</label>-->
-
-                                <!--<div class="input-group input-group-lg">-->
-                                <!--<span class="input-group-addon">-->
-                                    <!--<i class="eicon-user"></i>-->
-                                <!--</span>-->
-                                    <!--<input id="email" type="email" ng-model="vm.user.username" class="form-control input-lg"-->
-                                           <!--placeholder="{{'YOUR_EMAIL'|translate}}">-->
-                                <!--</div>-->
-
-                            <!--</div>-->
 
                             <div style="margin-top: 10px" class="form-group" ng-if="vm.isEmail">
                                 <label for="password" translate>PASSWORD</label>
@@ -57,7 +45,9 @@
                                 <span class="small-circle"><i class="fa fa-caret-right"></i></span>
                                 <small translate>LOGIN</small>
                             </button>
-                            <div class="forgot"><a class="forgot" href="#" translate>FORGOT_PASSWORD</a> <br/><a ng-href="#/quickpass" class="forgot" translate>ENTER_DISPOSABLE_PASSWORD</a></div>
+                            <div class="forgot">
+                                <a class="forgot" href="#" translate>FORGOT_PASSWORD</a>
+                            </div>
                         </div>
                     </form>
                 </div>

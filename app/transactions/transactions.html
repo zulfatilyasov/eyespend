@@ -1,7 +1,7 @@
 <div style="position:relative" ng-controller="transactions as vm">
 <div class="row">
     <div class="col-md-12">
-        <h2 class="page-title" translate>EXPENSES_TABLE</h2>
+        <h2 class="page-title" translate>EXPENSES_HISTORY</h2>
     </div>
 </div>
 <div class="row">
@@ -26,7 +26,8 @@
                     <div class="inputHost">
                         <label for="amountInput" translate>AMOUNT</label>
                         <br/>
-                        <input type="number" id="amountInput" ng-model="vm.newTnx.amountInBaseCurrency">
+                        <input type="number" id="amountInput" placeholder="0 р."
+                               ng-model="vm.newTnx.amountInBaseCurrency">
                     </div>
                 </div>
                 <div class="col-md-7">
@@ -36,7 +37,7 @@
                         <tags-input ng-model="vm.newTnx.tags" min-Length="1" replace-spaces-with-dashes="false"
                                     style="width: 250px" placeholder="{{'ADD_TAG'|translate}}" class="bootstrap">
                             <auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0"
-                                           max-results="5"></auto-complete>
+                                           max-results-to-show="50"></auto-complete>
                         </tags-input>
                     </div>
                 </div>
@@ -48,20 +49,28 @@
                         <label for="newAddress" translate>PLACE</label>
                         <br/>
                         <input class="form-control" ng-autocomplete ng-model="vm.newTnx.Place"
-                               details="vm.newTnx.PlaceDetails" type="text" id="newAddress">
+                               details="vm.newTnx.placeDetails" type="text" id="newAddress">
                     </div>
-                    <br/>
-
                     <div class="inputHost">
                         <button type="button" class="btn btn-primary" ng-click="vm.addTnx()"
                                 data-placement="right" translate>ADD_NEW
                         </button>
                         <span class="validationMessage error" ng-bind-html="vm.newTnx.validationMessage"></span>
                     </div>
+                    <div id="arrowUp" ng-show="vm.showTransactionForm">
+                        <a title="Свернуть" ng-click="vm.toggleAdding()" href="javascript:void(0)">
+                            <i class="fa fa-chevron-circle-up fa-2x"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </form>
+    <!--<div id="arrowUp" ng-show="vm.showTransactionForm">-->
+        <!--<a title="Свернуть" ng-click="vm.toggleAdding()" href="javascript:void(0)">-->
+            <!--<i class="fa fa-chevron-circle-up fa-2x"></i>-->
+        <!--</a>-->
+    <!--</div>-->
 </div>
 <div class="row searchBlock">
     <div class="col-md-8">
@@ -83,7 +92,7 @@
                     replace-spaces-with-dashes="false" on-tag-added="vm.filterByTags()"
                     on-tag-removed="vm.filterByTags()" placeholder="{{'SEARCH_BY_TAGS'|translate}}" class="bootstrap">
             <auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0"
-                           max-results="5"></auto-complete>
+                           max-results-to-show="50"></auto-complete>
         </tags-input>
     </div>
 </div>
@@ -112,7 +121,7 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat-start="transaction in vm.trs|orderBy:vm.sort.column:vm.sort.descending"
-                    ng-class="{selected:vm.selectedTnx.guid === transaction.guid, striped:$index%2==0}"
+                    ng-class="{selected:vm.selectedTnx.id === transaction.id, striped:$index%2==0}"
                     ng-click="vm.selectTransaction(transaction, $event)">
                     <td>{{transaction.timestamp | date:'dd MMMM yyyy'}}</td>
                     <td>{{transaction.timestamp | date:'HH:mm'}}</td>
@@ -139,7 +148,7 @@
                         </div>
                     </td>
                     <td>
-                        <ul ng-class="{visible:vm.selectedTnx.guid === transaction.guid}" class="rowActions">
+                        <ul ng-class="{visible:vm.selectedTnx.id === transaction.id}" class="rowActions">
                             <li>
                                 <a href="javascript:void(0)" ng-click="vm.remove(transaction)">
                                     <i class="fa fa-trash-o"></i>
@@ -154,7 +163,7 @@
                     </td>
                 </tr>
                 <tr class="editorRow" ng-repeat-end
-                    ng-if="vm.editedTnx && vm.editedTnx.guid === transaction.guid">
+                    ng-if="vm.editedTnx && vm.editedTnx.id === transaction.id">
                     <td colspan="6">
                         <div class="row">
                             <form ng-class="{row:true, slider:true, closed:!vm.isEditing}">
@@ -187,7 +196,7 @@
                                                         min-Length="1"
                                                         replace-spaces-with-dashes="false"
                                                         style="width: 250px"
-                                                        placeholder="Добавьте тег"
+                                                        placeholder="{{'ADD_TAG'|translate}}"
                                                         class="bootstrap">
                                                     <auto-complete source="vm.loadTags()" min-length="0"
                                                                    debounce-delay="0"
@@ -212,7 +221,7 @@
                                                 <input style="width:81%; display:inline-block"
                                                        class="form-control" ng-autocomplete
                                                        ng-model="vm.editedTnx.Place"
-                                                       details="vm.editedTnx.PlaceDetails" type="text"
+                                                       details="vm.editedTnx.placeDetails" type="text"
                                                        id="editedAddress">
                                                 <br/>
                                             </div>

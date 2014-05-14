@@ -31,7 +31,7 @@ var ApiInjector = function apiInjector() {
             res.send(uuid.v4());
         });
         app.post('/api/secure/deleteTransaction', function (req, res) {
-            console.log('user deleted transaction' + JSON.stringify(req.body.guid));
+            console.log('user deleted transaction' + JSON.stringify(req.body.id));
             res.send(200);
         });
         app.post('/api/users/login', function (req, res) {
@@ -77,7 +77,7 @@ var ApiInjector = function apiInjector() {
 
             return jwt.sign(profile, secret, { expiresInMinutes: 20 });
         }
-    }
+    };
 
     var injectRealApi = function injectRealApi(api) {
         var apiProxy = function apiProxy(pattern, host, port) {
@@ -94,12 +94,12 @@ var ApiInjector = function apiInjector() {
         };
 
         app.use(apiProxy(/\/api\/.*/, 'localhost', 9292));
-    }
+    };
 
     return {
         injectRealApi: injectRealApi,
         injectStubApi: injectStubApi
-    }
+    };
 };
 
 if (useRealServer) {
@@ -143,5 +143,5 @@ var transactions = [
 ];
 
 for (var i = 0, len = transactions.length; i < len; i++) {
-    transactions[i].guid = uuid.v4();
+    transactions[i].id = uuid.v4();
 }

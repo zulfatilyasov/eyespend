@@ -16,7 +16,7 @@
         vm.curDateTime = date.format(date.now());
 
         function editedTransactionNotValid() {
-            return !vm.editedTnx || !vm.editedTnx.guid || !vm.selectedTnx;
+            return !vm.editedTnx || !vm.editedTnx.id || !vm.selectedTnx;
         }
 
         function validateAndAddErrors() {
@@ -45,7 +45,7 @@
             $rootScope.transaction = transaction;
             $rootScope.markers = [
                 {
-                    id: transaction.guid,
+                    id: transaction.id,
                     location: {
                         lat: transaction.latitude,
                         lng: transaction.longitude
@@ -92,7 +92,7 @@
         // vm.searchPattern = "";
 
         vm.loadTags = function () {
-            return common.$q.when(transaxns.userTags);
+            return common.$q.when(transaxns.getUserTags());
         };
 
         vm.getSortingForColumn = transaxns.getSortingForColumn;
@@ -127,7 +127,7 @@
         };
 
         vm.toggleEditing = function (transaction) {
-            if (!vm.selectedTnx || !transaction || transaction.guid !== vm.selectedTnx.guid)
+            if (!vm.selectedTnx || !transaction || transaction.id !== vm.selectedTnx.id)
                 return;
             if (!vm.isEditing) {
                 vm.editedTnx = angular.copy(vm.selectedTnx);
@@ -159,7 +159,7 @@
             return transaxns.update(vm.editedTnx)
                 .then(function () {
                     angular.copy(vm.editedTnx, vm.selectedTnx);
-                    vm.toggleEditing();
+                    vm.toggleEditing(vm.selectedTnx);
                 },
                 function (msg) {
                     vm.editError = msg;
@@ -167,13 +167,13 @@
             );
         };
         vm.remove = function (transaction) {
-            if (!vm.selectedTnx || !transaction || vm.selectedTnx.guid !== transaction.guid)
+            if (!vm.selectedTnx || !transaction || vm.selectedTnx.id !== transaction.id)
                 return;
-            console.log(vm.selectedTnx.guid);
-            transaxns.remove(vm.selectedTnx.guid)
+            console.log(vm.selectedTnx.id);
+            transaxns.remove(vm.selectedTnx.id)
                 .then(function () {
-                    console.log(vm.selectedTnx.guid);
-                    var index = transaxns.getTransactionIndex(vm.selectedTnx.guid, vm.trs);
+                    console.log(vm.selectedTnx.id);
+                    var index = transaxns.getTransactionIndex(vm.selectedTnx.id, vm.trs);
                     vm.trs.splice(index, 1);
                 },
                 function (msg) {

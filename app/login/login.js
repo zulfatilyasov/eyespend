@@ -6,17 +6,20 @@
     function login(common, $location, login) {
         var vm = this;
         vm.isEmail = false;
-        vm.user = {};
+        vm.user = {
+            codeOrEmail: null,
+            password: null
+        };
         vm.submit = function () {
-            if(!vm.user.codeOrEmail && !vm.user.password){
-                vm.message = "Введите email и пароль";
+            if (!vm.user.codeOrEmail) {
+                vm.message = "Введите email или код активации";
                 return;
             }
-            else if(!vm.user.codeOrEmail){
-                vm.message = "Введите email";
+            if(vm.isEmail && !login.validEmail(vm.user.codeOrEmail)){
+                vm.message = "Некорректный email или код активации";
                 return;
             }
-            else if(!vm.user.password) {
+            if (vm.isEmail && !vm.user.password) {
                 vm.message = "Введите пароль";
                 return;
             }
@@ -24,19 +27,33 @@
             var success = function () {
                 $location.path("/");
             };
-            var error = function (message) {
-                vm.message = message;
+            var error = function () {
+                if(vm.isEmail){
+                    vm.message = "Неверный email или пароль";
+                }
+                else{
+                    vm.message = "Неверный код активации";
+                }
             };
 
-            login.authenticate(vm.user)
-                .then(success, error);
+            if (vm.isEmail) {
+                login.authenticate({
+                    email: vm.user.codeOrEmail,
+                    password: vm.user.password
+                }).then(success, error);
+            } else {
+                login.quickPass({psw: vm.user.codeOrEmail})
+                    .then(success, error);
+            }
         };
 
-        function isNumeric(str){
+        function isNumeric(str) {
             return /^[0-9]+$/.test(str);
         }
 
-        vm.codeOrEmailChanged = function(){
+        vm.codeOrEmailChanged = function ($event) {
+            if ($event.keyCode === 9)
+                return;
             vm.isEmail = !isNumeric(vm.user.codeOrEmail);
         };
 

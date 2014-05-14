@@ -1,8 +1,8 @@
 <div ng-controller="shell as vm">
     <header ng-hide="hideHeader" class="page-header">
-        <div class="container">
+        <div>
             <div class="navbar">
-                <a href="index.html">
+                <a ng-href="#/">
                     <div class="logo sidebar-icons">
                         <!--<img src="../img/eyespendlogo.png"  style="display:inline-block;height:50px;width:50px" alt="">-->
                         <h4 style="display:inline-block">
@@ -30,7 +30,7 @@
                             </li>
                             <li role="presentation">
                                 <a href="#" ng-click="vm.translate('en')" class="message">
-                                  English
+                                    English
                                 </a>
                             </li>
                         </ul>
