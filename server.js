@@ -85,7 +85,7 @@ var ApiInjector = function apiInjector() {
 
             return function apiProxyHandler(req, res, next) {
                 if (req.url.match(pattern)) {
-                    req.url = '/' + req.url.split('/').slice(2).join('/'); // remove the '/api' part
+                    req.url = '/webapi/1/' + req.url.split('/').slice(2).join('/'); // remove the '/api' part
                     return proxy.proxyRequest(req, res, { target: 'http://127.0.0.1:9292' });
                 } else {
                     return next();
