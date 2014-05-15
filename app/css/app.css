@@ -263,18 +263,44 @@ div.tags {
 }
 
 .slider {
-    max-height: 225px;
+    max-height: 230px;
     -webkit-transition-property: max-height;
     transition-property: max-height;
     -webkit-transition-duration: 0.3s;
     transition-duration: 0.3s;
     -webkit-transition-timing-function: ease-in;
     transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-    /*box-shadow: inset 0px 1px 10px 0px rgba(47, 50, 50, 1);*/
     margin: 0;
-    /*background: #7E7E7E;*/
 }
 
+.slider.closed {
+    max-height: 0;
+}
+#languages-menu.ng-hide-remove {
+    -webkit-animation: bounceIn 0.5s;
+    animation: bounceIn 0.5s;
+}
+
+#languages-menu.ng-hide-add {
+    -webkit-animation: flipOutX 0.5s;
+    animation: flipOutX 0.5s;
+    display: block !important;
+}
+
+#languages-menu{
+    display: block;
+}
+/*#languages-menu.langsOpen-remove{*/
+    /*-webkit-animation: fadeOutUp 0.7s;*/
+    /*animation: fadeOutUp 0.7s;*/
+    /*display: none;*/
+/*}*/
+
+/*#languages-menu.langsOpen{*/
+    /*display: block;*/
+    /*-webkit-animation: fadeInUp 0.3s;*/
+    /*animation: fadeInUp 0.3s;*/
+/*}*/
 .transactionForm {
     -webkit-transition-property: opacity;
     transition-property: opacity;
@@ -320,10 +346,6 @@ tags-input .tags .input {
 
 .transactionForm .btn {
     height: 32px;
-}
-
-.slider.closed {
-    max-height: 0;
 }
 
 .dark-grey {
@@ -387,15 +409,32 @@ tr[ng-repeat-start].ng-leave {
     -webkit-animation: fadeOutRight 0.5s;
     animation: fadeOutRight 0.5s;
 }
-#arrowUp{
+
+#arrowUp {
     text-align: center;
 }
-#arrowUp a{
-    color:#f8f8f8;
+
+#arrowUp a {
+    color: #f8f8f8;
 }
-#arrowUp a:hover{
-    color:#ccc;
+
+#arrowUp a:hover {
+    color: #ccc;
 }
+
+.content {
+    padding-top: 0;
+}
+
+.page-header {
+    opacity: 0;
+    -webkit-transition: opacity 0.5s;
+    -moz-transition: opacity 0.5s;
+    -ms-transition: opacity 0.5s;
+    -o-transition: opacity 0.5s;
+    transition: opacity 0.5s;
+}
+
 /*div[ng-view].ng-leave {*/
 /*-webkit-animation: fadeOut 0.4s;*/
 /*animation: fadeOut 0.4s;*/
@@ -404,13 +443,16 @@ tr[ng-repeat-start].ng-leave {
 .settings-section form {
     margin-left: 15px;
 }
-.page-header .nav>li>a{
+
+.page-header .nav > li > a {
     width: 45px;
 }
+
 .toast-top-right {
     top: 62px;
     right: 12px;
 }
+
 @media (max-width: 768px) {
     #totalAmount {
         display: none;

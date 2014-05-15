@@ -1,5 +1,5 @@
 <div ng-controller="shell as vm">
-    <header ng-hide="hideHeader" class="page-header">
+    <header ng-class="{visible:!hideHeader}" class="page-header">
         <div>
             <div class="navbar">
                 <a ng-href="#/">
@@ -22,7 +22,7 @@
                            data-original-title="Settings">
                             <i class="fa fa-globe"></i>
                         </a>
-                        <ul id="languages-menu" class="dropdown-menu messages" role="menu">
+                        <ul id="languages-menu" ng-show="vm.langsOpen" ng-class="{'dropdown-menu':true, messages:true}" role="menu">
                             <li role="presentation">
                                 <a href="#" ng-click="vm.translate('ru')" class="message">
                                     Русский

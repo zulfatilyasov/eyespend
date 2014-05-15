@@ -122,10 +122,10 @@
         }
 
 
-        function getTotalAmout() {
+        function getTotalAmout(txns) {
             var sum = 0;
-            for (var i = 0; transactions && i < transactions.length; i++) {
-                sum += parseInt(transactions[i].amountInBaseCurrency);
+            for (var i = 0; txns && i < txns.length; i++) {
+                sum += parseInt(txns[i].amountInBaseCurrency);
             }
             return sum;
         }

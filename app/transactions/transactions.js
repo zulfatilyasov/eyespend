@@ -96,7 +96,10 @@
         };
 
         vm.getSortingForColumn = transaxns.getSortingForColumn;
-        vm.total = transaxns.getTotalAmout;
+
+        vm.total = function (){
+            return transaxns.getTotalAmout(vm.trs);
+        };
 
         vm.filterByTags = function () {
             vm.trs = transaxns.filterByTags(vm.tags);
@@ -119,7 +122,7 @@
                 vm.isAdding = !vm.isAdding;
                 common.$timeout(function () {
                     vm.showTransactionForm = !vm.showTransactionForm;
-                }, 150);
+                });
             } else {
                 vm.showTransactionForm = !vm.showTransactionForm;
                 vm.isAdding = !vm.isAdding;
@@ -199,6 +202,7 @@
             transaxns.create(vm.newTnx)
                 .then(function (tnx) {
                     vm.trs.push(tnx);
+                    vm.newTnx = {};
                 },
                 function (msg) {
                     vm.createError = msg;

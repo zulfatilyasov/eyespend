@@ -8,6 +8,7 @@
         var vm = this;
         var events = config.events;
         vm.logout = login.logout;
+        vm.langsOpen = false;
         $rootScope.showSpinner = false;
         function activate() {
             var promises = [];
@@ -18,7 +19,8 @@
         }
 
         vm.togglePopover = function () {
-            $('#languages-menu').fadeToggle();
+            vm.langsOpen = !vm.langsOpen;
+//            $('#languages-menu').fadeToggle(150);
         };
 
         vm.translate = function(lang){
