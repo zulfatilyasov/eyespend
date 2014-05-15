@@ -1,26 +1,31 @@
 (function () {
     'use strict';
     var controllerId = 'login';
-    angular.module('app').controller(controllerId, ['common', '$location', 'login', login]);
+    angular.module('app').controller(controllerId, ['common', '$location', 'login', '$translate', login]);
 
-    function login(common, $location, login) {
+    function login(common, $location, login, $translate) {
         var vm = this;
         vm.isEmail = false;
         vm.user = {
             codeOrEmail: null,
             password: null
         };
+        var setMessage = function (messageCode) {
+            $translate(messageCode).then(function(msg){
+                vm.message = msg;
+            })
+        };
         vm.submit = function () {
             if (!vm.user.codeOrEmail) {
-                vm.message = "Введите email или код активации";
+                setMessage('ENTER_CODE_OR_EMAIL');
                 return;
             }
-            if(vm.isEmail && !login.validEmail(vm.user.codeOrEmail)){
-                vm.message = "Некорректный email или код активации";
+            if (vm.isEmail && !login.validEmail(vm.user.codeOrEmail)) {
+                setMessage('INVALID_CODE_OR_EMAIL');
                 return;
             }
             if (vm.isEmail && !vm.user.password) {
-                vm.message = "Введите пароль";
+                setMessage('PASSORD_REQUIRED');
                 return;
             }
 
@@ -28,11 +33,11 @@
                 $location.path("/");
             };
             var error = function () {
-                if(vm.isEmail){
-                    vm.message = "Неверный email или пароль";
+                if (vm.isEmail) {
+                    setMessage('INVALID_EMAIL_OR_PASSWORD');
                 }
-                else{
-                    vm.message = "Неверный код активации";
+                else {
+                    setMessage('INVALID_ACTIVATION_CODE');
                 }
             };
 

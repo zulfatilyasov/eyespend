@@ -1,19 +1,20 @@
 exports.config = {
-  allScriptsTimeout: 11000,
+    allScriptsTimeout: 11000,
 
-  specs: [
-    'e2e/*.js'
-  ],
+    specs: [
+        'e2e/login.scenarios.js',
+        'e2e/transactions.scenarios.js'
+    ],
 
-  capabilities: {
-    'browserName': 'chrome'
-  },
+    capabilities: {
+        'browserName': 'chrome'
+    },
 
-  baseUrl: 'http://localhost:3000',
+    baseUrl: 'http://localhost:3000',
 
-  framework: 'jasmine',
+    framework: 'jasmine',
 
-  jasmineNodeOpts: {
-    defaultTimeoutInterval: 30000
-  }
+    jasmineNodeOpts: {
+        defaultTimeoutInterval: 30000
+    }
 };
