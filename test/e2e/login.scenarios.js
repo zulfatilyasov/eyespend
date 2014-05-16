@@ -65,9 +65,7 @@ describe('login page', function () {
     });
 
     it('should log in by valid activation code', function () {
-        var correctCode = '123';
-        loginPage.setCodeOrEmail(correctCode);
-        loginPage.submit.click();
+        loginPage.loginWithAcivationCode();
         expect(content.header()).toBe(res.ru.EXPENSES_HISTORY);
     });
 });
