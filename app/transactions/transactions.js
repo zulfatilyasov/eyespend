@@ -5,7 +5,7 @@
 
     function transactions(common, $rootScope, $scope, date, transaxns, $translate) {
         var vm = this;
-
+        var logInfo = common.logger.getLogFn(controllerId, 'log');
         vm.tags = [];
         vm.trs = [];
         vm.newTnx = null;
@@ -13,6 +13,7 @@
         vm.selectedTnx = null;
         vm.sort = null;
         vm.showTransactionForm = false;
+        vm.isLoading = false;
         vm.curDateTime = date.format(date.now());
 
         function editedTransactionNotValid() {
@@ -97,7 +98,7 @@
 
         vm.getSortingForColumn = transaxns.getSortingForColumn;
 
-        vm.total = function (){
+        vm.total = function () {
             return transaxns.getTotalAmout(vm.trs);
         };
 
@@ -115,6 +116,21 @@
                 return t.text === tag;
             });
         }
+
+        vm.loadMoreTransactions = function () {
+            logInfo('loading next transactions');
+            vm.isLoading = true;
+            transaxns.getTransaxns()
+                .success(function (nextTransactions) {
+                    vm.isLoading = false;
+                    if (nextTransactions && nextTransactions.length) {
+                        vm.trs = vm.trs.concat(nextTransactions);
+                    }
+                })
+                .error(function () {
+                    vm.isLoading = false;
+                });
+        };
 
         vm.toggleAdding = function () {
             if (!vm.isAdding) {
@@ -212,7 +228,7 @@
 
         function _getTransactions() {
             return transaxns.getTransaxns()
-                .then(function (trs) {
+                .success(function (trs) {
                     vm.trs = trs;
                     if (trs.length) {
                         vm.minDate = transaxns.getMinDate();

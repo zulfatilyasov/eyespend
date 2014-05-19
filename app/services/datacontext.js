@@ -5,8 +5,8 @@
     angular.module('app').factory(serviceId, ['$http', datacontext]);
 
     function datacontext($http) {
-        function getTransaxns() {
-            return $http.get('/api/secure/transactions');
+        function getTransaxns(sorting, offset, count) {
+            return $http.get('/api/secure/transactions?sorting=' + sorting + '&offset=' + offset + '&count=' + count);
         }
 
         function updateTransaction(transaction) {
@@ -29,7 +29,7 @@
             return $http.post('/quickpass', psw);
         }
 
-        function changePsw(psw){
+        function changePsw(psw) {
             return $http.post('/api/changePassword', psw);
         }
 
@@ -40,7 +40,7 @@
             deleteTransaction: deleteTransaction,
             authenticate: authenticate,
             quickPass: quickPass,
-            changePsw:changePsw
+            changePsw: changePsw
         };
     }
 })();

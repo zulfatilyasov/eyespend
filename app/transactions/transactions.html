@@ -1,4 +1,4 @@
-<div style="position:relative" ng-controller="transactions as vm">
+<div style="position:relative" ng-controller="transactions as vm" >
 <div class="row">
     <div class="col-md-12">
         <h2 class="page-title" translate>EXPENSES_HISTORY</h2>
@@ -67,9 +67,9 @@
         </div>
     </form>
     <!--<div id="arrowUp" ng-show="vm.showTransactionForm">-->
-        <!--<a title="Свернуть" ng-click="vm.toggleAdding()" href="javascript:void(0)">-->
-            <!--<i class="fa fa-chevron-circle-up fa-2x"></i>-->
-        <!--</a>-->
+    <!--<a title="Свернуть" ng-click="vm.toggleAdding()" href="javascript:void(0)">-->
+    <!--<i class="fa fa-chevron-circle-up fa-2x"></i>-->
+    <!--</a>-->
     <!--</div>-->
 </div>
 <div class="row searchBlock">
@@ -100,7 +100,10 @@
 <div class="row">
     <div class="col-md-12">
         <div class="body">
-            <table id="transactions-table" class="table tablestriped dataTable">
+            <table id="transactions-table"
+                   infinite-scroll="vm.loadMoreTransactions()"
+                   infinite-scroll-distance="1"
+                   class="table tablestriped dataTable">
                 <thead>
                 <tr>
                     <th ng-class="vm.getSortingForColumn('timestamp')" ng-click="vm.changeSorting('timestamp')"
@@ -120,7 +123,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat-start="transaction in vm.trs|orderBy:vm.sort.column:vm.sort.descending"
+                <tr ng-repeat-start="transaction in vm.trs track by transaction.id|orderBy:vm.sort.column:vm.sort.descending"
                     ng-class="{selected:vm.selectedTnx.id === transaction.id, striped:$index%2==0}"
                     ng-click="vm.selectTransaction(transaction, $event)">
                     <td>{{transaction.timestamp | date:'dd MMMM yyyy'}}</td>
@@ -249,6 +252,7 @@
                 </tr>
                 </tbody>
             </table>
+            <div></div>
         </div>
     </div>
 </div>

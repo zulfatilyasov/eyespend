@@ -11,7 +11,8 @@
             sort = {
                 column: 'timestamp',
                 descending: true
-            };
+            },
+            offset = 0;
 
         function sortByDateDesc(a, b) {
             var d1 = parseInt(a.timestamp);
@@ -130,6 +131,7 @@
             return sum;
         }
 
+
         function getMinDate() {
             var minDate = transactions[transactions.length - 1].timestamp;
             return date.format(minDate);
@@ -141,16 +143,17 @@
         }
 
         function getTransaxns() {
-            var def = common.$q.defer();
+            var def = common.defer();
 
-            datacontext.getTransaxns()
+            datacontext.getTransaxns(sort.column, offset, 30)
                 .then(function (tnxs) {
                     if (tnxs && tnxs.data instanceof Array) {
-                        transactions = tnxs.data.sort(sortByDateDesc);
+                        transactions = transactions.concat(tnxs.data.sort(sortByDateDesc));
+                        offset += transactions.length;
                         transactions.forEach(function (t) {
                             _colorAndSaveTags(t.tags);
                         });
-                        def.resolve(transactions.slice(0));
+                        def.resolve({data:transactions.slice(0)});
                     }
                     else {
                         def.reject();

@@ -19,7 +19,9 @@ var ApiInjector = function apiInjector() {
         app.use('/api/secure', expressJwt({secret: secret}));
 
         app.get('/api/secure/transactions', function (req, res) {
+            console.log(req.query.sorting);
             console.log('user ' + req.user.email + ' is calling /api/transactions');
+            setTransactionIds();
             res.json(transactions);
         });
         app.post('/api/secure/updateTransaction', function (req, res) {
@@ -142,6 +144,8 @@ var transactions = [
     {"amountInBaseCurrency": 637, "tags": ["заправка", "банковская карта"], "timestamp": 1363059864153, "latitude": 55.786657, "longitude": 49.12431}
 ];
 
-for (var i = 0, len = transactions.length; i < len; i++) {
-    transactions[i].id = uuid.v4();
+function setTransactionIds(){
+    for (var i = 0, len = transactions.length; i < len; i++) {
+        transactions[i].id = uuid.v1();
+    }
 }

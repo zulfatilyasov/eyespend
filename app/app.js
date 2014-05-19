@@ -12,7 +12,8 @@
         "AngularGM",
         "ngAnimate",
         "pascalprecht.translate",
-        "ngCookies"
+        "ngCookies",
+        "infinite-scroll"
     ]);
 
     app.run(['$rootScope', '$location', '$window', 'login', function ($rootScope, $location, $window, login) {

@@ -1,6 +1,7 @@
 module.exports = function (grunt) {
     var target = grunt.option('target') || 'dev';
     var scripts = [
+            'bower_components/jquery/dist/jquery.js',
             'bower_components/angular/angular.js',
             'bower_components/angular-mocks/angular-mocks.js',
             'bower_components/angular-route/angular-route.js',
@@ -8,7 +9,6 @@ module.exports = function (grunt) {
             'bower_components/angular-animate/angular-animate.js',
             'bower_components/angular-cookies/angular-cookies.js',
 
-            'bower_components/jquery/dist/jquery.js',
             'bower_components/toastr/toastr.js',
             'app/lib/select2.js',
             'app/lib/modernizr-custom.js',
@@ -24,6 +24,7 @@ module.exports = function (grunt) {
             'bower_components/RandomColor/rcolor.js',
             'bower_components/AngularGM/angular-gm.js',
             'bower_components/angular-translate/angular-translate.js',
+            'bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',
 
             'app/app.js',
             'app/config.exceptionHandler.js',
