@@ -22,17 +22,8 @@ var ApiInjector = function apiInjector() {
             console.log('user ' + req.user.email + ' is calling /api/transactions');
             var offset = parseInt(req.query.offset);
             var count = parseInt(req.query.count);
-            var result = db.getTransactions(req.query.sorting, offset, count);
-            setTimeout(function () {
-                res.json(result);
-            }, 1500)
-        });
-
-        app.get('/api/secure/sortTransactions', function (req, res) {
-            console.log('user ' + req.user.email + ' is calling /api/sortTransactions');
-            var count = parseInt(req.query.count);
-            var desc= req.query.descending === "true";
-            var result = db.sortTransactions(req.query.column, desc, count);
+            var desc = req.query.desc === "true";
+            var result = db.getTransactions(req.query.sorting, desc, offset, count);
             setTimeout(function () {
                 res.json(result);
             }, 1500)

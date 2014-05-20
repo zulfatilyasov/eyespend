@@ -81,7 +81,7 @@ function generateTransactions(count) {
     return transactions;
 }
 
-function sortByDateDesc(a, b) {
+var  sortByDateDesc = function(a, b) {
     var d1 = parseInt(a.timestamp);
     var d2 = parseInt(b.timestamp);
     if (d1 > d2) {
@@ -91,14 +91,39 @@ function sortByDateDesc(a, b) {
     } else {
         return 0;
     }
-}
-function sortByDateAsc(a, b) {
+};
+
+var sortByDateAsc = function(a, b) {
     var d1 = parseInt(a.timestamp);
     var d2 = parseInt(b.timestamp);
     if (d1 > d2) {
         return 1;
     } else if (d1 < d2) {
         return -1;
+    } else {
+        return 0;
+    }
+}
+
+var  sortByAmountAsc = function(a, b) {
+    var d1 = parseInt(a.amountInBaseCurrency);
+    var d2 = parseInt(b.amountInBaseCurrency);
+    if (d1 > d2) {
+        return 1;
+    } else if (d1 < d2) {
+        return -1;
+    } else {
+        return 0;
+    }
+}
+
+var sortByAmountDesc = function(a, b) {
+    var d1 = parseInt(a.amountInBaseCurrency);
+    var d2 = parseInt(b.amountInBaseCurrency);
+    if (d1 > d2) {
+        return -1;
+    } else if (d1 < d2) {
+        return 1;
     } else {
         return 0;
     }
@@ -108,21 +133,23 @@ function sortByDateAsc(a, b) {
 var transactions = generateTransactions(100);
 transactions = transactions.sort(sortByDateDesc);
 
-function getTransactions(sorting, offset, count) {
-    console.log('offset ' + offset);
-    console.log('count ' + count);
-    return transactions.slice(offset, offset + count);
+function getSortFn(sorting, desc) {
+    var fn = sortByDateDesc;
+    if (sorting === 'timestamp' && !desc)
+        fn = sortByDateAsc;
+    if (sorting === 'amountInBaseCurrency' && desc)
+        fn = sortByAmountAsc;
+    if (sorting === 'amountInBaseCurrency' && !desc)
+        fn = sortByAmountDesc;
+    return fn;
 }
 
-function sortTransactions(column, descending, count, offset) {
-    console.log('column ' + column);
-    console.log('descending ' +  descending);
-    console.log('count ' +  count);
-    var result = transactions.slice(offset || 0, count || 30).sort(sortByDateDesc);
-    if (column === 'timestamp' && !descending)
-        result =  result.sort(sortByDateAsc);
-    return result;
+function getTransactions(sorting, desc, offset, count) {
+    console.log('offset ' + offset + ' count ' + count + ' desc ' + desc + ' sorting ' + sorting);
+
+    var sortFn = getSortFn(sorting, desc);
+    var sorted = transactions.sort(sortFn);
+    return sorted.slice(offset, offset + count);
 }
 
 exports.getTransactions = getTransactions;
-exports.sortTransactions = sortTransactions;

@@ -87,8 +87,8 @@
             $rootScope.showSpinner = true;
             transaxns.sort()
                 .success(function (transactions) {
-                    vm.trs=null;
                     vm.trs = transactions;
+                    vm.richedTheEnd = false;
                     $rootScope.showSpinner = false;
                 });
         };
@@ -134,7 +134,7 @@
         };
 
         vm.loadMoreTransactions = function ($inview, $inviewpart) {
-            if (vm.isLoading || !$inview || !$inviewpart === "bottom")
+            if (vm.isLoading || !$inview || ($inviewpart !== "bottom" && $inviewpart !=="both"))
                 return;
 //            logInfo('loading next transactions');
             vm.isLoading = true;
@@ -142,11 +142,11 @@
                 .success(function (result) {
                     if (result && result.length && result.length > vm.trs.length) {
                         vm.trs = result;
-                        vm.isLoading = false;
                     }
                     else {
                         vm.richedTheEnd = true;
                     }
+                    vm.isLoading = false;
                 })
                 .error(function () {
                     vm.isLoading = false;

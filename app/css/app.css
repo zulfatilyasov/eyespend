@@ -282,6 +282,15 @@ div.tags {
     animation: bounceIn 0.5s;
 }
 
+.widgetOverlay.ng-hide-remove{
+    -webkit-animation: fadeIn 0.3s;
+    animation: fadeIn 0.3s;
+}
+.widgetOverlay.ng-hide-add{
+    -webkit-animation: fadeOut 0.3s;
+    animation: fadeOut 0.3s;
+    display: block !important;
+}
 #languages-menu.ng-hide-add {
     -webkit-animation: flipOutX 0.5s;
     animation: flipOutX 0.5s;

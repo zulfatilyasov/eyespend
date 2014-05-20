@@ -37,17 +37,20 @@
         }
 
         function sort() {
-            var def = common.defer();
-            var count = 30;
-            datacontext.sortTransactions(sortOptions, count)
-                .success(function (sortedTransactions) {
-                    angular.forEach(sortedTransactions,function(t) {
+            var def = common.defer(),
+                count = 30;
+
+            offset = 0;
+            datacontext.getTransaxns(sortOptions.column, sortOptions.descending, offset, count)
+                .success(function(sortedTransactions){
+                    angular.forEach(sortedTransactions, function (t) {
                         _colorAndSaveTags(t.tags);
                     });
-                    offset+=sortedTransactions.length;
+                    offset = sortedTransactions.length;
                     transactions = sortedTransactions;
                     def.resolve(transactions);
                 });
+
             return def.promise;
         }
 
@@ -160,7 +163,7 @@
         function getTransaxns() {
             var def = common.defer();
 
-            datacontext.getTransaxns(sort.column, offset, 30)
+            datacontext.getTransaxns(sortOptions.column, sortOptions.descending, offset, 30)
                 .then(function (tnxs) {
                     if (tnxs && tnxs.data instanceof Array) {
                         offset += tnxs.data.length;
@@ -276,7 +279,7 @@
             getMaxDate: getMaxDate,
             getUserTags: getUserTags,
             sortOptions: sortOptions,
-            sort:sort,
+            sort: sort,
             sortByDateDesc: sortByDateDesc,
             update: update,
             getTransactionIndex: getTransactionIndex,

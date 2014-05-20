@@ -5,8 +5,8 @@
     angular.module('app').factory(serviceId, ['$http', datacontext]);
 
     function datacontext($http) {
-        function getTransaxns(sorting, offset, count) {
-            return $http.get('/api/secure/transactions?sorting=' + sorting + '&offset=' + offset + '&count=' + count);
+        function getTransaxns(sorting, desc, offset, count) {
+            return $http.get('/api/secure/transactions?sorting=' + sorting + '&desc=' + desc + '&offset=' + offset + '&count=' + count);
         }
 
         function updateTransaction(transaction) {
@@ -19,10 +19,6 @@
 
         function deleteTransaction(tansaxnGuid) {
             return $http.post('/api/secure/deleteTransaction', {id: tansaxnGuid});
-        }
-
-        function sortTransactions(sortOptions,count) {
-            return $http.get('/api/secure/sortTransactions?column=' + sortOptions.column + '&descending=' + sortOptions.descending + '&count=' + count);
         }
 
         function authenticate(user) {
@@ -42,7 +38,6 @@
             updateTransaction: updateTransaction,
             createTransaction: createTransaction,
             deleteTransaction: deleteTransaction,
-            sortTransactions:sortTransactions,
             authenticate: authenticate,
             quickPass: quickPass,
             changePsw: changePsw
