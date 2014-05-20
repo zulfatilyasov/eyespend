@@ -1,6 +1,6 @@
 html {
     -webkit-font-smoothing: subpixel-antialiased;
-    overflow: scroll;
+    overflow-y: scroll;
 }
 
 body {

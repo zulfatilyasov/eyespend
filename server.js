@@ -9,7 +9,7 @@ var request = require('request');
 var httpProxy = require('http-proxy');
 var uuid = require('node-uuid');
 var secret = 'eyespend-secret';
-
+var dummyJson = require('dummy-json');
 var app = express();
 
 app.use(express.static(__dirname + '/app'));
@@ -19,10 +19,11 @@ var ApiInjector = function apiInjector() {
         app.use('/api/secure', expressJwt({secret: secret}));
 
         app.get('/api/secure/transactions', function (req, res) {
-            console.log(req.query.sorting);
             console.log('user ' + req.user.email + ' is calling /api/transactions');
-            setTransactionIds();
-            res.json(transactions);
+            console.log(req.query);
+            var result = transactions.splice(req.query.offset+1, req.query.offset + req.query.count);
+            result = _populateProperties(result);
+            res.json(result);
         });
         app.post('/api/secure/updateTransaction', function (req, res) {
             console.log('user updated transaction' + JSON.stringify(req.body.transaction));
@@ -119,32 +120,103 @@ app.listen(port);
 console.log('Express server started on port ' + port);
 
 //@todo: generate those tnsxs randomly
-var transactions = [
-    {"amountInBaseCurrency": 2395, "tags": ["наличные"], "timestamp": 1397293599150, "latitude": 55.754069, "longitude": 37.620849},
-    {"amountInBaseCurrency": 1090, "tags": ["банковская карта"], "timestamp": 1391650932445, "latitude": 55.786657, "longitude": 49.12431},
-    {"amountInBaseCurrency": 1037, "tags": ["аэропорт"], "timestamp": 1393579556855, "latitude": 55.786657, "longitude": 49.12431},
-    {"amountInBaseCurrency": 2552, "tags": ["аптека", "продукты"], "timestamp": 1378872015043, "latitude": 55.754069, "longitude": 37.620849},
-    {"amountInBaseCurrency": 2655, "tags": ["аэропорт", "кино"], "timestamp": 1355617215484, "latitude": 48.858335, "longitude": 2.294599},
-    {"amountInBaseCurrency": 2830, "tags": ["аптека"], "timestamp": 1350416717126, "latitude": 55.754069, "longitude": 37.620849},
-    {"amountInBaseCurrency": 2385, "tags": ["коммунальные услуги", "аптека", "мвидео"], "timestamp": 1373493704133, "latitude": 55.786657, "longitude": 49.12431},
-    {"amountInBaseCurrency": 1219, "tags": ["ресторан", "банковская карта"], "timestamp": 1347377140589, "latitude": 48.858335, "longitude": 2.294599},
-    {"amountInBaseCurrency": 2504, "tags": ["аэропорт", "ресторан"], "timestamp": 1331547349424, "latitude": 55.754069, "longitude": 37.620849},
-    {"amountInBaseCurrency": 784, "tags": [], "timestamp": 1341627098450, "latitude": 55.780805, "longitude": 49.21476},
-    {"amountInBaseCurrency": 2170, "tags": [], "timestamp": 1374148231810, "latitude": 48.858335, "longitude": 2.294599},
-    {"amountInBaseCurrency": 1185, "tags": ["кафе", "продукты", "ресторан"], "timestamp": 1346887971899, "latitude": 48.858335, "longitude": 2.294599},
-    {"amountInBaseCurrency": 767, "tags": ["наличные", "мвидео", "банковская карта"], "timestamp": 1362973767757, "latitude": 55.780805, "longitude": 49.21476},
-    {"amountInBaseCurrency": 869, "tags": ["подарок", "наличные"], "timestamp": 1366785947006, "latitude": 48.858335, "longitude": 2.294599},
-    {"amountInBaseCurrency": 462, "tags": ["продукты"], "timestamp": 1344098727293, "latitude": 55.754069, "longitude": 37.620849},
-    {"amountInBaseCurrency": 2226, "tags": ["ресторан"], "timestamp": 1376976392623, "latitude": 55.780805, "longitude": 49.21476},
-    {"amountInBaseCurrency": 795, "tags": ["кино", "наличные"], "timestamp": 1376359801935, "latitude": 55.754069, "longitude": 37.620849},
-    {"amountInBaseCurrency": 1861, "tags": ["ресторан", "коммунальные услуги", "заправка"], "timestamp": 1335053988508, "latitude": 40.759927, "longitude": -73.985217},
-    {"amountInBaseCurrency": 986, "tags": ["кино", "ресторан"], "timestamp": 1338054873893, "latitude": 40.759927, "longitude": -73.985217},
-    {"amountInBaseCurrency": 248, "tags": ["ресторан", "банковская карта", "аптека"], "timestamp": 1385975449202, "latitude": 55.786657, "longitude": 49.12431},
-    {"amountInBaseCurrency": 706, "tags": ["кафе", "коммунальные услуги"], "timestamp": 1362796448458, "latitude": 55.754069, "longitude": 37.620849},
-    {"amountInBaseCurrency": 637, "tags": ["заправка", "банковская карта"], "timestamp": 1363059864153, "latitude": 55.786657, "longitude": 49.12431}
-];
+//var transactions = [
+//    {"amountInBaseCurrency": 2395, "tags": ["наличные"], "timestamp": 1397293599150, "latitude": 55.754069, "longitude": 37.620849},
+//    {"amountInBaseCurrency": 1090, "tags": ["банковская карта"], "timestamp": 1391650932445, "latitude": 55.786657, "longitude": 49.12431},
+//    {"amountInBaseCurrency": 1037, "tags": ["аэропорт"], "timestamp": 1393579556855, "latitude": 55.786657, "longitude": 49.12431},
+//    {"amountInBaseCurrency": 2552, "tags": ["аптека", "продукты"], "timestamp": 1378872015043, "latitude": 55.754069, "longitude": 37.620849},
+//    {"amountInBaseCurrency": 2655, "tags": ["аэропорт", "кино"], "timestamp": 1355617215484, "latitude": 48.858335, "longitude": 2.294599},
+//    {"amountInBaseCurrency": 2830, "tags": ["аптека"], "timestamp": 1350416717126, "latitude": 55.754069, "longitude": 37.620849},
+//    {"amountInBaseCurrency": 2385, "tags": ["коммунальные услуги", "аптека", "мвидео"], "timestamp": 1373493704133, "latitude": 55.786657, "longitude": 49.12431},
+//    {"amountInBaseCurrency": 1219, "tags": ["ресторан", "банковская карта"], "timestamp": 1347377140589, "latitude": 48.858335, "longitude": 2.294599},
+//    {"amountInBaseCurrency": 2504, "tags": ["аэропорт", "ресторан"], "timestamp": 1331547349424, "latitude": 55.754069, "longitude": 37.620849},
+//    {"amountInBaseCurrency": 784, "tags": [], "timestamp": 1341627098450, "latitude": 55.780805, "longitude": 49.21476},
+//    {"amountInBaseCurrency": 2170, "tags": [], "timestamp": 1374148231810, "latitude": 48.858335, "longitude": 2.294599},
+//    {"amountInBaseCurrency": 1185, "tags": ["кафе", "продукты", "ресторан"], "timestamp": 1346887971899, "latitude": 48.858335, "longitude": 2.294599},
+//    {"amountInBaseCurrency": 767, "tags": ["наличные", "мвидео", "банковская карта"], "timestamp": 1362973767757, "latitude": 55.780805, "longitude": 49.21476},
+//    {"amountInBaseCurrency": 869, "tags": ["подарок", "наличные"], "timestamp": 1366785947006, "latitude": 48.858335, "longitude": 2.294599},
+//    {"amountInBaseCurrency": 462, "tags": ["продукты"], "timestamp": 1344098727293, "latitude": 55.754069, "longitude": 37.620849},
+//    {"amountInBaseCurrency": 2226, "tags": ["ресторан"], "timestamp": 1376976392623, "latitude": 55.780805, "longitude": 49.21476},
+//    {"amountInBaseCurrency": 795, "tags": ["кино", "наличные"], "timestamp": 1376359801935, "latitude": 55.754069, "longitude": 37.620849},
+//    {"amountInBaseCurrency": 1861, "tags": ["ресторан", "коммунальные услуги", "заправка"], "timestamp": 1335053988508, "latitude": 40.759927, "longitude": -73.985217},
+//    {"amountInBaseCurrency": 986, "tags": ["кино", "ресторан"], "timestamp": 1338054873893, "latitude": 40.759927, "longitude": -73.985217},
+//    {"amountInBaseCurrency": 248, "tags": ["ресторан", "банковская карта", "аптека"], "timestamp": 1385975449202, "latitude": 55.786657, "longitude": 49.12431},
+//    {"amountInBaseCurrency": 706, "tags": ["кафе", "коммунальные услуги"], "timestamp": 1362796448458, "latitude": 55.754069, "longitude": 37.620849},
+//    {"amountInBaseCurrency": 637, "tags": ["заправка", "банковская карта"], "timestamp": 1363059864153, "latitude": 55.786657, "longitude": 49.12431}
+//];
+var template =
+    '[' +
+    '{{#repeat 100}}' +
+    '{"id":{{index}}, "amountInBaseCurrency": {{number 200 3000}}, "tags":  [ "аптека","наличные","банковская карта","продукты"]  }' +
+    '{{/repeat}}' +
+    ']';
 
-function setTransactionIds(){
+var result = dummyJson.parse(template);
+var transactions = JSON.parse(result);
+//var data = {
+//    tags: [ 'аптека',
+//        'ресторан',
+//        'кино',
+//        'кафе',
+//        'наличные',
+//        'банковская карта',
+//        'коммунальные услуги',
+//        'продукты',
+//        'мвидео',
+//        'подарок',
+//        'заправка',
+//        'аэропорт']
+//
+//};
+var  addresses = [
+    {
+        latitude: 48.858335,
+        longitude: 2.294599
+    },
+    {
+        latitude: 55.754069,
+        longitude: 37.620849
+    },
+    {
+        latitude: 55.780805,
+        longitude: 49.214760
+    },
+    {
+        latitude: 55.786657,
+        longitude: 49.124310
+    },
+    {
+        latitude: 40.759927,
+        longitude: -73.985217
+    }
+];
+function _randomDate(start, end) {
+    return (start.getTime() + parseInt(Math.random() * (end.getTime() - start.getTime())));
+}
+
+function _distictTags(array) {
+    array = array.filter(function (elem, pos1) {
+        return array.every(function (t, pos2) {
+            return pos1 == pos2 || t != elem;
+        });
+    });
+    return array;
+}
+var id=0;
+function _populateProperties(transactions) {
+    for (var i = 0; i < transactions.length; i++) {
+        transactions[i].tags = _distictTags(transactions[i].tags);
+        transactions[i].timestamp = _randomDate(new Date(2012, 0, 1), new Date());
+//        transactions[i].id = ++id;
+        var randomIndex = Math.floor((Math.random() * addresses.length));
+        transactions[i].latitude = addresses[randomIndex].latitude;
+        transactions[i].longitude = addresses[randomIndex].longitude;
+    }
+    return transactions;
+}
+
+
+function setTransactionIds() {
     for (var i = 0, len = transactions.length; i < len; i++) {
         transactions[i].id = uuid.v1();
     }

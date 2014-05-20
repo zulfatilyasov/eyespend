@@ -118,6 +118,8 @@
         }
 
         vm.loadMoreTransactions = function () {
+            if(vm.isLoading)
+               return;
             logInfo('loading next transactions');
             vm.isLoading = true;
             transaxns.getTransaxns()
