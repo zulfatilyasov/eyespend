@@ -10,7 +10,7 @@ describe('transactions controller', function () {
     var transactions = null;
 
     var app = angular.module('app');
-    app.service('datacontext', ['common', '$timeout', '$rootScope', 'modelStub', fakeDataContext]);
+    app.service(    'datacontext', ['common', '$timeout', '$rootScope', 'modelStub', fakeDataContext]);
     function fakeDataContext(comn, $timeout, $rootScope, modelStub) {
         timeout = $timeout;
         function getTransaxns() {

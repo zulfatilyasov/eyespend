@@ -1,4 +1,4 @@
-<div style="position:relative" ng-controller="transactions as vm" >
+<div style="position:relative" ng-controller="transactions as vm">
 <div class="row">
     <div class="col-md-12">
         <h2 class="page-title" translate>EXPENSES_HISTORY</h2>
@@ -6,6 +6,10 @@
 </div>
 <div class="row">
 <div class="col-md-12">
+<div class="widgetWrapper">
+<div ng-show="showSpinner" class="widgetOverlay">
+</div>
+
 <section class="widget">
 <div class="newTransactionWrapper">
     <header>
@@ -101,8 +105,7 @@
     <div class="col-md-12">
         <div class="body">
             <table id="transactions-table"
-                   infinite-scroll="vm.loadMoreTransactions()"
-                   infinite-scroll-distance="1"
+
                    class="table tablestriped dataTable">
                 <thead>
                 <tr>
@@ -119,11 +122,12 @@
                         <span id="totalAmount" class="hidden-phone-landscape">{{vm.total()}} р.</span>
                     </th>
                     <th class="no-sort map" translate>ADDRESS</th>
+                    <th class="no-sort image hidden-phone-landscape" translate>FOTO</th>
                     <th class="no-sort hidden-phone-landscape" translate>TAGS</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat-start="transaction in vm.trs track by transaction.id|orderBy:vm.sort.column:vm.sort.descending"
+                <tr ng-repeat-start="transaction in vm.trs"
                     ng-class="{selected:vm.selectedTnx.id === transaction.id, striped:$index%2==0}"
                     ng-click="vm.selectTransaction(transaction, $event)">
                     <td>{{transaction.timestamp | date:'dd MMMM yyyy'}}</td>
@@ -135,6 +139,13 @@
                            title="{{'SHOW_ON_MAP'|translate}}"
                            href="javascript:void(0)">
                             <i class="fa fa-map-marker fa-2x"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="javascript:void(0)"
+                           ng-if="transaction.imgUrl"
+                           ng-click="vm.showImage(transaction.imgUrl)">
+                            <i class="fa fa-picture-o fa-2x"></i>
                         </a>
                     </td>
                     <td class="hidden-phone-landscape bootstrap">
@@ -252,12 +263,25 @@
                 </tr>
                 </tbody>
             </table>
-            <div></div>
+            <div class="loaderBox">
+                <div ng-show="vm.isLoading && !vm.richedTheEnd" class="loader">
+                    <div class='bar'></div>
+                    <div class='bar'></div>
+                    <div class='bar'></div>
+                    <div class='bar'></div>
+                    <div class='bar'></div>
+                </div>
+                <div ng-show="vm.richedTheEnd" class="loader theEnd">
+                    The End
+                </div>
+            </div>
+            <div ng-hide="vm.richedTheEnd" in-view="vm.loadMoreTransactions($inview,$inviewpart)"></div>
         </div>
     </div>
 </div>
 <div class="clearfix"></div>
 </section>
+</div>
 </div>
 </div>
 </div>

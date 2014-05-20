@@ -13,7 +13,7 @@
         "ngAnimate",
         "pascalprecht.translate",
         "ngCookies",
-        "infinite-scroll"
+        "angular-inview"
     ]);
 
     app.run(['$rootScope', '$location', '$window', 'login', function ($rootScope, $location, $window, login) {

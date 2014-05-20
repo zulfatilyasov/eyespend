@@ -1,11 +1,12 @@
 (function () {
     'use strict';
     var controllerId = 'transactions';
-    angular.module('app').controller(controllerId, ['common', '$rootScope', '$scope', 'date', 'transaxns', '$translate', transactions]);
+    angular.module('app').controller(controllerId, ['common', '$rootScope', '$timeout', '$scope', 'date', 'transaxns', '$translate', transactions]);
 
-    function transactions(common, $rootScope, $scope, date, transaxns, $translate) {
+    function transactions(common, $rootScope, $timeout, $scope, date, transaxns, $translate) {
         var vm = this;
         var logInfo = common.logger.getLogFn(controllerId, 'log');
+        var logError = common.logger.getLogFn(controllerId, 'logError');
         vm.tags = [];
         vm.trs = [];
         vm.newTnx = null;
@@ -15,7 +16,7 @@
         vm.showTransactionForm = false;
         vm.isLoading = false;
         vm.curDateTime = date.format(date.now());
-
+        vm.isLoading = true;
         function editedTransactionNotValid() {
             return !vm.editedTnx || !vm.editedTnx.id || !vm.selectedTnx;
         }
@@ -41,6 +42,7 @@
         };
 
         vm.showMap = function (transaction) {
+            $rootScope.showMap = true;
             $rootScope.mapCenter = new google.maps.LatLng(transaction.latitude, transaction.longitude);
             $rootScope.zoom = 17;
             $rootScope.transaction = transaction;
@@ -56,6 +58,7 @@
                     }
                 }
             ];
+
             $rootScope.overlayIsOpen = true;
         };
 
@@ -81,6 +84,13 @@
 
         vm.changeSorting = function (column) {
             vm.sort = transaxns.updateSorting(column);
+            $rootScope.showSpinner = true;
+            transaxns.sort()
+                .success(function (transactions) {
+                    vm.trs=null;
+                    vm.trs = transactions;
+                    $rootScope.showSpinner = false;
+                });
         };
         // vm.search = function() {
         //     vm.trs = trs.filter(function(tranx) {
@@ -117,20 +127,30 @@
             });
         }
 
-        vm.loadMoreTransactions = function () {
-            if(vm.isLoading)
-               return;
-            logInfo('loading next transactions');
+        vm.showImage = function (imgUrl) {
+            $rootScope.showImage = true;
+            $rootScope.imgUrl = imgUrl;
+            $rootScope.overlayIsOpen = true;
+        };
+
+        vm.loadMoreTransactions = function ($inview, $inviewpart) {
+            if (vm.isLoading || !$inview || !$inviewpart === "bottom")
+                return;
+//            logInfo('loading next transactions');
             vm.isLoading = true;
             transaxns.getTransaxns()
-                .success(function (nextTransactions) {
-                    vm.isLoading = false;
-                    if (nextTransactions && nextTransactions.length) {
-                        vm.trs = vm.trs.concat(nextTransactions);
+                .success(function (result) {
+                    if (result && result.length && result.length > vm.trs.length) {
+                        vm.trs = result;
+                        vm.isLoading = false;
+                    }
+                    else {
+                        vm.richedTheEnd = true;
                     }
                 })
                 .error(function () {
                     vm.isLoading = false;
+                    logError('error loading next batch');
                 });
         };
 
@@ -173,7 +193,7 @@
         vm.saveTnx = function () {
             if (editedTransactionNotValid()) {
                 vm.editError = "Неверные данные";
-                console.error('Неверные данные при редактировании транзакции');
+                logError('Неверные данные при редактировании транзакции');
                 return;
             }
 
@@ -190,10 +210,8 @@
         vm.remove = function (transaction) {
             if (!vm.selectedTnx || !transaction || vm.selectedTnx.id !== transaction.id)
                 return;
-            console.log(vm.selectedTnx.id);
             transaxns.remove(vm.selectedTnx.id)
                 .then(function () {
-                    console.log(vm.selectedTnx.id);
                     var index = transaxns.getTransactionIndex(vm.selectedTnx.id, vm.trs);
                     vm.trs.splice(index, 1);
                 },
@@ -235,7 +253,7 @@
                     if (trs.length) {
                         vm.minDate = transaxns.getMinDate();
                         vm.maxDate = transaxns.getMaxDate();
-                        vm.sort = transaxns.sort;
+                        vm.sort = transaxns.sortOptions;
                     }
                 });
         }
@@ -244,6 +262,7 @@
             var promises = [_getTransactions()];
             common.activateController(promises, controllerId)
                 .then(function () {
+                    vm.isLoading = false;
                     common.logger.logSuccess('Данные загружены');
                 });
         }

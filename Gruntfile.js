@@ -24,7 +24,7 @@ module.exports = function (grunt) {
             'bower_components/RandomColor/rcolor.js',
             'bower_components/AngularGM/angular-gm.js',
             'bower_components/angular-translate/angular-translate.js',
-            'bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',
+            'bower_components/angular-inview/angular-inview.js',
 
             'app/app.js',
             'app/config.exceptionHandler.js',

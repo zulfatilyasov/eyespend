@@ -21,6 +21,10 @@
             return $http.post('/api/secure/deleteTransaction', {id: tansaxnGuid});
         }
 
+        function sortTransactions(sortOptions,count) {
+            return $http.get('/api/secure/sortTransactions?column=' + sortOptions.column + '&descending=' + sortOptions.descending + '&count=' + count);
+        }
+
         function authenticate(user) {
             return $http.post('/api/users/login', { authCodeOrEmail: user.email, password: user.password });
         }
@@ -38,6 +42,7 @@
             updateTransaction: updateTransaction,
             createTransaction: createTransaction,
             deleteTransaction: deleteTransaction,
+            sortTransactions:sortTransactions,
             authenticate: authenticate,
             quickPass: quickPass,
             changePsw: changePsw

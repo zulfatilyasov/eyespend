@@ -22,6 +22,7 @@
                 $httpBackend.whenGET('/api/secure/transactions').respond(modelStub.getTransactions());
                $httpBackend.whenPOST('/api/secure/updateTransaction').respond(200);
                $httpBackend.whenPOST('/api/secure/deleteTransaction').respond(200);
+               $httpBackend.whenPOST('/api/secure/sortTransactions').respond(200);
             });
     }
 })();

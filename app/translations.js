@@ -40,7 +40,8 @@ var translationsRu = {
     INVALID_CODE_OR_EMAIL: "Некорректный email или код активации",
     PASSORD_REQUIRED: "Введите пароль.",
     INVALID_EMAIL_OR_PASSWORD: "Неверный email или пароль",
-    INVALID_ACTIVATION_CODE: "Неверный код активации"
+    INVALID_ACTIVATION_CODE: "Неверный код активации",
+    FOTO:"Фото"
 };
 
 var translationsEn = {
@@ -85,7 +86,8 @@ var translationsEn = {
     INVALID_CODE_OR_EMAIL: "Invalid activation code or email",
     PASSORD_REQUIRED: "Password required.",
     INVALID_EMAIL_OR_PASSWORD: "Invalid email or password",
-    INVALID_ACTIVATION_CODE: "Invalid activation code"
+    INVALID_ACTIVATION_CODE: "Invalid activation code",
+    FOTO:"Foto"
 };
 try {
     exports.ru = translationsRu;

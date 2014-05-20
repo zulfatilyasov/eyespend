@@ -8,7 +8,7 @@
     function transaxns(datacontext, common, color, date) {
         var transactions = [],
             _userTags = [],
-            sort = {
+            sortOptions = {
                 column: 'timestamp',
                 descending: true
             },
@@ -27,13 +27,28 @@
         }
 
         function updateSorting(column) {
-            if (sort.column == column) {
-                sort.descending = !sort.descending;
+            if (sortOptions.column == column) {
+                sortOptions.descending = !sortOptions.descending;
             } else {
-                sort.column = column;
-                sort.descending = false;
+                sortOptions.column = column;
+                sortOptions.descending = false;
             }
-            return sort;
+            return sortOptions;
+        }
+
+        function sort() {
+            var def = common.defer();
+            var count = 30;
+            datacontext.sortTransactions(sortOptions, count)
+                .success(function (sortedTransactions) {
+                    angular.forEach(sortedTransactions,function(t) {
+                        _colorAndSaveTags(t.tags);
+                    });
+                    offset+=sortedTransactions.length;
+                    transactions = sortedTransactions;
+                    def.resolve(transactions);
+                });
+            return def.promise;
         }
 
         function getUserTags() {
@@ -148,12 +163,12 @@
             datacontext.getTransaxns(sort.column, offset, 30)
                 .then(function (tnxs) {
                     if (tnxs && tnxs.data instanceof Array) {
-                        transactions = transactions.concat(tnxs.data.sort(sortByDateDesc));
-                        offset += transactions.length;
+                        offset += tnxs.data.length;
+                        transactions = transactions.concat(tnxs.data);
                         transactions.forEach(function (t) {
                             _colorAndSaveTags(t.tags);
                         });
-                        def.resolve({data:transactions.slice(0)});
+                        def.resolve({data: transactions.slice(0)});
                     }
                     else {
                         def.reject();
@@ -170,7 +185,7 @@
         }
 
         function setLocation(transaction) {
-            if(!transaction.placeDetails)
+            if (!transaction.placeDetails)
                 return;
             try {
                 transaction.latitude = transaction.placeDetails.geometry.location.k;
@@ -260,7 +275,8 @@
             getMinDate: getMinDate,
             getMaxDate: getMaxDate,
             getUserTags: getUserTags,
-            sort: sort,
+            sortOptions: sortOptions,
+            sort:sort,
             sortByDateDesc: sortByDateDesc,
             update: update,
             getTransactionIndex: getTransactionIndex,

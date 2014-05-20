@@ -38,7 +38,13 @@
         function decoratePromise(promise) {
             promise.success = function (fn) {
                 promise.then(function (response) {
-                    fn(response.data, response.status, response.headers, response.config);
+                    if (response && response.data) {
+                        fn(response.data, response.status, response.headers, response.config);
+                    }
+                    else {
+                        fn(response);
+                    }
+
                 });
                 return promise;
             };
