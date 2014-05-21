@@ -29,6 +29,10 @@
             return $http.post('/quickpass', psw);
         }
 
+        function linkEmail(email, currentPsw) {
+            return $http.post('/api/user/linkEmail', {email: email, currentPsw: currentPsw});
+        }
+
         function changePsw(psw) {
             return $http.post('/api/changePassword', psw);
         }
@@ -40,7 +44,8 @@
             deleteTransaction: deleteTransaction,
             authenticate: authenticate,
             quickPass: quickPass,
-            changePsw: changePsw
+            changePsw: changePsw,
+            linkEmail:linkEmail
         };
     }
 })();

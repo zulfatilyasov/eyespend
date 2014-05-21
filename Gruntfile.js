@@ -8,6 +8,7 @@ module.exports = function (grunt) {
             'bower_components/angular-sanitize/angular-sanitize.js',
             'bower_components/angular-animate/angular-animate.js',
             'bower_components/angular-cookies/angular-cookies.js',
+            'bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js',
 
             'bower_components/toastr/toastr.js',
             'app/lib/select2.js',
@@ -19,7 +20,7 @@ module.exports = function (grunt) {
             'bower_components/mockJSON/js/jquery.mockjson.js',
             'bower_components/ng-tags-input/ng-tags-input.js',
             'bower_components/ngAutocomplete/src/ngAutocomplete.js',
-            'bower_components/angular-i18n/angular-locale_ru-ru.js',
+            'bower_components/angular-i18n/angular-locale_ru.js',
             'app/lib/sticky/sticky.js',
             'bower_components/RandomColor/rcolor.js',
             'bower_components/AngularGM/angular-gm.js',

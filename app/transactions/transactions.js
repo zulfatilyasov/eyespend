@@ -40,6 +40,24 @@
 
             $event.stopPropagation();
         };
+        function fillMapProperties(transaction){
+            $rootScope.showMap = true;
+            $rootScope.mapCenter = new google.maps.LatLng(transaction.latitude, transaction.longitude);
+            $rootScope.zoom = 17;
+            $rootScope.transaction = transaction;
+            $rootScope.markers = [
+                {
+                    id: transaction.id,
+                    location: {
+                        lat: transaction.latitude,
+                        lng: transaction.longitude
+                    },
+                    options: function () {
+                        return null;
+                    }
+                }
+            ];
+        }
 
         vm.showMap = function (transaction) {
             $rootScope.showMap = true;
@@ -58,17 +76,23 @@
                     }
                 }
             ];
-
             $rootScope.overlayIsOpen = true;
+            $rootScope.showPlacesInput = false;
         };
+
+        $rootScope.$on('locationSet',
+            function (event, data) {
+                vm.editedTnx.latitude = data.latitude;
+                vm.editedTnx.longitude = data.longitude;
+            }
+        );
 
         vm.pickAddress = function () {
             $rootScope.markers = [
                 {
-                    id: 0,
                     location: {
-                        lat: 55.80,
-                        lng: 49.11
+                        lat: vm.editedTnx.latitude,
+                        lng: vm.editedTnx.longitude
                     },
                     options: function () {
                         return {
@@ -77,9 +101,11 @@
                     }
                 }
             ];
-            $rootScope.zoom = 13;
-            $rootScope.mapCenter = new google.maps.LatLng(55.80, 49.11);
+            $rootScope.zoom = 17;
+            $rootScope.mapCenter = new google.maps.LatLng(vm.editedTnx.latitude, vm.editedTnx.longitude);
             $rootScope.overlayIsOpen = true;
+            $rootScope.placePicker = {};
+            $rootScope.showPlacesInput = true;
         };
 
         vm.changeSorting = function (column) {
@@ -92,15 +118,6 @@
                     $rootScope.showSpinner = false;
                 });
         };
-        // vm.search = function() {
-        //     vm.trs = trs.filter(function(tranx) {
-        //         var matchedTags = tranx.tags.filter(function(tag) {
-        //             return tag.indexOf(vm.searchPattern) != -1
-        //         })
-        //         return matchedTags.length > 0;
-        //     });
-        // };
-        // vm.searchPattern = "";
 
         vm.loadTags = function () {
             return common.$q.when(transaxns.getUserTags());
@@ -113,7 +130,7 @@
         };
 
         vm.filterByTags = function () {
-            vm.trs = transaxns.filterByTags(vm.tags);
+            vm.trs = transaxns.filterByTags(vm.tagsvm.editedTnx);
         };
 
         vm.filterByDate = function (fromDate, toDate) {
@@ -134,7 +151,7 @@
         };
 
         vm.loadMoreTransactions = function ($inview, $inviewpart) {
-            if (vm.isLoading || !$inview || ($inviewpart !== "bottom" && $inviewpart !=="both"))
+            if (vm.isLoading || !$inview || ($inviewpart !== "bottom" && $inviewpart !== "both"))
                 return;
 //            logInfo('loading next transactions');
             vm.isLoading = true;

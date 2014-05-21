@@ -201,7 +201,7 @@
 
         function update(tnx) {
             var def = common.$q.defer();
-            setLocation(tnx);
+//            setLocation(tnx);
             datacontext.updateTransaction(tnx)
                 .then(function () {
                     var transaction = transactions.filter(function (t) {

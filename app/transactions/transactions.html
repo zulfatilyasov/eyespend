@@ -230,31 +230,42 @@
                                                        class="fa fa-map-marker fa-1x"></i> <span
                                                         translate>SHOW_ON_MAP</span>
                                                 </button>
-                                                <div style="display:inline-block" translate>OR</div>
-                                                <input style="width:81%; display:inline-block"
-                                                       class="form-control" ng-autocomplete
-                                                       ng-model="vm.editedTnx.Place"
-                                                       details="vm.editedTnx.placeDetails" type="text"
-                                                       id="editedAddress">
-                                                <br/>
+                                                <div style="display: inline-block; float: right">
+                                                    <button type="button" class="btn btn-primary"
+                                                            ng-click="vm.saveTnx()" data-placement="right">
+                                                        <span translate>SAVE</span>
+                                                    </button>
+                                                    <button type="button" class="btn dark-grey"
+                                                            ng-click="vm.toggleEditing(transaction)"
+                                                            data-placement="right" translate>
+                                                        <span translate>CANCEL</span>
+                                                    </button>
+                                                </div>
+                                                <!--<div style="display:inline-block" translate>OR</div>-->
+                                                <!--<input style="width:80%; display:inline-block"-->
+                                                       <!--class="form-control" ng-autocomplete-->
+                                                       <!--ng-model="vm.editedTnx.Place"-->
+                                                       <!--details="vm.editedTnx.placeDetails" type="text"-->
+                                                       <!--id="editedAddress">-->
+                                                <!--<br/>-->
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div style="margin-top: 10px" class="inputHost">
-                                                <button type="button" class="btn btn-primary"
-                                                        ng-click="vm.saveTnx()" data-placement="right">
-                                                    <span translate>SAVE</span>
-                                                </button>
-                                                <button type="button" class="btn dark-grey"
-                                                        ng-click="vm.toggleEditing(transaction)"
-                                                        data-placement="right" translate>
-                                                    <span translate>CANCEL</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <!--<div class="row">-->
+                                        <!--<div class="col-md-12">-->
+                                            <!--<div style="margin-top: 10px" class="inputHost">-->
+                                                <!--<button type="button" class="btn btn-primary"-->
+                                                        <!--ng-click="vm.saveTnx()" data-placement="right">-->
+                                                    <!--<span translate>SAVE</span>-->
+                                                <!--</button>-->
+                                                <!--<button type="button" class="btn dark-grey"-->
+                                                        <!--ng-click="vm.toggleEditing(transaction)"-->
+                                                        <!--data-placement="right" translate>-->
+                                                    <!--<span translate>CANCEL</span>-->
+                                                <!--</button>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
                                 </div>
                             </form>
                         </div>

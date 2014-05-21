@@ -17,6 +17,11 @@ header h4, .widget > header h4, header h4 a, .loader.theEnd {
     font-weight: 300;
 }
 
+.settings-section header h4 {
+    border-bottom: 1px solid;
+    padding-bottom: 10px;
+}
+
 .logo h4 {
     font-family: "Open Sans", Arial, Helvetica, Sans-Serif;
 }
@@ -27,9 +32,41 @@ header h4, .widget > header h4, header h4 a, .loader.theEnd {
     padding-bottom: 8px;
 }
 
-input.ng-invalid-required, input.ng-invalid-number {
+input.ng-invalid-required, input.ng-invalid-number, input.invalid {
     border-color: red !important;
     color: white !important;
+}
+
+#placeInput {
+    position: fixed;
+    z-index: 100;
+    top: 28px;
+    left: 100px;
+}
+
+#placeInput input {
+    width: 400px;
+    border: none;
+    display: inline-block;
+}
+
+#placeInput span {
+    width: 30px;
+    display: inline-block;
+}
+
+#linkcode {
+    padding: 20px 100px;
+    text-align: center;
+    font-size: 16px;
+}
+
+#linkcode span {
+    font-weight: bold;
+}
+
+.settings-section p {
+    font-size: 16px;
 }
 
 h2 {
@@ -282,15 +319,17 @@ div.tags {
     animation: bounceIn 0.5s;
 }
 
-.widgetOverlay.ng-hide-remove{
+.widgetOverlay.ng-hide-remove {
     -webkit-animation: fadeIn 0.3s;
     animation: fadeIn 0.3s;
 }
-.widgetOverlay.ng-hide-add{
+
+.widgetOverlay.ng-hide-add {
     -webkit-animation: fadeOut 0.3s;
     animation: fadeOut 0.3s;
     display: block !important;
 }
+
 #languages-menu.ng-hide-add {
     -webkit-animation: flipOutX 0.5s;
     animation: flipOutX 0.5s;
@@ -357,6 +396,7 @@ tags-input .tags .input {
 
 .transactionForm .btn {
     height: 32px;
+    font-size: 14px;
 }
 
 .dark-grey {
@@ -468,16 +508,19 @@ tr[ng-repeat-start].ng-leave {
     top: 62px;
     right: 12px;
 }
-.widgetWrapper{
+
+.widgetWrapper {
     position: relative;
 }
-.widgetOverlay{
+
+.widgetOverlay {
     position: absolute;
     height: 100%;
     width: 100%;
     background: rgba(226, 226, 226, 0.29);
     z-index: 100;
 }
+
 .loaderBox {
     position: relative;
     margin-top: 30px;
@@ -533,109 +576,133 @@ tr[ng-repeat-start].ng-leave {
     background-color: #959595;
     -webkit-animation-delay: 1.2s;
 }
-.spinner{
+
+.spinner {
     position: fixed;
     left: 50%;
     top: 50%;
 }
-.spinner h4{
+
+.spinner h4 {
     text-align: center;
     color: #000000;
     font-weight: bold;
 }
-.spinner span{
-    width:16px;
-    height:16px;
-    border-radius:50%;
-    display:inline-block;
-    position:absolute;
-    left:50%;
-    margin-left:-10px;
-    -webkit-animation:3s infinite linear;
-    -moz-animation:3s infinite linear;
-    -o-animation:3s infinite linear;
+
+.spinner span {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    left: 50%;
+    margin-left: -10px;
+    -webkit-animation: 3s infinite linear;
+    -moz-animation: 3s infinite linear;
+    -o-animation: 3s infinite linear;
 }
 
-
-.spinner span:nth-child(2){
-    background:#E84C3D;
-    -webkit-animation:kiri 1.2s infinite linear;
-    -moz-animation:kiri 1.2s infinite linear;
-    -o-animation:kiri 1.2s infinite linear;
+.spinner span:nth-child(2) {
+    background: #E84C3D;
+    -webkit-animation: kiri 1.2s infinite linear;
+    -moz-animation: kiri 1.2s infinite linear;
+    -o-animation: kiri 1.2s infinite linear;
 
 }
-.spinner span:nth-child(3){
-    background:#F1C40F;
-    z-index:100;
-}
-.spinner span:nth-child(4){
-    background:#2FCC71;
-    -webkit-animation:kanan 1.2s infinite linear;
-    -moz-animation:kanan 1.2s infinite linear;
-    -o-animation:kanan 1.2s infinite linear;
+
+.spinner span:nth-child(3) {
+    background: #F1C40F;
+    z-index: 100;
 }
 
+.spinner span:nth-child(4) {
+    background: #2FCC71;
+    -webkit-animation: kanan 1.2s infinite linear;
+    -moz-animation: kanan 1.2s infinite linear;
+    -o-animation: kanan 1.2s infinite linear;
+}
 
 @-webkit-keyframes kanan {
-    0% {-webkit-transform:translateX(20px);
+    0% {
+        -webkit-transform: translateX(20px);
     }
 
-    50%{-webkit-transform:translateX(-20px);
+    50% {
+        -webkit-transform: translateX(-20px);
     }
 
-    100%{-webkit-transform:translateX(20px);
-        z-index:200;
+    100% {
+        -webkit-transform: translateX(20px);
+        z-index: 200;
     }
 }
+
 @-moz-keyframes kanan {
-    0% {-moz-transform:translateX(20px);
+    0% {
+        -moz-transform: translateX(20px);
     }
 
-    50%{-moz-transform:translateX(-20px);
+    50% {
+        -moz-transform: translateX(-20px);
     }
 
-    100%{-moz-transform:translateX(20px);
-        z-index:200;
+    100% {
+        -moz-transform: translateX(20px);
+        z-index: 200;
     }
 }
+
 @-o-keyframes kanan {
-    0% {-o-transform:translateX(20px);
+    0% {
+        -o-transform: translateX(20px);
     }
 
-    50%{-o-transform:translateX(-20px);
+    50% {
+        -o-transform: translateX(-20px);
     }
 
-    100%{-o-transform:translateX(20px);
-        z-index:200;
+    100% {
+        -o-transform: translateX(20px);
+        z-index: 200;
     }
 }
 
 @-webkit-keyframes kiri {
-    0% {-webkit-transform:translateX(-20px);
-        z-index:200;
+    0% {
+        -webkit-transform: translateX(-20px);
+        z-index: 200;
     }
-    50%{-webkit-transform:translateX(20px);
+    50% {
+        -webkit-transform: translateX(20px);
     }
-    100%{-webkit-transform:translateX(-20px);
+    100% {
+        -webkit-transform: translateX(-20px);
     }
 }
 
 @-moz-keyframes kiri {
-    0% {-moz-transform:translateX(-20px);
-        z-index:200;
+    0% {
+        -moz-transform: translateX(-20px);
+        z-index: 200;
     }
-    50%{-moz-transform:translateX(20px);
+    50% {
+        -moz-transform: translateX(20px);
     }
-    100%{-moz-transform:translateX(-20px);
+    100% {
+        -moz-transform: translateX(-20px);
     }
 }
+
 @-o-keyframes kiri {
-    0% {-o-transform:translateX(-20px);
-        z-index:200;
+    0% {
+        -o-transform: translateX(-20px);
+        z-index: 200;
     }
-    50%{-o-transform:translateX(20px);
+    50% {
+        -o-transform: translateX(20px);
     }
-    100%{-o-transform:translateX(-20px);
+    100% {
+        -o-transform: translateX(-20px);
     }
 }
 

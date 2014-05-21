@@ -2,7 +2,6 @@
     'use strict';
 
     var app = angular.module('app', [
-        // Custom modules 
         "ngRoute",
         "common",
         "ngSanitize",
@@ -13,7 +12,8 @@
         "ngAnimate",
         "pascalprecht.translate",
         "ngCookies",
-        "angular-inview"
+        "angular-inview",
+        "tmh.dynamicLocale"
     ]);
 
     app.run(['$rootScope', '$location', '$window', 'login', function ($rootScope, $location, $window, login) {

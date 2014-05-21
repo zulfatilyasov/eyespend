@@ -23,7 +23,9 @@ var ApiInjector = function apiInjector() {
             var offset = parseInt(req.query.offset);
             var count = parseInt(req.query.count);
             var desc = req.query.desc === "true";
+
             var result = db.getTransactions(req.query.sorting, desc, offset, count);
+
             setTimeout(function () {
                 res.json(result);
             }, 1500)
@@ -41,6 +43,7 @@ var ApiInjector = function apiInjector() {
             console.log('user deleted transaction' + JSON.stringify(req.body.id));
             res.send(200);
         });
+
         app.post('/api/users/login', function (req, res) {
             console.log('Authentication request');
 
@@ -51,6 +54,14 @@ var ApiInjector = function apiInjector() {
             }
 
             res.json({ token: createTokenWithProfile() });
+        });
+
+        app.post('/api/user/linkEmail', function (req, res) {
+            console.log('email: ' + req.body.email + ' psw: ' + req.body.currentPsw);
+            if (req.body.currentPsw !== 'bar') {
+                res.send(400, 'wrong password');
+            }
+            res.send(200);
         });
 
         app.post('/quickpass', function (req, res) {
@@ -68,9 +79,7 @@ var ApiInjector = function apiInjector() {
                 res.send(400, 'Wrong password');
                 return;
             }
-
             console.log(req.body.psw);
-
             res.send(200);
         });
 

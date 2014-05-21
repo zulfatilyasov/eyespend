@@ -25,6 +25,9 @@
             $logProvider.debugEnabled(true);
         }
     }]);
+    app.config(['tmhDynamicLocaleProvider', function (tmhDynamicLocaleProvider) {
+        tmhDynamicLocaleProvider.localeLocationPattern('locales/angular-locale_{{locale}}.js');
+    }]);
 
     app.config(['commonConfigProvider', function (cfg) {
         cfg.config.controllerActivateSuccessEvent = config.events.controllerActivateSuccess;

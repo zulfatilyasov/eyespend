@@ -63,11 +63,19 @@ function getRandomTags() {
     return a < b ? data.tags.slice(a, b) : data.tags.slice(b, a);
 }
 
+function getImage() {
+    var randomInt = getRandomInt(1, 10);
+    if (randomInt < 3)
+        return "https://pp.vk.me/c312918/v312918215/13d1/ZPMJ-haAVKs.jpg";
+    if (randomInt > 7)
+        return "https://pp.vk.me/c606420/v606420215/32a9/t0nCYahM8Ro.jpg";
+    return null;
+}
+
 function generateTransactions(count) {
     var transactions = [];
     for (var l = 0; l < count; l++) {
         var randomIndex = getRandomInt(0, data.addresses.length - 1);
-        var imgUrl = getRandomInt(1, 10) < 4 ? "https://pp.vk.me/c606420/v606420215/32a9/t0nCYahM8Ro.jpg" : null;
         transactions.push({
             amountInBaseCurrency: getRandomInt(200, 3000),
             tags: getRandomTags(),
@@ -75,13 +83,13 @@ function generateTransactions(count) {
             id: uuid.v1(),
             latitude: data.addresses[randomIndex].latitude,
             longitude: data.addresses[randomIndex].longitude,
-            imgUrl: imgUrl
+            imgUrl: getImage()
         });
     }
     return transactions;
 }
 
-var  sortByDateDesc = function(a, b) {
+var sortByDateDesc = function (a, b) {
     var d1 = parseInt(a.timestamp);
     var d2 = parseInt(b.timestamp);
     if (d1 > d2) {
@@ -93,7 +101,7 @@ var  sortByDateDesc = function(a, b) {
     }
 };
 
-var sortByDateAsc = function(a, b) {
+var sortByDateAsc = function (a, b) {
     var d1 = parseInt(a.timestamp);
     var d2 = parseInt(b.timestamp);
     if (d1 > d2) {
@@ -105,7 +113,7 @@ var sortByDateAsc = function(a, b) {
     }
 }
 
-var  sortByAmountAsc = function(a, b) {
+var sortByAmountAsc = function (a, b) {
     var d1 = parseInt(a.amountInBaseCurrency);
     var d2 = parseInt(b.amountInBaseCurrency);
     if (d1 > d2) {
@@ -117,7 +125,7 @@ var  sortByAmountAsc = function(a, b) {
     }
 }
 
-var sortByAmountDesc = function(a, b) {
+var sortByAmountDesc = function (a, b) {
     var d1 = parseInt(a.amountInBaseCurrency);
     var d2 = parseInt(b.amountInBaseCurrency);
     if (d1 > d2) {

@@ -24,7 +24,7 @@
 <div ng-class="{'overlay-open':overlayIsOpen}" id="all">
     <div ng-include="'shell/shell.html'"></div>
     <div class="content container">
-        <div  ng-view></div>
+        <div ng-hide="hideContent" ng-view></div>
     </div>
 </div>
 <div ng-show="showSpinner" class="spinner">
@@ -41,9 +41,24 @@
     <div ng-show="showImage" class="imageContainer">
         <img src="{{imgUrl}}" alt=""/>
     </div>
-    <input id="pac-input" ng-hide="showImage" class="controls hide" type="text" placeholder="Введите местоположение">
+    <div ng-show="showPlacesInput" id="placeInput">
+        <input id="pac-input"
+               ng-hide="showImage"
+               class="controls"
+               ng-autocomplete
+               ng-enter="refreshMap()"
+               ng-model="placePicker.place"
+               details="placePicker.details"
+               type="text"
+               placeholder="Введите местоположение"><span class="input-group-btn">
+            <button class="btn btn-success" ng-click="saveLocation()" type="button" translate>SAVE</button>
+        </span>
+    </div>
     <gm-map gm-map-id="'myMap'" ng-hide="showImage" gm-center="mapCenter" gm-zoom="zoom" style="height:100%;">
-        <gm-markers gm-marker-options="object.options()" gm-objects="markers" gm-id="object.id"
+        <gm-markers gm-marker-options="object.options()"
+                    gm-objects="markers"
+                    gm-id="object.id"
+                    gm-on-dragend="setMarkerLocation(marker)"
                     gm-position="{lat: object.location.lat, lng: object.location.lng}">
         </gm-markers>
     </gm-map>

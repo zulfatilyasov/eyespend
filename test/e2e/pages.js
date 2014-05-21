@@ -28,13 +28,11 @@ var Transactions = function () {
     var repeater = by.repeater('transaction in vm.trs');
     this.transactions = element(repeater);
     this.tag = element(repeater.row(3)).element(by.repeater('tag in transaction.tags').row(0));
-//    this.tag = this.tags.row(2);
-//    this.tag = $('.tag-item').first();
     this.tagsFilter = $('.searchBlock .tags input');
+
     this.addTagToFilter = function (tag) {
         this.tagsFilter.sendKeys(tag + '\n');
     }
-
 };
 
 var Menu = function () {

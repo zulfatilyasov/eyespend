@@ -7,73 +7,158 @@
     <div class="row">
         <div class="col-md-12">
             <section class="widget">
+                <div class="settings-section">
+                    <header>
+                        <h4><i class="fa fa-link"></i> <span translate>LINK_EMAIL</span></h4>
+                    </header>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="body">
+                                <form>
+                                    <fieldset>
+                                        <div class="control-group">
+                                            <label class="control-label">Email
+                                                <ul class="parsley-errors-list"></ul>
+                                            </label>
 
+                                            <div class="controls form-group">
+                                                <input placeholder="{{'TYPE_EMAIL' | translate}}" type="text"
+                                                       class="form-control styledInput"
+                                                       ng-class="{'form-control':true, styledInput:true,invalid:vm.link.invalidEmail}"
+                                                       ng-model="vm.link.email">
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label" translate>CURRENT_PASSWORD
+                                                <ul class="parsley-errors-list"></ul>
+                                            </label>
+
+                                            <div class="controls form-group">
+                                                <input placeholder="{{'TYPE_CURRENT_PASSWORD' | translate}}"
+                                                       type="email"
+                                                       ng-model="vm.link.currentPsw"
+                                                       ng-class="{'form-control':true, styledInput:true,invalid:vm.link.invalidPassword}">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <div class="actionButton">
+                                        <button type="submit" class="btn btn-primary" ng-click="vm.linkEmail()"
+                                                translate>SAVE
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <p>Вы можете привязать Вашу учётную запись к e-mail'у. Сделав это, Вы сможете заходить на
+                                сайт как при помощи одноразовых паролей, полученных в приложении, так и привычным
+                                образом, используя e-mail и пароль, когда у Вас нет доступа к телефону. Если вы уже
+                                привязали свой аккаунт, то для повторной привязки вым необходимо указать пароль.</p>
+                        </div>
+                    </div>
+
+                </div>
                 <div class="settings-section">
                     <header>
                         <h4><i class="fa fa-lock"></i> <span translate>CHANGE_PASSWORD</span></h4>
                     </header>
-                    <div class="body">
-                        <form>
-                            <fieldset>
-                                <div class="control-group">
-                                    <label class="control-label" for="prefix">
-                                        <span translate>PASSWORD</span>
-                                        <ul class="parsley-errors-list"></ul>
-                                    </label>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="body">
+                                <form>
+                                    <fieldset>
+                                        <div class="control-group">
+                                            <label class="control-label" for="prefix">
+                                                <span translate>PASSWORD</span>
+                                                <ul class="parsley-errors-list"></ul>
+                                            </label>
 
-                                    <div class="controls form-group">
-                                        <div class="col-sm-4">
-                                            <input type="password" placeholder="{{'TYPE_NEW_PASSWORD'|translate}}" ng-model="vm.psw" name="prefix"
-                                                   class="form-control styledInput"
-                                                   data-parsley-id="8401">
+                                            <div class="controls form-group">
+                                                <input type="password"
+                                                       placeholder="{{'TYPE_NEW_PASSWORD'|translate}}"
+                                                       ng-model="vm.psw"
+                                                       class="form-control styledInput">
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <br/>
+                                        <div class="control-group">
+                                            <label class="control-label" for="prefix">
+                                                <span translate>CONFIRMATION</span>
+                                                <ul class="parsley-errors-list"></ul>
+                                            </label>
 
-                                <div class="control-group">
-                                    <label class="control-label" for="prefix">
-                                        <span translate>CONFIRMATION</span>
-                                        <ul class="parsley-errors-list"></ul>
-                                    </label>
-
-                                    <div class="controls form-group">
-                                        <div class="col-sm-4"><input placeholder="{{'TYPE_PASSWORD_CONFIRMATION'|translate}}" type="password" ng-model="vm.confirmation" name="prefix"
-                                                                     class="form-control styledInput"
-                                                                     data-parsley-id="8401"></div>
+                                            <div class="controls form-group">
+                                                <input placeholder="{{'TYPE_PASSWORD_CONFIRMATION'|translate}}"
+                                                       type="password"
+                                                       ng-model="vm.confirmation"
+                                                       class="form-control styledInput">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <div class="actionButton">
+                                        <button type="submit" ng-click="vm.changePassword()" class="btn btn-primary"
+                                                translate> SAVE
+                                        </button>
+                                        <span ng-class="{validationMessage: true, error:vm.error}"
+                                              ng-bind-html="vm.message">
+                                        </span>
                                     </div>
-                                </div>
-                            </fieldset>
-                            <div class="actionButton">
-                                <button type="submit" ng-click="vm.changePassword()" class="btn btn-primary" translate>SAVE</button>
-                                <span ng-class="{validationMessage: true, error:vm.error}" ng-bind-html="vm.message"></span>
+                                </form>
                             </div>
-                        </form>
+                        </div>
+                        <div class="col-md-8">
+                            <p>
+                                Вы можете изменить пароль после привязки вашего почтового ящика к аккаунту. Вы можете не
+                                вводить старый пароль только если вынаходитесь в режиме восстановаления пароля.
+                            </p>
+                        </div>
                     </div>
+
                 </div>
-                <div class="settings-section">
+                <div class="hide settings-section">
                     <header>
                         <h4><i class="fa fa-user"></i> <span translate>CHANGE_EMAIL</span></h4>
                     </header>
-                    <div class="body">
-                        <form>
-                            <fieldset>
-                                <div class="control-group">
-                                    <label class="control-label">Email
-                                        <ul class="parsley-errors-list"></ul>
-                                    </label>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="body">
+                                <form>
+                                    <fieldset>
+                                        <div class="control-group">
+                                            <label class="control-label">Email
+                                                <ul class="parsley-errors-list"></ul>
+                                            </label>
 
-                                    <div class="controls form-group">
-                                        <div class="col-sm-4"><input placeholder="{{'TYPE_NEW_EMAIL' | translate}}" type="text" name="prefix"
-                                                                     class="form-control styledInput"
-                                                                     data-parsley-id="8401"></div>
+                                            <div class="controls form-group">
+                                                <input placeholder="{{'TYPE_NEW_EMAIL' | translate}}"
+                                                       type="text"
+                                                       class="form-control styledInput">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <div class="actionButton">
+                                        <button type="submit" class="btn btn-primary" translate>SAVE</button>
                                     </div>
-                                </div>
-                            </fieldset>
-                            <div class="actionButton">
-                                <button type="submit" class="btn btn-primary" translate>SAVE</button>
+                                </form>
                             </div>
-                        </form>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="settings-section">
+                    <header>
+                        <h4><i class="fa fa-mobile"></i> <span translate>LINK_ACCOUNT</span></h4>
+                    </header>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <section class="well">
+                                <div id="linkcode">
+                                    Введите этот номер в мобильном приложении eyeSpend сразу после установки для
+                                    привязки других устройств к своему аккаунту
+                                    <br/>
+                                    <span ng-bind-html="vm.linkcode"></span>
+                                </div>
+                            </section>
+                        </div>
                     </div>
                 </div>
             </section>
