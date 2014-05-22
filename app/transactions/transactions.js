@@ -11,10 +11,11 @@
         vm.trs = [];
         vm.newTnx = null;
         vm.isAdding = false;
+        vm.isFiltering = false;
         vm.selectedTnx = null;
         vm.sort = null;
         vm.showTransactionForm = false;
-        vm.isLoading = false;
+        vm.showFilterForm = false;
         vm.curDateTime = date.format(date.now());
         vm.isLoading = true;
         function editedTransactionNotValid() {
@@ -37,10 +38,9 @@
 
         vm.selectTransaction = function (transaction, $event) {
             vm.selectedTnx = transaction;
-
             $event.stopPropagation();
         };
-        function fillMapProperties(transaction){
+        function fillMapProperties(transaction) {
             $rootScope.showMap = true;
             $rootScope.mapCenter = new google.maps.LatLng(transaction.latitude, transaction.longitude);
             $rootScope.zoom = 17;
@@ -130,18 +130,71 @@
         };
 
         vm.filterByTags = function () {
-            vm.trs = transaxns.filterByTags(vm.tagsvm.editedTnx);
+            $rootScope.showSpinner = true;
+            if (vm.tags.length === 0) {
+                transaxns.sort()
+                    .success(function (trs) {
+                        vm.trs = trs;
+                        vm.richedTheEnd = false;
+                        $rootScope.showSpinner = false;
+                    });
+            }
+            else {
+                transaxns.filterByTags(vm.tags)
+                    .success(function (transactions) {
+                        vm.trs = transactions;
+                        vm.richedTheEnd = true;
+                        $rootScope.showSpinner = false;
+                    })
+                    .error(function (msg) {
+                        $rootScope.showSpinner = false;
+                        logError(msg);
+                    });
+            }
         };
 
         vm.filterByDate = function (fromDate, toDate) {
-            vm.trs = transaxns.filterByDate(fromDate, toDate);
-            $rootScope.$apply();
+            if (dateDidntChange(fromDate, toDate))
+                return;
+
+            if (fromDate)
+                vm.minDate = date.format(fromDate);
+            if (toDate)
+                vm.maxDate = date.format(toDate);
+
+            $rootScope.showSpinner = true;
+            transaxns.filterByDate(fromDate, toDate)
+                .success(function (transactions) {
+                    vm.trs = transactions;
+                    vm.richedTheEnd = true;
+                    $rootScope.showSpinner = false;
+                })
+                .error(function (msg) {
+                    $rootScope.showSpinner = false;
+                    logError(msg);
+                });
         };
+        vm.lastWeekTransactions = function () {
+            var weekBefore = (new Date()).setDate((new Date()).getDate() - 7);
+            var today = (new Date()).getTime();
+            vm.filterByDate(weekBefore, today);
+        };
+        vm.lastMonthTransactions = function () {
+            var monthBefore = (new Date()).setDate((new Date()).getDate() - 30);
+            var today = (new Date()).getTime();
+            vm.filterByDate(monthBefore, today);
+        };
+
 
         function _tagIsAlreadyAdded(tag) {
             return vm.tags.some(function (t) {
                 return t.text === tag;
             });
+        }
+
+        function dateDidntChange(fromDate, toDate) {
+            if (!fromDate || (vm.minDate === date.format(fromDate)) && (!toDate || vm.maxDate === date.format(toDate)))
+                return true;
         }
 
         vm.showImage = function (imgUrl) {
@@ -172,6 +225,8 @@
         };
 
         vm.toggleAdding = function () {
+            if (vm.isFiltering)
+                vm.toggleFiltering();
             if (!vm.isAdding) {
                 vm.curDateTime = date.format(date.now());
                 vm.isAdding = !vm.isAdding;
@@ -181,6 +236,18 @@
             } else {
                 vm.showTransactionForm = !vm.showTransactionForm;
                 vm.isAdding = !vm.isAdding;
+            }
+        };
+        vm.toggleFiltering = function () {
+            if (vm.isAdding)
+                vm.toggleAdding();
+            vm.isFiltering = !vm.isFiltering;
+            if (!vm.isFiltering) {
+                common.$timeout(function () {
+                    vm.showFilterForm = !vm.showFilterForm;
+                });
+            } else {
+                vm.showFilterForm = !vm.showFilterForm;
             }
         };
 
@@ -216,7 +283,7 @@
 
             return transaxns.update(vm.editedTnx)
                 .then(function () {
-                    angular.copy(vm.editedTnx, vm.selectedTnx);
+                    transaxns.copy(vm.editedTnx, vm.selectedTnx);
                     vm.toggleEditing(vm.selectedTnx);
                 },
                 function (msg) {
@@ -241,11 +308,12 @@
             if (_tagIsAlreadyAdded(tag)) {
                 return;
             }
-
+            if(!vm.isFiltering)
+                vm.toggleFiltering();
             vm.tags.push({
                 text: tag
             });
-            vm.trs = transaxns.filterByTags(vm.tags);
+            vm.filterByTags(vm.tags);
         };
 
         vm.addTnx = function () {

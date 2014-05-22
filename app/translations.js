@@ -47,7 +47,8 @@ var translationsRu = {
     TYPE_CURRENT_PASSWORD:"Введите текущий пароль",
     LINK_EMAIL:"Привязать email",
     LINK_ACCOUNT:"Привязка аккаунта",
-    INVALID_EMAIL:"Некорректный email"
+    INVALID_EMAIL:"Некорректный email",
+    SEARCH:"Поиск   "
 };
 
 var translationsEn = {
@@ -99,7 +100,8 @@ var translationsEn = {
     TYPE_CURRENT_PASSWORD:"Enter current password",
     LINK_EMAIL:"Link email",
     INVALID_EMAIL:"Invalid email",
-    LINK_ACCOUNT:"Link account"
+    LINK_ACCOUNT:"Link account",
+    SEARCH:"Search"
 };
 try {
     exports.ru = translationsRu;

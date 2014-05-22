@@ -23,9 +23,29 @@ var ApiInjector = function apiInjector() {
             var offset = parseInt(req.query.offset);
             var count = parseInt(req.query.count);
             var desc = req.query.desc === "true";
-
             var result = db.getTransactions(req.query.sorting, desc, offset, count);
 
+            setTimeout(function () {
+                res.json(result);
+            }, 1500)
+        });
+
+        app.get('/api/secure/filterByDate', function (req, res) {
+            var fromDate = parseInt(req.query.fromDate);
+            var toDate = parseInt(req.query.toDate);
+
+            var result = db.getTransactionsByDate(fromDate, toDate);
+            setTimeout(function () {
+                res.json(result);
+            }, 1500)
+        });
+
+        app.get('/api/secure/filterByTags', function (req, res) {
+            var tagsString = req.query.tags;
+            var tags = tagsString.split(';');
+            console.log(tags);
+
+            var result = db.getTransactionsByTags(tags);
             setTimeout(function () {
                 res.json(result);
             }, 1500)

@@ -26,11 +26,11 @@ header h4, .widget > header h4, header h4 a, .loader.theEnd {
     font-family: "Open Sans", Arial, Helvetica, Sans-Serif;
 }
 
-.newTransactionWrapper {
-    border-bottom: 1px solid #e4e4e4;
-    margin-bottom: 15px;
-    padding-bottom: 8px;
-}
+/*.formsWrapper {*/
+/*border-bottom: 1px solid #e4e4e4;*/
+/*margin-bottom: 15px;*/
+/*padding-bottom: 8px;*/
+/*}*/
 
 input.ng-invalid-required, input.ng-invalid-number, input.invalid {
     border-color: red !important;
@@ -221,7 +221,8 @@ tags-input .tags .tag-item.selected {
 }
 
 .searchBlock .host .tags {
-    background: url(../img/search-white.png) no-repeat center right rgba(51, 51, 51, 0.4);
+    /*background: url(../img/search-white.png) no-repeat center right rgba(51, 51, 51, 0.4);*/
+    background: rgba(51, 51, 51, 0.4);
 }
 
 .host .tags {
@@ -299,21 +300,60 @@ div.tags {
     color: #eee;
 }
 
+.tableAction {
+    margin-left: 5px;
+}
+
+.tableAction:hover {
+    color: #ccc;
+}
+
 .slider {
-    max-height: 230px;
+    max-height: 180px;
     -webkit-transition-property: max-height;
     transition-property: max-height;
     -webkit-transition-duration: 0.3s;
     transition-duration: 0.3s;
-    -webkit-transition-timing-function: ease-in;
+    -webkit-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
     transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
     margin: 0;
+}
+
+.newTransactionForm.slider {
+    max-height: 205px;
+}
+
+.filters.slider {
+    max-height: 105px;
 }
 
 .slider.closed {
     max-height: 0;
 }
 
+.predefined {
+    display: inline-block;
+    padding-left: 20px;
+}
+
+.predefined a {
+    margin: 0 10px;
+    height: 35px;
+    line-height: 35px;
+    color: #f8f8f8;
+    border-bottom: 1px #eee dashed;
+    font-family: 'open sans condensed' sans-serif;
+    font-size: 16px;
+}
+
+.predefined a:hover {
+    text-decoration: none;
+    color: #ccc;
+    border-bottom: 1px #ccc dashed;
+}
+.tags-th,.tags-td{
+    width: 390px;
+}
 #languages-menu.ng-hide-remove {
     -webkit-animation: bounceIn 0.5s;
     animation: bounceIn 0.5s;
@@ -340,18 +380,7 @@ div.tags {
     display: block;
 }
 
-/*#languages-menu.langsOpen-remove{*/
-/*-webkit-animation: fadeOutUp 0.7s;*/
-/*animation: fadeOutUp 0.7s;*/
-/*display: none;*/
-/*}*/
-
-/*#languages-menu.langsOpen{*/
-/*display: block;*/
-/*-webkit-animation: fadeInUp 0.3s;*/
-/*animation: fadeInUp 0.3s;*/
-/*}*/
-.transactionForm {
+.transactionForm, .filterForm {
     -webkit-transition-property: opacity;
     transition-property: opacity;
     -webkit-transition-duration: 0.3s;
@@ -384,6 +413,7 @@ div.tags {
 
 tags-input .tags .input {
     margin: 0;
+    height: 35px;
 }
 
 .transactionForm .host {

@@ -79,7 +79,7 @@ function generateTransactions(count) {
         transactions.push({
             amountInBaseCurrency: getRandomInt(200, 3000),
             tags: getRandomTags(),
-            timestamp: _randomDate(new Date(2012, 0, 1), new Date()),
+            timestamp: _randomDate(new Date(2012, 0, 1), new Date(2014, 10, 10)),
             id: uuid.v1(),
             latitude: data.addresses[randomIndex].latitude,
             longitude: data.addresses[randomIndex].longitude,
@@ -138,7 +138,7 @@ var sortByAmountDesc = function (a, b) {
 }
 
 
-var transactions = generateTransactions(100);
+var transactions = generateTransactions(1000);
 transactions = transactions.sort(sortByDateDesc);
 
 function getSortFn(sorting, desc) {
@@ -152,6 +152,29 @@ function getSortFn(sorting, desc) {
     return fn;
 }
 
+function getTransactionsByTags(tags) {
+    if (tags.length === 0 || tags[0]==='') {
+        return getTransactions('timestamp', true, 0, 30);
+    }
+    return transactions.filter(function (t) {
+        for (var i = 0; i < tags.length; i++) {
+            var tagFound = false;
+            for (var j = 0; j < t.tags.length && !tagFound; j++) {
+                tagFound = t.tags[j] === tags[i];
+            }
+            if (!tagFound)
+                return false;
+        }
+        return true;
+    });
+}
+
+function getTransactionsByDate(fromDate, toDate) {
+    return transactions.filter(function (t) {
+        return (!fromDate || t.timestamp >= fromDate) && (!toDate || t.timestamp <= toDate);
+    });
+}
+
 function getTransactions(sorting, desc, offset, count) {
     console.log('offset ' + offset + ' count ' + count + ' desc ' + desc + ' sorting ' + sorting);
 
@@ -161,3 +184,5 @@ function getTransactions(sorting, desc, offset, count) {
 }
 
 exports.getTransactions = getTransactions;
+exports.getTransactionsByDate = getTransactionsByDate;
+exports.getTransactionsByTags = getTransactionsByTags;

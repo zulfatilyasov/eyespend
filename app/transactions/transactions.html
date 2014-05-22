@@ -11,12 +11,19 @@
 </div>
 
 <section class="widget">
-<div class="newTransactionWrapper">
+<div class="formsWrapper">
     <header>
-        <h4><i class="fa fa-plus"></i> <a href="javascript:void(0)" translate ng-click="vm.toggleAdding()">NEW_TANSACTION</a>
+        <h4>
+            <span class="tableAction">
+                <i class="fa fa-plus"></i> <a href="javascript:void(0)" translate ng-click="vm.toggleAdding()">NEW_TANSACTION</a>
+            </span>
+            <span class="tableAction">
+                 <i class="fa fa-filter"></i>
+                 <a href="javascript:void(0)" translate ng-click="vm.toggleFiltering()">Фильтрация</a>
+           </span>
         </h4>
     </header>
-    <form name="newTransactionForm" ng-class="{row:true, slider:true, closed:!vm.isAdding}">
+    <form ng-class="{row:true, newTransactionForm:true, slider:true, closed:!vm.isAdding}">
         <div ng-class="{transactionForm:true, visible:vm.showTransactionForm}">
             <div class="row">
                 <div class="col-md-3">
@@ -43,9 +50,9 @@
                             <auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0"
                                            max-results-to-show="50"></auto-complete>
                         </tags-input>
+
                     </div>
                 </div>
-
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -61,46 +68,60 @@
                         </button>
                         <span class="validationMessage error" ng-bind-html="vm.newTnx.validationMessage"></span>
                     </div>
-                    <div id="arrowUp" ng-show="vm.showTransactionForm">
-                        <a title="Свернуть" ng-click="vm.toggleAdding()" href="javascript:void(0)">
-                            <i class="fa fa-chevron-circle-up fa-2x"></i>
-                        </a>
-                    </div>
+                    <!--<div id="arrowUp" ng-show="vm.showTransactionForm">-->
+                    <!--<a title="Свернуть" ng-click="vm.toggleAdding()" href="javascript:void(0)">-->
+                    <!--<i class="fa fa-chevron-circle-up fa-2x"></i>-->
+                    <!--</a>-->
+                    <!--</div>-->
                 </div>
             </div>
         </div>
     </form>
-    <!--<div id="arrowUp" ng-show="vm.showTransactionForm">-->
-    <!--<a title="Свернуть" ng-click="vm.toggleAdding()" href="javascript:void(0)">-->
-    <!--<i class="fa fa-chevron-circle-up fa-2x"></i>-->
-    <!--</a>-->
-    <!--</div>-->
-</div>
-<div class="row searchBlock">
-    <div class="col-md-8">
-        <div class="inputHost">
-            <label for="fromDate">
-                <span id="showTnxText" class="hidden-phone-landscape" translate>SHOW_TRANSACTIONS</span>&nbsp;<span
-                    translate>FROM</span>:
-                <input filter="filter" us-date-time-picker ng-model="vm.minDate" type="text" id="fromDate">
-            </label>
+    <form ng-class="{row:true, filters:true, slider:true, closed:!vm.isFiltering}">
+        <div ng-class="{searchBlock:true, filterForm:true, visible:vm.showFilterForm}">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="inputHost">
+                        <label for="fromDate">
+                            <span id="showTnxText" class="hidden-phone-landscape" translate>SHOW_TRANSACTIONS</span>&nbsp;<span
+                                translate>FROM</span>:
+                            <input filter="filter" us-date-time-picker ng-model="vm.minDate" type="text" id="fromDate">
+                        </label>
+                    </div>
+                    <div class="inputHost">
+                        <label><span translate>TO</span>:
+                            <input filter="filter" us-date-time-picker ng-model="vm.maxDate" type="text" id="toDate">
+                        </label>
+                    </div>
+                    <div class="predefined">
+                        <a href="javascript:void(0)" ng-click="vm.lastWeekTransactions()">
+                            за последнюю неделю
+                        </a>
+                        <a href="javascript:void(0)" ng-click="vm.lastMonthTransactions()">
+                            за последний месяц
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <tags-input style="width: 80%; display: inline-block" ng-model="vm.tags" min-Length="1"
+                                add-from-autocomplete-only="false"
+                                replace-spaces-with-dashes="false"
+                                placeholder="{{'SEARCH_BY_TAGS'|translate}}"
+                                class="bootstrap">
+                        <auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0"
+                                       max-results-to-show="50">
+                        </auto-complete>
+                    </tags-input><button ng-click="vm.filterByTags()" style="width: 10%;display: inline-block;height: 36px;margin-bottom: 29px;"
+                            class="btn btn-primary" type="button">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="inputHost">
-            <label><span translate>TO</span>:
-                <input filter="filter" us-date-time-picker ng-model="vm.maxDate" type="text" id="toDate">
-            </label>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <tags-input ng-model="vm.tags" min-Length="1" add-from-autocomplete-only="false"
-                    replace-spaces-with-dashes="false" on-tag-added="vm.filterByTags()"
-                    on-tag-removed="vm.filterByTags()" placeholder="{{'SEARCH_BY_TAGS'|translate}}" class="bootstrap">
-            <auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0"
-                           max-results-to-show="50"></auto-complete>
-        </tags-input>
-    </div>
+    </form>
 </div>
-
 <div class="row">
     <div class="col-md-12">
         <div class="body">
@@ -122,7 +143,7 @@
                     </th>
                     <th class="no-sort map" translate>ADDRESS</th>
                     <th class="no-sort image hidden-phone-landscape" translate>FOTO</th>
-                    <th class="no-sort hidden-phone-landscape" translate>TAGS</th>
+                    <th class="no-sort hidden-phone-landscape tags-th" translate>TAGS</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -147,12 +168,13 @@
                             <i class="fa fa-picture-o fa-2x"></i>
                         </a>
                     </td>
-                    <td class="hidden-phone-landscape bootstrap">
+                    <td class="hidden-phone-landscape bootstrap tags-td">
                         <div class="tags">
                             <ul class="tag-list">
                                 <li class="tag-item" ng-repeat="tag in transaction.tags"
                                     ng-mouseenter="vm.hoveredTag = tag" ng-mouseleave="vm.hoveredTag = null"
                                     ng-style="{'background-color':tag.color}"
+                                    ng-class="{'tag-hovered':vm.hoveredTag.text === tag.text}"
                                     ng-class="{'tag-hovered':vm.hoveredTag.text === tag.text}"
                                     ng-click="vm.addTag(tag.text)">
                                     <span>{{tag.text}}</span>
@@ -177,7 +199,7 @@
                 </tr>
                 <tr class="editorRow" ng-repeat-end
                     ng-if="vm.editedTnx && vm.editedTnx.id === transaction.id">
-                    <td colspan="6">
+                    <td colspan="7">
                         <div class="row">
                             <form ng-class="{row:true, slider:true, closed:!vm.isEditing}">
                                 <div style="opacity:0"
@@ -241,31 +263,9 @@
                                                         <span translate>CANCEL</span>
                                                     </button>
                                                 </div>
-                                                <!--<div style="display:inline-block" translate>OR</div>-->
-                                                <!--<input style="width:80%; display:inline-block"-->
-                                                       <!--class="form-control" ng-autocomplete-->
-                                                       <!--ng-model="vm.editedTnx.Place"-->
-                                                       <!--details="vm.editedTnx.placeDetails" type="text"-->
-                                                       <!--id="editedAddress">-->
-                                                <!--<br/>-->
                                             </div>
                                         </div>
                                     </div>
-                                    <!--<div class="row">-->
-                                        <!--<div class="col-md-12">-->
-                                            <!--<div style="margin-top: 10px" class="inputHost">-->
-                                                <!--<button type="button" class="btn btn-primary"-->
-                                                        <!--ng-click="vm.saveTnx()" data-placement="right">-->
-                                                    <!--<span translate>SAVE</span>-->
-                                                <!--</button>-->
-                                                <!--<button type="button" class="btn dark-grey"-->
-                                                        <!--ng-click="vm.toggleEditing(transaction)"-->
-                                                        <!--data-placement="right" translate>-->
-                                                    <!--<span translate>CANCEL</span>-->
-                                                <!--</button>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
                                 </div>
                             </form>
                         </div>
@@ -282,10 +282,12 @@
                     <div class='bar'></div>
                 </div>
                 <div ng-show="vm.richedTheEnd" class="loader theEnd">
-                    The End
                 </div>
             </div>
-            <div ng-hide="vm.richedTheEnd" in-view="vm.loadMoreTransactions($inview,$inviewpart)"></div>
+            <div ng-hide="vm.richedTheEnd"
+                 in-view-offset="-500"
+                 in-view="vm.loadMoreTransactions($inview,$inviewpart)">
+            </div>
         </div>
     </div>
 </div>

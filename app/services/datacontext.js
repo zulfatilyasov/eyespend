@@ -9,6 +9,14 @@
             return $http.get('/api/secure/transactions?sorting=' + sorting + '&desc=' + desc + '&offset=' + offset + '&count=' + count);
         }
 
+        function getTransaxnsByDate(fromDate, toDate) {
+            return $http.get('/api/secure/filterByDate?fromDate=' + fromDate + '&toDate=' + toDate);
+        }
+
+        function getTransaxnsByTags(tags) {
+            return $http.get('/api/secure/filterByTags?tags=' + tags);
+        }
+
         function updateTransaction(transaction) {
             return $http.post('/api/secure/updateTransaction', {transaction: transaction});
         }
@@ -39,13 +47,15 @@
 
         return {
             getTransaxns: getTransaxns,
+            getTransaxnsByDate:getTransaxnsByDate,
+            getTransaxnsByTags:getTransaxnsByTags,
             updateTransaction: updateTransaction,
             createTransaction: createTransaction,
             deleteTransaction: deleteTransaction,
             authenticate: authenticate,
             quickPass: quickPass,
             changePsw: changePsw,
-            linkEmail:linkEmail
+            linkEmail: linkEmail
         };
     }
 })();

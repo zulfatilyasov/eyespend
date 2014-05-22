@@ -42,13 +42,13 @@
 
             offset = 0;
             datacontext.getTransaxns(sortOptions.column, sortOptions.descending, offset, count)
-                .success(function(sortedTransactions){
+                .success(function (sortedTransactions) {
                     angular.forEach(sortedTransactions, function (t) {
                         _colorAndSaveTags(t.tags);
                     });
                     offset = sortedTransactions.length;
                     transactions = sortedTransactions;
-                    def.resolve(transactions);
+                    def.resolve(transactions.slice(0));
                 });
 
             return def.promise;
@@ -80,27 +80,53 @@
             }
         }
 
-        function filterByTags(tags) {
-            if (tags.length === 0) {
-                return transactions.slice(0);
+        function convertToString(tags) {
+            var result = '';
+            for (var i = 0, len = tags.length; i < len; i++) {
+                result += tags[i].text;
+                if (i < tags.length - 1)
+                    result += ';';
             }
-            return transactions.filter(function (t) {
-                for (var i = 0; i < tags.length; i++) {
-                    var tagFound = false;
-                    for (var j = 0; j < t.tags.length && !tagFound; j++) {
-                        tagFound = t.tags[j].text === tags[i].text
-                    }
-                    if (!tagFound)
-                        return false;
-                }
-                return true;
-            });
+            return result;
+        }
+
+        function filterByTags(tags) {
+            var def = common.defer();
+
+            var tagsString = convertToString(tags);
+            datacontext.getTransaxnsByTags(tagsString)
+                .success(function (filteredTransactions) {
+                    angular.forEach(filteredTransactions, function (t) {
+                        _colorAndSaveTags(t.tags);
+                    });
+                    offset = 0;
+                    transactions = filteredTransactions;
+                    def.resolve(transactions.slice(0));
+                })
+                .error(function () {
+                    def.reject('Ошибка при фильтрации по тегам');
+                });
+
+            return def.promise;
         }
 
         function filterByDate(fromDate, toDate) {
-            return transactions.filter(function (t) {
-                return (!fromDate || t.timestamp >= fromDate) && (!toDate || t.timestamp <= toDate);
-            });
+            var def = common.defer();
+
+            datacontext.getTransaxnsByDate(fromDate, toDate)
+                .success(function (filteredTransactions) {
+                    angular.forEach(filteredTransactions, function (t) {
+                        _colorAndSaveTags(t.tags);
+                    });
+                    offset = 0;
+                    transactions = filteredTransactions;
+                    def.resolve(transactions.slice(0));
+                })
+                .error(function () {
+                    def.reject('Ошибка при фильтрации');
+                });
+
+            return def.promise;
         }
 
         function _colorAndSaveTags(tags) {
@@ -199,6 +225,25 @@
             }
         }
 
+        function copy(source, target) {
+            target.id = source.id;
+            target.amountInBaseCurrency = source.amountInBaseCurrency;
+            target.latitude = source.latitude;
+            target.longitude = source.longitude;
+            target.timestamp = source.timestamp;
+            for (var i = 0, len = source.tags.length; i < len; i++) {
+                var tag = target.tags.filter(function (t) {
+                    return t.text === source.tags[i].text;
+                });
+                if (tag.length == 0) {
+                    target.tags.push({
+                        text: source.tags[i].text
+                    });
+                }
+            }
+            _colorAndSaveTags(target.tags);
+        }
+
         function update(tnx) {
             var def = common.$q.defer();
 //            setLocation(tnx);
@@ -213,7 +258,7 @@
                         def.reject("Не удалось найти транзкцию");
                         return;
                     }
-                    angular.copy(tnx, transaction[0]);
+//                    copy(tnx,transaction[0]);
                     def.resolve();
                 },
                 function () {
@@ -283,7 +328,8 @@
             sortByDateDesc: sortByDateDesc,
             update: update,
             getTransactionIndex: getTransactionIndex,
-            remove: remove
+            remove: remove,
+            copy: copy
         };
     }
 })();
