@@ -57,7 +57,7 @@ var ApiInjector = function apiInjector() {
         });
         app.post('/api/secure/createTransaction', function (req, res) {
             console.log('user created transaction' + JSON.stringify(req.body.transaction));
-            res.send(uuid.v4());
+            res.send(db.createId());
         });
         app.post('/api/secure/deleteTransaction', function (req, res) {
             console.log('user deleted transaction' + JSON.stringify(req.body.id));

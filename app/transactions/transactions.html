@@ -21,7 +21,12 @@
                  <i class="fa fa-filter"></i>
                  <a href="javascript:void(0)" translate ng-click="vm.toggleFiltering()">Фильтрация</a>
            </span>
+            <span style="float: right" class="tableAction">
+                 <i class="fa fa-download"></i>
+                <a href="{{vm.excelFileUrl}}" translate ng-click="vm.toggleFiltering()">Скачать в Excel</a>
+           </span>
         </h4>
+
     </header>
     <form ng-class="{row:true, newTransactionForm:true, slider:true, closed:!vm.isAdding}">
         <div ng-class="{transactionForm:true, visible:vm.showTransactionForm}">
@@ -57,24 +62,39 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="inputHost">
-                        <label for="newAddress" translate>PLACE</label>
+                        <label for="editedAddress" translate>PLACE</label>
                         <br/>
-                        <input class="form-control" ng-autocomplete ng-model="vm.newTnx.Place"
-                               details="vm.newTnx.placeDetails" type="text" id="newAddress">
-                    </div>
-                    <div class="inputHost">
-                        <button type="button" class="btn btn-primary" ng-click="vm.addTnx()"
-                                data-placement="right" translate>ADD_NEW
+                        <button style="display:inline-block" type="button"
+                                ng-click="vm.pickAddress()" class="btn btn-success">
+                            <i style="font-size:15px;"
+                               class="fa fa-map-marker fa-1x"></i> <span
+                                translate>SHOW_ON_MAP</span>
                         </button>
-                        <span class="validationMessage error" ng-bind-html="vm.newTnx.validationMessage"></span>
+                        <div style="display: inline-block; float: right">
+                            <button type="button" class="btn btn-primary"
+                                    ng-click="vm.addTnx()" data-placement="right">
+                                <span translate>ADD_NEW</span>
+                            </button>
+                        </div>
                     </div>
-                    <!--<div id="arrowUp" ng-show="vm.showTransactionForm">-->
-                    <!--<a title="Свернуть" ng-click="vm.toggleAdding()" href="javascript:void(0)">-->
-                    <!--<i class="fa fa-chevron-circle-up fa-2x"></i>-->
-                    <!--</a>-->
-                    <!--</div>-->
                 </div>
             </div>
+            <!--<div class="row">-->
+                <!--<div class="col-md-12">-->
+                    <!--<div class="inputHost">-->
+                        <!--<label for="newAddress" translate>PLACE</label>-->
+                        <!--<br/>-->
+                        <!--<input class="form-control" ng-autocomplete ng-model="vm.newTnx.Place"-->
+                               <!--details="vm.newTnx.placeDetails" type="text" id="newAddress">-->
+                    <!--</div>-->
+                    <!--<div class="inputHost">-->
+                        <!--<button type="button" class="btn btn-primary" ng-click="vm.addTnx()"-->
+                                <!--data-placement="right" translate>ADD_NEW-->
+                        <!--</button>-->
+                        <!--<span class="validationMessage error" ng-bind-html="vm.newTnx.validationMessage"></span>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
         </div>
     </form>
     <form ng-class="{row:true, filters:true, slider:true, closed:!vm.isFiltering}">
@@ -113,7 +133,8 @@
                         <auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0"
                                        max-results-to-show="50">
                         </auto-complete>
-                    </tags-input><button ng-click="vm.filterByTags()" style="width: 10%;display: inline-block;height: 36px;margin-bottom: 29px;"
+                    </tags-input><button ng-click="vm.filterByTags()"
+                            style="width: 10%;display: inline-block;height: 36px;margin-bottom: 29px;"
                             class="btn btn-primary" type="button">
                         <i class="fa fa-search"></i>
                     </button>
@@ -130,7 +151,7 @@
                 <thead>
                 <tr>
                     <th ng-class="vm.getSortingForColumn('timestamp')" ng-click="vm.changeSorting('timestamp')"
-                        class="hidden-phone-landscape" translate>
+                        class="hidden-phone-landscape date-th" translate>
                         DATE
                     </th>
                     <th class="no-sort" translate>
@@ -142,7 +163,11 @@
                         <span id="totalAmount" class="hidden-phone-landscape">{{vm.total()}} р.</span>
                     </th>
                     <th class="no-sort map" translate>ADDRESS</th>
-                    <th class="no-sort image hidden-phone-landscape" translate>FOTO</th>
+                    <th ng-class="vm.getSortingForColumn('foto')"
+                        ng-click="vm.changeSorting('foto')"
+                        translate>
+                        FOTO
+                    </th>
                     <th class="no-sort hidden-phone-landscape tags-th" translate>TAGS</th>
                 </tr>
                 </thead>
@@ -150,7 +175,7 @@
                 <tr ng-repeat-start="transaction in vm.trs"
                     ng-class="{selected:vm.selectedTnx.id === transaction.id, striped:$index%2==0}"
                     ng-click="vm.selectTransaction(transaction, $event)">
-                    <td>{{transaction.timestamp | date:'dd MMMM yyyy'}}</td>
+                    <td class="date-td">{{transaction.timestamp | date:'dd MMMM yyyy'}}</td>
                     <td>{{transaction.timestamp | date:'HH:mm'}}</td>
                     <td>{{transaction.amountInBaseCurrency}} р.</td>
                     <td class="map">

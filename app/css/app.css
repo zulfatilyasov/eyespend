@@ -351,9 +351,15 @@ div.tags {
     color: #ccc;
     border-bottom: 1px #ccc dashed;
 }
-.tags-th,.tags-td{
+
+.tags-th, .tags-td {
     width: 390px;
 }
+
+.date-td, .date-th {
+    width: 180px;
+}
+
 #languages-menu.ng-hide-remove {
     -webkit-animation: bounceIn 0.5s;
     animation: bounceIn 0.5s;

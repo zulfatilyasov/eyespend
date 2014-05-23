@@ -111,31 +111,51 @@ var sortByDateAsc = function (a, b) {
     } else {
         return 0;
     }
-}
-
-var sortByAmountAsc = function (a, b) {
-    var d1 = parseInt(a.amountInBaseCurrency);
-    var d2 = parseInt(b.amountInBaseCurrency);
-    if (d1 > d2) {
-        return 1;
-    } else if (d1 < d2) {
-        return -1;
-    } else {
-        return 0;
-    }
-}
+};
 
 var sortByAmountDesc = function (a, b) {
     var d1 = parseInt(a.amountInBaseCurrency);
     var d2 = parseInt(b.amountInBaseCurrency);
     if (d1 > d2) {
+        return 1;
+    } else if (d1 < d2) {
+        return -1;
+    } else {
+        return 0;
+    }
+};
+
+var sortByAmountAsc = function (a, b) {
+    var d1 = parseInt(a.amountInBaseCurrency);
+    var d2 = parseInt(b.amountInBaseCurrency);
+    if (d1 > d2) {
         return -1;
     } else if (d1 < d2) {
         return 1;
     } else {
         return 0;
     }
-}
+};
+
+var sortByFotoDesc = function (d1, d2) {
+    if (d1.imgUrl && !d2.imgUrl) {
+        return 1;
+    } else if (!d1.imgUrl && d2.imgUrl) {
+        return -1;
+    } else {
+        return 0;
+    }
+};
+
+var sortByFotoAsc  = function (d1, d2) {
+    if (d1.imgUrl && !d2.imgUrl) {
+        return -1;
+    } else if (!d1.imgUrl && d2.imgUrl) {
+        return 1;
+    } else {
+        return 0;
+    }
+};
 
 
 var transactions = generateTransactions(1000);
@@ -149,11 +169,18 @@ function getSortFn(sorting, desc) {
         fn = sortByAmountAsc;
     if (sorting === 'amountInBaseCurrency' && !desc)
         fn = sortByAmountDesc;
+    if (sorting === 'foto' && desc)
+        fn = sortByFotoAsc;
+    if (sorting === 'foto' && !desc)
+        fn = sortByFotoDesc;
     return fn;
+}
+function createId(){
+    return uuid.v1();
 }
 
 function getTransactionsByTags(tags) {
-    if (tags.length === 0 || tags[0]==='') {
+    if (tags.length === 0 || tags[0] === '') {
         return getTransactions('timestamp', true, 0, 30);
     }
     return transactions.filter(function (t) {
@@ -186,3 +213,4 @@ function getTransactions(sorting, desc, offset, count) {
 exports.getTransactions = getTransactions;
 exports.getTransactionsByDate = getTransactionsByDate;
 exports.getTransactionsByTags = getTransactionsByTags;
+exports.createId = createId;

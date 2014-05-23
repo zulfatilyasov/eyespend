@@ -12,7 +12,6 @@
                 }
                 else {
                     $cookies.token = data.token;
-                    common.logger.logSuccess('Welcome');
                     $rootScope.hideHeader = false;
                     def.resolve();
                 }

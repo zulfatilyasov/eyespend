@@ -9,7 +9,10 @@
         var logError = common.logger.getLogFn(controllerId, 'logError');
         vm.tags = [];
         vm.trs = [];
-        vm.newTnx = null;
+        vm.newTnx = {
+            latitude: 55.754069,
+            longitude: 37.620849
+        };
         vm.isAdding = false;
         vm.isFiltering = false;
         vm.selectedTnx = null;
@@ -18,6 +21,8 @@
         vm.showFilterForm = false;
         vm.curDateTime = date.format(date.now());
         vm.isLoading = true;
+        vm.excelFileUrl = 'files/transactions.xls';
+
         function editedTransactionNotValid() {
             return !vm.editedTnx || !vm.editedTnx.id || !vm.selectedTnx;
         }
@@ -40,7 +45,7 @@
             vm.selectedTnx = transaction;
             $event.stopPropagation();
         };
-        function fillMapProperties(transaction) {
+        function fillMapProperties(transaction, draggable) {
             $rootScope.showMap = true;
             $rootScope.mapCenter = new google.maps.LatLng(transaction.latitude, transaction.longitude);
             $rootScope.zoom = 17;
@@ -53,56 +58,31 @@
                         lng: transaction.longitude
                     },
                     options: function () {
-                        return null;
+                        return {
+                            draggable: draggable
+                        }
                     }
                 }
             ];
         }
 
         vm.showMap = function (transaction) {
-            $rootScope.showMap = true;
-            $rootScope.mapCenter = new google.maps.LatLng(transaction.latitude, transaction.longitude);
-            $rootScope.zoom = 17;
-            $rootScope.transaction = transaction;
-            $rootScope.markers = [
-                {
-                    id: transaction.id,
-                    location: {
-                        lat: transaction.latitude,
-                        lng: transaction.longitude
-                    },
-                    options: function () {
-                        return null;
-                    }
-                }
-            ];
+            fillMapProperties(transaction, false);
             $rootScope.overlayIsOpen = true;
             $rootScope.showPlacesInput = false;
         };
 
         $rootScope.$on('locationSet',
             function (event, data) {
-                vm.editedTnx.latitude = data.latitude;
-                vm.editedTnx.longitude = data.longitude;
+                var transaction = vm.isAdding ? vm.newTnx : vm.editedTnx;
+                transaction.latitude = data.latitude;
+                transaction.longitude = data.longitude;
             }
         );
 
         vm.pickAddress = function () {
-            $rootScope.markers = [
-                {
-                    location: {
-                        lat: vm.editedTnx.latitude,
-                        lng: vm.editedTnx.longitude
-                    },
-                    options: function () {
-                        return {
-                            draggable: true
-                        };
-                    }
-                }
-            ];
-            $rootScope.zoom = 17;
-            $rootScope.mapCenter = new google.maps.LatLng(vm.editedTnx.latitude, vm.editedTnx.longitude);
+            var transacstion = vm.isAdding ? vm.newTnx : vm.editedTnx;
+            fillMapProperties(transacstion, true);
             $rootScope.overlayIsOpen = true;
             $rootScope.placePicker = {};
             $rootScope.showPlacesInput = true;
@@ -308,7 +288,7 @@
             if (_tagIsAlreadyAdded(tag)) {
                 return;
             }
-            if(!vm.isFiltering)
+            if (!vm.isFiltering)
                 vm.toggleFiltering();
             vm.tags.push({
                 text: tag

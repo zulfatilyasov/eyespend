@@ -67,12 +67,12 @@
         }
 
         function getSortingForColumn(column) {
-            if (sort.column !== column) {
+            if (sortOptions.column !== column) {
                 return 'sorting';
             } else {
-                if (sort.descending === true) {
+                if (sortOptions.descending === true) {
                     return 'sorting_desc';
-                } else if (sort.descending === false) {
+                } else if (sortOptions.descending === false) {
                     return 'sorting_asc';
                 } else {
                     return '';
