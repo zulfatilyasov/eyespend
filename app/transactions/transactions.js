@@ -10,8 +10,8 @@
         vm.tags = [];
         vm.trs = [];
         vm.newTnx = {
-            latitude: 55.754069,
-            longitude: 37.620849
+            latitude: null,
+            longitude: null
         };
         vm.isAdding = false;
         vm.isFiltering = false;
@@ -20,7 +20,7 @@
         vm.showTransactionForm = false;
         vm.showFilterForm = false;
         vm.curDateTime = date.format(date.now());
-        vm.isLoading = true;
+        vm.isLoading = false;
         vm.excelFileUrl = 'files/transactions.xls';
 
         function editedTransactionNotValid() {
@@ -49,6 +49,8 @@
             $rootScope.showMap = true;
             $rootScope.mapCenter = new google.maps.LatLng(transaction.latitude, transaction.longitude);
             $rootScope.zoom = 17;
+            if(!transaction.latitude || !transaction.longitude)
+                $rootScope.zoom = 2;
             $rootScope.transaction = transaction;
             $rootScope.markers = [
                 {
@@ -81,8 +83,8 @@
         );
 
         vm.pickAddress = function () {
-            var transacstion = vm.isAdding ? vm.newTnx : vm.editedTnx;
-            fillMapProperties(transacstion, true);
+            var transaction = vm.isAdding ? vm.newTnx : vm.editedTnx;
+            fillMapProperties(transaction, true);
             $rootScope.overlayIsOpen = true;
             $rootScope.placePicker = {};
             $rootScope.showPlacesInput = true;
@@ -317,10 +319,14 @@
         };
 
         function _getTransactions() {
+            $rootScope.showSpinner = true;
+            vm.isLoading = true;
             return transaxns.getTransaxns()
                 .success(function (trs) {
                     vm.trs = trs;
                     if (trs.length) {
+                        $rootScope.showSpinner = false;
+                        vm.isLoading = false;
                         vm.minDate = transaxns.getMinDate();
                         vm.maxDate = transaxns.getMaxDate();
                         vm.sort = transaxns.sortOptions;
@@ -332,7 +338,6 @@
             var promises = [_getTransactions()];
             common.activateController(promises, controllerId)
                 .then(function () {
-                    vm.isLoading = false;
                     common.logger.logSuccess('Данные загружены');
                 });
         }

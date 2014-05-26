@@ -15,15 +15,16 @@
     <header>
         <h4>
             <span class="tableAction">
-                <i class="fa fa-plus"></i> <a href="javascript:void(0)" translate ng-click="vm.toggleAdding()">NEW_TANSACTION</a>
+                <i class="fa fa-plus"></i> <a href="javascript:void(0)" id="createButton" translate
+                                              ng-click="vm.toggleAdding()">NEW_TANSACTION</a>
             </span>
             <span class="tableAction">
                  <i class="fa fa-filter"></i>
-                 <a href="javascript:void(0)" translate ng-click="vm.toggleFiltering()">Фильтрация</a>
+                 <a href="javascript:void(0)" id="filterButton" translate ng-click="vm.toggleFiltering()">Фильтрация</a>
            </span>
             <span style="float: right" class="tableAction">
                  <i class="fa fa-download"></i>
-                <a href="{{vm.excelFileUrl}}" translate ng-click="vm.toggleFiltering()">Скачать в Excel</a>
+                <a href="{{vm.excelFileUrl}}" translate ng-click="vm.toggleFiltering()">Скачать</a>
            </span>
         </h4>
 
@@ -64,14 +65,14 @@
                     <div class="inputHost">
                         <label for="editedAddress" translate>PLACE</label>
                         <br/>
-                        <button style="display:inline-block" type="button"
+                        <button style="display:inline-block" type="button" id="pickAddress"
                                 ng-click="vm.pickAddress()" class="btn btn-success">
                             <i style="font-size:15px;"
                                class="fa fa-map-marker fa-1x"></i> <span
                                 translate>SHOW_ON_MAP</span>
                         </button>
                         <div style="display: inline-block; float: right">
-                            <button type="button" class="btn btn-primary"
+                            <button type="button" id="addButton" class="btn btn-primary"
                                     ng-click="vm.addTnx()" data-placement="right">
                                 <span translate>ADD_NEW</span>
                             </button>
@@ -79,22 +80,6 @@
                     </div>
                 </div>
             </div>
-            <!--<div class="row">-->
-                <!--<div class="col-md-12">-->
-                    <!--<div class="inputHost">-->
-                        <!--<label for="newAddress" translate>PLACE</label>-->
-                        <!--<br/>-->
-                        <!--<input class="form-control" ng-autocomplete ng-model="vm.newTnx.Place"-->
-                               <!--details="vm.newTnx.placeDetails" type="text" id="newAddress">-->
-                    <!--</div>-->
-                    <!--<div class="inputHost">-->
-                        <!--<button type="button" class="btn btn-primary" ng-click="vm.addTnx()"-->
-                                <!--data-placement="right" translate>ADD_NEW-->
-                        <!--</button>-->
-                        <!--<span class="validationMessage error" ng-bind-html="vm.newTnx.validationMessage"></span>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
         </div>
     </form>
     <form ng-class="{row:true, filters:true, slider:true, closed:!vm.isFiltering}">
@@ -125,19 +110,24 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <tags-input style="width: 80%; display: inline-block" ng-model="vm.tags" min-Length="1"
-                                add-from-autocomplete-only="false"
-                                replace-spaces-with-dashes="false"
-                                placeholder="{{'SEARCH_BY_TAGS'|translate}}"
-                                class="bootstrap">
-                        <auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0"
-                                       max-results-to-show="50">
-                        </auto-complete>
-                    </tags-input><button ng-click="vm.filterByTags()"
-                            style="width: 10%;display: inline-block;height: 36px;margin-bottom: 29px;"
-                            class="btn btn-primary" type="button">
-                        <i class="fa fa-search"></i>
-                    </button>
+                    <div id="tagsSearchInput">
+                        <tags-input ng-model="vm.tags" min-Length="1"
+                                    add-from-autocomplete-only="false"
+                                    replace-spaces-with-dashes="false"
+                                    placeholder="{{'SEARCH_BY_TAGS'|translate}}"
+                                    class="bootstrap">
+                            <auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0"
+                                           max-results-to-show="50">
+                            </auto-complete>
+                        </tags-input>
+                    </div>
+                    <div id="searchButton">
+                        <button id="search" ng-click="vm.filterByTags()"
+                                class="btn btn-primary" type="button">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -151,10 +141,10 @@
                 <thead>
                 <tr>
                     <th ng-class="vm.getSortingForColumn('timestamp')" ng-click="vm.changeSorting('timestamp')"
-                        class="hidden-phone-landscape date-th" translate>
+                        class="date-th" translate>
                         DATE
                     </th>
-                    <th class="no-sort" translate>
+                    <th class="hidden-phone-landscape no-sort" translate>
                         TIME
                     </th>
                     <th ng-class="vm.getSortingForColumn('amountInBaseCurrency')"
@@ -175,8 +165,11 @@
                 <tr ng-repeat-start="transaction in vm.trs"
                     ng-class="{selected:vm.selectedTnx.id === transaction.id, striped:$index%2==0}"
                     ng-click="vm.selectTransaction(transaction, $event)">
-                    <td class="date-td">{{transaction.timestamp | date:'dd MMMM yyyy'}}</td>
-                    <td>{{transaction.timestamp | date:'HH:mm'}}</td>
+                    <td class="date-td">
+                        <span class="hidden-phone-landscape">{{transaction.timestamp | date:'dd MMMM yyyy'}}</span>
+                        <span class="visible-phone-landscape">{{transaction.timestamp | date:'dd.MM.yy'}}</span>
+                    </td>
+                    <td class="hidden-phone-landscape">{{transaction.timestamp | date:'HH:mm'}}</td>
                     <td>{{transaction.amountInBaseCurrency}} р.</td>
                     <td class="map">
                         <a ng-if="transaction.latitude && transaction.longitude"

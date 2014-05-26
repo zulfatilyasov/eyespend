@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8">
     <title>eyeSpend</title>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700&subset=latin,cyrillic'
-          rel='stylesheet' type='text/css'>
+    <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700&subset=latin,cyrillic'-->
+          <!--rel='stylesheet' type='text/css'>-->
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700|Roboto:400,300,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="eyeSpend.min.css">
     <style type="text/css">
         @-moz-document url-prefix() {
@@ -37,6 +38,9 @@
     <a id="overlay-close" ng-click="overlayIsOpen=false; showImage = false;" href="javascript:void(0)">
         <i class="fa fa-times fa-5x"></i>
     </a>
+    <a id="overlay-save"  ng-show="showPlacesInput" ng-click="saveLocation()" href="javascript:void(0)">
+        <i class="fa fa-check fa-5x"></i>
+    </a>
 
     <div ng-show="showImage" class="imageContainer">
         <img src="{{imgUrl}}" alt=""/>
@@ -51,7 +55,7 @@
                details="placePicker.details"
                type="text"
                placeholder="Введите местоположение"><span class="input-group-btn">
-            <button class="btn btn-success" ng-click="saveLocation()" type="button" translate>SAVE</button>
+            <!--<button class="btn btn-success" ng-click="saveLocation()" type="button" translate>SAVE</button>-->
         </span>
     </div>
     <gm-map gm-map-id="'myMap'" ng-hide="showImage" gm-center="mapCenter" gm-zoom="zoom" style="height:100%;">

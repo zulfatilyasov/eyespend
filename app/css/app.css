@@ -1,10 +1,12 @@
 html {
-    -webkit-font-smoothing: subpixel-antialiased;
     overflow-y: scroll;
 }
 
 body {
+    font-family: "Roboto", sans-serif;
     font-size: 14px;
+    font-style: normal;
+    /*font-weight: normal;*/
 }
 
 body.background-dark {
@@ -12,8 +14,9 @@ body.background-dark {
 }
 
 header h4, .widget > header h4, header h4 a, .loader.theEnd {
-    font-family: 'Open Sans Condensed', sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
     font-size: 20px;
+    font-style: normal;
     font-weight: 300;
 }
 
@@ -22,9 +25,9 @@ header h4, .widget > header h4, header h4 a, .loader.theEnd {
     padding-bottom: 10px;
 }
 
-.logo h4 {
-    font-family: "Open Sans", Arial, Helvetica, Sans-Serif;
-}
+/*.logo h4 {*/
+/*font-family: "Roboto", Arial, Helvetica, Sans-Serif;*/
+/*}*/
 
 /*.formsWrapper {*/
 /*border-bottom: 1px solid #e4e4e4;*/
@@ -70,7 +73,8 @@ input.ng-invalid-required, input.ng-invalid-number, input.invalid {
 }
 
 h2 {
-    font-family: 'Open Sans Condensed', sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-style: normal;
 }
 
 header a {
@@ -116,7 +120,8 @@ input.styledInput {
     transition: width .2s;
     background: rgba(51, 51, 51, .4);
 }
-input.styledInput:focus{
+
+input.styledInput:focus {
     color: #f8f8f8;
 }
 
@@ -147,9 +152,10 @@ input.styledInput:focus{
 }
 
 table.dataTable thead th, header.tableLabel h4 {
-    font-family: 'Open Sans Condensed', sans-serif;
-    font-size: 1.85rem;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-style: normal;
     font-weight: 300;
+    font-size: 1.85rem;
     min-width: 40px;
     text-decoration: none;
 }
@@ -201,9 +207,11 @@ tags-input .bootstrap .tags .tag-item, .bootstrap .tags .tag-item {
     -webkit-transition: all 0.2s;
     transition: all 0.2s;
     color: #000;
-    font-family: 'Open Sans Condensed', sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-style: normal;
     font-size: 14px;
     font-weight: 700;
+    letter-spacing: 0.7px;
 }
 
 tags-input .tags .tag-item.selected {
@@ -239,7 +247,8 @@ tags-input .tags .tag-item.selected {
 }
 
 .inputHost label {
-    font-family: 'Open Sans Condensed', sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-style: normal;
     font-size: 16px;
 }
 
@@ -249,7 +258,6 @@ tags-input .tags .tag-item.selected {
     color: #f8f8f8;
     -webkit-transition: width 0.2s;
     transition: width 0.2s;
-    font-family: 'Open Sans', sans-serif;
     background: rgba(51, 51, 51, 0.4);
     font-size: 14px;
 }
@@ -326,6 +334,22 @@ div.tags {
     max-height: 160px;
 }
 
+#tagsSearchInput {
+    width: 80%;
+    display: inline-block;
+    float: left;
+}
+
+#searchButton {
+    width: 10%;
+    display: inline-block;
+    padding: 4px 0
+}
+
+#searchButton button {
+    padding: 8px 40px
+}
+
 .filters.slider {
     max-height: 105px;
 }
@@ -345,7 +369,8 @@ div.tags {
     line-height: 35px;
     color: #f8f8f8;
     border-bottom: 1px #eee dashed;
-    font-family: 'open sans condensed' sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-style: normal;
     font-size: 16px;
 }
 
@@ -356,7 +381,7 @@ div.tags {
 }
 
 .tags-th, .tags-td {
-    width: 390px;
+    width: 415px;
 }
 
 .date-td, .date-th {
@@ -763,8 +788,27 @@ tr[ng-repeat-start].ng-leave {
     }
 }
 
+@media (max-width: 990px) {
+    .newTransactionForm.slider {
+        max-height: 300px;
+    }
+
+    .filters.slider {
+        max-height: 200px;
+    }
+
+    #totalAmount {
+        display: none;
+    }
+
+}
+
 @media (max-width: 768px) {
     #totalAmount {
+        display: none;
+    }
+
+    .tags-td, .tags-th {
         display: none;
     }
 }
@@ -773,4 +817,8 @@ tr[ng-repeat-start].ng-leave {
     #showTnxText {
         display: none;
     }
+}
+
+.slider.closed {
+    max-height: 0px;
 }

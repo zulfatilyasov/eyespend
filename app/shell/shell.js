@@ -15,13 +15,13 @@
         $rootScope.showSpinner = false;
         $rootScope.placePicker = {};
         $rootScope.saveLocation = function () {
-            common.$broadcast('locationSet',{
+            common.$broadcast('locationSet', {
                 latitude: $rootScope.markers[0].location.lat,
                 longitude: $rootScope.markers[0].location.lng
             });
             $rootScope.overlayIsOpen = false;
         };
-        $rootScope.setMarkerLocation = function(marker){
+        $rootScope.setMarkerLocation = function (marker) {
             var position = marker.getPosition();
             $rootScope.markers[0].location.lat = position.lat();
             $rootScope.markers[0].location.lng = position.lng();
@@ -30,6 +30,8 @@
             $timeout(function () {
                 var placeDetails = $rootScope.placePicker.details;
                 console.log(placeDetails);
+                if (!placeDetails)
+                    return;
                 latitude = placeDetails.geometry.location.k;
                 longitude = placeDetails.geometry.location.A;
                 $rootScope.mapCenter = new google.maps.LatLng(latitude, longitude);
@@ -47,6 +49,7 @@
                         }
                     }
                 ];
+                $rootScope.$apply();
             }, 300);
         };
         function activate() {

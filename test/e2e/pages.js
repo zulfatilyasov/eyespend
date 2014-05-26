@@ -26,6 +26,17 @@ var LoginPage = function () {
 
 var Transactions = function () {
     var repeater = by.repeater('transaction in vm.trs');
+    this.rows = element.all(by.css('#transactions-table tr'));
+    this.createButton = element(by.id('createButton'));
+    this.filterButton = element(by.id('filterButton'));
+    this.pickAddress = $('#pickAddress');
+    this.addButton = element(by.id('addButton'));
+    this.searchButton = $('#search');
+    this.amountInput = $('#amountInput');
+    this.dateAndTime = $('#dateAndTime');
+    this.tagsInput = $('.tags input');
+    this.placeInput = $('#pac-input');
+    this.savePlace = $('#overlay-save');
     this.transactions = element(repeater);
     this.tag = element(repeater.row(3)).element(by.repeater('tag in transaction.tags').row(0));
     this.tagsFilter = $('.searchBlock .tags input');

@@ -189,7 +189,7 @@
         function getTransaxns() {
             var def = common.defer();
 
-            datacontext.getTransaxns(sortOptions.column, sortOptions.descending, offset, 30)
+            datacontext.getTransaxns(sortOptions.column, sortOptions.descending, offset, 50)
                 .then(function (tnxs) {
                     if (tnxs && tnxs.data instanceof Array) {
                         offset += tnxs.data.length;

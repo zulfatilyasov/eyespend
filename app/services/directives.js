@@ -17,6 +17,19 @@
                 });
             };
         })
+        .directive('ngArrow', function () {
+            return function (scope, element, attrs) {
+                element.bind("keydown keypress", function (event) {
+                    if (event.which === 38 || event.which === 40) {
+                        scope.$apply(function () {
+                            scope.$eval(attrs.ngArrow);
+                        });
+
+                        event.preventDefault();
+                    }
+                });
+            };
+        })
         .directive('usDateTimePicker', function () {
             var minDate,
                 maxDate;
