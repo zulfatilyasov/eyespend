@@ -17,15 +17,15 @@
                                 <form>
                                     <fieldset>
                                         <div class="control-group">
-                                            <label class="control-label">Email
+                                            <label class="control-label"><span translate>EMAIL_OR_PHONE</span>
                                                 <ul class="parsley-errors-list"></ul>
                                             </label>
 
                                             <div class="controls form-group">
-                                                <input placeholder="{{'TYPE_EMAIL' | translate}}" type="text"
+                                                <input placeholder="{{'TYPE_EMAIL_OR_PHONE' | translate}}" type="text"
                                                        class="form-control styledInput"
                                                        ng-class="{'form-control':true, styledInput:true,invalid:vm.link.invalidEmail}"
-                                                       ng-model="vm.link.email">
+                                                       ng-model="vm.link.emailOrPhone">
                                             </div>
                                         </div>
                                         <div class="control-group">
@@ -35,7 +35,7 @@
 
                                             <div class="controls form-group">
                                                 <input placeholder="{{'TYPE_CURRENT_PASSWORD' | translate}}"
-                                                       type="email"
+                                                       type="text"
                                                        ng-model="vm.link.currentPsw"
                                                        ng-class="{'form-control':true, styledInput:true,invalid:vm.link.invalidPassword}">
                                             </div>

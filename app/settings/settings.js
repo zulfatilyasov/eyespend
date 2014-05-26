@@ -11,7 +11,7 @@
         vm.linkcode = '2061 1026';
 
         function validLinkEmailForm() {
-            if (!vm.link.email) {
+            if (!vm.link.emailOrPhone) {
                 $translate('TYPE_EMAIL')
                     .then(function (msg) {
                         vm.link.invalidEmail = true;
@@ -19,7 +19,7 @@
                     });
                 return false;
             }
-            if (!login.validEmail(vm.link.email)) {
+            if (!login.validEmail(vm.link.emailOrPhone)) {
                 $translate('INVALID_EMAIL')
                     .then(function (msg) {
                         vm.link.invalidEmail = true;
@@ -27,7 +27,7 @@
                     });
                 return false;
             }
-            if (!vm.link.currentPassword) {
+            if (!vm.link.currentPsw) {
                 $translate('TYPE_CURRENT_PASSWORD')
                     .then(function (msg) {
                         vm.link.invalidPassword = true;
@@ -73,7 +73,7 @@
         vm.linkEmail = function () {
             if (validLinkEmailForm() == false)
                 return;
-            datacontext.linkEmail(vm.link.email, vm.link.currentPsw)
+            datacontext.linkEmailOrPhone(vm.link.emailOrPhone, vm.link.currentPsw)
                 .success(function (data, status) {
                     if (status === 200)
                         logSuccess('Удача');

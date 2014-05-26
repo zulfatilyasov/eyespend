@@ -39,7 +39,9 @@ var data = {
 function _randomDate(start, end) {
     return (start.getTime() + parseInt(Math.random() * (end.getTime() - start.getTime())));
 }
-
+function getUserTags(){
+    return data.tags;
+}
 function _distictTags(array) {
     array = array.filter(function (elem, pos1) {
         return array.every(function (t, pos2) {
@@ -214,3 +216,4 @@ exports.getTransactions = getTransactions;
 exports.getTransactionsByDate = getTransactionsByDate;
 exports.getTransactionsByTags = getTransactionsByTags;
 exports.createId = createId;
+exports.getUserTags = getUserTags;

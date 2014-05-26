@@ -116,6 +116,9 @@ input.styledInput {
     transition: width .2s;
     background: rgba(51, 51, 51, .4);
 }
+input.styledInput:focus{
+    color: #f8f8f8;
+}
 
 .menu:before {
     content: "[";
@@ -320,7 +323,7 @@ div.tags {
 }
 
 .newTransactionForm.slider {
-    max-height: 205px;
+    max-height: 160px;
 }
 
 .filters.slider {

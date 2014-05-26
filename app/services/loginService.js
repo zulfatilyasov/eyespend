@@ -5,6 +5,7 @@
     angular.module('app').factory(serviceId, ['common', '$rootScope', '$location', 'datacontext', '$cookies', login]);
 
     function login(common, $rootScope, $location, datacontext, $cookies) {
+        var userTags = null;
         var success = function (def) {
             return function (data, status) {
                 if (status == 401) {
@@ -12,6 +13,7 @@
                 }
                 else {
                     $cookies.token = data.token;
+                    userTags = data.userTags;
                     $rootScope.hideHeader = false;
                     def.resolve();
                 }
@@ -77,13 +79,27 @@
             return re.test(email);
         }
 
+        function getUserTags() {
+            if (userTags)
+                return common.$q.when(userTags);
+
+            var def = common.defer();
+            datacontext.getUserTags()
+                .success(function (data) {
+                    userTags = data;
+                    def.resolve(userTags);
+                });
+            return def.promise;
+        }
+
         return {
             authenticate: authenticate,
             logout: logout,
             quickPass: quickPass,
             authenticated: authenticated,
             changePassword: changePassword,
-            validEmail:validEmail
+            validEmail: validEmail,
+            getUserTags: getUserTags
         };
     }
 })();

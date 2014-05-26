@@ -51,6 +51,10 @@ var ApiInjector = function apiInjector() {
             }, 1500)
         });
 
+        app.get('/api/secure/getUserTags', function (req, res) {
+            res.json(db.getUserTags());
+        });
+
         app.post('/api/secure/updateTransaction', function (req, res) {
             console.log('user updated transaction' + JSON.stringify(req.body.transaction));
             res.send(200);
@@ -73,11 +77,11 @@ var ApiInjector = function apiInjector() {
                 return;
             }
 
-            res.json({ token: createTokenWithProfile() });
+            res.json({ token: createTokenWithProfile(), userTags: db.getUserTags() });
         });
 
-        app.post('/api/user/linkEmail', function (req, res) {
-            console.log('email: ' + req.body.email + ' psw: ' + req.body.currentPsw);
+        app.post('/api/user/linkEmailOrPhone', function (req, res) {
+            console.log('email or phone: ' + req.body.emailOrPhone + ' psw: ' + req.body.currentPsw);
             if (req.body.currentPsw !== 'bar') {
                 res.send(400, 'wrong password');
             }
@@ -90,7 +94,7 @@ var ApiInjector = function apiInjector() {
                 res.send(401, 'Wrong password');
                 return;
             }
-            res.json({ token: createTokenWithProfile() });
+            res.json({ token: createTokenWithProfile(), userTags: db.getUserTags() });
         });
 
         app.post('/api/changePassword', function (req, res) {

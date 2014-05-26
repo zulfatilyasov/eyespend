@@ -1,9 +1,9 @@
 (function () {
     'use strict';
     var controllerId = 'transactions';
-    angular.module('app').controller(controllerId, ['common', '$rootScope', '$timeout', '$scope', 'date', 'transaxns', '$translate', transactions]);
+    angular.module('app').controller(controllerId, ['common', '$rootScope', '$scope', 'date', 'transaxns', '$translate', 'login', transactions]);
 
-    function transactions(common, $rootScope, $timeout, $scope, date, transaxns, $translate) {
+    function transactions(common, $rootScope, $scope, date, transaxns, $translate, login) {
         var vm = this;
         var logInfo = common.logger.getLogFn(controllerId, 'log');
         var logError = common.logger.getLogFn(controllerId, 'logError');
@@ -100,7 +100,7 @@
         };
 
         vm.loadTags = function () {
-            return common.$q.when(transaxns.getUserTags());
+            return login.getUserTags();
         };
 
         vm.getSortingForColumn = transaxns.getSortingForColumn;
@@ -155,11 +155,13 @@
                 });
         };
         vm.lastWeekTransactions = function () {
+            vm.tags = [];
             var weekBefore = (new Date()).setDate((new Date()).getDate() - 7);
             var today = (new Date()).getTime();
             vm.filterByDate(weekBefore, today);
         };
         vm.lastMonthTransactions = function () {
+            vm.tags = [];
             var monthBefore = (new Date()).setDate((new Date()).getDate() - 30);
             var today = (new Date()).getTime();
             vm.filterByDate(monthBefore, today);
@@ -212,7 +214,7 @@
                 vm.isAdding = !vm.isAdding;
                 common.$timeout(function () {
                     vm.showTransactionForm = !vm.showTransactionForm;
-                });
+                }, 200);
             } else {
                 vm.showTransactionForm = !vm.showTransactionForm;
                 vm.isAdding = !vm.isAdding;
@@ -221,13 +223,16 @@
         vm.toggleFiltering = function () {
             if (vm.isAdding)
                 vm.toggleAdding();
-            vm.isFiltering = !vm.isFiltering;
+
             if (!vm.isFiltering) {
+                vm.isFiltering = !vm.isFiltering;
                 common.$timeout(function () {
                     vm.showFilterForm = !vm.showFilterForm;
-                });
+                }, 150);
             } else {
                 vm.showFilterForm = !vm.showFilterForm;
+                vm.isFiltering = !vm.isFiltering;
+//                vm.showFilterForm = !vm.showFilterForm;
             }
         };
 
@@ -302,7 +307,7 @@
                 return;
             transaxns.create(vm.newTnx)
                 .then(function (tnx) {
-                    vm.trs.push(tnx);
+                    vm.trs.unshift(tnx);
                     vm.newTnx = {};
                 },
                 function (msg) {

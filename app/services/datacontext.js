@@ -37,12 +37,16 @@
             return $http.post('/quickpass', psw);
         }
 
-        function linkEmail(email, currentPsw) {
-            return $http.post('/api/user/linkEmail', {email: email, currentPsw: currentPsw});
+        function linkEmailOrPhone(emailOrPhone, currentPsw) {
+            return $http.post('/api/user/linkEmailOrPhone', {emailOrPhone: emailOrPhone, currentPsw: currentPsw});
         }
 
         function changePsw(psw) {
             return $http.post('/api/changePassword', psw);
+        }
+
+        function getUserTags(){
+            return $http.get('/api/secure/getUserTags');
         }
 
         return {
@@ -55,7 +59,8 @@
             authenticate: authenticate,
             quickPass: quickPass,
             changePsw: changePsw,
-            linkEmail: linkEmail
+            linkEmailOrPhone: linkEmailOrPhone,
+            getUserTags:getUserTags
         };
     }
 })();
