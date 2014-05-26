@@ -321,10 +321,11 @@ div.tags {
 
 .slider {
     max-height: 180px;
-    -webkit-transition-property: max-height;
-    transition-property: max-height;
-    -webkit-transition-duration: 0.3s;
-    transition-duration: 0.3s;
+    -webkit-transition: max-height 0.3s;
+    -moz-transition: max-height 0.3s;
+    -ms-transition: max-height 0.3s;
+    -o-transition: max-height 0.3s;
+    transition: max-height 0.3s;
     -webkit-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
     transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
     margin: 0;
@@ -356,6 +357,7 @@ div.tags {
 
 .slider.closed {
     max-height: 0;
+    overflow: hidden;
 }
 
 .predefined {
@@ -820,5 +822,6 @@ tr[ng-repeat-start].ng-leave {
 }
 
 .slider.closed {
-    max-height: 0px;
+    max-height: 0;
+    overflow: hidden;
 }
