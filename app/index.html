@@ -5,8 +5,9 @@
     <meta charset="utf-8">
     <title>eyeSpend</title>
     <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700&subset=latin,cyrillic'-->
-          <!--rel='stylesheet' type='text/css'>-->
-    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700|Roboto:400,300,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+    <!--rel='stylesheet' type='text/css'>-->
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700|Roboto:400,300,700&subset=latin,cyrillic'
+          rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="eyeSpend.min.css">
     <style type="text/css">
         @-moz-document url-prefix() {
@@ -21,7 +22,7 @@
     </style>
 </head>
 
-<body ng-cloak class="background-dark">
+<body class="background-dark">
 <div ng-class="{'overlay-open':overlayIsOpen}" id="all">
     <div ng-include="'shell/shell.html'"></div>
     <div class="content container">
@@ -34,11 +35,12 @@
     <span></span>
     <span></span>
 </div>
-<div ng-class="{open:overlayIsOpen, close: !overlayIsOpen, overlay:true, 'overlay-contentscale': true}">
+<div style="display: none" ng-class="{open:overlayIsOpen, overlay:true, 'overlay-contentscale': true}"
+     ng-cloak="ng-cloak">
     <a id="overlay-close" ng-click="overlayIsOpen=false; showImage = false;" href="javascript:void(0)">
         <i class="fa fa-times fa-4x"></i>
     </a>
-    <a id="overlay-save"  ng-show="showPlacesInput" ng-click="saveLocation()" href="javascript:void(0)">
+    <a id="overlay-save" ng-show="showPlacesInput" ng-click="saveLocation()" href="javascript:void(0)">
         <i class="fa fa-check fa-4x"></i>
     </a>
 
@@ -47,7 +49,6 @@
     </div>
     <div ng-show="showPlacesInput" id="placeInput">
         <input id="pac-input"
-               ng-hide="showImage"
                class="controls"
                ng-autocomplete
                ng-enter="refreshMap()"
@@ -58,7 +59,7 @@
             <!--<button class="btn btn-success" ng-click="saveLocation()" type="button" translate>SAVE</button>-->
         </span>
     </div>
-    <gm-map gm-map-id="'myMap'" ng-hide="showImage" gm-center="mapCenter" gm-zoom="zoom" style="height:100%;">
+    <gm-map gm-map-id="'myMap'" ng-show="showMap" gm-center="mapCenter" gm-zoom="zoom" style="height:100%;">
         <gm-markers gm-marker-options="object.options()"
                     gm-objects="markers"
                     gm-id="object.id"

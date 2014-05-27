@@ -57,6 +57,8 @@
             common.activateController(promises, controllerId)
                 .then(function () {
                     common.logger.logSuccess('shell activated');
+                    //@todo: Переместить в директивы.
+                    $('div.overlay').css('display','block');
                 });
         }
 

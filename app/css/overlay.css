@@ -4,7 +4,8 @@
     height: 100%;
     top: 0;
     left: 0;
-    background: rgba(204, 204, 204, 0.54);
+    z-index: 10;
+    background: rgb(204, 204, 204);
 }
 
 #overlay-close {
@@ -31,28 +32,30 @@
     color: rgb(51, 51, 51);
 }
 
-#all {
-    -webkit-transition: -webkit-transform 0.5s;
-    transition: transform 0.5s;
-}
+/*#all {*/
+    /*-webkit-transition: -webkit-transform 0.5s;*/
+    /*transition: transform 0.5s;*/
+/*}*/
 
-#all.overlay-open {
-    -webkit-transform: scale(0.9);
-    transform: scale(0.9);
-}
+/*#all.overlay-open {*/
+    /*-webkit-transform: scale(0.9);*/
+    /*transform: scale(0.9);*/
+/*}*/
 
 .overlay-contentscale {
     visibility: hidden;
-    -webkit-transform: translateY(100%);
-    transform: translateY(100%);
-    -webkit-transition: -webkit-transform 0.5s, visibility 0s 0.5s;
-    transition: transform 0.5s, visibility 0s 0.5s;
+    opacity: 0;
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+    -webkit-transition: -webkit-transform 0.7s, opacity 0.7s, visibility 0.7s;
+    transition: transform 0.7s, opacity 0.7s, visibility 0.7s;
 }
 
 .overlay-contentscale.open {
     visibility: visible;
-    -webkit-transform: translateY(0%);
-    transform: translateY(0%);
-    -webkit-transition: -webkit-transform 0.5s;
-    transition: transform 0.5s;
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: -webkit-transform 0.7s, opacity 0.7s;
+    transition: transform 0.7s, opacity 0.7s;
 }

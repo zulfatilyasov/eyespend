@@ -4,7 +4,6 @@
             <div class="navbar">
                 <a ng-href="#/">
                     <div class="logo sidebar-icons">
-                        <!--<img src="../img/eyespendlogo.png"  style="display:inline-block;height:50px;width:50px" alt="">-->
                         <h4 style="display:inline-block">
                             eye<strong>Spend</strong>
                         </h4>
@@ -22,7 +21,8 @@
                            data-original-title="Settings">
                             <i class="fa fa-globe"></i>
                         </a>
-                        <ul id="languages-menu" ng-show="vm.langsOpen" ng-class="{'dropdown-menu':true, messages:true}" role="menu">
+                        <ul id="languages-menu" ng-show="vm.langsOpen" ng-class="{'dropdown-menu':true, messages:true}"
+                            role="menu">
                             <li role="presentation">
                                 <a href="#" id="ru" ng-click="vm.translate('ru')" class="message">
                                     Русский
@@ -35,7 +35,8 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="hidden-xs"><a href="javascript:void(0)" title="Выйти" id="logoutButton" ng-click="vm.logout()">
+                    <li class="hidden-xs"><a href="javascript:void(0)" title="Выйти" id="logoutButton"
+                                             ng-click="vm.logout()">
                         <i class="fa fa-sign-out"></i></a>
                     </li>
                 </ul>

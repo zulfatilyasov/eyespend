@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     var controllerId = 'transactions';
-    angular.module('app').controller(controllerId, ['common', '$rootScope', '$scope', 'date', 'transaxns', '$translate', 'login', transactions]);
+    angular.module('app').controller(controllerId, ['common', '$rootScope', '$scope', 'date', 'transaxns', '$translate', 'login',  transactions]);
 
     function transactions(common, $rootScope, $scope, date, transaxns, $translate, login) {
         var vm = this;
@@ -22,7 +22,7 @@
         vm.curDateTime = date.format(date.now());
         vm.isLoading = false;
         vm.excelFileUrl = 'files/transactions.xls';
-
+        $rootScope.showMap = true;
         function editedTransactionNotValid() {
             return !vm.editedTnx || !vm.editedTnx.id || !vm.selectedTnx;
         }
@@ -49,7 +49,7 @@
             $rootScope.showMap = true;
             $rootScope.mapCenter = new google.maps.LatLng(transaction.latitude, transaction.longitude);
             $rootScope.zoom = 17;
-            if(!transaction.latitude || !transaction.longitude)
+            if (!transaction.latitude || !transaction.longitude)
                 $rootScope.zoom = 2;
             $rootScope.transaction = transaction;
             $rootScope.markers = [
@@ -69,9 +69,12 @@
         }
 
         vm.showMap = function (transaction) {
-            fillMapProperties(transaction, false);
-            $rootScope.overlayIsOpen = true;
-            $rootScope.showPlacesInput = false;
+            $rootScope.showMap = true;
+            common.$timeout(function(){
+                fillMapProperties(transaction, false);
+                $rootScope.overlayIsOpen = true;
+                $rootScope.showPlacesInput = false;
+            },100);
         };
 
         $rootScope.$on('locationSet',
@@ -183,6 +186,7 @@
 
         vm.showImage = function (imgUrl) {
             $rootScope.showImage = true;
+            $rootScope.showMap = false;
             $rootScope.imgUrl = imgUrl;
             $rootScope.overlayIsOpen = true;
         };
