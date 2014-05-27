@@ -26,23 +26,66 @@ var LoginPage = function () {
 
 var Transactions = function () {
     var repeater = by.repeater('transaction in vm.trs');
+    this.transactionDate = element(repeater.row(3)).$('.date-td');
+    this.showMap = element(repeater.row(0)).$('.map a');
+    this.transactionFullDate = function () {
+       return this.transactionDate.$('span.fullDate').getText();
+    };
+    this.transactionAmount = function(){
+        return element(repeater.row(3)).$('.transactionAmount').getText();
+    };
+    this.pencil = element(repeater.row(3)).element(by.css('#pencil'));
+    this.repeater = repeater;
+    this.startCount = 51;
     this.rows = element.all(by.css('#transactions-table tr'));
     this.createButton = element(by.id('createButton'));
     this.filterButton = element(by.id('filterButton'));
     this.pickAddress = $('#pickAddress');
+    this.editAddress = $('#editAddress');
     this.addButton = element(by.id('addButton'));
     this.searchButton = $('#search');
     this.amountInput = $('#amountInput');
     this.dateAndTime = $('#dateAndTime');
+    this.dateAndTimeEditor = $('#dateAndTimeEditor');
+    this.editedAmount = $('#editedAmount');
+    this.fromDate = $('#fromDate');
+    this.toDate = $('#toDate');
     this.tagsInput = $('.tags input');
     this.placeInput = $('#pac-input');
     this.savePlace = $('#overlay-save');
-    this.transactions = element(repeater);
+    this.closeOverlay = $('#overlay-close');
+    this.saveEdit = $('#saveEdit');
+    this.sortByTimestamp = $('#timestamp');
+    this.sortByAmount = $('#amount');
+    this.sortByFoto = $('#foto');
+    this.lastWeekFilter = $('#lastWeekFilter');
+    this.lastMonthFilter = $('#lastMonthFilter');
+    this.firstRowAmount = element(repeater.row(0).column('{{transaction.amountInBaseCurrency}}'));
+    this.transactions = element.all(by.repeater('transaction in vm.trs'));
     this.tag = element(repeater.row(3)).element(by.repeater('tag in transaction.tags').row(0));
     this.tagsFilter = $('.searchBlock .tags input');
 
     this.addTagToFilter = function (tag) {
         this.tagsFilter.sendKeys(tag + '\n');
+    };
+
+    this.setFromDate = function (date) {
+        setDate(this.fromDate, date);
+    };
+
+    this.setToDate = function (date) {
+        setDate(this.toDate, date);
+    };
+
+    this.setDateAndTimeEditor = function (date) {
+        setDate(this.dateAndTimeEditor, date);
+    };
+
+    function setDate(dateInput, date) {
+        dateInput.click();
+        dateInput.sendKeys('\b\b\b\b\b\b\b\b\b\b\b\b');
+        dateInput.sendKeys(date);
+//        dateInput.sendKeys('\n');
     }
 };
 

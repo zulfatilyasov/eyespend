@@ -12,7 +12,8 @@
                 column: 'timestamp',
                 descending: true
             },
-            offset = 0;
+            offset = 0,
+            count = 50;
 
         function sortByDateDesc(a, b) {
             var d1 = parseInt(a.timestamp);
@@ -37,8 +38,7 @@
         }
 
         function sort() {
-            var def = common.defer(),
-                count = 30;
+            var def = common.defer();
 
             offset = 0;
             datacontext.getTransaxns(sortOptions.column, sortOptions.descending, offset, count)
@@ -189,7 +189,7 @@
         function getTransaxns() {
             var def = common.defer();
 
-            datacontext.getTransaxns(sortOptions.column, sortOptions.descending, offset, 50)
+            datacontext.getTransaxns(sortOptions.column, sortOptions.descending, offset, count)
                 .then(function (tnxs) {
                     if (tnxs && tnxs.data instanceof Array) {
                         offset += tnxs.data.length;

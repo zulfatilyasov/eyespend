@@ -49,7 +49,9 @@ var translationsRu = {
     LINK_ACCOUNT:"Привязка аккаунта",
     INVALID_EMAIL:"Некорректный email",
     SEARCH:"Поиск",
-    EMAIL_OR_PHONE:"Email или телефон"
+    EMAIL_OR_PHONE:"Email или телефон",
+    FILTER:"Фильтрация",
+    DOWNLOAD:"Скачать"
 };
 
 var translationsEn = {
@@ -103,8 +105,9 @@ var translationsEn = {
     INVALID_EMAIL:"Invalid email",
     LINK_ACCOUNT:"Link account",
     SEARCH:"Search",
-    EMAIL_OR_PHONE:"Email or phone"
-
+    EMAIL_OR_PHONE:"Email or phone",
+    FILTER:"Filter",
+    DOWNLOAD:"Download"
 };
 try {
     exports.ru = translationsRu;

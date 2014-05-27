@@ -551,6 +551,9 @@ tr[ng-repeat-start].ng-leave {
     -o-transition: opacity 0.5s;
     transition: opacity 0.5s;
 }
+.landing .page-header{
+    opacity: 1;
+}
 
 /*div[ng-view].ng-leave {*/
 /*-webkit-animation: fadeOut 0.4s;*/
@@ -793,6 +796,10 @@ tr[ng-repeat-start].ng-leave {
 @media (max-width: 990px) {
     .newTransactionForm.slider {
         max-height: 300px;
+    }
+
+    .slider {
+        max-height: 320px;
     }
 
     .filters.slider {

@@ -9,6 +9,9 @@ var transactionsPage = new pages.Transactions();
 var loginPage = new pages.Login();
 
 describe('transactions page', function () {
+    var ptor = protractor.getInstance();
+    browser.driver.manage().window().maximize();
+
     it('should navigate to transactions page', function (done) {
         browser.get('#/');
 
@@ -19,18 +22,40 @@ describe('transactions page', function () {
         });
     });
 
-    it('should filter after tag clicked', function () {
+    it('should sort', function () {
+        transactionsPage.sortByAmount.click();
+        ptor.sleep(3000);
+        expect(transactionsPage.rows.count()).toBe(transactionsPage.startCount);
 
-        transactionsPage.tag.click();
-        transactionsPage.tagsFilter.sendKeys('\b\b');
-        transactionsPage.addTagToFilter('наличные');
-        transactionsPage.searchButton.click();
+        transactionsPage.sortByTimestamp.click();
+        ptor.sleep(3000);
+        expect(transactionsPage.rows.count()).toBe(transactionsPage.startCount);
+
+        transactionsPage.sortByFoto.click();
+        ptor.sleep(3000);
+        expect(transactionsPage.rows.count()).toBe(transactionsPage.startCount);
+    });
+
+
+    it('should edit transaction', function () {
+        transactionsPage.transactionDate.click();
+        transactionsPage.pencil.click();
+        transactionsPage.setDateAndTimeEditor('250520141200\n');
+        transactionsPage.editedAmount.clear();
+        transactionsPage.editedAmount.sendKeys('555');
+        ptor.sleep(300);
+        transactionsPage.editAddress.click();
+        transactionsPage.placeInput.sendKeys('Ашан');
+        ptor.sleep(2500);
+        transactionsPage.placeInput.sendKeys(protractor.Key.ARROW_DOWN);
+        transactionsPage.placeInput.sendKeys('\n');
+        transactionsPage.savePlace.click();
+        transactionsPage.saveEdit.click();
+        expect(transactionsPage.transactionAmount()).toBe('555 р.');
+        expect(transactionsPage.transactionFullDate()).toBe('25 мая 2014');
     });
 
     it('should add new transaction', function () {
-        var ptor = protractor.getInstance();
-        var startCount = 51;
-//        expect(transactionsPage.rows.count()).toEqual(50);
         transactionsPage.createButton.click();
         transactionsPage.addButton.click();
 
@@ -50,8 +75,34 @@ describe('transactions page', function () {
         transactionsPage.placeInput.sendKeys('\n');
         transactionsPage.savePlace.click();
         transactionsPage.addButton.click();
-        expect(transactionsPage.rows.count()).toBe(startCount + 3);
+        expect(transactionsPage.rows.count()).toBe(transactionsPage.startCount + 3);
     });
+
+    it('should open map', function () {
+        transactionsPage.showMap.click();
+        transactionsPage.closeOverlay.click();
+    });
+
+    it('should filter', function () {
+        transactionsPage.filterButton.click();
+
+        transactionsPage.tag.click();
+        transactionsPage.tagsFilter.sendKeys('\b\b');
+
+        transactionsPage.addTagToFilter('наличные');
+        transactionsPage.searchButton.click();
+
+        transactionsPage.lastWeekFilter.click();
+        ptor.sleep(500);
+
+        transactionsPage.lastMonthFilter.click();
+        ptor.sleep(2000);
+
+        transactionsPage.setFromDate('010120130000');
+        transactionsPage.setToDate('010120140000');
+        ptor.sleep(2000);
+    });
+
 
     it('should change language from menu', function () {
         menu.changeLanguage('en');
@@ -61,8 +112,9 @@ describe('transactions page', function () {
         expect(content.header()).toBe(res.ru.EXPENSES_HISTORY);
     });
 
-    it('should log out', function(done) {
-    	menu.logout.click();
+    it('should log out', function (done) {
+        menu.logout.click();
     });
+
 
 });

@@ -20,11 +20,11 @@
             </span>
             <span class="tableAction">
                  <i class="fa fa-filter"></i>
-                 <a href="javascript:void(0)" id="filterButton" translate ng-click="vm.toggleFiltering()">Фильтрация</a>
+                 <a href="javascript:void(0)" id="filterButton" translate ng-click="vm.toggleFiltering()">FILTER</a>
            </span>
             <span style="float: right" class="tableAction">
                  <i class="fa fa-download"></i>
-                <a href="{{vm.excelFileUrl}}" translate ng-click="vm.toggleFiltering()">Скачать</a>
+                <a href="{{vm.excelFileUrl}}" translate ng-click="vm.toggleFiltering()">DOWNLOAD</a>
            </span>
         </h4>
 
@@ -99,10 +99,14 @@
                         </label>
                     </div>
                     <div class="predefined">
-                        <a href="javascript:void(0)" ng-click="vm.lastWeekTransactions()">
+                        <a href="javascript:void(0)"
+                           id="lastWeekFilter"
+                           ng-click="vm.lastWeekTransactions()">
                             за последнюю неделю
                         </a>
-                        <a href="javascript:void(0)" ng-click="vm.lastMonthTransactions()">
+                        <a href="javascript:void(0)"
+                           id="lastMonthFilter"
+                           ng-click="vm.lastMonthTransactions()">
                             за последний месяц
                         </a>
                     </div>
@@ -140,7 +144,9 @@
                    class="table tablestriped dataTable">
                 <thead>
                 <tr>
-                    <th ng-class="vm.getSortingForColumn('timestamp')" ng-click="vm.changeSorting('timestamp')"
+                    <th ng-class="vm.getSortingForColumn('timestamp')"
+                        ng-click="vm.changeSorting('timestamp')"
+                        id="timestamp"
                         class="date-th" translate>
                         DATE
                     </th>
@@ -148,13 +154,15 @@
                         TIME
                     </th>
                     <th ng-class="vm.getSortingForColumn('amountInBaseCurrency')"
-                        ng-click="vm.changeSorting('amountInBaseCurrency')">
+                        ng-click="vm.changeSorting('amountInBaseCurrency')"
+                        id="amount">
                         <span translate>AMOUNT</span>
                         <span id="totalAmount" class="hidden-phone-landscape">{{vm.total()}} р.</span>
                     </th>
                     <th class="no-sort map" translate>ADDRESS</th>
                     <th ng-class="vm.getSortingForColumn('foto')"
                         ng-click="vm.changeSorting('foto')"
+                        id="foto"
                         translate>
                         FOTO
                     </th>
@@ -166,11 +174,11 @@
                     ng-class="{selected:vm.selectedTnx.id === transaction.id, striped:$index%2==0}"
                     ng-click="vm.selectTransaction(transaction, $event)">
                     <td class="date-td">
-                        <span class="hidden-phone-landscape">{{transaction.timestamp | date:'dd MMMM yyyy'}}</span>
-                        <span class="visible-phone-landscape">{{transaction.timestamp | date:'dd.MM.yy'}}</span>
+                        <span class="hidden-phone-landscape fullDate">{{transaction.timestamp | date:'dd MMMM yyyy'}}</span>
+                        <span class="visible-phone-landscape shortDate">{{transaction.timestamp | date:'dd.MM.yy'}}</span>
                     </td>
                     <td class="hidden-phone-landscape">{{transaction.timestamp | date:'HH:mm'}}</td>
-                    <td>{{transaction.amountInBaseCurrency}} р.</td>
+                    <td class="transactionAmount">{{transaction.amountInBaseCurrency}} р.</td>
                     <td class="map">
                         <a ng-if="transaction.latitude && transaction.longitude"
                            ng-click="vm.showMap(transaction)"
@@ -208,7 +216,9 @@
                                 </a>
                             </li>
                             <li>
-                                <a ng-click="vm.toggleEditing(transaction)" href="javascript:void(0)">
+                                <a ng-click="vm.toggleEditing(transaction)"
+                                   id="pencil"
+                                   href="javascript:void(0)">
                                     <i class="fa fa-pencil"></i>
                                 </a>
                             </li>
@@ -227,7 +237,8 @@
                                             <div class="inputHost">
                                                 <label for="dateAndTimeEditor" translate>DATE_AND_TIME</label>
                                                 <br/>
-                                                <input type="text" id="dateAndTimeEditor" us-date-time-picker
+                                                <input type="text"
+                                                       id="dateAndTimeEditor" us-date-time-picker
                                                        editor="editor"
                                                        ng-model="vm.selectedTnxDate">
                                             </div>
@@ -262,17 +273,23 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="inputHost">
-                                                <label for="editedAddress" translate>PLACE</label>
+                                                <label translate>PLACE</label>
                                                 <br/>
-                                                <button style="display:inline-block" type="button"
-                                                        ng-click="vm.pickAddress()" class="btn btn-success">
+                                                <button style="display:inline-block"
+                                                        type="button"
+                                                        id="editAddress"
+                                                        ng-click="vm.pickAddress()"
+                                                        class="btn btn-success">
                                                     <i style="font-size:15px;"
                                                        class="fa fa-map-marker fa-1x"></i> <span
                                                         translate>SHOW_ON_MAP</span>
                                                 </button>
                                                 <div style="display: inline-block; float: right">
-                                                    <button type="button" class="btn btn-primary"
-                                                            ng-click="vm.saveTnx()" data-placement="right">
+                                                    <button type="button"
+                                                            class="btn btn-primary"
+                                                            ng-click="vm.saveTnx()"
+                                                            id="saveEdit"
+                                                            data-placement="right">
                                                         <span translate>SAVE</span>
                                                     </button>
                                                     <button type="button" class="btn dark-grey"
