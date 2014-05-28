@@ -13,6 +13,7 @@
                 }
                 else {
                     $cookies.token = data.token;
+//                    document.cookie = 'token='+ data.token +';path=/';
                     userTags = data.userTags;
                     $rootScope.hideHeader = false;
                     def.resolve();

@@ -19,6 +19,9 @@ header h4, .widget > header h4, header h4 a, .loader.theEnd {
     font-style: normal;
     font-weight: 300;
 }
+.login-widget .form-actions{
+    padding-top: 0px;
+}
 
 .settings-section header h4 {
     border-bottom: 1px solid;
@@ -542,7 +545,9 @@ tr[ng-repeat-start].ng-leave {
 .content {
     padding-top: 0;
 }
-
+#loginButton span{
+    font-size: 16px;
+}
 .page-header {
     opacity: 0;
     -webkit-transition: opacity 0.5s;

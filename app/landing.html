@@ -2,7 +2,8 @@
 <html>
 <head>
     <title>Light Blue - Admin Template</title>
-    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700|Roboto:400,300,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700|Roboto:400,300,700&subset=latin,cyrillic'
+          rel='stylesheet' type='text/css'>
     <link href="css/application.min.css" rel="stylesheet">
     <link href="css/app.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -11,6 +12,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="modal/component.css"/>
+    <script src="modal/modernizr.custom.js"></script>
 </head>
 <body class="background landing">
 <div class="container">
@@ -24,7 +27,7 @@
             </div>
             <ul class="navbar-buttons pull-right">
                 <li>
-                    <a href="/#/login" class="btn btn-sm btn-transparent">
+                    <a class="md-trigger btn btn-sm btn-transparent" data-modal="modal-11" href="#">
                         Войти&nbsp;
                         <i class="fa fa-arrow-right"></i>
                     </a>
@@ -32,6 +35,72 @@
             </ul>
         </div>
     </header>
+    <div class="md-modal md-effect-11" id="modal-11">
+        <div class="md-content">
+            <div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <section style="margin:0 auto" class="widget login-widget">
+                            <header class="text-align-center">
+                                <h4 translate>Введите код активации или email</h4>
+                            </header>
+                            <div class="authError" ng-bind-html="vm.message"></div>
+                            <div class="body">
+                                <form class="no-margin" ng-submit="vm.submit()" method="POST">
+                                    <fieldset>
+                                        <div class="form-group ">
+                                            <label for="email" translate>Email или код активации</label>
+
+                                            <div class="input-group input-group-lg">
+                                                <span class="input-group-addon">
+                                                    <i class="eicon-user"></i>
+                                                </span>
+                                                <input id="email"
+                                                       type="text"
+                                                       ng-model="vm.user.codeOrEmail"
+                                                       ng-keyup="vm.codeOrEmailChanged($event)"
+                                                       class="form-control input-lg code-or-email"
+                                                       placeholder="Введите email или код активации">
+                                            </div>
+                                        </div>
+
+                                        <div style="margin-top: 10px" class="form-group" ng-if="vm.isEmail">
+                                            <label for="password" translate>Пароль</label>
+
+                                            <div class="input-group input-group-lg">
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-lock"></i>
+                                                </span>
+                                                <input id="password" ng-model="vm.user.password" type="password"
+                                                       class="form-control input-lg"
+                                                       placeholder="Введите пароль">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <div class="form-actions">
+                                        <!--<div style="text-align: center;">-->
+                                        <!--<a href="#" style="color:#e5603b">-->
+                                        <!--<i class="fa fa-arrow-circle-o-right fa-4x "></i>-->
+                                        <!--</a>-->
+                                        <!--</div>-->
+                                        <button type="button" id="loginButton" class="btn btn-block btn-lg btn-danger">
+                                            <span>Войти</span>
+                                        </button>
+                                        <div class="forgot">
+                                            <a class="forgot" href="#" translate>Забыли пароль?</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+            </div>
+            <a href="javascript:void(0)" class="md-close"><i class="fa fa-times"></i></a>
+        </div>
+    </div>
+    <div class="md-overlay"></div>
     <div class="content">
         <div id="carousel-landing" class="carousel slide carousel-landing carousel-fade">
             <ol class="carousel-indicators">
@@ -290,6 +359,8 @@
                 &nbsp; Preview the White Version &nbsp;
             </a>
         </p>
+
+
     </div>
 </div>
 <h2 class="thanks text-align-center">Thanks for watching!</h2>
@@ -308,4 +379,29 @@
 <script src="landing-js/landing.js"></script>
 
 
+<!-- the overlay element -->
+
+<!-- classie.js by @desandro: https://github.com/desandro/classie -->
+<script src="modal/classie.js"></script>
+<script src="modal/modalEffects.js"></script>
+
+<!-- for the blur effect -->
+<!-- by @derSchepp https://github.com/Schepp/CSS-Filters-Polyfill -->
+<script>
+    // this is important for IEs
+    //    var polyfilter_scriptpath = '/modal/';
+</script>
+<script src="modal/cssParser.js"></script>
+<!--<script src="modal/css-filters-polyfill.js"></script>-->
+<script>
+    $('#loginButton').click(function () {
+        var email = $('#email').val();
+        var password = $('#password').val();
+        $.post('/api/users/login', {authCodeOrEmail: email, password: password})
+                .done(function (data) {
+                    document.cookie = 'token=' + data.token + ';path=/';
+                    location.href = '/';
+                });
+    });
+</script>
 </body>

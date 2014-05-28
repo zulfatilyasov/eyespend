@@ -5,51 +5,73 @@ var express = require('express');
 var expressJwt = require('express-jwt');
 var jwt = require('jsonwebtoken');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 var request = require('request');
 var httpProxy = require('http-proxy');
+
+function beforeRequest(req, res, next) {
+    if (req.path == '/quickpass' || req.path == '/api/users/login' || req.cookies && req.cookies.token)
+        next();
+    else {
+        res.sendfile(__dirname + '/app/landing.html');
+    }
+}
 
 var secret = 'eyespend-secret';
 var db = require('./db');
 var app = express();
 
-app.use(express.static(__dirname + '/app'));
 
 var ApiInjector = function apiInjector() {
     var injectStubApi = function injectStubApi(app) {
         app.use('/api/secure', expressJwt({secret: secret}));
-
+        app.use(cookieParser());
+        app.use(express.static(__dirname + '/app'));
+        app.use(beforeRequest);
+        app.get('/', function (req, res) {
+            res.sendfile(__dirname + '/app/index/index.html');
+        });
         app.get('/api/secure/transactions', function (req, res) {
             console.log('user ' + req.user.email + ' is calling /api/transactions');
             var offset = parseInt(req.query.offset);
             var count = parseInt(req.query.count);
             var desc = req.query.desc === "true";
-            var result = db.getTransactions(req.query.sorting, desc, offset, count);
-
-            setTimeout(function () {
-                res.json(result);
-            }, 1500)
-        });
-
-        app.get('/api/secure/filterByDate', function (req, res) {
             var fromDate = parseInt(req.query.fromDate);
             var toDate = parseInt(req.query.toDate);
-
-            var result = db.getTransactionsByDate(fromDate, toDate);
-            setTimeout(function () {
-                res.json(result);
-            }, 1500)
-        });
-
-        app.get('/api/secure/filterByTags', function (req, res) {
             var tagsString = req.query.tags;
             var tags = tagsString.split(';');
-            console.log(tags);
 
-            var result = db.getTransactionsByTags(tags);
+            console.log('tags \n' + tags);
+            console.log('fromDate ' + new Date(fromDate));
+            console.log('toDate ' + new Date(toDate));
+
+            var result = db.getTransactions(req.query.sorting, desc, offset, count, fromDate, toDate, tags);
+
             setTimeout(function () {
                 res.json(result);
             }, 1500)
         });
+//
+//        app.get('/api/secure/filterByDate', function (req, res) {
+//            var fromDate = parseInt(req.query.fromDate);
+//            var toDate = parseInt(req.query.toDate);
+//
+//            var result = db.getTransactionsByDate(fromDate, toDate);
+//            setTimeout(function () {
+//                res.json(result);
+//            }, 1500)
+//        });
+//
+//        app.get('/api/secure/filterByTags', function (req, res) {
+//            var tagsString = req.query.tags;
+//            var tags = tagsString.split(';');
+//            console.log(tags);
+//
+//            var result = db.getTransactionsByTags(tags);
+//            setTimeout(function () {
+//                res.json(result);
+//            }, 1500)
+//        });
 
         app.get('/api/secure/getUserTags', function (req, res) {
             res.json(db.getUserTags());

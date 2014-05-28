@@ -37,11 +37,12 @@
             return sortOptions;
         }
 
-        function sort() {
+        function sort(fromDate, toDate, tags) {
             var def = common.defer();
 
             offset = 0;
-            datacontext.getTransaxns(sortOptions.column, sortOptions.descending, offset, count)
+            var tagsString = convertToString(tags);
+            datacontext.getTransaxns(sortOptions.column, sortOptions.descending, offset, count, fromDate || '', toDate || '', tagsString)
                 .success(function (sortedTransactions) {
                     angular.forEach(sortedTransactions, function (t) {
                         _colorAndSaveTags(t.tags);
@@ -82,6 +83,8 @@
 
         function convertToString(tags) {
             var result = '';
+            if (!tags)
+                return result;
             for (var i = 0, len = tags.length; i < len; i++) {
                 result += tags[i].text;
                 if (i < tags.length - 1)
@@ -90,43 +93,14 @@
             return result;
         }
 
-        function filterByTags(tags) {
-            var def = common.defer();
-
-            var tagsString = convertToString(tags);
-            datacontext.getTransaxnsByTags(tagsString)
-                .success(function (filteredTransactions) {
-                    angular.forEach(filteredTransactions, function (t) {
-                        _colorAndSaveTags(t.tags);
-                    });
-                    offset = 0;
-                    transactions = filteredTransactions;
-                    def.resolve(transactions.slice(0));
-                })
-                .error(function () {
-                    def.reject('Ошибка при фильтрации по тегам');
-                });
-
-            return def.promise;
+        function filterByTags(fromDate, toDate, tags) {
+            offset = 0;
+            return getTransaxns(fromDate, toDate, tags);
         }
 
-        function filterByDate(fromDate, toDate) {
-            var def = common.defer();
-
-            datacontext.getTransaxnsByDate(fromDate, toDate)
-                .success(function (filteredTransactions) {
-                    angular.forEach(filteredTransactions, function (t) {
-                        _colorAndSaveTags(t.tags);
-                    });
-                    offset = 0;
-                    transactions = filteredTransactions;
-                    def.resolve(transactions.slice(0));
-                })
-                .error(function () {
-                    def.reject('Ошибка при фильтрации');
-                });
-
-            return def.promise;
+        function filterByDate(fromDate, toDate, tags) {
+            offset = 0;
+            return getTransaxns(fromDate, toDate, tags);
         }
 
         function _colorAndSaveTags(tags) {
@@ -175,25 +149,39 @@
             return sum;
         }
 
+//        function getMinUnixDate() {
+//            return transactions[transactions.length - 1].timestamp;
+//        }
+//
+//        function getMaxUnixDate() {
+//            return transactions[0].timestamp;
+//        }
+//
+//        function getMinDate() {
+//            var minDate = getMinUnixDate();
+//            return date.format(minDate);
+//        }
+//
+//        function getMaxDate() {
+//            var maxDate = getMaxUnixDate();
+//            return date.format(maxDate);
+//        }
 
-        function getMinDate() {
-            var minDate = transactions[transactions.length - 1].timestamp;
-            return date.format(minDate);
-        }
-
-        function getMaxDate() {
-            var maxDate = transactions[0].timestamp;
-            return date.format(maxDate);
-        }
-
-        function getTransaxns() {
+        function getTransaxns(fromDate, toDate, tags) {
             var def = common.defer();
 
-            datacontext.getTransaxns(sortOptions.column, sortOptions.descending, offset, count)
+            var tagsString = convertToString(tags);
+            datacontext.getTransaxns(sortOptions.column, sortOptions.descending, offset, count, fromDate || '', toDate || '', tagsString)
                 .then(function (tnxs) {
                     if (tnxs && tnxs.data instanceof Array) {
-                        offset += tnxs.data.length;
-                        transactions = transactions.concat(tnxs.data);
+                        if (offset > 0) {
+                            transactions = transactions.concat(tnxs.data);
+                            offset += tnxs.data.length;
+                        }
+                        else {
+                            transactions = tnxs.data;
+                            offset = tnxs.data.length;
+                        }
                         transactions.forEach(function (t) {
                             _colorAndSaveTags(t.tags);
                         });
@@ -320,8 +308,10 @@
             filterByTags: filterByTags,
             getTotalAmout: getTotalAmout,
             create: create,
-            getMinDate: getMinDate,
-            getMaxDate: getMaxDate,
+//            getMinDate: getMinDate,
+//            getMaxDate: getMaxDate,
+//            getMinUnixDate: getMinUnixDate,
+//            getMaxUnixDate: getMaxUnixDate,
             getUserTags: getUserTags,
             sortOptions: sortOptions,
             sort: sort,

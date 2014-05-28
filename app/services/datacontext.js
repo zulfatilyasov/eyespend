@@ -5,17 +5,18 @@
     angular.module('app').factory(serviceId, ['$http', datacontext]);
 
     function datacontext($http) {
-        function getTransaxns(sorting, desc, offset, count) {
-            return $http.get('/api/secure/transactions?sorting=' + sorting + '&desc=' + desc + '&offset=' + offset + '&count=' + count);
+        function getTransaxns(sorting, desc, offset, count, fromDate, toDate, tags) {
+            var query = 'sorting=' + sorting + '&desc=' + desc + '&offset=' + offset + '&count=' + count + '&fromDate=' + fromDate + '&toDate=' + toDate + '&tags=' + tags;
+            return $http.get('/api/secure/transactions?' + query);
         }
 
-        function getTransaxnsByDate(fromDate, toDate) {
-            return $http.get('/api/secure/filterByDate?fromDate=' + fromDate + '&toDate=' + toDate);
-        }
-
-        function getTransaxnsByTags(tags) {
-            return $http.get('/api/secure/filterByTags?tags=' + tags);
-        }
+//        function getTransaxnsByDate(fromDate, toDate) {
+//            return $http.get('/api/secure/filterByDate?fromDate=' + fromDate + '&toDate=' + toDate);
+//        }
+//
+//        function getTransaxnsByTags(tags) {
+//            return $http.get('/api/secure/filterByTags?tags=' + tags);
+//        }
 
         function updateTransaction(transaction) {
             return $http.post('/api/secure/updateTransaction', {transaction: transaction});
@@ -45,14 +46,14 @@
             return $http.post('/api/changePassword', psw);
         }
 
-        function getUserTags(){
+        function getUserTags() {
             return $http.get('/api/secure/getUserTags');
         }
 
         return {
             getTransaxns: getTransaxns,
-            getTransaxnsByDate:getTransaxnsByDate,
-            getTransaxnsByTags:getTransaxnsByTags,
+//            getTransaxnsByDate: getTransaxnsByDate,
+//            getTransaxnsByTags: getTransaxnsByTags,
             updateTransaction: updateTransaction,
             createTransaction: createTransaction,
             deleteTransaction: deleteTransaction,
@@ -60,7 +61,7 @@
             quickPass: quickPass,
             changePsw: changePsw,
             linkEmailOrPhone: linkEmailOrPhone,
-            getUserTags:getUserTags
+            getUserTags: getUserTags
         };
     }
 })();

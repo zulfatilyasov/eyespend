@@ -1,12 +1,14 @@
 (function () {
     'use strict';
     var controllerId = 'transactions';
-    angular.module('app').controller(controllerId, ['common', '$rootScope', '$scope', 'date', 'transaxns', '$translate', 'login',  transactions]);
+    angular.module('app').controller(controllerId, ['common', '$rootScope', '$scope', 'date', 'transaxns', '$translate', 'login', transactions]);
 
     function transactions(common, $rootScope, $scope, date, transaxns, $translate, login) {
         var vm = this;
         var logInfo = common.logger.getLogFn(controllerId, 'log');
         var logError = common.logger.getLogFn(controllerId, 'logError');
+        var fromUnixDate = null;
+        var toUnixDate = null;
         vm.tags = [];
         vm.trs = [];
         vm.newTnx = {
@@ -70,11 +72,11 @@
 
         vm.showMap = function (transaction) {
             $rootScope.showMap = true;
-            common.$timeout(function(){
+            common.$timeout(function () {
                 fillMapProperties(transaction, false);
                 $rootScope.overlayIsOpen = true;
                 $rootScope.showPlacesInput = false;
-            },100);
+            }, 100);
         };
 
         $rootScope.$on('locationSet',
@@ -96,7 +98,8 @@
         vm.changeSorting = function (column) {
             vm.sort = transaxns.updateSorting(column);
             $rootScope.showSpinner = true;
-            transaxns.sort()
+            console.log(vm.tags);
+            transaxns.sort(fromUnixDate, toUnixDate, vm.tags)
                 .success(function (transactions) {
                     vm.trs = transactions;
                     vm.richedTheEnd = false;
@@ -117,7 +120,7 @@
         vm.filterByTags = function () {
             $rootScope.showSpinner = true;
             if (vm.tags.length === 0) {
-                transaxns.sort()
+                transaxns.sort(fromUnixDate, toUnixDate)
                     .success(function (trs) {
                         vm.trs = trs;
                         vm.richedTheEnd = false;
@@ -125,7 +128,7 @@
                     });
             }
             else {
-                transaxns.filterByTags(vm.tags)
+                transaxns.filterByTags(fromUnixDate, toUnixDate, vm.tags)
                     .success(function (transactions) {
                         vm.trs = transactions;
                         vm.richedTheEnd = true;
@@ -142,13 +145,17 @@
             if (dateDidntChange(fromDate, toDate))
                 return;
 
-            if (fromDate)
+            if (fromDate) {
+                fromUnixDate = fromDate;
                 vm.minDate = date.format(fromDate);
-            if (toDate)
+            }
+            if (toDate) {
+                toUnixDate = toDate;
                 vm.maxDate = date.format(toDate);
+            }
 
             $rootScope.showSpinner = true;
-            transaxns.filterByDate(fromDate, toDate)
+            transaxns.filterByDate(fromUnixDate, toUnixDate, vm.tags)
                 .success(function (transactions) {
                     vm.trs = transactions;
                     vm.richedTheEnd = true;
@@ -196,7 +203,7 @@
                 return;
 //            logInfo('loading next transactions');
             vm.isLoading = true;
-            transaxns.getTransaxns()
+            transaxns.getTransaxns(fromUnixDate, toUnixDate, vm.tags)
                 .success(function (result) {
                     if (result && result.length && result.length > vm.trs.length) {
                         vm.trs = result;
@@ -331,8 +338,6 @@
                     if (trs.length) {
                         $rootScope.showSpinner = false;
                         vm.isLoading = false;
-                        vm.minDate = transaxns.getMinDate();
-                        vm.maxDate = transaxns.getMaxDate();
                         vm.sort = transaxns.sortOptions;
                     }
                 });

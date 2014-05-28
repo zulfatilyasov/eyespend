@@ -39,7 +39,7 @@ var data = {
 function _randomDate(start, end) {
     return (start.getTime() + parseInt(Math.random() * (end.getTime() - start.getTime())));
 }
-function getUserTags(){
+function getUserTags() {
     return data.tags;
 }
 function _distictTags(array) {
@@ -149,7 +149,7 @@ var sortByFotoDesc = function (d1, d2) {
     }
 };
 
-var sortByFotoAsc  = function (d1, d2) {
+var sortByFotoAsc = function (d1, d2) {
     if (d1.imgUrl && !d2.imgUrl) {
         return -1;
     } else if (!d1.imgUrl && d2.imgUrl) {
@@ -177,15 +177,16 @@ function getSortFn(sorting, desc) {
         fn = sortByFotoDesc;
     return fn;
 }
-function createId(){
+function createId() {
     return uuid.v1();
 }
 
-function getTransactionsByTags(tags) {
+function getTransactionsByTags(tags, collection) {
     if (tags.length === 0 || tags[0] === '') {
         return getTransactions('timestamp', true, 0, 30);
     }
-    return transactions.filter(function (t) {
+    var target = collection || transactions;
+    return target.filter(function (t) {
         for (var i = 0; i < tags.length; i++) {
             var tagFound = false;
             for (var j = 0; j < t.tags.length && !tagFound; j++) {
@@ -198,18 +199,23 @@ function getTransactionsByTags(tags) {
     });
 }
 
-function getTransactionsByDate(fromDate, toDate) {
-    return transactions.filter(function (t) {
+function getTransactionsByDate(fromDate, toDate, collection) {
+    var target = collection || transactions;
+    return target.filter(function (t) {
         return (!fromDate || t.timestamp >= fromDate) && (!toDate || t.timestamp <= toDate);
     });
 }
 
-function getTransactions(sorting, desc, offset, count) {
+function getTransactions(sorting, desc, offset, count, fromDate, toDate, tags) {
     console.log('offset ' + offset + ' count ' + count + ' desc ' + desc + ' sorting ' + sorting);
 
     var sortFn = getSortFn(sorting, desc);
-    var sorted = transactions.sort(sortFn);
-    return sorted.slice(offset, offset + count);
+    var result = transactions.sort(sortFn);
+    if (fromDate || toDate)
+        result = getTransactionsByDate(fromDate, toDate, result);
+    if (tags && tags.length && tags[0] !== '')
+        result = getTransactionsByTags(tags, result);
+    return result.slice(offset, offset + count);
 }
 
 exports.getTransactions = getTransactions;
