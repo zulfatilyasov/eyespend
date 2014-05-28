@@ -11,10 +11,10 @@
 1. git clone git@red:eyespend/eyespend-web-2.git
 2. cd eyespend-web-2
 3. npm install
-4. grunt 
+4. grunt
 5. cd app
-6. http-server
+6. node server.js [real]
 
-Сайт будет доступен по адресу http://localhost:8080/ 
+Сайт будет доступен по адресу http://localhost:3000/
 
 При каждом обновлении страницы будет сгенерировано случайное число транзакций, со случайными данными.
