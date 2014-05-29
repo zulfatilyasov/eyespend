@@ -4,6 +4,7 @@
     angular.module('app').controller(controllerId, ['common', '$rootScope', '$scope', 'date', 'transaxns', '$translate', 'login', transactions]);
 
     function transactions(common, $rootScope, $scope, date, transaxns, $translate, login) {
+        moment.lang('ru');
         var vm = this;
         var logInfo = common.logger.getLogFn(controllerId, 'log');
         var logError = common.logger.getLogFn(controllerId, 'logError');
@@ -24,6 +25,15 @@
         vm.curDateTime = date.format(date.now());
         vm.isLoading = false;
         vm.excelFileUrl = 'files/transactions.xls';
+        vm.dateRanges = {
+            'последние 7 дней': [moment().subtract('days', 6), moment()],
+            'последние 30 дней': [moment().subtract('days', 29), moment()]
+        };
+        $scope.$watch('vm.filterDateRange', function (newVal, oldVal) {
+            if (!newVal || !newVal.startDate || !newVal.endDate)
+                return;
+            vm.filterByDate(newVal.startDate.unix() * 1000, newVal.endDate.unix() * 1000);
+        });
         $rootScope.showMap = true;
         function editedTransactionNotValid() {
             return !vm.editedTnx || !vm.editedTnx.id || !vm.selectedTnx;
@@ -141,8 +151,17 @@
             }
         };
 
+        vm.datePickerRu = {
+            cancelLabel: 'Отмена',
+            applyLabel: 'OK',
+            fromLabel:'От',
+            toLabel:'До',
+            customRangeLabel:'Выбрать интервал',
+            monthNames: 'янв_фев_мар_апр_май_июнь_июль_авг_сен_окт_ноя_дек'.split("_")
+        };
+
         vm.filterByDate = function (fromDate, toDate) {
-            if (dateDidntChange(fromDate, toDate))
+            if (dateDidntChange(fromDate, toDate) || fromDate === toDate)
                 return;
 
             if (fromDate) {
@@ -155,10 +174,12 @@
             }
 
             $rootScope.showSpinner = true;
+            console.log(new Date(fromUnixDate));
+            console.log(new Date(toUnixDate));
             transaxns.filterByDate(fromUnixDate, toUnixDate, vm.tags)
                 .success(function (transactions) {
                     vm.trs = transactions;
-                    vm.richedTheEnd = true;
+//                    vm.richedTheEnd = true;
                     $rootScope.showSpinner = false;
                 })
                 .error(function (msg) {
@@ -187,7 +208,7 @@
         }
 
         function dateDidntChange(fromDate, toDate) {
-            if (!fromDate || (vm.minDate === date.format(fromDate)) && (!toDate || vm.maxDate === date.format(toDate)))
+            if ((!fromDate || fromUnixDate === fromDate ) && (!toDate || toUnixDate === toDate))
                 return true;
         }
 
@@ -219,33 +240,53 @@
                 });
         };
 
+        var openAddForm = function () {
+            vm.curDateTime = date.format(date.now());
+            vm.isAdding = true;
+            vm.formIsOpen = true;
+        };
+
+        var openFilterForm = function () {
+            vm.isFiltering = true;
+            vm.formIsOpen = true;
+        };
+
+        var closeForms = function () {
+            var def = common.defer();
+            vm.formIsOpen = false;
+            common.$timeout(function () {
+                vm.isFiltering = false;
+                vm.isAdding = false;
+                def.resolve();
+            }, 300);
+            return def.promise;
+        };
+
         vm.toggleAdding = function () {
-            if (vm.isFiltering)
-                vm.toggleFiltering();
-            if (!vm.isAdding) {
-                vm.curDateTime = date.format(date.now());
-                vm.isAdding = !vm.isAdding;
-                common.$timeout(function () {
-                    vm.showTransactionForm = !vm.showTransactionForm;
-                }, 200);
-            } else {
-                vm.showTransactionForm = !vm.showTransactionForm;
-                vm.isAdding = !vm.isAdding;
+            if (vm.isFiltering) {
+                closeForms().then(function () {
+                    openAddForm();
+                });
+            }
+            else if (!vm.isAdding) {
+                openAddForm();
+            }
+            else {
+                closeForms();
             }
         };
-        vm.toggleFiltering = function () {
-            if (vm.isAdding)
-                vm.toggleAdding();
 
-            if (!vm.isFiltering) {
-                vm.isFiltering = !vm.isFiltering;
-                common.$timeout(function () {
-                    vm.showFilterForm = !vm.showFilterForm;
-                }, 150);
-            } else {
-                vm.showFilterForm = !vm.showFilterForm;
-                vm.isFiltering = !vm.isFiltering;
-//                vm.showFilterForm = !vm.showFilterForm;
+        vm.toggleFiltering = function () {
+            if (vm.isAdding) {
+                closeForms().then(function () {
+                    openFilterForm();
+                });
+            }
+            else if (!vm.isFiltering) {
+                openFilterForm();
+            }
+            else {
+                closeForms();
             }
         };
 
@@ -353,4 +394,5 @@
 
         activate();
     }
-})();
+})
+();

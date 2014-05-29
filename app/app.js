@@ -13,7 +13,8 @@
         "pascalprecht.translate",
         "ngCookies",
         "angular-inview",
-        "tmh.dynamicLocale"
+        "tmh.dynamicLocale",
+        "ngBootstrap"
     ]);
 
     app.run(['$rootScope', '$location', '$window', 'login', function ($rootScope, $location, $window, login) {

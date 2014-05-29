@@ -13,7 +13,7 @@
                 descending: true
             },
             offset = 0,
-            count = 50;
+            count = 30;
 
         function sortByDateDesc(a, b) {
             var d1 = parseInt(a.timestamp);

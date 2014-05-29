@@ -26,6 +26,10 @@ module.exports = function (grunt) {
             'bower_components/AngularGM/angular-gm.js',
             'bower_components/angular-translate/angular-translate.js',
             'bower_components/angular-inview/angular-inview.js',
+            'bower_components/momentjs/moment.js',
+            'bower_components/momentjs/lang/ru.js',
+            'bower_components/bootstrap-daterangepicker/daterangepicker.js',
+            'bower_components/ng-bs-daterangepicker/src/ng-bs-daterangepicker.js',
 
             'app/app.js',
             'app/config.exceptionHandler.js',
@@ -52,6 +56,7 @@ module.exports = function (grunt) {
             'bower_components/toastr/toastr.css',
             'bower_components/ng-tags-input/ng-tags-input.css',
             'bower_components/datetimepicker/jquery.datetimepicker.css',
+            'bower_components/bootstrap-daterangepicker/daterangepicker-bs3.css',
             'app/css/app.css',
             'app/css/overlay.css',
             'app/lib/sticky/sticky.css'
