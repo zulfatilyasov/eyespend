@@ -14,7 +14,8 @@
         "ngCookies",
         "angular-inview",
         "tmh.dynamicLocale",
-        "ngBootstrap"
+        "ngBootstrap",
+        "NgSwitchery"
     ]);
 
     app.run(['$rootScope', '$location', '$window', 'login', function ($rootScope, $location, $window, login) {

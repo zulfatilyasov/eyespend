@@ -1,9 +1,9 @@
 (function () {
     'use strict';
     var controllerId = 'transactions';
-    angular.module('app').controller(controllerId, ['common', '$rootScope', '$scope', 'date', 'transaxns', '$translate', 'login', transactions]);
+    angular.module('app').controller(controllerId, ['common', '$rootScope', '$scope', 'date', 'transaxns', '$translate', 'login', 'debounce', transactions]);
 
-    function transactions(common, $rootScope, $scope, date, transaxns, $translate, login) {
+    function transactions(common, $rootScope, $scope, date, transaxns, $translate, login, debounce) {
         moment.lang('ru');
         var vm = this;
         var logInfo = common.logger.getLogFn(controllerId, 'log');
@@ -25,6 +25,8 @@
         vm.curDateTime = date.format(date.now());
         vm.isLoading = false;
         vm.excelFileUrl = 'files/transactions.xls';
+        vm.maxAmountToShow = 3000;
+        vm.minAmountToShow = 0;
         vm.dateRanges = {
             'последние 7 дней': [moment().subtract('days', 6), moment()],
             'последние 30 дней': [moment().subtract('days', 29), moment()]
@@ -120,6 +122,13 @@
         vm.loadTags = function () {
             return login.getUserTags();
         };
+        vm.cities = [
+            { "value": 1, "text": "Amsterdam", "continent": "Europe"    },
+            { "value": 4, "text": "Washington", "continent": "America"   },
+            { "value": 7, "text": "Sydney", "continent": "Australia" },
+            { "value": 10, "text": "Beijing", "continent": "Asia"      },
+            { "value": 13, "text": "Cairo", "continent": "Africa"    }
+        ];
 
         vm.getSortingForColumn = transaxns.getSortingForColumn;
 
@@ -151,12 +160,14 @@
             }
         };
 
+        vm.tagFilterChange = debounce(vm.filterByTags, 3000, false);
+
         vm.datePickerRu = {
             cancelLabel: 'Отмена',
             applyLabel: 'OK',
-            fromLabel:'От',
-            toLabel:'До',
-            customRangeLabel:'Выбрать интервал',
+            fromLabel: 'От',
+            toLabel: 'До',
+            customRangeLabel: 'Выбрать интервал',
             monthNames: 'янв_фев_мар_апр_май_июнь_июль_авг_сен_окт_ноя_дек'.split("_")
         };
 
@@ -258,7 +269,7 @@
                 vm.isFiltering = false;
                 vm.isAdding = false;
                 def.resolve();
-            }, 300);
+            }, 400);
             return def.promise;
         };
 
@@ -388,6 +399,17 @@
             var promises = [_getTransactions()];
             common.activateController(promises, controllerId)
                 .then(function () {
+                    $('.js-slider').slider({
+                        tooltip: 'hide',
+                        max: vm.maxAmountToShow,
+                        min: vm.minAmountToShow
+                    }).on('slide', function (ev) {
+                        var val = $(this).slider('getValue');
+                        vm.minAmountToShow = val[0];
+                        vm.maxAmountToShow = val[1];
+                        $rootScope.$apply();
+                    });
+                    ;
                     common.logger.logSuccess('Данные загружены');
                 });
         }

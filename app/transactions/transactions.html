@@ -133,6 +133,7 @@
                 <div class="col-md-4">
                     <div>
                         <label for="editedAddress" translate>По дате</label><br/>
+
                         <div style="padding: 6px 0">
                             <datepicker type="daterange"
                                         locale="vm.datePickerRu"
@@ -140,7 +141,7 @@
                                         ranges="vm.dateRanges"
                                         ng-model="vm.filterDateRange">
                                 <i class="fa fa-calendar fa-lg"></i>
-                                <span>Установить интервал дат</span>
+                                <span>Выберите дату</span>
                                 <b class="caret"></b>
                             </datepicker>
                         </div>
@@ -149,10 +150,13 @@
                 <div class="col-md-8">
                     <div>
                         <label>По тегам</label><br/>
-                        <tags-input ng-model="vm.tags" min-Length="1"
+                        <tags-input ng-model="vm.tags"
+                                    min-Length="1"
                                     add-from-autocomplete-only="false"
                                     replace-spaces-with-dashes="false"
                                     placeholder="{{'SEARCH_BY_TAGS'|translate}}"
+                                    on-tag-added="vm.tagFilterChange()"
+                                    on-tag-removed="vm.tagFilterChange()"
                                     class="bootstrap">
                             <auto-complete source="vm.loadTags()"
                                            min-length="0"
@@ -167,6 +171,33 @@
                     <!--<i class="fa fa-search"></i>-->
                     <!--</button>-->
                     <!--</div>-->
+                </div>
+            </div>
+            <div class="row">
+                <div style="padding-top: 5px">
+
+                    <div class="col-md-2">
+                        <div class="controls form-group">
+                            <label>
+                                C фотографиями
+                            </label><br/>
+                            <input type="checkbox" class="js-switch" ui-switch/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="controls form-group">
+                            <label>
+                                Сумма
+                            </label><br/>
+                            <span class="rangemin">{{vm.minAmountToShow}}</span><span class="slider-warning">
+                                    <input class="js-slider" id="slider-ex11" data-slider-id='ex11Slider'
+                                           type="text" data-slider-min="0" data-slider-max="2000"
+                                           data-slider-step="1" data-slider-value="[200,1547]"/>
+                            </span><span class="rangemax">{{vm.maxAmountToShow}}</span>
+
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
