@@ -35,6 +35,7 @@
     "http-proxy": "^1.1.4",
     "jsonwebtoken": "^0.4.0",
     "node-uuid": "^1.4.1",
-    "request": "^2.34.0"
+    "request": "^2.34.0",
+    "cookie-parser": "^1.1.0"
   }
 }

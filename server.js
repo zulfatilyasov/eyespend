@@ -31,6 +31,7 @@ var ApiInjector = function apiInjector() {
         app.get('/', function (req, res) {
             res.sendfile(__dirname + '/app/index/index.html');
         });
+
         app.get('/api/secure/transactions', function (req, res) {
             console.log('user ' + req.user.email + ' is calling /api/transactions');
             var offset = parseInt(req.query.offset);
@@ -51,27 +52,6 @@ var ApiInjector = function apiInjector() {
                 res.json(result);
             }, 1500)
         });
-//
-//        app.get('/api/secure/filterByDate', function (req, res) {
-//            var fromDate = parseInt(req.query.fromDate);
-//            var toDate = parseInt(req.query.toDate);
-//
-//            var result = db.getTransactionsByDate(fromDate, toDate);
-//            setTimeout(function () {
-//                res.json(result);
-//            }, 1500)
-//        });
-//
-//        app.get('/api/secure/filterByTags', function (req, res) {
-//            var tagsString = req.query.tags;
-//            var tags = tagsString.split(';');
-//            console.log(tags);
-//
-//            var result = db.getTransactionsByTags(tags);
-//            setTimeout(function () {
-//                res.json(result);
-//            }, 1500)
-//        });
 
         app.get('/api/secure/getUserTags', function (req, res) {
             res.json(db.getUserTags());

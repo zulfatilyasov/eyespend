@@ -1,4 +1,7 @@
-<div style="position:relative" ng-controller="transactions as vm">
+<div class="page" style="bottom:0;
+	position:absolute;
+	top:0;
+	width:100%;" ng-controller="transactions as vm">
 <div class="row">
     <div class="col-md-12">
         <h2 class="page-title" translate>EXPENSES_HISTORY</h2>
@@ -130,9 +133,9 @@
             <!--</div>-->
             <!--</div>-->
             <div class="row">
-                <div class="col-md-4">
-                    <div>
-                        <label for="editedAddress" translate>По дате</label><br/>
+                <div class="col-md-12">
+                    <div class="searchByDate">
+                        <label translate>По дате</label><br/>
 
                         <div style="padding: 6px 0">
                             <datepicker type="daterange"
@@ -146,9 +149,7 @@
                             </datepicker>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-8">
-                    <div>
+                    <div class="searchByTags"">
                         <label>По тегам</label><br/>
                         <tags-input ng-model="vm.tags"
                                     min-Length="1"
@@ -165,13 +166,32 @@
                             </auto-complete>
                         </tags-input>
                     </div>
-                    <!--<div id="searchButton">-->
-                    <!--<button id="search" ng-click="vm.filterByTags()"-->
-                    <!--class="btn btn-primary" type="button">-->
-                    <!--<i class="fa fa-search"></i>-->
-                    <!--</button>-->
-                    <!--</div>-->
                 </div>
+                <!--<div class="col-md-8">-->
+                    <!--<div>-->
+                        <!--<label>По тегам</label><br/>-->
+                        <!--<tags-input ng-model="vm.tags"-->
+                                    <!--min-Length="1"-->
+                                    <!--add-from-autocomplete-only="false"-->
+                                    <!--replace-spaces-with-dashes="false"-->
+                                    <!--placeholder="{{'SEARCH_BY_TAGS'|translate}}"-->
+                                    <!--on-tag-added="vm.tagFilterChange()"-->
+                                    <!--on-tag-removed="vm.tagFilterChange()"-->
+                                    <!--class="bootstrap">-->
+                            <!--<auto-complete source="vm.loadTags()"-->
+                                           <!--min-length="0"-->
+                                           <!--debounce-delay="0"-->
+                                           <!--max-results-to-show="50">-->
+                            <!--</auto-complete>-->
+                        <!--</tags-input>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;<div id="searchButton">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<button id="search" ng-click="vm.filterByTags()"&ndash;&gt;-->
+                    <!--&lt;!&ndash;class="btn btn-primary" type="button">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<i class="fa fa-search"></i>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--</div>-->
             </div>
             <div class="row">
                 <div style="padding-top: 5px">
@@ -293,7 +313,7 @@
             ng-if="vm.editedTnx && vm.editedTnx.id === transaction.id">
             <td colspan="7">
                 <div class="row">
-                    <form ng-class="{row:true, slider:true, closed:!vm.isEditing}">
+                    <form ng-class="{row:true, 'form-slider':true, closed:!vm.isEditing}">
                         <div style="opacity:0"
                              ng-class="{transactionForm:true, visible:vm.showEditForm}">
                             <div class="row">

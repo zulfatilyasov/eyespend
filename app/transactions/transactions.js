@@ -1,9 +1,9 @@
 (function () {
     'use strict';
     var controllerId = 'transactions';
-    angular.module('app').controller(controllerId, ['common', '$rootScope', '$scope', 'date', 'transaxns', '$translate', 'login', 'debounce', transactions]);
+    angular.module('app').controller(controllerId, ['common', '$rootScope', '$scope', 'date', 'transaxns', '$translate', 'login', 'debounce', 'geolocation',  transactions]);
 
-    function transactions(common, $rootScope, $scope, date, transaxns, $translate, login, debounce) {
+    function transactions(common, $rootScope, $scope, date, transaxns, $translate, login, debounce, geolocation) {
         moment.lang('ru');
         var vm = this;
         var logInfo = common.logger.getLogFn(controllerId, 'log');
@@ -59,27 +59,27 @@
             vm.selectedTnx = transaction;
             $event.stopPropagation();
         };
+
         function fillMapProperties(transaction, draggable) {
-            $rootScope.showMap = true;
-            $rootScope.mapCenter = new google.maps.LatLng(transaction.latitude, transaction.longitude);
-            $rootScope.zoom = 17;
-            if (!transaction.latitude || !transaction.longitude)
-                $rootScope.zoom = 2;
-            $rootScope.transaction = transaction;
-            $rootScope.markers = [
-                {
-                    id: transaction.id,
-                    location: {
-                        lat: transaction.latitude,
-                        lng: transaction.longitude
-                    },
-                    options: function () {
-                        return {
-                            draggable: draggable
+                $rootScope.mapCenter = new google.maps.LatLng(transaction.latitude, transaction.longitude);
+                $rootScope.zoom = 17;
+                if (!transaction.latitude || !transaction.longitude)
+                    $rootScope.zoom = 2;
+                $rootScope.transaction = transaction;
+                $rootScope.markers = [
+                    {
+                        id: transaction.id,
+                        location: {
+                            lat: transaction.latitude,
+                            lng: transaction.longitude
+                        },
+                        options: function () {
+                            return {
+                                draggable: draggable
+                            }
                         }
                     }
-                }
-            ];
+                ];
         }
 
         vm.showMap = function (transaction) {
@@ -100,11 +100,28 @@
         );
 
         vm.pickAddress = function () {
+            $rootScope.showMap = true;
             var transaction = vm.isAdding ? vm.newTnx : vm.editedTnx;
-            fillMapProperties(transaction, true);
-            $rootScope.overlayIsOpen = true;
-            $rootScope.placePicker = {};
-            $rootScope.showPlacesInput = true;
+            common.$timeout(function(){
+                fillMapProperties(transaction, true);
+                if(!transaction.latitude || !transaction.longitude){
+                    geolocation.getLocation().then(function(data){
+                        $rootScope.mapCenter = new google.maps.LatLng(data.coords.latitude, data.coords.longitude);
+                        $rootScope.zoom = 17;
+                        $rootScope.markers = [
+                            {
+                                location: {
+                                    lat: data.coords.latitude,
+                                    lng: data.coords.longitude
+                                }
+                            }
+                        ];
+                    });
+                }
+                $rootScope.overlayIsOpen = true;
+                $rootScope.placePicker = {};
+                $rootScope.showPlacesInput = true;
+            });
         };
 
         vm.changeSorting = function (column) {
@@ -122,13 +139,6 @@
         vm.loadTags = function () {
             return login.getUserTags();
         };
-        vm.cities = [
-            { "value": 1, "text": "Amsterdam", "continent": "Europe"    },
-            { "value": 4, "text": "Washington", "continent": "America"   },
-            { "value": 7, "text": "Sydney", "continent": "Australia" },
-            { "value": 10, "text": "Beijing", "continent": "Asia"      },
-            { "value": 13, "text": "Cairo", "continent": "Africa"    }
-        ];
 
         vm.getSortingForColumn = transaxns.getSortingForColumn;
 
@@ -383,12 +393,15 @@
 
         function _getTransactions() {
             $rootScope.showSpinner = true;
+            $rootScope.hideContent = true;
+
             vm.isLoading = true;
             return transaxns.getTransaxns()
                 .success(function (trs) {
                     vm.trs = trs;
                     if (trs.length) {
                         $rootScope.showSpinner = false;
+                        $rootScope.hideContent = false;
                         vm.isLoading = false;
                         vm.sort = transaxns.sortOptions;
                     }
@@ -409,7 +422,6 @@
                         vm.maxAmountToShow = val[1];
                         $rootScope.$apply();
                     });
-                    ;
                     common.logger.logSuccess('Данные загружены');
                 });
         }

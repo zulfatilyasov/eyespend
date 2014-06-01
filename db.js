@@ -160,7 +160,7 @@ var sortByFotoAsc = function (d1, d2) {
 };
 
 
-var transactions = generateTransactions(1000);
+var transactions = generateTransactions(50);
 transactions = transactions.sort(sortByDateDesc);
 
 function getSortFn(sorting, desc) {

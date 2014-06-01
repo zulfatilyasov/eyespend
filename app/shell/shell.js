@@ -76,6 +76,7 @@
         function toggleSpinner(on) {
             $rootScope.showSpinner = on;
             $rootScope.hideContent = on;
+            console.log('hide content ' + on);
         }
 
         $rootScope.$on('$routeChangeStart',

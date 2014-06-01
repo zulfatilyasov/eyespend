@@ -206,18 +206,28 @@ table.dataTable th.sorting {
 
 .logo h4 {
     font-size: 22px;
-    color: #fff;
+    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.6);
+    /*color: #444;*/
 }
 
 .logo a, .logo strong {
-    color: #fff;
+    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.6);
+    /*color: #444;*/
 }
 
 .logo.sidebar-icons {
     top: 0;
     width: auto;
 }
-
+.searchByTags{
+    display: inline-block;
+    margin-left: 25px;
+    width: 80%;
+}
+.searchByDate{
+    display: inline-block;
+    float: left;
+}
 .logo {
     top: 0;
 }
@@ -359,7 +369,7 @@ div.tags {
     color: #ccc;
 }
 
-.slider {
+.form-slider {
     max-height: 180px;
     -webkit-transition: max-height 0.3s;
     -moz-transition: max-height 0.3s;
@@ -371,7 +381,7 @@ div.tags {
     margin: 0;
 }
 
-.newTransactionForm.slider {
+.newTransactionForm.form-slider {
     max-height: 160px;
 }
 
@@ -391,11 +401,11 @@ div.tags {
     padding: 8px 40px
 }
 
-.filters.slider {
+.filters.form-slider {
     max-height: 105px;
 }
 
-.slider.closed {
+.form-slider.closed {
     max-height: 0;
     overflow: hidden;
 }
@@ -572,10 +582,14 @@ div[ng-view].ng-enter {
     -webkit-animation: fadeInRight 0.7s;
     animation: fadeInRight 0.7s;
 }
+div[ng-view].ng-leave {
+    -webkit-animation: fadeOutRight 0.3s;
+    animation: fadeOutRight 0.3s;
+}
 
 div[ng-if].ng-enter {
-    -webkit-animation: fadeInRight 0.3s;
-    animation: fadeInRight 0.3s;
+    -webkit-animation: fadeInRight 0.7s;
+    animation: fadeInRight 0.7s;
 }
 
 tr[ng-repeat-start].ng-enter {
@@ -634,6 +648,11 @@ tr[ng-repeat-start].ng-leave {
     width: 45px;
 }
 
+.page-title{
+    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.6);
+    color: #444;
+}
+
 .imageContainer {
     text-align: center;
     margin-top: 100px
@@ -647,7 +666,9 @@ tr[ng-repeat-start].ng-leave {
 .widgetWrapper {
     position: relative;
 }
-
+.widget{
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.6), 0 22px 70px 4px rgba(0,0,0,0.56), 0 0 0 1px rgba(0, 0, 0, 0.3);
+}
 .widgetOverlay {
     position: absolute;
     height: 100%;
@@ -861,15 +882,15 @@ tr[ng-repeat-start].ng-leave {
 }
 
 @media (max-width: 990px) {
-    .newTransactionForm.slider {
+    .newTransactionForm.form-slider {
         max-height: 300px;
     }
 
-    .slider {
+    .form-slider {
         max-height: 320px;
     }
 
-    .filters.slider {
+    .filters.form-slider {
         max-height: 200px;
     }
 
@@ -877,6 +898,15 @@ tr[ng-repeat-start].ng-leave {
         display: none;
     }
 
+}
+[ng-view]{
+    position: relative;
+}
+.page{
+    bottom:0;
+    position:absolute;
+    top:0;
+    width:100%;
 }
 
 /*!
@@ -929,6 +959,7 @@ tr[ng-repeat-start].ng-leave {
     left: 50%;
     top: 0;
 }
+
 
 .slider.slider-vertical .slider-selection {
     width: 100%;
@@ -1051,7 +1082,7 @@ tr[ng-repeat-start].ng-leave {
     }
 }
 
-.slider.closed {
+.form-slider.closed {
     max-height: 0;
     overflow: hidden;
 }

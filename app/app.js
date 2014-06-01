@@ -15,7 +15,8 @@
         "angular-inview",
         "tmh.dynamicLocale",
         "ngBootstrap",
-        "NgSwitchery"
+        "NgSwitchery",
+        "geolocation"
     ]);
 
     app.run(['$rootScope', '$location', '$window', 'login', function ($rootScope, $location, $window, login) {
