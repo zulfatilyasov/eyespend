@@ -32,7 +32,7 @@ module.exports = function (grunt) {
             'bower_components/momentjs/lang/ru.js',
             'bower_components/angularjs-geolocation/src/geolocation.js',
             'bower_components/bootstrap-daterangepicker/daterangepicker.js',
-            'bower_components/ng-bs-daterangepicker/src/ng-bs-daterangepicker.js',
+            'app/lib/ng-bs-daterangepicker/src/ng-bs-daterangepicker.js',
 
             'app/app.js',
             'app/config.exceptionHandler.js',

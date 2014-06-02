@@ -1,7 +1,7 @@
 {
   "name": "eyeSpend",
   "description": "web client for eyespend",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "homepage": "http://eyespend.ru/",
   "license": "MIT",
   "private": true,
