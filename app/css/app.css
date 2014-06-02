@@ -8,6 +8,13 @@ body {
     font-style: normal;
     /*font-weight: normal;*/
 }
+a{
+   color:#f8f8f8;
+}
+a:active, a:visited{
+    color:#eee;
+    text-decoration: none;
+}
 
 body.background-dark, .background {
     background: url(https://mac.github.com/images/bg.jpg) repeat-x center top #333;
@@ -222,7 +229,7 @@ table.dataTable th.sorting {
 .searchByTags{
     display: inline-block;
     margin-left: 25px;
-    width: 80%;
+    width: 65%;
 }
 .searchByDate{
     display: inline-block;

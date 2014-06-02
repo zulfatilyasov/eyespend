@@ -1,7 +1,4 @@
-<div class="page" style="bottom:0;
-	position:absolute;
-	top:0;
-	width:100%;" ng-controller="transactions as vm">
+<div class="page" ng-controller="transactions as vm">
 <div class="row">
     <div class="col-md-12">
         <h2 class="page-title" translate>EXPENSES_HISTORY</h2>
@@ -35,11 +32,13 @@
                  </a>
            </span>
             <span style="float: right" class="tableAction">
-                 <i class="fa fa-download"></i>
-                <a href="{{vm.excelFileUrl}}" translate ng-click="vm.toggleFiltering()">DOWNLOAD</a>
+              <a href="{{vm.excelFileUrl}}" title="{{'DOWNLOAD'|translate}}">
+                  <img style="width: 32px;height: 32px" src="../img/excel-3-32.png" alt=""/>
+              </a>
            </span>
     </h4>
 </header>
+<div class="clearfix"></div>
 <div style="overflow: hidden">
 <div ng-class="{transform:true, row:true, rowOpen:vm.formIsOpen}">
 <div class="col-md-12">
@@ -149,7 +148,7 @@
                             </datepicker>
                         </div>
                     </div>
-                    <div class="searchByTags"">
+                    <div class="searchByTags">
                         <label>По тегам</label><br/>
                         <tags-input ng-model="vm.tags"
                                     min-Length="1"
@@ -168,29 +167,29 @@
                     </div>
                 </div>
                 <!--<div class="col-md-8">-->
-                    <!--<div>-->
-                        <!--<label>По тегам</label><br/>-->
-                        <!--<tags-input ng-model="vm.tags"-->
-                                    <!--min-Length="1"-->
-                                    <!--add-from-autocomplete-only="false"-->
-                                    <!--replace-spaces-with-dashes="false"-->
-                                    <!--placeholder="{{'SEARCH_BY_TAGS'|translate}}"-->
-                                    <!--on-tag-added="vm.tagFilterChange()"-->
-                                    <!--on-tag-removed="vm.tagFilterChange()"-->
-                                    <!--class="bootstrap">-->
-                            <!--<auto-complete source="vm.loadTags()"-->
-                                           <!--min-length="0"-->
-                                           <!--debounce-delay="0"-->
-                                           <!--max-results-to-show="50">-->
-                            <!--</auto-complete>-->
-                        <!--</tags-input>-->
-                    <!--</div>-->
-                    <!--&lt;!&ndash;<div id="searchButton">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<button id="search" ng-click="vm.filterByTags()"&ndash;&gt;-->
-                    <!--&lt;!&ndash;class="btn btn-primary" type="button">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<i class="fa fa-search"></i>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</button>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--<div>-->
+                <!--<label>По тегам</label><br/>-->
+                <!--<tags-input ng-model="vm.tags"-->
+                <!--min-Length="1"-->
+                <!--add-from-autocomplete-only="false"-->
+                <!--replace-spaces-with-dashes="false"-->
+                <!--placeholder="{{'SEARCH_BY_TAGS'|translate}}"-->
+                <!--on-tag-added="vm.tagFilterChange()"-->
+                <!--on-tag-removed="vm.tagFilterChange()"-->
+                <!--class="bootstrap">-->
+                <!--<auto-complete source="vm.loadTags()"-->
+                <!--min-length="0"-->
+                <!--debounce-delay="0"-->
+                <!--max-results-to-show="50">-->
+                <!--</auto-complete>-->
+                <!--</tags-input>-->
+                <!--</div>-->
+                <!--&lt;!&ndash;<div id="searchButton">&ndash;&gt;-->
+                <!--&lt;!&ndash;<button id="search" ng-click="vm.filterByTags()"&ndash;&gt;-->
+                <!--&lt;!&ndash;class="btn btn-primary" type="button">&ndash;&gt;-->
+                <!--&lt;!&ndash;<i class="fa fa-search"></i>&ndash;&gt;-->
+                <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
                 <!--</div>-->
             </div>
             <div class="row">
@@ -214,8 +213,6 @@
                                            type="text" data-slider-min="0" data-slider-max="2000"
                                            data-slider-step="1" data-slider-value="[200,1547]"/>
                             </span><span class="rangemax">{{vm.maxAmountToShow}}</span>
-
-
                         </div>
                     </div>
                 </div>
