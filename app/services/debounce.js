@@ -5,7 +5,6 @@
         // The service is actually this function, which we call with the func
         // that should be debounced and how long to wait in between calls
         return function debounce(func, wait, immediate) {
-            console.log(func);
             var timeout;
             // Create a deferred object that will be resolved when we need to
             // actually call the func

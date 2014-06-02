@@ -1,9 +1,10 @@
 (function () {
     'use strict';
     var controllerId = 'transactions';
-    angular.module('app').controller(controllerId, ['common', '$rootScope', '$scope', 'date', 'transaxns', '$translate', 'login', 'debounce', 'geolocation',  transactions]);
+    angular.module('app').controller(controllerId,
+        ['common', '$rootScope', '$scope', 'date', 'transaxns', '$translate', 'login', 'debounce', 'geolocation', 'map', 'config', transactions]);
 
-    function transactions(common, $rootScope, $scope, date, transaxns, $translate, login, debounce, geolocation) {
+    function transactions(common, $rootScope, $scope, date, transaxns, $translate, login, debounce, geolocation, map, config) {
         moment.lang('ru');
         var vm = this;
         var logInfo = common.logger.getLogFn(controllerId, 'log');
@@ -16,6 +17,7 @@
             latitude: null,
             longitude: null
         };
+        vm.onlyWithPhoto = false;
         vm.isAdding = false;
         vm.isFiltering = false;
         vm.selectedTnx = null;
@@ -31,12 +33,23 @@
             'последние 7 дней': [moment().subtract('days', 6), moment()],
             'последние 30 дней': [moment().subtract('days', 29), moment()]
         };
+
         $scope.$watch('vm.filterDateRange', function (newVal, oldVal) {
             if (!newVal || !newVal.startDate || !newVal.endDate)
                 return;
             vm.filterByDate(newVal.startDate.unix() * 1000, newVal.endDate.unix() * 1000);
         });
-        $rootScope.showMap = true;
+
+        $scope.$watch('vm.onlyWithPhoto', function (newVal, oldVal) {
+            if (newVal == oldVal)
+                return;
+            transaxns.getFirstPageWithFilters(fromUnixDate, toUnixDate, vm.tags, newVal)
+                .success(function (trs) {
+                    vm.trs = trs;
+                });
+        });
+
+
         function editedTransactionNotValid() {
             return !vm.editedTnx || !vm.editedTnx.id || !vm.selectedTnx;
         }
@@ -60,38 +73,29 @@
             $event.stopPropagation();
         };
 
-        function fillMapProperties(transaction, draggable) {
-                $rootScope.mapCenter = new google.maps.LatLng(transaction.latitude, transaction.longitude);
-                $rootScope.zoom = 17;
-                if (!transaction.latitude || !transaction.longitude)
-                    $rootScope.zoom = 2;
-                $rootScope.transaction = transaction;
-                $rootScope.markers = [
-                    {
-                        id: transaction.id,
-                        location: {
-                            lat: transaction.latitude,
-                            lng: transaction.longitude
-                        },
-                        options: function () {
-                            return {
-                                draggable: draggable
-                            }
+        function fillMapProperties(props) {
+            $rootScope.mapCenter = new google.maps.LatLng(props.latitude, props.longitude);
+            $rootScope.zoom = 17;
+            if (!props.latitude || !props.longitude)
+                $rootScope.zoom = 2;
+            $rootScope.markers = [
+                {
+                    id: props.id,
+                    location: {
+                        lat: props.latitude,
+                        lng: props.longitude
+                    },
+                    options: function () {
+                        return {
+                            draggable: props.markerDraggable
                         }
                     }
-                ];
+                }
+            ];
         }
 
-        vm.showMap = function (transaction) {
-            $rootScope.showMap = true;
-            common.$timeout(function () {
-                fillMapProperties(transaction, false);
-                $rootScope.overlayIsOpen = true;
-                $rootScope.showPlacesInput = false;
-            }, 100);
-        };
 
-        $rootScope.$on('locationSet',
+        $rootScope.$on(config.events.locationSet,
             function (event, data) {
                 var transaction = vm.isAdding ? vm.newTnx : vm.editedTnx;
                 transaction.latitude = data.latitude;
@@ -99,29 +103,10 @@
             }
         );
 
+        vm.showAddress = map.showAddress;
         vm.pickAddress = function () {
-            $rootScope.showMap = true;
             var transaction = vm.isAdding ? vm.newTnx : vm.editedTnx;
-            common.$timeout(function(){
-                fillMapProperties(transaction, true);
-                if(!transaction.latitude || !transaction.longitude){
-                    geolocation.getLocation().then(function(data){
-                        $rootScope.mapCenter = new google.maps.LatLng(data.coords.latitude, data.coords.longitude);
-                        $rootScope.zoom = 17;
-                        $rootScope.markers = [
-                            {
-                                location: {
-                                    lat: data.coords.latitude,
-                                    lng: data.coords.longitude
-                                }
-                            }
-                        ];
-                    });
-                }
-                $rootScope.overlayIsOpen = true;
-                $rootScope.placePicker = {};
-                $rootScope.showPlacesInput = true;
-            });
+            map.pickAddress(transaction);
         };
 
         vm.changeSorting = function (column) {
@@ -243,9 +228,8 @@
         vm.loadMoreTransactions = function ($inview, $inviewpart) {
             if (vm.isLoading || !$inview || ($inviewpart !== "bottom" && $inviewpart !== "both"))
                 return;
-//            logInfo('loading next transactions');
             vm.isLoading = true;
-            transaxns.getTransaxns(fromUnixDate, toUnixDate, vm.tags)
+            transaxns.getTransaxns(fromUnixDate, toUnixDate, vm.tags, vm.onlyWithPhoto)
                 .success(function (result) {
                     if (result && result.length && result.length > vm.trs.length) {
                         vm.trs = result;
@@ -422,7 +406,6 @@
                         vm.maxAmountToShow = val[1];
                         $rootScope.$apply();
                     });
-                    common.logger.logSuccess('Данные загружены');
                 });
         }
 

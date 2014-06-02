@@ -160,7 +160,7 @@ var sortByFotoAsc = function (d1, d2) {
 };
 
 
-var transactions = generateTransactions(50);
+var transactions = generateTransactions(500);
 transactions = transactions.sort(sortByDateDesc);
 
 function getSortFn(sorting, desc) {
@@ -198,6 +198,12 @@ function getTransactionsByTags(tags, collection) {
         return true;
     });
 }
+function getTransactionsWithPhoto(collection) {
+    var target = collection || transactions;
+    return target.filter(function (t) {
+        return !!t.imgUrl;
+    });
+}
 
 function getTransactionsByDate(fromDate, toDate, collection) {
     var target = collection || transactions;
@@ -206,7 +212,7 @@ function getTransactionsByDate(fromDate, toDate, collection) {
     });
 }
 
-function getTransactions(sorting, desc, offset, count, fromDate, toDate, tags) {
+function getTransactions(sorting, desc, offset, count, fromDate, toDate, tags, withPhoto) {
     console.log('offset ' + offset + ' count ' + count + ' desc ' + desc + ' sorting ' + sorting);
 
     var sortFn = getSortFn(sorting, desc);
@@ -215,6 +221,9 @@ function getTransactions(sorting, desc, offset, count, fromDate, toDate, tags) {
         result = getTransactionsByDate(fromDate, toDate, result);
     if (tags && tags.length && tags[0] !== '')
         result = getTransactionsByTags(tags, result);
+    if (withPhoto)
+        result = getTransactionsWithPhoto(result);
+    console.log(result.slice(offset, offset + count));
     return result.slice(offset, offset + count);
 }
 

@@ -37,6 +37,7 @@ var ApiInjector = function apiInjector() {
             var offset = parseInt(req.query.offset);
             var count = parseInt(req.query.count);
             var desc = req.query.desc === "true";
+            var withPhoto = req.query.withPhoto === "true";
             var fromDate = parseInt(req.query.fromDate);
             var toDate = parseInt(req.query.toDate);
             var tagsString = req.query.tags;
@@ -45,8 +46,9 @@ var ApiInjector = function apiInjector() {
             console.log('tags \n' + tags);
             console.log('fromDate ' + new Date(fromDate));
             console.log('toDate ' + new Date(toDate));
+            console.log('withPhoto ' + withPhoto);
 
-            var result = db.getTransactions(req.query.sorting, desc, offset, count, fromDate, toDate, tags);
+            var result = db.getTransactions(req.query.sorting, desc, offset, count, fromDate, toDate, tags, withPhoto);
 
             setTimeout(function () {
                 res.json(result);

@@ -5,8 +5,15 @@
     angular.module('app').factory(serviceId, ['$http', datacontext]);
 
     function datacontext($http) {
-        function getTransaxns(sorting, desc, offset, count, fromDate, toDate, tags) {
-            var query = 'sorting=' + sorting + '&desc=' + desc + '&offset=' + offset + '&count=' + count + '&fromDate=' + fromDate + '&toDate=' + toDate + '&tags=' + tags;
+        function getTransaxns(sorting, desc, offset, count, fromDate, toDate, tags, withPhoto) {
+            var query = 'sorting=' + sorting
+                + '&desc=' + desc
+                + '&offset=' + offset
+                + '&count=' + count
+                + '&fromDate=' + fromDate
+                + '&toDate=' + toDate
+                + '&tags=' + tags
+                + '&withPhoto=' + withPhoto;
             return $http.get('/api/secure/transactions?' + query);
         }
 

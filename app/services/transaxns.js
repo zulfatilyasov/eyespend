@@ -3,9 +3,9 @@
     'use strict';
 
     var serviceId = "transaxns";
-    angular.module('app').factory(serviceId, ['datacontext', 'common', 'color', 'date', transaxns]);
+    angular.module('app').factory(serviceId, ['datacontext', 'common', 'color', 'date', '$rootScope', transaxns]);
 
-    function transaxns(datacontext, common, color, date) {
+    function transaxns(datacontext, common, color, date, $rootScope) {
         var transactions = [],
             _userTags = [],
             sortOptions = {
@@ -98,6 +98,11 @@
             return getTransaxns(fromDate, toDate, tags);
         }
 
+        function getFirstPageWithFilters(fromDate, toDate, tags, withPhoto) {
+            offset = 0;
+            return getTransaxns(fromDate, toDate, tags, withPhoto);
+        }
+
         function filterByDate(fromDate, toDate, tags) {
             offset = 0;
             return getTransaxns(fromDate, toDate, tags);
@@ -167,12 +172,15 @@
 //            return date.format(maxDate);
 //        }
 
-        function getTransaxns(fromDate, toDate, tags) {
+        function getTransaxns(fromDate, toDate, tags, withPhoto) {
             var def = common.defer();
 
             var tagsString = convertToString(tags);
-            datacontext.getTransaxns(sortOptions.column, sortOptions.descending, offset, count, fromDate || '', toDate || '', tagsString)
+            $rootScope.showSpinner = true;
+            datacontext.getTransaxns(sortOptions.column, sortOptions.descending, offset, count, fromDate || '', toDate || '', tagsString, withPhoto)
                 .then(function (tnxs) {
+                    $rootScope.showSpinner = false;
+                    $rootScope.hideContent = false;
                     if (tnxs && tnxs.data instanceof Array) {
                         if (offset > 0) {
                             transactions = transactions.concat(tnxs.data);
@@ -306,6 +314,7 @@
             getSortingForColumn: getSortingForColumn,
             filterByDate: filterByDate,
             filterByTags: filterByTags,
+            getFirstPageWithFilters: getFirstPageWithFilters,
             getTotalAmout: getTotalAmout,
             create: create,
 //            getMinDate: getMinDate,

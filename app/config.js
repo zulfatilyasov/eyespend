@@ -8,7 +8,8 @@
 
     var events = {
         controllerActivateSuccess: 'controller.activateSuccess',
-        spinnerToggle: 'spinner.toggle'
+        spinnerToggle: 'spinner.toggle',
+        locationSet: 'location.set'
     };
 
     var config = {

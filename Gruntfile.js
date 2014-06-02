@@ -46,6 +46,7 @@ module.exports = function (grunt) {
             'app/services/transaxns.js',
             'app/services/loginService.js',
             'app/services/debounce.js',
+            'app/services/map.js',
             'app/common/common.js',
             'app/common/logger.js',
             'app/transactions/transactions.js',

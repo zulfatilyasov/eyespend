@@ -200,7 +200,7 @@
                             <label>
                                 C фотографиями
                             </label><br/>
-                            <input type="checkbox" class="js-switch" ui-switch/>
+                            <input type="checkbox" class="js-switch" ng-model="vm.onlyWithPhoto" ui-switch/>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -262,7 +262,7 @@
             <td class="transactionAmount">{{transaction.amountInBaseCurrency}} р.</td>
             <td class="map">
                 <a ng-if="transaction.latitude && transaction.longitude"
-                   ng-click="vm.showMap(transaction)"
+                   ng-click="vm.showAddress(transaction)"
                    title="{{'SHOW_ON_MAP'|translate}}"
                    href="javascript:void(0)">
                     <i class="fa fa-map-marker fa-2x"></i>
