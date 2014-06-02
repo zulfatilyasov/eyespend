@@ -34,7 +34,6 @@
     "bootstrap-tagsinput": "~0.3.9",
     "typeahead.js": "~0.10.2",
     "ng-switchery": "~1.0.0-alpha3",
-    "momentjs": "~2.6.0",
     "angularjs-geolocation": "~0.1.1"
   }
 }
