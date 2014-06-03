@@ -1,4 +1,5 @@
 var uuid = require('node-uuid');
+var fs = require('fs');
 var data = {
     tags: [ 'аптека',
         'ресторан',
@@ -76,18 +77,28 @@ function getImage() {
 
 function generateTransactions(count) {
     var transactions = [];
+
     for (var l = 0; l < count; l++) {
         var randomIndex = getRandomInt(0, data.addresses.length - 1);
         transactions.push({
             amountInBaseCurrency: getRandomInt(200, 3000),
             tags: getRandomTags(),
-            timestamp: _randomDate(new Date(2012, 0, 1), new Date(2014, 10, 10)),
+            timestamp: _randomDate(new Date(2012, 0, 1), new Date()),
             id: uuid.v1(),
             latitude: data.addresses[randomIndex].latitude,
             longitude: data.addresses[randomIndex].longitude,
             imgUrl: getImage()
         });
     }
+
+    fs.writeFile('transactions.json', JSON.stringify(transactions, null, 4), function(err) {
+        if(err) {
+            console.log(err);
+        } else {
+            console.log("JSON saved to transactions.json");
+        }
+    });
+
     return transactions;
 }
 
@@ -159,10 +170,6 @@ var sortByFotoAsc = function (d1, d2) {
     }
 };
 
-
-var transactions = generateTransactions(500);
-transactions = transactions.sort(sortByDateDesc);
-
 function getSortFn(sorting, desc) {
     var fn = sortByDateDesc;
     if (sorting === 'timestamp' && !desc)
@@ -181,12 +188,11 @@ function createId() {
     return uuid.v1();
 }
 
-function getTransactionsByTags(tags, collection) {
+function getTransactionsByTags(tags, transactions) {
     if (tags.length === 0 || tags[0] === '') {
         return getTransactions('timestamp', true, 0, 30);
     }
-    var target = collection || transactions;
-    return target.filter(function (t) {
+    return transactions.filter(function (t) {
         for (var i = 0; i < tags.length; i++) {
             var tagFound = false;
             for (var j = 0; j < t.tags.length && !tagFound; j++) {
@@ -198,22 +204,29 @@ function getTransactionsByTags(tags, collection) {
         return true;
     });
 }
-function getTransactionsWithPhoto(collection) {
-    var target = collection || transactions;
-    return target.filter(function (t) {
+function getTransactionsWithPhoto(transactions) {
+    return transactions.filter(function (t) {
         return !!t.imgUrl;
     });
 }
 
-function getTransactionsByDate(fromDate, toDate, collection) {
-    var target = collection || transactions;
-    return target.filter(function (t) {
+function getTransactionsByDate(fromDate, toDate, transactions) {
+    return transactions.filter(function (t) {
         return (!fromDate || t.timestamp >= fromDate) && (!toDate || t.timestamp <= toDate);
     });
+}
+function readJsonFile(filepath, encoding){
+
+    if (typeof (encoding) == 'undefined'){
+        encoding = 'utf8';
+    }
+    var file = fs.readFileSync(filepath, encoding);
+    return JSON.parse(file);
 }
 
 function getTransactions(sorting, desc, offset, count, fromDate, toDate, tags, withPhoto) {
     console.log('offset ' + offset + ' count ' + count + ' desc ' + desc + ' sorting ' + sorting);
+    var transactions = readJsonFile('transactions.json');
 
     var sortFn = getSortFn(sorting, desc);
     var result = transactions.sort(sortFn);
@@ -223,7 +236,6 @@ function getTransactions(sorting, desc, offset, count, fromDate, toDate, tags, w
         result = getTransactionsByTags(tags, result);
     if (withPhoto)
         result = getTransactionsWithPhoto(result);
-    console.log(result.slice(offset, offset + count));
     return result.slice(offset, offset + count);
 }
 

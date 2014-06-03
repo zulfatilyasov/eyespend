@@ -285,15 +285,16 @@
                 </a>
             </td>
             <td class="hidden-phone-landscape bootstrap tags-td">
-                <div class="tags">
-                    <ul class="tag-list">
-                        <li class="tag-item" ng-repeat="tag in transaction.tags"
-                            ng-mouseenter="vm.hoveredTag = tag" ng-mouseleave="vm.hoveredTag = null"
-                            ng-style="{'background-color':tag.color}"
-                            ng-class="{'tag-hovered':vm.hoveredTag.text === tag.text}"
+                <div>
+                    <ul class="transaction-tags">
+                        <li ng-repeat="tag in transaction.tags"
+                            ng-mouseenter="vm.hoveredTag = tag"
+                            ng-mouseleave="vm.hoveredTag = null"
                             ng-class="{'tag-hovered':vm.hoveredTag.text === tag.text}"
                             ng-click="vm.addTag(tag.text)">
-                            <span>{{tag.text}}</span>
+                            <div style="display:inline-block">
+                                <span ng-style="{'border-color':vm.getTagColorStyle(tag.color)}" class="beforeTag"></span><a ng-style="{'background':tag.color}" href="#">{{tag.text}}</a>
+                            </div>
                         </li>
                     </ul>
                 </div>

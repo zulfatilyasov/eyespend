@@ -24,19 +24,45 @@ var LoginPage = function () {
     };
 };
 
+var LandingPage = function () {
+    this.login = browser.driver.findElement(by.id('login'));
+    this.codeOrEmail = browser.driver.findElement(by.id('email'));
+    this.password = browser.driver.findElement(by.id('password'));
+    this.header = function () {
+        return browser.driver.findElement(by.css('.container h2 strong')).getText();
+    };
+
+    this.setCodeOrEmail = function (value) {
+        this.codeOrEmail.clear();
+        this.codeOrEmail.sendKeys(value);
+    };
+
+    this.setPassWord = function (value) {
+        this.password.clear();
+        this.password.sendKeys(value);
+    };
+
+    this.loginWithAcivationCode = function () {
+        this.setCodeOrEmail('123');
+        this.submit.click();
+    };
+};
+
 var Transactions = function () {
     var repeater = by.repeater('transaction in vm.trs');
     this.transactionDate = element(repeater.row(3)).$('.date-td');
     this.showMap = element(repeater.row(0)).$('.map a');
     this.transactionFullDate = function () {
-       return this.transactionDate.$('span.fullDate').getText();
+        return this.transactionDate.$('span.fullDate').getText();
     };
-    this.transactionAmount = function(){
+    this.transactionAmount = function () {
         return element(repeater.row(3)).$('.transactionAmount').getText();
     };
+    this.firstDate = element(repeater.row(0)).element(by.css('.fullDate'));
+    this.firstAmount = element(repeater.row(0)).element(by.css('.transactionAmount'));
     this.pencil = element(repeater.row(3)).element(by.css('#pencil'));
     this.repeater = repeater;
-    this.startCount = 51;
+    this.startCount = 31;
     this.rows = element.all(by.css('#transactions-table tr'));
     this.createButton = element(by.id('createButton'));
     this.filterButton = element(by.id('filterButton'));
@@ -46,6 +72,7 @@ var Transactions = function () {
     this.searchButton = $('#search');
     this.amountInput = $('#amountInput');
     this.dateAndTime = $('#dateAndTime');
+    this.datePicker = $('datepicker');
     this.dateAndTimeEditor = $('#dateAndTimeEditor');
     this.editedAmount = $('#editedAmount');
     this.fromDate = $('#fromDate');
@@ -58,7 +85,7 @@ var Transactions = function () {
     this.sortByTimestamp = $('#timestamp');
     this.sortByAmount = $('#amount');
     this.sortByFoto = $('#foto');
-    this.lastWeekFilter = $('#lastWeekFilter');
+    this.lastWeekFilter = $('.ranges li');
     this.lastMonthFilter = $('#lastMonthFilter');
     this.firstRowAmount = element(repeater.row(0).column('{{transaction.amountInBaseCurrency}}'));
     this.transactions = element.all(by.repeater('transaction in vm.trs'));
@@ -110,3 +137,4 @@ exports.Login = LoginPage;
 exports.Menu = Menu;
 exports.Content = Content;
 exports.Transactions = Transactions;
+exports.Landing = LandingPage;

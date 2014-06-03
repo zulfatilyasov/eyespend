@@ -24,8 +24,8 @@ perspective effects (not including the modals and the overlay).
 /*}*/
 .md-close {
     position: absolute;
-    right: 100px;
-    top: 10px;
+    right: 0;
+    top: 0;
     font-size: 35px;
     color: #f8f8f8;
 }
@@ -38,7 +38,7 @@ perspective effects (not including the modals and the overlay).
     position: fixed;
     top: 50%;
     left: 50%;
-    width: 50%;
+    /*width: 50%;*/
     max-width: 630px;
     min-width: 320px;
     height: auto;
@@ -144,6 +144,7 @@ perspective effects (not including the modals and the overlay).
     -ms-transform: scale(1);
     transform: scale(1);
     opacity: 1;
+    width: 450px;
 }
 
 /* Effect 2: Slide from the right */
@@ -778,10 +779,11 @@ perspective effects (not including the modals and the overlay).
 
 .login-widget {
     background: rgba(240, 240, 240, 0.86);
-    color:#000;
+    color: #000;
     border-radius: 60px;
 }
-.login-widget h4,.login-widget .form-actions .forgot{
+
+.login-widget h4, .login-widget .form-actions .forgot {
     color: #000;
 }
 

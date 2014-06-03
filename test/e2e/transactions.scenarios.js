@@ -12,12 +12,18 @@ describe('transactions page', function () {
     var ptor = protractor.getInstance();
     browser.driver.manage().window().maximize();
 
-    it('should navigate to transactions page', function (done) {
-        browser.get('#/');
+    it('should navigate to transactions page', function () {
+        browser.driver.get('http://localhost:3000/');
 
-        browser.getLocationAbsUrl().then(function (url) {
-            if (url.indexOf('/login') >= 0) {
-                loginPage.loginWithAcivationCode();
+        browser.driver.findElement(by.css('.container h2 strong')).getText().then(function(title) {
+            if(res.ru.MEET_EYESPEND === title){
+                var correctEmail = "foo@gmail.com";
+                var correctPassword = "bar";
+                browser.driver.findElement(by.id('login')).click();
+                browser.driver.findElement(by.id('email')).sendKeys(correctEmail);
+                browser.driver.findElement(by.id('password')).sendKeys(correctPassword);
+                browser.driver.findElement(by.id('loginButton')).click();
+                expect(content.header()).toBe(res.ru.EXPENSES_HISTORY);
             }
         });
     });
@@ -26,10 +32,12 @@ describe('transactions page', function () {
         transactionsPage.sortByAmount.click();
         ptor.sleep(3000);
         expect(transactionsPage.rows.count()).toBe(transactionsPage.startCount);
+        expect(transactionsPage.firstAmount.getText()).toBe('202 р.');
 
         transactionsPage.sortByTimestamp.click();
         ptor.sleep(3000);
         expect(transactionsPage.rows.count()).toBe(transactionsPage.startCount);
+        expect(transactionsPage.firstDate.getText()).toBe('01 января 2012');
 
         transactionsPage.sortByFoto.click();
         ptor.sleep(3000);
@@ -85,22 +93,13 @@ describe('transactions page', function () {
 
     it('should filter', function () {
         transactionsPage.filterButton.click();
-
         transactionsPage.tag.click();
         transactionsPage.tagsFilter.sendKeys('\b\b');
-
-        transactionsPage.addTagToFilter('наличные');
-        transactionsPage.searchButton.click();
-
+        transactionsPage.addTagToFilter('ресторан');
+        ptor.sleep(2000);
+        transactionsPage.datePicker.click();
         transactionsPage.lastWeekFilter.click();
-        ptor.sleep(500);
-
-        transactionsPage.lastMonthFilter.click();
-        ptor.sleep(2000);
-
-        transactionsPage.setFromDate('010120130000');
-        transactionsPage.setToDate('010120140000');
-        ptor.sleep(2000);
+        expect(transactionsPage.firstDate.getText()).toBe('28 мая 2014');
     });
 
 
@@ -115,6 +114,5 @@ describe('transactions page', function () {
     it('should log out', function (done) {
         menu.logout.click();
     });
-
 
 });

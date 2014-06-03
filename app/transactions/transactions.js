@@ -33,6 +33,9 @@
             'последние 7 дней': [moment().subtract('days', 6), moment()],
             'последние 30 дней': [moment().subtract('days', 29), moment()]
         };
+        vm.getTagColorStyle = function (color) {
+            return 'transparent ' + color + ' transparent transparent';
+        };
 
         $scope.$watch('vm.filterDateRange', function (newVal, oldVal) {
             if (!newVal || !newVal.startDate || !newVal.endDate)

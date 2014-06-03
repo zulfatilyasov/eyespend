@@ -2,7 +2,8 @@ exports.config = {
     allScriptsTimeout: 11000,
 
     specs: [
-        'e2e/login.scenarios.js',
+        'e2e/landing.scenarios.js',
+//        'e2e/login.scenarios.js',
         'e2e/transactions.scenarios.js'
     ],
 
@@ -11,7 +12,8 @@ exports.config = {
     },
 
     suites: {
-        login: 'e2e/login.scenarios.js',
+//        login: 'e2e/login.scenarios.js',
+        landing: 'e2e/landing.scenarios.js',
         transactions: 'e2e/transactions.scenarios.js'
     },
 

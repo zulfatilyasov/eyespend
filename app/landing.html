@@ -22,12 +22,12 @@
             <div class="logo pull-left">
                 <h4>
                     <a style="font-size: 24px" href="/">eye<strong>Spend</strong></a>
-                    <small>контроль расходов</small>
+                    <span>контроль расходов</span>
                 </h4>
             </div>
             <ul class="navbar-buttons pull-right">
                 <li>
-                    <a class="md-trigger btn btn-sm btn-transparent" data-modal="modal-11" href="#">
+                    <a class="md-trigger btn btn-sm btn-transparent" id="login" data-modal="modal-11" href="#">
                         Войти&nbsp;
                         <i class="fa fa-arrow-right"></i>
                     </a>
@@ -44,7 +44,7 @@
                             <header class="text-align-center">
                                 <h4 translate>Введите код активации или email</h4>
                             </header>
-                            <div class="authError" ng-bind-html="vm.message"></div>
+                            <div class="authError" id="loginError"></div>
                             <div class="body">
                                 <form class="no-margin" ng-submit="vm.submit()" method="POST">
                                     <fieldset>
@@ -64,7 +64,7 @@
                                             </div>
                                         </div>
 
-                                        <div style="margin-top: 10px" class="form-group" ng-if="vm.isEmail">
+                                        <div style="margin-top: 10px;" class="form-group" id="password-area">
                                             <label for="password" translate>Пароль</label>
 
                                             <div class="input-group input-group-lg">
@@ -394,14 +394,6 @@
 <script src="modal/cssParser.js"></script>
 <!--<script src="modal/css-filters-polyfill.js"></script>-->
 <script>
-    $('#loginButton').click(function () {
-        var email = $('#email').val();
-        var password = $('#password').val();
-        $.post('/api/users/login', {authCodeOrEmail: email, password: password})
-                .done(function (data) {
-                    document.cookie = 'token=' + data.token + ';path=/';
-                    location.href = '/';
-                });
-    });
+
 </script>
 </body>

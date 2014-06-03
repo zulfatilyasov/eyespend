@@ -51,7 +51,8 @@ var translationsRu = {
     SEARCH:"Поиск",
     EMAIL_OR_PHONE:"Email или телефон",
     FILTER:"Фильтрация",
-    DOWNLOAD:"Скачать"
+    DOWNLOAD:"Скачать",
+    MEET_EYESPEND:"Познакомьтесь с EyeSpend"
 };
 
 var translationsEn = {
@@ -107,7 +108,8 @@ var translationsEn = {
     SEARCH:"Search",
     EMAIL_OR_PHONE:"Email or phone",
     FILTER:"Filter",
-    DOWNLOAD:"Download"
+    DOWNLOAD:"Download",
+    MEET_EYESPEND:"Meet eyeSpend"
 };
 try {
     exports.ru = translationsRu;
