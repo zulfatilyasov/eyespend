@@ -517,8 +517,7 @@ tags-input .tags .input {
     min-width: 200px;
 }
 
-.transactionForm .btn {
-    height: 32px;
+.btn {
     font-size: 14px;
 }
 

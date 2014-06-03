@@ -374,6 +374,10 @@
                 }
             );
         };
+        vm.clearFilters = function(){
+
+        };
+
 
         function _getTransactions() {
             $rootScope.showSpinner = true;

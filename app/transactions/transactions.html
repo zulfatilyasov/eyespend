@@ -215,6 +215,15 @@
                             </span><span class="rangemax">{{vm.maxAmountToShow}}</span>
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <label>&nbsp;</label><br/>
+                        <button type="button"
+                                class="btn btn-primary"
+                                ng-click="vm.clearFilters()"
+                                data-placement="right">
+                            <span translate>Сбросить фильтры</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -238,7 +247,7 @@
                 ng-click="vm.changeSorting('amountInBaseCurrency')"
                 id="amount">
                 <span translate>AMOUNT</span>
-                <span id="totalAmount" class="hidden-phone-landscape">{{vm.total()}} р.</span>
+                <!--<span id="totalAmount" class="hidden-phone-landscape">{{vm.total()}} р.</span>-->
             </th>
             <th class="no-sort map" translate>ADDRESS</th>
             <th ng-class="vm.getSortingForColumn('foto')"
