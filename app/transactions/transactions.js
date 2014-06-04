@@ -52,7 +52,6 @@
                 });
         });
 
-
         function editedTransactionNotValid() {
             return !vm.editedTnx || !vm.editedTnx.id || !vm.selectedTnx;
         }
@@ -75,6 +74,14 @@
             vm.selectedTnx = transaction;
             $event.stopPropagation();
         };
+
+        vm.onTransitionEnd = function(){
+            if(!vm.formIsOpen && vm.isAdding)
+                vm.isAdding = false;
+            if(!vm.formIsOpen && vm.isFiltering)
+                vm.isFiltering = false;
+            console.log('transition endedd');
+        }
 
         function fillMapProperties(props) {
             $rootScope.mapCenter = new google.maps.LatLng(props.latitude, props.longitude);
@@ -228,6 +235,10 @@
             $rootScope.overlayIsOpen = true;
         };
 
+        vm.downloadExcel = function(){
+            transaxns.getExcelFile(fromUnixDate,toUnixDate,vm.tags,vm.onlyWithPhoto);
+        }
+
         vm.loadMoreTransactions = function ($inview, $inviewpart) {
             if (vm.isLoading || !$inview || ($inviewpart !== "bottom" && $inviewpart !== "both"))
                 return;
@@ -259,22 +270,23 @@
             vm.formIsOpen = true;
         };
 
-        var closeForms = function () {
+        var closeForms = function (callback) {
             var def = common.defer();
             vm.formIsOpen = false;
-            common.$timeout(function () {
-                vm.isFiltering = false;
-                vm.isAdding = false;
-                def.resolve();
-            }, 400);
+            if(callback){
+                common.$timeout(function () {
+                    vm.isAdding=false;
+                    vm.isFiltering = false;
+                    callback();
+                    def.resolve();
+                }, 500);
+             }
             return def.promise;
         };
 
         vm.toggleAdding = function () {
             if (vm.isFiltering) {
-                closeForms().then(function () {
-                    openAddForm();
-                });
+                closeForms(openAddForm);
             }
             else if (!vm.isAdding) {
                 openAddForm();
@@ -286,9 +298,7 @@
 
         vm.toggleFiltering = function () {
             if (vm.isAdding) {
-                closeForms().then(function () {
-                    openFilterForm();
-                });
+                closeForms(openFilterForm);
             }
             else if (!vm.isFiltering) {
                 openFilterForm();
@@ -376,9 +386,6 @@
                     vm.createError = msg;
                 }
             );
-        };
-        vm.clearFilters = function(){
-
         };
 
 

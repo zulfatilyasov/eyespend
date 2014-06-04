@@ -66,6 +66,21 @@
                 }
             }
         }
+        function getExcelFile(fromDate, toDate, tags, withPhoto){
+            var tagsString = convertToString(tags);
+            datacontext.getExcelFileUrl(
+                sortOptions.column, 
+                sortOptions.descending, 
+                offset, 
+                count, 
+                fromDate || '', 
+                toDate || '', 
+                tagsString, 
+                withPhoto)
+            .success(function(data){
+                location.href = data;
+            });
+        }
 
         function getSortingForColumn(column) {
             if (sortOptions.column !== column) {
@@ -328,7 +343,8 @@
             update: update,
             getTransactionIndex: getTransactionIndex,
             remove: remove,
-            copy: copy
+            copy: copy,
+            getExcelFile:getExcelFile
         };
     }
 })();

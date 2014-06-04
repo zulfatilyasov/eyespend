@@ -16,7 +16,8 @@
         "tmh.dynamicLocale",
         "ngBootstrap",
         "NgSwitchery",
-        "geolocation"
+        "geolocation",
+        "LocalStorageModule"
     ]);
 
     app.run(['$rootScope', '$location', '$window', 'login', function ($rootScope, $location, $window, login) {

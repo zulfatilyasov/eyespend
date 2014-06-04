@@ -29,6 +29,18 @@
             return $http.post('/api/secure/deleteTransaction', {id: tansaxnGuid});
         }
 
+        function getExcelFileUrl(sorting, desc, offset, count, fromDate, toDate, tags, withPhoto){
+             var query = 'sorting=' + sorting
+                + '&desc=' + desc
+                + '&offset=' + offset
+                + '&count=' + count
+                + '&fromDate=' + fromDate
+                + '&toDate=' + toDate
+                + '&tags=' + tags
+                + '&withPhoto=' + withPhoto;
+            return $http.get('/api/secure/excelFileUrl?' + query);
+        }
+
         function authenticate(user) {
             return $http.post('/api/users/login', { authCodeOrEmail: user.email, password: user.password });
         }
@@ -58,7 +70,8 @@
             quickPass: quickPass,
             changePsw: changePsw,
             linkEmailOrPhone: linkEmailOrPhone,
-            getUserTags: getUserTags
+            getUserTags: getUserTags,
+            getExcelFileUrl:getExcelFileUrl
         };
     }
 })();

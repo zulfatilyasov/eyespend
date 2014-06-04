@@ -32,7 +32,7 @@
                  </a>
            </span>
             <span style="float: right" class="tableAction">
-              <a href="{{vm.excelFileUrl}}" title="{{'DOWNLOAD'|translate}}">
+              <a href="javascript:void(0)" ng-click="vm.downloadExcel()" title="{{'DOWNLOAD'|translate}}">
                   <img style="width: 32px;height: 32px" src="../img/excel-3-32.png" alt=""/>
               </a>
            </span>
@@ -40,7 +40,7 @@
 </header>
 <div class="clearfix"></div>
 <div style="overflow: hidden">
-<div ng-class="{transform:true, row:true, rowOpen:vm.formIsOpen}">
+<div ng-class="{rowOpen:vm.formIsOpen}" id="slidingTable" on-transition-end="vm.onTransitionEnd"  class="transform row">
 <div class="col-md-12">
 <div class="formsWrapper">
     <form ng-show="vm.isAdding" ng-class="{row:true, newTransactionForm:true}">
@@ -215,15 +215,15 @@
                             </span><span class="rangemax">{{vm.maxAmountToShow}}</span>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <label>&nbsp;</label><br/>
-                        <button type="button"
-                                class="btn btn-primary"
-                                ng-click="vm.clearFilters()"
-                                data-placement="right">
-                            <span translate>Сбросить фильтры</span>
-                        </button>
-                    </div>
+                    <!--<div class="col-md-4">-->
+                    <!--<label>&nbsp;</label><br/>-->
+                    <!--<button type="button"-->
+                    <!--class="btn btn-primary"-->
+                    <!--ng-click="vm.clearFilters()"-->
+                    <!--data-placement="right">-->
+                    <!--<span translate>Сбросить фильтры</span>-->
+                    <!--</button>-->
+                    <!--</div>-->
                 </div>
             </div>
         </div>
@@ -290,10 +290,12 @@
                         <li ng-repeat="tag in transaction.tags"
                             ng-mouseenter="vm.hoveredTag = tag"
                             ng-mouseleave="vm.hoveredTag = null"
-                            ng-class="{'tag-hovered':vm.hoveredTag.text === tag.text}"
-                            ng-click="vm.addTag(tag.text)">
+                            ng-class="{'tag-hovered':vm.hoveredTag.text === tag.text}">
                             <div style="display:inline-block">
-                                <span ng-style="{'border-color':vm.getTagColorStyle(tag.color)}" class="beforeTag"></span><a ng-style="{'background':tag.color}" href="#">{{tag.text}}</a>
+                                <span ng-style="{'border-color':vm.getTagColorStyle(tag.color)}"
+                                      class="beforeTag"></span><a ng-style="{'background':tag.color}"
+                                                                  ng-click="vm.addTag(tag.text)"
+                                                                  href="javascript:void(0)">{{tag.text}}</a>
                             </div>
                         </li>
                     </ul>

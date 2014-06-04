@@ -34,6 +34,7 @@
     "bootstrap-tagsinput": "~0.3.9",
     "typeahead.js": "~0.10.2",
     "ng-switchery": "~1.0.0-alpha3",
-    "angularjs-geolocation": "~0.1.1"
+    "angularjs-geolocation": "~0.1.1",
+    "angular-local-storage": "https://github.com/grevory/angular-local-storage.git#~0.0.5"
   }
 }

@@ -2,9 +2,9 @@
     'use strict';
 
     var serviceId = 'login';
-    angular.module('app').factory(serviceId, ['common', '$rootScope', '$location', 'datacontext', '$cookies', login]);
+    angular.module('app').factory(serviceId, ['common', '$rootScope', '$location', 'datacontext', '$cookies', 'localStorageService', login]);
 
-    function login(common, $rootScope, $location, datacontext, $cookies) {
+    function login(common, $rootScope, $location, datacontext, $cookies, localStorageService) {
         var userTags = null;
         var success = function (def) {
             return function (data, status) {
@@ -12,8 +12,12 @@
                     error(def)();
                 }
                 else {
-                    $cookies.token = data.token;
-//                    document.cookie = 'token='+ data.token +';path=/';
+//                    $cookies.isAuthenticated = true;
+                    localStorageService.set('token', data.token);
+                    var date = new Date();
+                    date.setMonth(date.getMonth() + 30);
+                    console.log(date);
+                    document.cookie = "isAuthenticated=" + true + "; path=/; expires=" + date.toUTCString();
                     userTags = data.userTags;
                     $rootScope.hideHeader = false;
                     def.resolve();
@@ -23,7 +27,8 @@
 
         var error = function (def) {
             return function (data, status, headers, config) {
-                delete $cookies.token;
+                document.cookie = 'isAuthenticated' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                localStorageService.remove('token');
                 def.reject();
             };
         };
@@ -43,12 +48,13 @@
             return def.promise;
         };
         var logout = function () {
-            delete $cookies.token;
+            document.cookie = 'isAuthenticated' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+            localStorageService.remove('token');
             $location.path("/login");
         };
 
         var authenticated = function () {
-            return !!$cookies.token;
+            return !!$cookies.isAuthenticated;
         };
 
         var changeSuccess = function (def) {

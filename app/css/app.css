@@ -74,8 +74,11 @@ header h4, .widget > header h4, header h4 a, .loader.theEnd {
     transform: translateY(0px);
 }
 
-.logo h4, .logo h4 strong {
+.logo h4, .logo h4 strong, .logo a {
     color: #3b3b3b;
+}
+.logo a:hover{
+    color:#3b3b3b;
 }
 
 input.ng-invalid-required, input.ng-invalid-number, input.invalid {
@@ -203,8 +206,8 @@ table.dataTable thead th, header.tableLabel h4 {
     text-decoration: none;
 }
 
-table.dataTable th.sorting {
-    text-decoration: underline;
+table.dataTable th.sorting:hover, table.table thead .sorting_asc:hover, table.table thead .sorting_desc:hover {
+    color: #ccc;
 }
 
 .logo h4 {
@@ -510,8 +513,8 @@ tags-input .tags .input {
 }
 
 .transactionForm #addressInput {
-    min-width: 200px;.logo h4 strong
-}.logo h4 strong
+    min-width: 200px;
+}
 
 .btn {
     font-size: 14px;

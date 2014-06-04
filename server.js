@@ -10,7 +10,9 @@ var request = require('request');
 var httpProxy = require('http-proxy');
 
 function beforeRequest(req, res, next) {
-    if (req.path == '/quickpass' || req.path == '/api/users/login' || req.cookies && req.cookies.token)
+    console.log('logging cookies');
+    console.log(req.cookies);
+    if (req.path == '/quickpass' || req.path == '/api/users/login' || req.cookies && req.cookies.isAuthenticated === "true")
         next();
     else {
         res.sendfile(__dirname + '/app/landing.html');
@@ -57,6 +59,12 @@ var ApiInjector = function apiInjector() {
 
         app.get('/api/secure/getUserTags', function (req, res) {
             res.json(db.getUserTags());
+        });
+
+        app.get('/api/secure/excelFileUrl', function(req,res){
+            console.log('/api/secure/excelFileUrl');
+            console.log(req.query);
+            res.send('files/transactions.xls');
         });
 
         app.post('/api/secure/updateTransaction', function (req, res) {

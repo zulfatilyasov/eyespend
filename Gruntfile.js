@@ -23,6 +23,7 @@ module.exports = function (grunt) {
             'bower_components/switchery/dist/switchery.js',
             'bower_components/ng-switchery/src/ng-switchery.js',
             'bower_components/ngAutocomplete/src/ngAutocomplete.js',
+            'bower_components/angular-local-storage/angular-local-storage.js',
             'bower_components/angular-i18n/angular-locale_ru.js',
             'bower_components/RandomColor/rcolor.js',
             'bower_components/AngularGM/angular-gm.js',

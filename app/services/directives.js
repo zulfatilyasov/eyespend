@@ -59,5 +59,40 @@
                     }
                 });
             };
+        })
+        .directive('onTransitionEnd',function(){
+            function transitionEndEventName () {
+                var i,
+                el = document.createElement('div'),
+                transitions = {
+                    'transition':'transitionend',
+                    'OTransition':'otransitionend',  // oTransitionEnd in very old Opera
+                    'MozTransition':'transitionend',
+                    'WebkitTransition':'webkitTransitionEnd'
+                };
+
+                for (i in transitions) {
+                    if (transitions.hasOwnProperty(i) && el.style[i] !== undefined) {
+                        return transitions[i];
+                    }
+                }
+            }
+
+            var transitionEnd = transitionEndEventName();
+
+            function link(scope, element, atts){
+                element.on(transitionEnd,function(){
+                    scope.transtionEnd();
+                });
+            }
+
+            return {
+                restrict:'A',
+                scope: {
+                    transtionEnd: "=onTransitionEnd"
+                },
+                link:link
+            };
         });
+
 })();

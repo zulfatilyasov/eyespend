@@ -42,12 +42,13 @@
             .preferredLanguage(config.local);
     }]);
 
-    app.factory('authInterceptor', function ($rootScope, $q, $window, $location, $cookies) {
+    app.factory('authInterceptor', function ($rootScope, $q, $window, $location, localStorageService) {
         return {
             request: function (config) {
                 config.headers = config.headers || {};
-                if ($cookies.token) {
-                    config.headers.Authorization = 'Bearer ' + $cookies.token;
+                var token = localStorageService.get('token');
+                if (token) {
+                    config.headers.Authorization = 'Bearer ' + token;
                 }
                 return config;
             },

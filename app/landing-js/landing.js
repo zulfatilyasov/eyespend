@@ -63,7 +63,11 @@ $(function () {
 
         $.post(url, data)
             .done(function (data) {
-                document.cookie = 'token=' + data.token + ';path=/';
+                var date = new Date();
+                date.setMonth(date.getMonth() + 30);
+                console.log(date);
+                document.cookie = "isAuthenticated=" + true + "; path=/; expires=" + date.toUTCString();
+                localStorage.setItem('ls.token', data.token);
                 location.href = '/';
             });
     });
