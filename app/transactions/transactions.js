@@ -81,7 +81,7 @@
             if(!vm.formIsOpen && vm.isFiltering)
                 vm.isFiltering = false;
             console.log('transition endedd');
-        }
+        };
 
         function fillMapProperties(props) {
             $rootScope.mapCenter = new google.maps.LatLng(props.latitude, props.longitude);

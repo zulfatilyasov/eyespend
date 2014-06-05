@@ -57,13 +57,11 @@ header h4, .widget > header h4, header h4 a, .loader.theEnd {
     -o-transform: translateY(-180px);
     transform: translateY(-180px);
 }
-
+.formsWrapper{
+    height: 180px;
+}
 .available, .daterangepicker .calendar th {
     color: #000
-}
-
-.formsWrapper {
-    height: 180px;
 }
 
 .rowOpen {

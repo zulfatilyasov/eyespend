@@ -89,6 +89,7 @@ var Transactions = function () {
     this.lastMonthFilter = $('#lastMonthFilter');
     this.firstRowAmount = element(repeater.row(0).column('{{transaction.amountInBaseCurrency}}'));
     this.transactions = element.all(by.repeater('transaction in vm.trs'));
+    this.firstTag = element(repeater.row(0)).element(by.repeater('tag in transaction.tags').row(0));
     this.tag = element(repeater.row(3)).element(by.repeater('tag in transaction.tags').row(0));
     this.tagsFilter = $('.searchBlock .tags input');
 

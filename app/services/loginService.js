@@ -12,7 +12,6 @@
                     error(def)();
                 }
                 else {
-//                    $cookies.isAuthenticated = true;
                     localStorageService.set('token', data.token);
                     var date = new Date();
                     date.setMonth(date.getMonth() + 30);
@@ -48,7 +47,7 @@
             return def.promise;
         };
         var logout = function () {
-            document.cookie = 'isAuthenticated' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+            document.cookie = 'isAuthenticated=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
             localStorageService.remove('token');
             $location.path("/login");
         };
