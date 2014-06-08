@@ -41,8 +41,8 @@
             var def = common.defer();
 
             offset = 0;
-            var tagsString = convertToString(tags);
-            datacontext.getTransaxns(sortOptions.column, sortOptions.descending, offset, count, fromDate || '', toDate || '', tagsString)
+            var tagsArray = _convertTagsToArray(tags);
+            datacontext.getTransaxns(sortOptions.column, sortOptions.descending, offset, count, fromDate || '', toDate || '', tagsArray)
                 .success(function (sortedTransactions) {
                     angular.forEach(sortedTransactions, function (t) {
                         _colorAndSaveTags(t.tags);
@@ -67,7 +67,7 @@
             }
         }
         function getExcelFile(fromDate, toDate, tags, withPhoto){
-            var tagsString = convertToString(tags);
+            var tagsArray = _convertTagsToArray(tags);
             datacontext.getExcelFileUrl(
                 sortOptions.column, 
                 sortOptions.descending, 
@@ -75,7 +75,7 @@
                 count, 
                 fromDate || '', 
                 toDate || '', 
-                tagsString, 
+                tagsArray, 
                 withPhoto)
             .success(function(data){
                 location.href = data;
@@ -96,14 +96,12 @@
             }
         }
 
-        function convertToString(tags) {
-            var result = '';
+        function _convertTagsToArray(tags) {
+            var result = [ ];
             if (!tags)
                 return result;
             for (var i = 0, len = tags.length; i < len; i++) {
-                result += tags[i].text;
-                if (i < tags.length - 1)
-                    result += ';';
+                result.push(tags[i].text);
             }
             return result;
         }
@@ -190,8 +188,8 @@
         function getTransaxns(fromDate, toDate, tags, withPhoto) {
             var def = common.defer();
 
-            var tagsString = convertToString(tags);
-            datacontext.getTransaxns(sortOptions.column, sortOptions.descending, offset, count, fromDate || '', toDate || '', tagsString, withPhoto)
+            var tagsArray = _convertTagsToArray(tags);
+            datacontext.getTransaxns(sortOptions.column, sortOptions.descending, offset, count, fromDate || '', toDate || '', tagsArray, withPhoto)
                 .then(function (tnxs) {
                     $rootScope.hideContent = false;
                     if (tnxs && tnxs.data instanceof Array) {
@@ -253,10 +251,16 @@
             _colorAndSaveTags(target.tags);
         }
 
+        function _serverFormatTnx(tnx) {
+            var serverFormattedTnx = angular.copy(tnx);
+            serverFormattedTnx.tags = _convertTagsToArray(serverFormattedTnx.tags);
+            return serverFormattedTnx;
+        }
+
         function update(tnx) {
             var def = common.$q.defer();
 //            setLocation(tnx);
-            datacontext.updateTransaction(tnx)
+            datacontext.updateTransaction(_serverFormatTnx(tnx))
                 .then(function () {
                     var transaction = transactions.filter(function (t) {
                         return t.id === tnx.id;
@@ -279,26 +283,19 @@
 
         function create(tnx) {
             var def = common.$q.defer();
-            if (!tnx.DateTime) {
-                tnx.DateTime = date.now();
-            } else {
-                tnx.DateTime = date.toUnix(tnx.DateTime);
+            var tnx = angular.copy(tnx);
+            if (!tnx.timestamp) {
+                tnx.timestamp = date.now();
             }
+            tnx.timestamp = date.toUnix(tnx.timestamp);
+            tnx.tags = _convertTagsToArray(tnx.tags);
             setLocation(tnx);
             datacontext.createTransaction(tnx)
                 .then(function (response) {
-                    _colorAndSaveTags(tnx.tags);
-
-                    var newTransaxn = {
-                        id: response.data,
-                        amountInBaseCurrency: parseInt(tnx.amountInBaseCurrency) || 0,
-                        tags: tnx.tags ? angular.copy(tnx.tags) : [],
-                        timestamp: tnx.DateTime,
-                        latitude: tnx.latitude,
-                        longitude: tnx.longitude
-                    };
-                    transactions.push(newTransaxn);
-                    def.resolve(newTransaxn);
+                    var createdTnx = response.data;
+                    _colorAndSaveTags(createdTnx.tags);
+                    transactions.push(createdTnx);
+                    def.resolve(createdTnx);
                 }, function () {
                     def.reject();
                 });

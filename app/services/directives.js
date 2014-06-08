@@ -45,7 +45,7 @@
                             return;
                         }
                         if (!attrs.filter) {
-                            scope.vm.newTnx.DateTime = date;
+                            scope.vm.newTnx.timestamp = date;
                             return;
                         }
 

@@ -27,23 +27,19 @@ var app = express();
 var ApiInjector = function apiInjector() {
     var injectStubApi = function injectStubApi(app) {
         app.use('/api/secure', expressJwt({secret: secret}));
-        app.use(cookieParser());
-        app.use(express.static(__dirname + '/app'));
-        app.use(beforeRequest);
-        app.get('/', function (req, res) {
-            res.sendfile(__dirname + '/app/index/index.html');
-        });
-
         app.get('/api/secure/transactions', function (req, res) {
             console.log('user ' + req.user.email + ' is calling /api/transactions');
             var offset = parseInt(req.query.offset);
             var count = parseInt(req.query.count);
             var desc = req.query.desc === "true";
-            var withPhoto = req.query.withPhoto === "true";
+            var withPhoto = req.query.withPhotoOnly === "true";
             var fromDate = parseInt(req.query.fromDate);
             var toDate = parseInt(req.query.toDate);
-            var tagsString = req.query.tags;
-            var tags = tagsString.split(';');
+            var tags = [ ];
+
+            if (req.query.tags) {
+                tags = req.query.tags;
+            }
 
             console.log('tags \n' + tags);
             console.log('fromDate ' + new Date(fromDate));
@@ -83,16 +79,21 @@ var ApiInjector = function apiInjector() {
             res.send('files/transactions.xls');
         });
 
-        app.post('/api/secure/updateTransaction', function (req, res) {
-            console.log('user updated transaction' + JSON.stringify(req.body.transaction));
-            res.send(200);
+        app.put('/api/secure/transactions/:id', function (req, res) {
+            console.log('user updated transaction' + JSON.stringify(req.body));
+            res.json(req.body);
         });
-        app.post('/api/secure/createTransaction', function (req, res) {
-            console.log('user created transaction' + JSON.stringify(req.body.transaction));
-            res.send(db.createId());
+
+        app.post('/api/secure/transactions', function (req, res) {
+            console.log('user created transaction' + JSON.stringify(req.body));
+            var newId = db.createId();
+            var response = req.body;
+            response.id = db.createId();
+            res.send(response);
         });
-        app.post('/api/secure/deleteTransaction', function (req, res) {
-            console.log('user deleted transaction' + JSON.stringify(req.body.id));
+
+        app.delete('/api/secure/transactions/:id', function (req, res) {
+            console.log('user deleted transaction' + JSON.stringify(req.params));
             res.send(200);
         });
 
@@ -186,6 +187,12 @@ if (useRealServer) {
     (new ApiInjector()).injectStubApi(app);
 }
 
+app.use(cookieParser());
+app.use(express.static(__dirname + '/app'));
+app.use(beforeRequest);
+app.get('/', function (req, res) {
+    res.sendfile(__dirname + '/app/index/index.html');
+});
 
 var port = process.env.PORT || 3000;
 app.listen(port);

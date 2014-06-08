@@ -6,39 +6,43 @@
 
     function datacontext($http) {
         function getTransaxns(sorting, desc, offset, count, fromDate, toDate, tags, withPhoto) {
-            var query = 'sorting=' + sorting
-                + '&desc=' + desc
-                + '&offset=' + offset
-                + '&count=' + count
-                + '&fromDate=' + fromDate
-                + '&toDate=' + toDate
-                + '&tags=' + tags
-                + '&withPhoto=' + withPhoto;
-            return $http.get('/api/secure/transactions?' + query);
+            var params = {
+                sorting: sorting,
+                desc: desc,
+                offset: offset,
+                count: count,
+                fromDate: fromDate,
+                toDate: toDate,
+                'tags[]': tags,
+                withPhotoOnly: withPhoto
+            };
+            return $http.get('/api/secure/transactions', { params: params });
         }
 
         function updateTransaction(transaction) {
-            return $http.post('/api/secure/updateTransaction', {transaction: transaction});
+            return $http.put('/api/secure/transactions/' + transaction.id, transaction);
         }
 
         function createTransaction(transaction) {
-            return $http.post('/api/secure/createTransaction', {transaction: transaction});
+            return $http.post('/api/secure/transactions/', transaction);
         }
 
-        function deleteTransaction(tansaxnGuid) {
-            return $http.post('/api/secure/deleteTransaction', {id: tansaxnGuid});
+        function deleteTransaction(transactionId) {
+            return $http.delete('/api/secure/transactions/' + transactionId);
         }
 
         function getExcelFileUrl(sorting, desc, offset, count, fromDate, toDate, tags, withPhoto){
-             var query = 'sorting=' + sorting
-                + '&desc=' + desc
-                + '&offset=' + offset
-                + '&count=' + count
-                + '&fromDate=' + fromDate
-                + '&toDate=' + toDate
-                + '&tags=' + tags
-                + '&withPhoto=' + withPhoto;
-            return $http.get('/api/secure/excelFileUrl?' + query);
+            var params = {
+                sorting: sorting,
+                desc: desc,
+                offset: offset,
+                count: count,
+                fromDate: fromDate,
+                toDate: toDate,
+                'tags[]': tags,
+                withPhotoOnly: withPhoto
+            };
+            return $http.get('/api/secure/excelFileUrl', { params: params });
         }
 
         function authenticate(user) {
