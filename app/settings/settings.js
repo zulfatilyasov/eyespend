@@ -11,6 +11,8 @@
         vm.linkcode = '2061 1026';
 
         function validLinkEmailForm() {
+            vm.link.invalidEmail = false;
+            vm.link.invalidPassword = false;
             if (!vm.link.emailOrPhone) {
                 $translate('TYPE_EMAIL')
                     .then(function (msg) {
@@ -39,6 +41,8 @@
         }
 
         vm.changePassword = function () {
+            vm.passwordError = false;
+            vm.confirmationError = false;
             var setErrorMessage = function (message) {
                 vm.error = true;
                 logError(message);
@@ -46,13 +50,17 @@
             };
             if (!vm.psw) {
                 setErrorMessage("Введите пароль");
+                vm.passwordError = true;
                 return;
             }
             if (!vm.confirmation) {
+                vm.confirmationError = true;
                 setErrorMessage("Введите подтверждение пароля");
                 return;
             }
             if (vm.psw !== vm.confirmation) {
+                vm.passwordError = true;
+                vm.confirmationError = true;
                 setErrorMessage("Пароли не совпадают");
                 return;
             }
@@ -60,7 +68,6 @@
             var success = function (message) {
                 vm.error = false;
                 logSuccess(message);
-//                vm.message = message;
             };
             var error = function (message) {
                 setErrorMessage(message);
@@ -75,8 +82,10 @@
                 return;
             datacontext.linkEmailOrPhone(vm.link.emailOrPhone, vm.link.currentPsw)
                 .success(function (data, status) {
-                    if (status === 200)
-                        logSuccess('Удача');
+                    if (status === 200) {
+                        logSuccess('Email успешно привязан');
+                        vm.existingEmail = vm.link.emailOrPhone;
+                    }
                     else {
                         vm.link.invalidPassword = true;
                         logError(data);
@@ -87,9 +96,19 @@
                 });
         };
 
+        function getSettings() {
+            var def = common.defer();
+            datacontext.getSettings()
+                .success(function (data) {
+                    vm.linkcode = data.linkcode;
+                    vm.existingEmail = data.email;
+                    def.resolve();
+                });
+            return def.promise;
+        }
 
         function activate() {
-            var promises = [];
+            var promises = [getSettings()];
             common.activateController(promises, controllerId)
                 .then(function () {
 

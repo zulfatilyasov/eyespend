@@ -57,7 +57,7 @@
                 _setLocation(mapProperties);
                 $rootScope.overlayIsOpen = true;
                 $rootScope.showPlacesInput = false;
-            });
+            }, 300);
         }
 
         function pickAddress(transaction) {
@@ -80,8 +80,14 @@
                 $rootScope.overlayIsOpen = true;
                 $rootScope.placePicker = {};
                 $rootScope.showPlacesInput = true;
-            });
+            }, 300);
         }
+
+        $rootScope.$watch('placePicker.details', function (newVal, oldVal) {
+            if (!newVal)
+                return;
+            $rootScope.refreshMap();
+        });
 
         $rootScope.refreshMap = function () {
             common.$timeout(function () {

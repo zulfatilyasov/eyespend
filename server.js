@@ -61,7 +61,23 @@ var ApiInjector = function apiInjector() {
             res.json(db.getUserTags());
         });
 
-        app.get('/api/secure/excelFileUrl', function(req,res){
+        app.get('/api/secure/getSettings', function (req, res) {
+            if (req.user.email === 'foobar@gmail.com') {
+                res.json({
+                    email: 'asdf@gmail.com',
+                    linkcode: 12312
+                });
+            }
+            else {
+                res.json({
+                    email: null,
+                    linkcode: 23143
+                });
+            }
+
+        });
+
+        app.get('/api/secure/excelFileUrl', function (req, res) {
             console.log('/api/secure/excelFileUrl');
             console.log(req.query);
             res.send('files/transactions.xls');
@@ -81,15 +97,15 @@ var ApiInjector = function apiInjector() {
         });
 
         app.post('/api/users/login', function (req, res) {
-            console.log('Authentication request');
+            console.log('/api/users/login');
 
-            if (!(req.body.authCodeOrEmail === 'foo@gmail.com' && req.body.password === 'bar')) {
+            if (badCredentials(req.body.authCodeOrEmail, req.body.password)) {
                 console.log('Wrong user or password');
                 res.send(401, 'Wrong user or password');
                 return;
             }
 
-            res.json({ token: createTokenWithProfile(), userTags: db.getUserTags() });
+            res.json({ token: createTokenWithProfile(req.body.authCodeOrEmail), userTags: db.getUserTags() });
         });
 
         app.post('/api/user/linkEmailOrPhone', function (req, res) {
@@ -101,7 +117,7 @@ var ApiInjector = function apiInjector() {
         });
 
         app.post('/quickpass', function (req, res) {
-            if (!(req.body.psw === '123')) {
+            if (!(req.body.psw === '123' || req.body.psw === '321')) {
                 console.log('wrong disposable password');
                 res.send(401, 'Wrong password');
                 return;
@@ -119,7 +135,7 @@ var ApiInjector = function apiInjector() {
             res.send(200);
         });
 
-        function createTokenWithProfile() {
+        function createTokenWithProfile(codeOrEmail) {
             var profile = {
                 first_name: 'Foo',
                 last_name: 'Bar',
@@ -127,7 +143,15 @@ var ApiInjector = function apiInjector() {
                 id: 123
             };
 
-            return jwt.sign(profile, secret, { expiresInMinutes: 20 });
+            if (codeOrEmail === 'qwe@gmail.com' || codeOrEmail === '321') {
+                profile.email = 'qwe@gmail.com';
+            }
+
+            return jwt.sign(profile, secret, { expiresInMinutes: 60 });
+        }
+
+        function badCredentials(email, psw){
+            return (email !== 'foo@gmail.com' && email !== 'qwe@gmail.com') || (psw !== 'bar');
         }
     };
 

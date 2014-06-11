@@ -53,7 +53,8 @@
         };
 
         var authenticated = function () {
-            return !!$cookies.isAuthenticated;
+            var token = localStorageService.get('token');
+            return !!token;
         };
 
         var changeSuccess = function (def) {

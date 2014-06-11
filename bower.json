@@ -35,6 +35,11 @@
     "typeahead.js": "~0.10.2",
     "ng-switchery": "~1.0.0-alpha3",
     "angularjs-geolocation": "~0.1.1",
-    "angular-local-storage": "https://github.com/grevory/angular-local-storage.git#~0.0.5"
+    "angular-local-storage": "https://github.com/grevory/angular-local-storage.git#~0.0.5",
+    "fastclick": "~1.0.2",
+    "angular-touch": "~1.2.17"
+  },
+  "resolutions": {
+    "angular": "1.2.17"
   }
 }

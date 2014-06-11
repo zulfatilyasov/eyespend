@@ -75,10 +75,10 @@
             $event.stopPropagation();
         };
 
-        vm.onTransitionEnd = function(){
-            if(!vm.formIsOpen && vm.isAdding)
+        vm.onTransitionEnd = function () {
+            if (!vm.formIsOpen && vm.isAdding)
                 vm.isAdding = false;
-            if(!vm.formIsOpen && vm.isFiltering)
+            if (!vm.formIsOpen && vm.isFiltering)
                 vm.isFiltering = false;
             console.log('transition endedd');
         };
@@ -122,7 +122,6 @@
         vm.changeSorting = function (column) {
             vm.sort = transaxns.updateSorting(column);
             $rootScope.showSpinner = true;
-            console.log(vm.tags);
             transaxns.sort(fromUnixDate, toUnixDate, vm.tags)
                 .success(function (transactions) {
                     vm.trs = transactions;
@@ -165,7 +164,7 @@
             }
         };
 
-        vm.tagFilterChange = debounce(vm.filterByTags, 3000, false);
+        vm.tagFilterChange = debounce(vm.filterByTags, 2000, false);
 
         vm.datePickerRu = {
             cancelLabel: 'Отмена',
@@ -235,8 +234,8 @@
             $rootScope.overlayIsOpen = true;
         };
 
-        vm.downloadExcel = function(){
-            transaxns.getExcelFile(fromUnixDate,toUnixDate,vm.tags,vm.onlyWithPhoto);
+        vm.downloadExcel = function () {
+            transaxns.getExcelFile(fromUnixDate, toUnixDate, vm.tags, vm.onlyWithPhoto);
         }
 
         vm.loadMoreTransactions = function ($inview, $inviewpart) {
@@ -273,14 +272,18 @@
         var closeForms = function (callback) {
             var def = common.defer();
             vm.formIsOpen = false;
-            if(callback){
+            if (callback) {
                 common.$timeout(function () {
-                    vm.isAdding=false;
+                    vm.isAdding = false;
                     vm.isFiltering = false;
                     callback();
                     def.resolve();
                 }, 500);
-             }
+            }
+            if ($(window).width() <= 1024) {
+                vm.isAdding = false;
+                vm.isFiltering = false;
+            }
             return def.promise;
         };
 

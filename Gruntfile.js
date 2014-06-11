@@ -9,6 +9,7 @@ module.exports = function (grunt) {
             'bower_components/angular-animate/angular-animate.js',
             'bower_components/angular-cookies/angular-cookies.js',
             'bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js',
+//            'bower_components/angular-touch/angular-touch.js',
 
             'bower_components/toastr/toastr.js',
             'app/lib/select2.js',
@@ -33,6 +34,7 @@ module.exports = function (grunt) {
             'bower_components/momentjs/lang/ru.js',
             'bower_components/angularjs-geolocation/src/geolocation.js',
             'bower_components/bootstrap-daterangepicker/daterangepicker.js',
+            'bower_components/fastclick/lib/fastclick.js',
             'app/lib/ng-bs-daterangepicker/src/ng-bs-daterangepicker.js',
 
             'app/app.js',

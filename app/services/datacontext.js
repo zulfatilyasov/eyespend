@@ -61,6 +61,10 @@
             return $http.get('/api/secure/getUserTags');
         }
 
+        function getSettings(){
+            return $http.get('/api/secure/getSettings');
+        }
+
         return {
             getTransaxns: getTransaxns,
             updateTransaction: updateTransaction,
@@ -71,7 +75,8 @@
             changePsw: changePsw,
             linkEmailOrPhone: linkEmailOrPhone,
             getUserTags: getUserTags,
-            getExcelFileUrl:getExcelFileUrl
+            getExcelFileUrl:getExcelFileUrl,
+            getSettings:getSettings
         };
     }
 })();

@@ -17,18 +17,18 @@
                                 <form>
                                     <fieldset>
                                         <div class="control-group">
-                                            <label class="control-label"><span translate>EMAIL_OR_PHONE</span>
+                                            <label class="control-label"><span>Email</span>
                                                 <ul class="parsley-errors-list"></ul>
                                             </label>
 
                                             <div class="controls form-group">
-                                                <input placeholder="{{'TYPE_EMAIL_OR_PHONE' | translate}}" type="text"
+                                                <input placeholder="{{'TYPE_EMAIL' | translate}}" type="text"
                                                        class="form-control styledInput"
                                                        ng-class="{'form-control':true, styledInput:true,invalid:vm.link.invalidEmail}"
                                                        ng-model="vm.link.emailOrPhone">
                                             </div>
                                         </div>
-                                        <div class="control-group">
+                                        <div class="control-group" ng-show="vm.existingEmail">
                                             <label class="control-label" translate>CURRENT_PASSWORD
                                                 <ul class="parsley-errors-list"></ul>
                                             </label>
@@ -50,17 +50,26 @@
                             </div>
                         </div>
                         <div class="col-md-8">
-                            <p>Вы можете привязать Вашу учётную запись к e-mail'у. Сделав это, Вы сможете заходить на
-                                сайт как при помощи одноразовых паролей, полученных в приложении, так и привычным
-                                образом, используя e-mail и пароль, когда у Вас нет доступа к телефону. Если вы уже
-                                привязали свой аккаунт, то для повторной привязки вым необходимо указать пароль.</p>
+                            <p ng-hide="vm.existingEmail">
+                                Если Вы хотите входить на сайт использую привычный email, укажите его в поле ввода. На
+                                этот e-mail мы вышлем Вам пароль для входа.
+                            </p>
+
+                            <p ng-show="vm.existingEmail">
+                                Ваша учетная запись привязана у e-mail'у <strong>{{vm.existingEmail}}</strong>. Если Вы
+                                хотите привязать другой e-mail, укажите его и Ваш текущий пароль. На указанный e-mail
+                                будет выслана ссылка для поддверждения.
+                            </p>
                         </div>
                     </div>
 
                 </div>
                 <div class="settings-section">
                     <header>
-                        <h4><i class="fa fa-lock"></i> <span translate>CHANGE_PASSWORD</span></h4>
+                        <h4>
+                            <i class="fa fa-lock"></i>
+                            <span translate>CHANGE_PASSWORD</span>
+                        </h4>
                     </header>
                     <div class="row">
                         <div class="col-md-4">
@@ -77,6 +86,7 @@
                                                 <input type="password"
                                                        placeholder="{{'TYPE_NEW_PASSWORD'|translate}}"
                                                        ng-model="vm.psw"
+                                                       ng-class="{invalid:vm.passwordError}"
                                                        class="form-control styledInput">
                                             </div>
                                         </div>
@@ -89,6 +99,7 @@
                                             <div class="controls form-group">
                                                 <input placeholder="{{'TYPE_PASSWORD_CONFIRMATION'|translate}}"
                                                        type="password"
+                                                       ng-class="{invalid:vm.confirmationError}"
                                                        ng-model="vm.confirmation"
                                                        class="form-control styledInput">
                                             </div>
@@ -98,17 +109,14 @@
                                         <button type="submit" ng-click="vm.changePassword()" class="btn btn-primary"
                                                 translate> SAVE
                                         </button>
-                                        <span ng-class="{validationMessage: true, error:vm.error}"
-                                              ng-bind-html="vm.message">
-                                        </span>
+                                        <span ng-class="{validationMessage: true, error:vm.error}">{{vm.message}}</span>
                                     </div>
                                 </form>
                             </div>
                         </div>
                         <div class="col-md-8">
                             <p>
-                                Вы можете изменить пароль после привязки вашего почтового ящика к аккаунту. Вы можете не
-                                вводить старый пароль только если вынаходитесь в режиме восстановаления пароля.
+                                Вы можете изменить пароль после привязки вашего почтового ящика к аккаунту.
                             </p>
                         </div>
                     </div>
@@ -155,7 +163,7 @@
                                     Введите этот номер в мобильном приложении eyeSpend сразу после установки для
                                     привязки других устройств к своему аккаунту
                                     <br/>
-                                    <span ng-bind-html="vm.linkcode"></span>
+                                    <span>{{vm.linkcode}}</span>
                                 </div>
                             </section>
                         </div>

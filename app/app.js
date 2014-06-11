@@ -21,6 +21,7 @@
     ]);
 
     app.run(['$rootScope', '$location', '$window', 'login', function ($rootScope, $location, $window, login) {
+        FastClick.attach(document.body);
         $rootScope.$on('$locationChangeStart', function (event, currRoute, prevRoute) {
             if (!login.authenticated()) {
                 $rootScope.hideHeader = true;

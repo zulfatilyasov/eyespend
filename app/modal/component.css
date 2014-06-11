@@ -777,10 +777,10 @@ perspective effects (not including the modals and the overlay).
     transition: all 0.5s 0.1s;
 }
 
-.login-widget {
+section.login-widget {
     background: rgba(240, 240, 240, 0.86);
     color: #000;
-    border-radius: 60px;
+    border-radius: 60px !important;
 }
 
 .login-widget h4, .login-widget .form-actions .forgot {

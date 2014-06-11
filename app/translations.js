@@ -41,18 +41,19 @@ var translationsRu = {
     PASSORD_REQUIRED: "Введите пароль.",
     INVALID_EMAIL_OR_PASSWORD: "Неверный email или пароль",
     INVALID_ACTIVATION_CODE: "Неверный код активации",
-    FOTO:"Фото",
-    TYPE_EMAIL_OR_PHONE:"Введите email или телефон",
-    CURRENT_PASSWORD:"Текущий пароль",
-    TYPE_CURRENT_PASSWORD:"Введите текущий пароль",
-    LINK_EMAIL:"Привязать email",
-    LINK_ACCOUNT:"Привязка аккаунта",
-    INVALID_EMAIL:"Некорректный email",
-    SEARCH:"Поиск",
-    EMAIL_OR_PHONE:"Email или телефон",
-    FILTER:"Фильтрация",
-    DOWNLOAD:"Скачать",
-    MEET_EYESPEND:"Познакомьтесь с EyeSpend"
+    FOTO: "Фото",
+    TYPE_EMAIL_OR_PHONE: "Введите email или телефон",
+    TYPE_EMAIL: "Введите email",
+    CURRENT_PASSWORD: "Текущий пароль",
+    TYPE_CURRENT_PASSWORD: "Введите текущий пароль",
+    LINK_EMAIL: "Привязать email",
+    LINK_ACCOUNT: "Привязка аккаунта",
+    INVALID_EMAIL: "Некорректный email",
+    SEARCH: "Поиск",
+    EMAIL_OR_PHONE: "Email или телефон",
+    FILTER: "Фильтрация",
+    DOWNLOAD: "Скачать",
+    MEET_EYESPEND: "Познакомьтесь с EyeSpend"
 };
 
 var translationsEn = {
@@ -98,18 +99,18 @@ var translationsEn = {
     PASSORD_REQUIRED: "Password required.",
     INVALID_EMAIL_OR_PASSWORD: "Invalid email or password",
     INVALID_ACTIVATION_CODE: "Invalid activation code",
-    FOTO:"Foto",
-    TYPE_EMAIL_OR_PHONE:"Type email or phone",
-    CURRENT_PASSWORD:"Current password",
-    TYPE_CURRENT_PASSWORD:"Enter current password",
-    LINK_EMAIL:"Link email",
-    INVALID_EMAIL:"Invalid email",
-    LINK_ACCOUNT:"Link account",
-    SEARCH:"Search",
-    EMAIL_OR_PHONE:"Email or phone",
-    FILTER:"Filter",
-    DOWNLOAD:"Download",
-    MEET_EYESPEND:"Meet eyeSpend"
+    FOTO: "Foto",
+    TYPE_EMAIL_OR_PHONE: "Type email or phone",
+    CURRENT_PASSWORD: "Current password",
+    TYPE_CURRENT_PASSWORD: "Enter current password",
+    LINK_EMAIL: "Link email",
+    INVALID_EMAIL: "Invalid email",
+    LINK_ACCOUNT: "Link account",
+    SEARCH: "Search",
+    EMAIL_OR_PHONE: "Email or phone",
+    FILTER: "Filter",
+    DOWNLOAD: "Download",
+    MEET_EYESPEND: "Meet eyeSpend"
 };
 try {
     exports.ru = translationsRu;

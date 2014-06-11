@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
     <title>eyeSpend</title>
     <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700&subset=latin,cyrillic'-->
     <!--rel='stylesheet' type='text/css'>-->
@@ -35,7 +36,9 @@
     <span></span>
     <span></span>
 </div>
-<div style="display: none" ng-class="{open:overlayIsOpen, overlay:true, 'overlay-contentscale': true}"
+<div style="display: none"
+     class="overlay overlay-contentscale"
+     ng-class="{open:overlayIsOpen}"
      ng-cloak="ng-cloak">
     <a id="overlay-close" ng-click="overlayIsOpen=false; showImage = false;" href="javascript:void(0)">
         <i class="fa fa-times fa-4x"></i>
@@ -47,7 +50,7 @@
     <div ng-show="showImage" class="imageContainer">
         <img src="{{imgUrl}}" alt=""/>
     </div>
-    <div ng-show="showPlacesInput" id="placeInput">
+    <div ng-show="showPlacesInput" id="placeInput"> 
         <input id="pac-input"
                class="controls"
                ng-autocomplete
@@ -56,7 +59,6 @@
                details="placePicker.details"
                type="text"
                placeholder="Введите местоположение"><span class="input-group-btn">
-            <!--<button class="btn btn-success" ng-click="saveLocation()" type="button" translate>SAVE</button>-->
         </span>
     </div>
     <gm-map gm-map-id="'myMap'" ng-show="showMap" gm-center="mapCenter" gm-zoom="zoom" style="height:100%;">

@@ -191,10 +191,8 @@
             var def = common.defer();
 
             var tagsString = convertToString(tags);
-            $rootScope.showSpinner = true;
             datacontext.getTransaxns(sortOptions.column, sortOptions.descending, offset, count, fromDate || '', toDate || '', tagsString, withPhoto)
                 .then(function (tnxs) {
-                    $rootScope.showSpinner = false;
                     $rootScope.hideContent = false;
                     if (tnxs && tnxs.data instanceof Array) {
                         if (offset > 0) {
@@ -269,7 +267,7 @@
                         def.reject("Не удалось найти транзкцию");
                         return;
                     }
-//                    copy(tnx,transaction[0]);
+                    copy(tnx,transaction[0]);
                     def.resolve();
                 },
                 function () {
