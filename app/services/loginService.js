@@ -2,9 +2,9 @@
     'use strict';
 
     var serviceId = 'login';
-    angular.module('app').factory(serviceId, ['common', '$rootScope', '$location', 'datacontext', '$cookies', 'localStorageService', login]);
+    angular.module('app').factory(serviceId, ['common', '$rootScope', '$location', 'datacontext', 'localStorageService', login]);
 
-    function login(common, $rootScope, $location, datacontext, $cookies, localStorageService) {
+    function login(common, $rootScope, $location, datacontext, localStorageService) {
         var userTags = null;
         var success = function (def) {
             return function (data, status) {

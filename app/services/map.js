@@ -5,16 +5,20 @@
     angular.module('app').factory(serviceId, ['common', '$rootScope', 'config', 'geolocation', map]);
 
     function map(common, $rootScope, config, geolocation) {
-        var events = config.events;
+        var events = config.events,
+            lat = 0,
+            lng = 0;
 
         $rootScope.showMap = true;
         $rootScope.placePicker = {};
 
         $rootScope.saveLocation = function () {
-            common.$broadcast(events.locationSet, {
-                latitude: $rootScope.markers[0].location.lat,
-                longitude: $rootScope.markers[0].location.lng
-            });
+//            common.$broadcast(events.locationSet, {
+//                latitude: $rootScope.markers[0].location.lat,
+//                longitude: $rootScope.markers[0].location.lng
+//            });
+            lat = $rootScope.markers[0].location.lat;
+            lng = $rootScope.markers[0].location.lng;
             $rootScope.overlayIsOpen = false;
         };
 
@@ -104,9 +108,17 @@
             }, 300);
         };
 
+        function setTransactionCoords(transaction) {
+            transaction.latitude = lat;
+            transaction.longitude = lng;
+            lat = null;
+            lng = null;
+        }
+
         return {
             pickAddress: pickAddress,
-            showAddress: showAddress
+            showAddress: showAddress,
+            setTransactionCoords: setTransactionCoords
         };
     }
 })();

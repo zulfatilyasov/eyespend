@@ -23,7 +23,7 @@
     </style>
 </head>
 
-<body class="background-dark">
+<body class="background-ocean">
 <div ng-class="{'overlay-open':overlayIsOpen}" id="all">
     <div ng-include="'shell/shell.html'"></div>
     <div class="content container">
@@ -50,7 +50,7 @@
     <div ng-show="showImage" class="imageContainer">
         <img src="{{imgUrl}}" alt=""/>
     </div>
-    <div ng-show="showPlacesInput" id="placeInput"> 
+    <div ng-show="showPlacesInput" id="placeInput">
         <input id="pac-input"
                class="controls"
                ng-autocomplete
@@ -69,6 +69,19 @@
                     gm-position="{lat: object.location.lat, lng: object.location.lng}">
         </gm-markers>
     </gm-map>
+</div>
+
+<div class="sideActions hidden-phone-landscape" ng-class="{shown:showSideActions,notshown:!showSideActions}">
+    <div class="action-add">
+        <a href="javascript:void(0)" ng-click="toggleAdding()">
+            <i class="fa fa-plus-circle fa-3x"></i>
+        </a>
+    </div>
+    <div class="action-filter">
+        <a href="javascript:void(0)" ng-click="toggleFiltering()">
+            <i class="fa fa-filter fa-3x"></i>
+        </a>
+    </div>
 </div>
 
 <script src="../eyeSpend.min.js"></script>

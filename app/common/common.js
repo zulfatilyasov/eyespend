@@ -60,6 +60,7 @@
 
         function activateController(promises, controllerId) {
             $broadcast(commonConfig.config.spinnerToggle, {show: false});
+            $rootScope.showSideActions = false;
             return $q.all(promises).then(function () {
                 var data = {
                     controllerId: controllerId

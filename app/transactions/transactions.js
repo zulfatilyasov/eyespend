@@ -2,15 +2,16 @@
     'use strict';
     var controllerId = 'transactions';
     angular.module('app').controller(controllerId,
-        ['common', '$rootScope', '$scope', 'date', 'transaxns', '$translate', 'login', 'debounce', 'geolocation', 'map', 'config', transactions]);
+        ['common', '$rootScope', '$scope', 'date', 'transaxns', '$translate', 'login', 'debounce', 'map', transactions]);
 
-    function transactions(common, $rootScope, $scope, date, transaxns, $translate, login, debounce, geolocation, map, config) {
+    function transactions(common, $rootScope, $scope, date, transaxns, $translate, login, debounce, map) {
         moment.lang('ru');
         var vm = this;
         var logInfo = common.logger.getLogFn(controllerId, 'log');
         var logError = common.logger.getLogFn(controllerId, 'logError');
         var fromUnixDate = null;
         var toUnixDate = null;
+        vm.showSideActions = false;
         vm.tags = [];
         vm.trs = [];
         vm.newTnx = {
@@ -26,12 +27,11 @@
         vm.showFilterForm = false;
         vm.curDateTime = date.format(date.now());
         vm.isLoading = false;
-        vm.excelFileUrl = 'files/transactions.xls';
         vm.maxAmountToShow = 3000;
         vm.minAmountToShow = 0;
         vm.dateRanges = {
-            'последние 7 дней': [moment().subtract('days', 6), moment()],
-            'последние 30 дней': [moment().subtract('days', 29), moment()]
+            'Последние 7 дней': [moment().subtract('days', 6), moment()],
+            'Последние 30 дней': [moment().subtract('days', 29), moment()]
         };
         vm.getTagColorStyle = function (color) {
             return 'transparent ' + color + ' transparent transparent';
@@ -40,14 +40,17 @@
         $scope.$watch('vm.filterDateRange', function (newVal, oldVal) {
             if (!newVal || !newVal.startDate || !newVal.endDate)
                 return;
+
             vm.filterByDate(newVal.startDate.unix() * 1000, newVal.endDate.unix() * 1000);
         });
 
         $scope.$watch('vm.onlyWithPhoto', function (newVal, oldVal) {
             if (newVal == oldVal)
                 return;
+            $rootScope.showSpinner = true;
             transaxns.getFirstPageWithFilters(fromUnixDate, toUnixDate, vm.tags, newVal)
                 .success(function (trs) {
+                    $rootScope.showSpinner = false;
                     vm.trs = trs;
                 });
         });
@@ -71,8 +74,25 @@
         }
 
         vm.selectTransaction = function (transaction, $event) {
+            if (vm.isEditing) {
+                transaxns.copy(transaction, vm.editedTnx);
+                vm.selectedTnxDate = date.format(vm.selectedTnx.timestamp);
+            }
             vm.selectedTnx = transaction;
             $event.stopPropagation();
+        };
+
+        vm.tableClicked = function ($event) {
+            if ($event.target) {
+                var index = $($event.target).parent().data('index');
+                if (vm.trs[index]) {
+                    vm.selectedTnx = vm.trs[index];
+                }
+                if (vm.isAdding)
+                    $rootScope.toggleAdding();
+                if (vm.isFiltering)
+                    $rootScope.toggleFiltering();
+            }
         };
 
         vm.onTransitionEnd = function () {
@@ -80,38 +100,7 @@
                 vm.isAdding = false;
             if (!vm.formIsOpen && vm.isFiltering)
                 vm.isFiltering = false;
-            console.log('transition endedd');
         };
-
-        function fillMapProperties(props) {
-            $rootScope.mapCenter = new google.maps.LatLng(props.latitude, props.longitude);
-            $rootScope.zoom = 17;
-            if (!props.latitude || !props.longitude)
-                $rootScope.zoom = 2;
-            $rootScope.markers = [
-                {
-                    id: props.id,
-                    location: {
-                        lat: props.latitude,
-                        lng: props.longitude
-                    },
-                    options: function () {
-                        return {
-                            draggable: props.markerDraggable
-                        }
-                    }
-                }
-            ];
-        }
-
-
-        $rootScope.$on(config.events.locationSet,
-            function (event, data) {
-                var transaction = vm.isAdding ? vm.newTnx : vm.editedTnx;
-                transaction.latitude = data.latitude;
-                transaction.longitude = data.longitude;
-            }
-        );
 
         vm.showAddress = map.showAddress;
         vm.pickAddress = function () {
@@ -119,10 +108,17 @@
             map.pickAddress(transaction);
         };
 
+        vm.closeMobileInfo = function(){
+            if(vm.isEditing){
+                vm.isEditing = false;
+            }
+            vm.selectedTnx = null;
+        };
+
         vm.changeSorting = function (column) {
             vm.sort = transaxns.updateSorting(column);
             $rootScope.showSpinner = true;
-            transaxns.sort(fromUnixDate, toUnixDate, vm.tags)
+            transaxns.sort(fromUnixDate, toUnixDate, vm.tags, vm.onlyWithPhoto)
                 .success(function (transactions) {
                     vm.trs = transactions;
                     vm.richedTheEnd = false;
@@ -140,31 +136,7 @@
             return transaxns.getTotalAmout(vm.trs);
         };
 
-        vm.filterByTags = function () {
-            $rootScope.showSpinner = true;
-            if (vm.tags.length === 0) {
-                transaxns.sort(fromUnixDate, toUnixDate)
-                    .success(function (trs) {
-                        vm.trs = trs;
-                        vm.richedTheEnd = false;
-                        $rootScope.showSpinner = false;
-                    });
-            }
-            else {
-                transaxns.filterByTags(fromUnixDate, toUnixDate, vm.tags)
-                    .success(function (transactions) {
-                        vm.trs = transactions;
-                        vm.richedTheEnd = true;
-                        $rootScope.showSpinner = false;
-                    })
-                    .error(function (msg) {
-                        $rootScope.showSpinner = false;
-                        logError(msg);
-                    });
-            }
-        };
-
-        vm.tagFilterChange = debounce(vm.filterByTags, 2000, false);
+        vm.tagFilterChange = debounce(applyfilters, 2000, false);
 
         vm.datePickerRu = {
             cancelLabel: 'Отмена',
@@ -174,6 +146,19 @@
             customRangeLabel: 'Выбрать интервал',
             monthNames: 'янв_фев_мар_апр_май_июнь_июль_авг_сен_окт_ноя_дек'.split("_")
         };
+
+        function applyfilters() {
+            $rootScope.showSpinner = true;
+            transaxns.getFirstPageWithFilters(fromUnixDate, toUnixDate, vm.tags, vm.onlyWithPhoto)
+                .success(function (trs) {
+                    $rootScope.showSpinner = false;
+                    vm.trs = trs;
+                })
+                .error(function (msg) {
+                    $rootScope.showSpinner = false;
+                    logError(msg);
+                });
+        }
 
         vm.filterByDate = function (fromDate, toDate) {
             if (dateDidntChange(fromDate, toDate) || fromDate === toDate)
@@ -188,33 +173,22 @@
                 vm.maxDate = date.format(toDate);
             }
 
-            $rootScope.showSpinner = true;
-            console.log(new Date(fromUnixDate));
-            console.log(new Date(toUnixDate));
-            transaxns.filterByDate(fromUnixDate, toUnixDate, vm.tags)
-                .success(function (transactions) {
-                    vm.trs = transactions;
-//                    vm.richedTheEnd = true;
-                    $rootScope.showSpinner = false;
-                })
-                .error(function (msg) {
-                    $rootScope.showSpinner = false;
-                    logError(msg);
-                });
+            applyfilters();
         };
+
         vm.lastWeekTransactions = function () {
             vm.tags = [];
             var weekBefore = (new Date()).setDate((new Date()).getDate() - 7);
             var today = (new Date()).getTime();
             vm.filterByDate(weekBefore, today);
         };
+
         vm.lastMonthTransactions = function () {
             vm.tags = [];
             var monthBefore = (new Date()).setDate((new Date()).getDate() - 30);
             var today = (new Date()).getTime();
             vm.filterByDate(monthBefore, today);
         };
-
 
         function _tagIsAlreadyAdded(tag) {
             return vm.tags.some(function (t) {
@@ -299,6 +273,42 @@
             }
         };
 
+        $rootScope.toggleAdding = function () {
+            if (vm.isAdding) {
+                vm.showSideForm = false;
+                common.$timeout(function () {
+                    $rootScope.showSideActions = true;
+                    vm.isAdding = false;
+                }, 300);
+            }
+            else {
+                vm.curDateTime = date.format(date.now());
+                $rootScope.showSideActions = false;
+                vm.isAdding = true;
+                common.$timeout(function () {
+                    vm.curDateTime = date.format(date.now());
+                    vm.showSideForm = true;
+                }, 300);
+            }
+        };
+        $rootScope.toggleFiltering = function () {
+            if (vm.isFiltering) {
+                vm.showSideForm = false;
+                common.$timeout(function () {
+                    $rootScope.showSideActions = true;
+                    vm.isFiltering = false;
+                }, 300);
+            }
+            else {
+                $rootScope.showSideActions = false;
+                vm.isFiltering = true;
+                common.$timeout(function () {
+                    vm.curDateTime = date.format(date.now());
+                    vm.showSideForm = true;
+                }, 300);
+            }
+        };
+
         vm.toggleFiltering = function () {
             if (vm.isAdding) {
                 closeForms(openFilterForm);
@@ -314,22 +324,26 @@
         vm.toggleEditing = function (transaction) {
             if (!vm.selectedTnx || !transaction || transaction.id !== vm.selectedTnx.id)
                 return;
-            if (!vm.isEditing) {
-                vm.editedTnx = angular.copy(vm.selectedTnx);
-                vm.selectedTnxDate = date.format(vm.selectedTnx.timestamp);
+            if (vm.isAdding)
+                $rootScope.toggleAdding();
+            if (vm.isFiltering)
+                $rootScope.toggleFiltering();
+
+            if (vm.isEditing) {
+                vm.showSideForm = false;
                 common.$timeout(function () {
-                    vm.isEditing = !vm.isEditing;
-                });
-                common.$timeout(function () {
-                    vm.showEditForm = !vm.showEditForm;
+                    $rootScope.showSideActions = true;
+                    vm.isEditing = false;
                 }, 300);
-            } else {
+                vm.editedTnx = null;
+            }
+            else {
+                transaxns.copy(transaction, vm.editedTnx);
+                vm.selectedTnxDate = date.format(vm.selectedTnx.timestamp);
+                $rootScope.showSideActions = false;
+                vm.isEditing = true;
                 common.$timeout(function () {
-                    vm.showEditForm = !vm.showEditForm;
-                    vm.isEditing = !vm.isEditing;
-                });
-                common.$timeout(function () {
-                    vm.editedTnx = null;
+                    vm.showSideForm = true;
                 }, 300);
             }
         };
@@ -351,19 +365,25 @@
                 }
             );
         };
+
         vm.remove = function (transaction) {
             if (!vm.selectedTnx || !transaction || vm.selectedTnx.id !== transaction.id)
                 return;
             transaxns.remove(vm.selectedTnx.id)
                 .then(function () {
+                    if(vm.isEditing){
+                        vm.toggleEditing(vm.selectedTnx);
+                    }
                     var index = transaxns.getTransactionIndex(vm.selectedTnx.id, vm.trs);
                     vm.trs.splice(index, 1);
+                    vm.selectedTnx = null;
                 },
                 function (msg) {
                     logError(msg);
                 }
             );
         };
+
         vm.addTag = function (tag) {
             if (_tagIsAlreadyAdded(tag)) {
                 return;
@@ -373,7 +393,7 @@
             vm.tags.push({
                 text: tag
             });
-            vm.filterByTags(vm.tags);
+            applyfilters();
         };
 
         vm.addTnx = function () {
@@ -413,9 +433,12 @@
             var promises = [_getTransactions()];
             common.activateController(promises, controllerId)
                 .then(function () {
+                    common.$timeout(function () {
+                        $rootScope.showSideActions = true;
+                    }, 1000);
                     $('.js-slider').slider({
                         tooltip: 'hide',
-                        max: vm.maxAmountToShow,
+                        max: vm.smaxAmountToShow,
                         min: vm.minAmountToShow
                     }).on('slide', function (ev) {
                         var val = $(this).slider('getValue');

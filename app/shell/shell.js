@@ -17,7 +17,7 @@
             common.activateController(promises, controllerId)
                 .then(function () {
                     //@todo: Переместить в директивы.
-                    $('div.overlay').css('display','block');
+                    $('div.overlay').css('display', 'block');
                 });
         }
 

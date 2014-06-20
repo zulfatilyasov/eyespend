@@ -47,10 +47,7 @@ var ApiInjector = function apiInjector() {
             console.log('withPhoto ' + withPhoto);
 
             var result = db.getTransactions(req.query.sorting, desc, offset, count, fromDate, toDate, tags, withPhoto);
-
-            setTimeout(function () {
-                res.json(result);
-            }, 1500)
+            res.json(result);
         });
 
         app.get('/api/secure/getUserTags', function (req, res) {
@@ -151,7 +148,7 @@ var ApiInjector = function apiInjector() {
             return jwt.sign(profile, secret, { expiresInMinutes: 60 });
         }
 
-        function badCredentials(email, psw){
+        function badCredentials(email, psw) {
             return (email !== 'foo@gmail.com' && email !== 'qwe@gmail.com') || (psw !== 'bar');
         }
     };

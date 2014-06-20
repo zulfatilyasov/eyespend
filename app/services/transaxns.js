@@ -3,9 +3,9 @@
     'use strict';
 
     var serviceId = "transaxns";
-    angular.module('app').factory(serviceId, ['datacontext', 'common', 'color', 'date', '$rootScope', transaxns]);
+    angular.module('app').factory(serviceId, ['datacontext', 'common', 'color', 'date', '$rootScope', 'map', transaxns]);
 
-    function transaxns(datacontext, common, color, date, $rootScope) {
+    function transaxns(datacontext, common, color, date, $rootScope, map) {
         var transactions = [],
             _userTags = [],
             sortOptions = {
@@ -37,12 +37,12 @@
             return sortOptions;
         }
 
-        function sort(fromDate, toDate, tags) {
+        function sort(fromDate, toDate, tags, onlyWithPhoto) {
             var def = common.defer();
 
             offset = 0;
             var tagsArray = _convertTagsToArray(tags);
-            datacontext.getTransaxns(sortOptions.column, sortOptions.descending, offset, count, fromDate || '', toDate || '', tagsArray)
+            datacontext.getTransaxns(sortOptions.column, sortOptions.descending, offset, count, fromDate || '', toDate || '', tagsArray, onlyWithPhoto)
                 .success(function (sortedTransactions) {
                     angular.forEach(sortedTransactions, function (t) {
                         _colorAndSaveTags(t.tags);
@@ -66,20 +66,21 @@
                 }
             }
         }
-        function getExcelFile(fromDate, toDate, tags, withPhoto){
+
+        function getExcelFile(fromDate, toDate, tags, withPhoto) {
             var tagsArray = _convertTagsToArray(tags);
             datacontext.getExcelFileUrl(
-                sortOptions.column, 
-                sortOptions.descending, 
-                offset, 
-                count, 
-                fromDate || '', 
-                toDate || '', 
-                tagsArray, 
+                sortOptions.column,
+                sortOptions.descending,
+                offset,
+                count,
+                    fromDate || '',
+                    toDate || '',
+                tagsArray,
                 withPhoto)
-            .success(function(data){
-                location.href = data;
-            });
+                .success(function (data) {
+                    location.href = data;
+                });
         }
 
         function getSortingForColumn(column) {
@@ -106,19 +107,9 @@
             return result;
         }
 
-        function filterByTags(fromDate, toDate, tags) {
-            offset = 0;
-            return getTransaxns(fromDate, toDate, tags);
-        }
-
         function getFirstPageWithFilters(fromDate, toDate, tags, withPhoto) {
             offset = 0;
             return getTransaxns(fromDate, toDate, tags, withPhoto);
-        }
-
-        function filterByDate(fromDate, toDate, tags) {
-            offset = 0;
-            return getTransaxns(fromDate, toDate, tags);
         }
 
         function _colorAndSaveTags(tags) {
@@ -167,24 +158,6 @@
             return sum;
         }
 
-//        function getMinUnixDate() {
-//            return transactions[transactions.length - 1].timestamp;
-//        }
-//
-//        function getMaxUnixDate() {
-//            return transactions[0].timestamp;
-//        }
-//
-//        function getMinDate() {
-//            var minDate = getMinUnixDate();
-//            return date.format(minDate);
-//        }
-//
-//        function getMaxDate() {
-//            var maxDate = getMaxUnixDate();
-//            return date.format(maxDate);
-//        }
-
         function getTransaxns(fromDate, toDate, tags, withPhoto) {
             var def = common.defer();
 
@@ -220,33 +193,19 @@
             return transactions.slice(0);
         }
 
-        function setLocation(transaction) {
-            if (!transaction.placeDetails)
-                return;
-            try {
-                transaction.latitude = transaction.placeDetails.geometry.location.k;
-                transaction.longitude = transaction.placeDetails.geometry.location.A;
-            }
-            catch (e) {
-                console.error(e.message);
-            }
-        }
-
         function copy(source, target) {
+            if (!target)
+                target = {};
             target.id = source.id;
             target.amountInBaseCurrency = source.amountInBaseCurrency;
             target.latitude = source.latitude;
             target.longitude = source.longitude;
             target.timestamp = source.timestamp;
+            target.tags = [];
             for (var i = 0, len = source.tags.length; i < len; i++) {
-                var tag = target.tags.filter(function (t) {
-                    return t.text === source.tags[i].text;
+                target.tags.push({
+                    text: source.tags[i].text
                 });
-                if (tag.length == 0) {
-                    target.tags.push({
-                        text: source.tags[i].text
-                    });
-                }
             }
             _colorAndSaveTags(target.tags);
         }
@@ -259,7 +218,7 @@
 
         function update(tnx) {
             var def = common.$q.defer();
-//            setLocation(tnx);
+            map.setTransactionCoords(tnx);
             datacontext.updateTransaction(_serverFormatTnx(tnx))
                 .then(function () {
                     var transaction = transactions.filter(function (t) {
@@ -271,7 +230,7 @@
                         def.reject("Не удалось найти транзкцию");
                         return;
                     }
-                    copy(tnx,transaction[0]);
+                    copy(tnx, transaction[0]);
                     def.resolve();
                 },
                 function () {
@@ -283,14 +242,15 @@
 
         function create(tnx) {
             var def = common.$q.defer();
-            var tnx = angular.copy(tnx);
-            if (!tnx.timestamp) {
-                tnx.timestamp = date.now();
+            var txnCopy = {};
+            copy(tnx, txnCopy);
+            if (!txnCopy.timestamp) {
+                txnCopy.timestamp = date.now();
             }
-            tnx.timestamp = date.toUnix(tnx.timestamp);
-            tnx.tags = _convertTagsToArray(tnx.tags);
-            setLocation(tnx);
-            datacontext.createTransaction(tnx)
+            txnCopy.timestamp = date.toUnix(txnCopy.timestamp);
+            txnCopy.tags = _convertTagsToArray(txnCopy.tags);
+            map.setTransactionCoords(txnCopy);
+            datacontext.createTransaction(txnCopy)
                 .then(function (response) {
                     var createdTnx = response.data;
                     _colorAndSaveTags(createdTnx.tags);
@@ -322,15 +282,9 @@
             getTransaxns: getTransaxns,
             updateSorting: updateSorting,
             getSortingForColumn: getSortingForColumn,
-            filterByDate: filterByDate,
-            filterByTags: filterByTags,
             getFirstPageWithFilters: getFirstPageWithFilters,
             getTotalAmout: getTotalAmout,
             create: create,
-//            getMinDate: getMinDate,
-//            getMaxDate: getMaxDate,
-//            getMinUnixDate: getMinUnixDate,
-//            getMaxUnixDate: getMaxUnixDate,
             getUserTags: getUserTags,
             sortOptions: sortOptions,
             sort: sort,
@@ -339,7 +293,7 @@
             getTransactionIndex: getTransactionIndex,
             remove: remove,
             copy: copy,
-            getExcelFile:getExcelFile
+            getExcelFile: getExcelFile
         };
     }
 })();

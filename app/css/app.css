@@ -20,6 +20,16 @@ body.background-dark, .background {
 
 body.background-blue {
     background-image: radial-gradient(circle farthest-side at 66% -9%, #FFFFFF 0%, #FAE7D3 6%, #93CDC4 25%, #2B73A4 61%, #003D62 87%, #010A37 100%);
+}
+
+body.background-ocean {
+    background: #92c7d6;
+    background-image: -webkit-radial-gradient(top, circle cover, #97d0e1, #427388 80%);
+    background-image: -moz-radial-gradient(top, circle cover, #97d0e1, #427388 80%);
+    background-image: -o-radial-gradient(top, circle cover, #97d0e1, #427388 80%);
+    background-image: radial-gradient(top, circle cover, #97d0e1, #427388 80%);
+    background-position: center center;
+    background-repeat: no-repeat;
     background-attachment: fixed;
 }
 
@@ -32,6 +42,107 @@ body.background-blue {
     font-size: 18px;
     font-style: normal;
     font-weight: 300;
+}
+
+.sideActions {
+    position: fixed;
+    top: 50%;
+    /*display: none;*/
+    margin-top: -60px;
+    right: 0px;
+    padding-right: 10px;
+}
+
+.sideActions a {
+    color: rgba(51, 51, 51, .6);
+    text-shadow: 0 2px 1px #333;
+    color: #fff;
+}
+.sideActions a:hover {
+    color: #eee;
+}
+.sideActions .action-filter{
+    -webkit-transform: rotate(180deg) translateX(80px);
+    -moz-transform: rotate(180deg) translateX(80px);
+    -ms-transform: rotate(180deg) translateX(80px);
+    -o-transform: rotate(180deg) translateX(80px);
+    transform: rotate(180deg) translateX(80px);
+    padding: 0 10px 10px 10px;
+}
+.action-add {
+    top:10px;
+}
+.action-add,.action-filter{
+    position: absolute;
+    right: 10px;
+    top:0;
+    position: fixed;
+    top:50%;
+    display: none;
+}
+.sideActions.shown .action-add{
+    display: block;
+    -webkit-animation: rotateInUp 2000ms linear both;
+    animation: rotateInUp 2000ms linear both;
+}
+.sideActions.shown .action-filter{
+    display: block;
+    -webkit-animation: rotateInDown 2000ms linear both;
+    animation: rotateInDown 2000ms linear both;
+}
+.sideActions.notshown .action-add{
+    display: block;
+    -webkit-animation: rotateOutDown 2000ms linear both;
+    animation: rotateOutDown 2000ms linear both;
+}
+.sideActions.notshown .action-filter{
+    display: block;
+    -webkit-animation: rotateOutUp 2000ms linear both;
+    animation: rotateOutUp 2000ms linear both;
+}
+
+.action-add{
+    padding: 10px;
+    -webkit-transform: translateX(80px);
+    -moz-transform: translateX(80px);
+    -ms-transform: translateX(80px);
+    -o-transform: translateX(80px);
+    transform: translateX(80px);
+}
+
+.sideForm {
+    position: fixed;
+    top: 50%;
+    display: none;
+    right: -40px;
+    margin-top: -125px;
+    padding-right: 50px;
+    width: 380px;
+    -webkit-transition: opacity 0.5s;
+    -moz-transition: opacity 0.5s;
+    -ms-transition: opacity 0.5s;
+    -o-transition: opacity 0.5s;
+    transition: opacity 0.5s;
+    -webkit-transform: translateX(425px);
+    -moz-transform: translateX(425px);
+    -ms-transform: translateX(425px);
+    -o-transform: translateX(425px);
+    transform: translateX(425px);
+}
+
+/*.sideForm form {*/
+/*opacity: 0;*/
+/*}*/
+/*.sideForm.formIn-add form{*/
+/*opacity: 0;*/
+/*}*/
+/*.sideForm.formIn-remove form{*/
+/*opacity: 0;*/
+/*}*/
+.sideForm.formInRight-remove {
+    -webkit-animation: formOutRight 1.5s;
+    animation: formOutRight;
+    display: block !important;
 }
 
 .widget a:hover, .widget i:hover {
@@ -48,11 +159,11 @@ body.background-blue {
 }
 
 .transform {
-    -webkit-transition: -webkit-transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
-    -moz-transition: -moz-transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
-    -ms-transition: -ms-transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
-    -o-transition: -o-transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
-    transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+    -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    -moz-transition: -moz-transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    -ms-transition: -ms-transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    -o-transition: -o-transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     -webkit-transform: translateY(-180px);
     -moz-transform: translateY(-180px);
     -ms-transform: translateY(-180px);
@@ -118,7 +229,7 @@ input.ng-invalid-required, input.ng-invalid-number, input.invalid {
 h2 {
     font-family: 'Roboto Condensed', sans-serif;
     font-style: normal;
-    font-size: 24px;
+    font-size: 26px;
 }
 
 header a {
@@ -162,6 +273,7 @@ input.styledInput {
     -webkit-transition: width .2s;
     transition: width .2s;
     background: rgba(51, 51, 51, .4);
+    font-weight: 400;
 }
 
 input.styledInput:focus {
@@ -245,7 +357,7 @@ table.dataTable th.sorting:hover, table.table thead .sorting_asc:hover, table.ta
     /*width: 83.333333% !important;*/
     max-width: 1150px;
     padding-left: 2.5641%;
-    padding-right: 2.5641%;
+    padding-right: 4.5641%;
 }
 
 .bootstrap .tags {
@@ -546,6 +658,14 @@ datepicker {
     cursor: pointer;
 }
 
+#transactions-table tr td {
+    -webkit-transition: background-color 0.2s;
+    -moz-transition: background-color 0.2s;
+    -ms-transition: background-color 0.2s;
+    -o-transition: background-color 0.2s;
+    transition: background-color 0.2s;
+}
+
 #transactions-table tr:hover td {
     background-color: rgba(231, 124, 124, 0.4) !important;
     cursor: pointer;
@@ -660,9 +780,9 @@ tr[ng-repeat-start].ng-leave {
     color: #f8f8f8;
 }
 
-.rowActions-td {
-    width: 70px;
-}
+/*.rowActions-td {*/
+/*width: 70px;*/
+/*}*/
 
 .imageContainer {
     text-align: center;
@@ -682,6 +802,9 @@ tr[ng-repeat-start].ng-leave {
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, .6), 0 22px 70px 4px rgba(0, 0, 0, 0.56), 0 0 0 1px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
     box-shadow: 0 0 10px 0 #2E2E2E;
+}
+.widget .body{
+    margin-top: 0;
 }
 
 .landing .widget {
@@ -1150,7 +1273,11 @@ tr[ng-repeat-start].ng-leave {
 .landing .navbar-buttons {
     margin-right: 0;
 }
-
+@media (max-width: 1460px){
+    .sideForm{
+        background: #808080;
+    }
+}
 @media (max-width: 1024px) {
     .transform {
         -webkit-transition: none;
@@ -1170,20 +1297,19 @@ tr[ng-repeat-start].ng-leave {
         animation: none;
     }
 
-    body.background-dark {
+    body.background-dark, body.background-ocean {
         background: #8BA7C2;
     }
 
     /*body{*/
-        /*font: -apple-system-body*/
+    /*font: -apple-system-body*/
     /*}*/
     /*.widget > header h4, .loader.theEnd, table.dataTable thead th, header.tableLabel h4 {*/
-        /*font: -apple-system-headline;*/
+    /*font: -apple-system-headline;*/
     /*}*/
     /*label{*/
-        /*font: -apple-system-subheadline;*/
+    /*font: -apple-system-subheadline;*/
     /*}*/
-
     .background, body.background-blue {
         background: rgb(38, 109, 175);
     }
@@ -1231,13 +1357,29 @@ tr[ng-repeat-start].ng-leave {
 }
 
 @media (max-width: 768px) {
+    .container{
+        padding-right: 0;
+        padding-left: 0;
+    }
     body {
         overflow: hidden;
         font-size: 16px;
     }
+    .widget {
+        border-radius: 0px;
+        box-shadow:none;
+    }
+    h2{
+        font-size: 20px;
+        padding-left: 2%;
+    }
 
     .page {
         position: static;
+    }
+
+    .rangemax, .rangemin {
+        width: 30px;
     }
 
     #totalAmount {
@@ -1263,6 +1405,13 @@ tr[ng-repeat-start].ng-leave {
     table.table thead .sorting {
         background: inherit;
     }
+    .mobileEditing{
+        padding: 10px;
+    }
+    
+    .mobileEditing label{
+        color:#333;
+    }
 
     .transaction-menu {
         display: block;
@@ -1275,6 +1424,9 @@ tr[ng-repeat-start].ng-leave {
         z-index: 10;
         padding-bottom: 10px;
         font-size: 14px;
+    }
+    .transaction-menu.editing{
+        height: 100%;
     }
 
     .transaction-menu.menu-open {
@@ -1314,9 +1466,8 @@ tr[ng-repeat-start].ng-leave {
     }
 
     /*header.tableLabel h4, table.dataTable thead th {*/
-        /*font-size: 1.55rem;*/
+    /*font-size: 1.55rem;*/
     /*}*/
-
     .form-buttons {
         float: none;
     }
@@ -1336,6 +1487,11 @@ tr[ng-repeat-start].ng-leave {
 
     .logo h4 span {
         display: none;
+    }
+    .sideForm{
+        padding-right: 0;
+        width: 100%;
+        background: #555;
     }
 
 }

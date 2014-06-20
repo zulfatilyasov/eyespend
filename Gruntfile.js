@@ -7,19 +7,14 @@ module.exports = function (grunt) {
             'bower_components/angular-route/angular-route.js',
             'bower_components/angular-sanitize/angular-sanitize.js',
             'bower_components/angular-animate/angular-animate.js',
-            'bower_components/angular-cookies/angular-cookies.js',
             'bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js',
-//            'bower_components/angular-touch/angular-touch.js',
-
             'bower_components/toastr/toastr.js',
             'app/lib/select2.js',
             'app/lib/modernizr-custom.js',
-            'app/lib/sticky/sticky.js',
             'app/lib/bootstrap/tooltip.js',
             'app/lib/bootstrap/popover.js',
             'app/lib/bootstrap-slider-3.0.1/bootstrap-slider.js',
             'bower_components/datetimepicker/jquery.datetimepicker.js',
-            'bower_components/mockJSON/js/jquery.mockjson.js',
             'bower_components/ng-tags-input/ng-tags-input.js',
             'bower_components/switchery/dist/switchery.js',
             'bower_components/ng-switchery/src/ng-switchery.js',
@@ -34,7 +29,7 @@ module.exports = function (grunt) {
             'bower_components/momentjs/lang/ru.js',
             'bower_components/angularjs-geolocation/src/geolocation.js',
             'bower_components/bootstrap-daterangepicker/daterangepicker.js',
-            'bower_components/fastclick/lib/fastclick.js',
+//            'bower_components/fastclick/lib/fastclick.js',
             'app/lib/ng-bs-daterangepicker/src/ng-bs-daterangepicker.js',
 
             'app/app.js',
@@ -55,7 +50,6 @@ module.exports = function (grunt) {
             'app/transactions/transactions.js',
             'app/shell/shell.js',
             'app/login/login.js',
-            'app/quickPass/quickPass.js',
             'app/settings/settings.js'
         ],
         styles = [
@@ -68,7 +62,8 @@ module.exports = function (grunt) {
             'bower_components/bootstrap-daterangepicker/daterangepicker-bs3.css',
             'app/css/app.css',
             'app/css/overlay.css',
-            'app/lib/sticky/sticky.css'
+            'app/lib/sticky/sticky.css',
+            'app/css/animations.css'
         ],
         uglifyOptions = {
             mangle: false,
