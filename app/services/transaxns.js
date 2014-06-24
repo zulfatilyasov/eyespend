@@ -158,21 +158,47 @@
             return sum;
         }
 
+        function getTransactionsAndTotals() {
+            var def = common.defer();
+            datacontext.getTransactionsAndTotals(count)
+                .then(function (resp) {
+                    var trs = resp.data.transactions;
+                    var totals = resp.data.totals;
+                    $rootScope.hideContent = false;
+                    if (trs && trs instanceof Array) {
+                        transactions = trs;
+                        offset = transactions.length;
+                        transactions.forEach(function (t) {
+                            _colorAndSaveTags(t.tags);
+                        });
+                        def.resolve({data: {transactions: transactions.slice(0), totals: totals}});
+                    }
+                    else {
+                        def.reject();
+                    }
+                }, function (resp) {
+                    console.log(resp)
+                });
+
+            return def.promise;
+        }
+
         function getTransaxns(fromDate, toDate, tags, withPhoto) {
             var def = common.defer();
 
             var tagsArray = _convertTagsToArray(tags);
             datacontext.getTransaxns(sortOptions.column, sortOptions.descending, offset, count, fromDate || '', toDate || '', tagsArray, withPhoto)
-                .then(function (tnxs) {
+                .then(function (resp) {
+                    var trs = resp.data;
                     $rootScope.hideContent = false;
-                    if (tnxs && tnxs.data instanceof Array) {
+                    if (trs && trs instanceof Array) {
                         if (offset > 0) {
-                            transactions = transactions.concat(tnxs.data);
-                            offset += tnxs.data.length;
+                            transactions = transactions.concat(trs);
+                            offset += trs.length;
                         }
                         else {
-                            transactions = tnxs.data;
-                            offset = tnxs.data.length;
+                            transactions = trs;
+                            offset = trs.length;
                         }
                         transactions.forEach(function (t) {
                             _colorAndSaveTags(t.tags);
@@ -293,7 +319,8 @@
             getTransactionIndex: getTransactionIndex,
             remove: remove,
             copy: copy,
-            getExcelFile: getExcelFile
+            getExcelFile: getExcelFile,
+            getTransactionsAndTotals: getTransactionsAndTotals
         };
     }
 })();

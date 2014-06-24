@@ -73,25 +73,45 @@
             return true;
         }
 
-        vm.selectTransaction = function (transaction, $event) {
+        var selectTransaction = function (transaction) {
             if (vm.isEditing) {
                 transaxns.copy(transaction, vm.editedTnx);
                 vm.selectedTnxDate = date.format(vm.selectedTnx.timestamp);
             }
             vm.selectedTnx = transaction;
-            $event.stopPropagation();
         };
 
         vm.tableClicked = function ($event) {
             if ($event.target) {
-                var index = $($event.target).parent().data('index');
-                if (vm.trs[index]) {
-                    vm.selectedTnx = vm.trs[index];
-                }
-                if (vm.isAdding)
+                var $target = $($event.target);
+                var index = $target.parents('tr').data('index');
+
+                if (!vm.trs[index])
+                    return;
+                selectTransaction(vm.trs[index]);
+
+                if (vm.isAdding) {
                     $rootScope.toggleAdding();
-                if (vm.isFiltering)
+                    return;
+                }
+                if (vm.isFiltering && !$target.is('.transaction-tag')) {
                     $rootScope.toggleFiltering();
+                    return;
+                }
+
+                if ($target.is('.fa-edit')) {
+                    vm.toggleEditing(vm.selectedTnx);
+                }
+                else if ($target.is('.fa-map-marker')) {
+                    map.showAddress(vm.selectedTnx);
+                }
+                else if ($target.is('.fa-picture-o')) {
+                    showImage(vm.selectedTnx.imgUrl)
+                }
+                else if ($target.is('.transaction-tag')) {
+                    var text = $target.text().trim();
+                    vm.addTag(text);
+                }
             }
         };
 
@@ -108,8 +128,8 @@
             map.pickAddress(transaction);
         };
 
-        vm.closeMobileInfo = function(){
-            if(vm.isEditing){
+        vm.closeMobileInfo = function () {
+            if (vm.isEditing) {
                 vm.isEditing = false;
             }
             vm.selectedTnx = null;
@@ -125,9 +145,21 @@
                     $rootScope.showSpinner = false;
                 });
         };
+        vm.selectedInterval = "всего";
 
         vm.loadTags = function () {
-            return login.getUserTags();
+            var def = common.defer();
+            login.getUserTags()
+                .then(function (data) {
+                    if (vm.userTags) {
+                        def.resolve(data);
+                        return;
+                    }
+                    vm.userTags = angular.copy(data);
+                    vm.selectedTag = vm.userTags[0];
+                    def.resolve(vm.userTags);
+                });
+            return def.promise;
         };
 
         vm.getSortingForColumn = transaxns.getSortingForColumn;
@@ -201,7 +233,7 @@
                 return true;
         }
 
-        vm.showImage = function (imgUrl) {
+        var showImage = function (imgUrl) {
             $rootScope.showImage = true;
             $rootScope.showMap = false;
             $rootScope.imgUrl = imgUrl;
@@ -230,47 +262,6 @@
                     vm.isLoading = false;
                     logError('error loading next batch');
                 });
-        };
-
-        var openAddForm = function () {
-            vm.curDateTime = date.format(date.now());
-            vm.isAdding = true;
-            vm.formIsOpen = true;
-        };
-
-        var openFilterForm = function () {
-            vm.isFiltering = true;
-            vm.formIsOpen = true;
-        };
-
-        var closeForms = function (callback) {
-            var def = common.defer();
-            vm.formIsOpen = false;
-            if (callback) {
-                common.$timeout(function () {
-                    vm.isAdding = false;
-                    vm.isFiltering = false;
-                    callback();
-                    def.resolve();
-                }, 500);
-            }
-            if ($(window).width() <= 1024) {
-                vm.isAdding = false;
-                vm.isFiltering = false;
-            }
-            return def.promise;
-        };
-
-        vm.toggleAdding = function () {
-            if (vm.isFiltering) {
-                closeForms(openAddForm);
-            }
-            else if (!vm.isAdding) {
-                openAddForm();
-            }
-            else {
-                closeForms();
-            }
         };
 
         $rootScope.toggleAdding = function () {
@@ -309,18 +300,6 @@
             }
         };
 
-        vm.toggleFiltering = function () {
-            if (vm.isAdding) {
-                closeForms(openFilterForm);
-            }
-            else if (!vm.isFiltering) {
-                openFilterForm();
-            }
-            else {
-                closeForms();
-            }
-        };
-
         vm.toggleEditing = function (transaction) {
             if (!vm.selectedTnx || !transaction || transaction.id !== vm.selectedTnx.id)
                 return;
@@ -348,6 +327,12 @@
             }
         };
 
+        vm.clearFilters = function () {
+            vm.tags = [];
+            vm.onlyWithPhoto = false;
+            applyfilters();
+        };
+
         vm.saveTnx = function () {
             if (editedTransactionNotValid()) {
                 vm.editError = "Неверные данные";
@@ -371,7 +356,7 @@
                 return;
             transaxns.remove(vm.selectedTnx.id)
                 .then(function () {
-                    if(vm.isEditing){
+                    if (vm.isEditing) {
                         vm.toggleEditing(vm.selectedTnx);
                     }
                     var index = transaxns.getTransactionIndex(vm.selectedTnx.id, vm.trs);
@@ -384,14 +369,14 @@
             );
         };
 
-        vm.addTag = function (tag) {
-            if (_tagIsAlreadyAdded(tag)) {
+        vm.addTag = function (tagText) {
+            if (_tagIsAlreadyAdded(tagText)) {
                 return;
             }
             if (!vm.isFiltering)
-                vm.toggleFiltering();
+                $rootScope.toggleFiltering();
             vm.tags.push({
-                text: tag
+                text: tagText
             });
             applyfilters();
         };
@@ -417,10 +402,12 @@
             $rootScope.hideContent = true;
 
             vm.isLoading = true;
-            return transaxns.getTransaxns()
-                .success(function (trs) {
-                    vm.trs = trs;
-                    if (trs.length) {
+            return transaxns.getTransactionsAndTotals()
+                .success(function (data) {
+                    vm.trs = data.transactions;
+                    vm.totals = data.totals;
+                    vm.selectedInterval = {text: 'всего', sum: vm.totals.all};
+                    if (data.transactions.length) {
                         $rootScope.showSpinner = false;
                         $rootScope.hideContent = false;
                         vm.isLoading = false;
@@ -430,7 +417,7 @@
         }
 
         function activate() {
-            var promises = [_getTransactions()];
+            var promises = [_getTransactions(), vm.loadTags()];
             common.activateController(promises, controllerId)
                 .then(function () {
                     common.$timeout(function () {

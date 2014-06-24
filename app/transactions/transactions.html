@@ -11,33 +11,63 @@
             <div ng-show="showSpinner" class="widgetOverlay">
             </div>
             <section class="widget transactions-widget">
-                <header class="hidden">
-                    <h4>
-                            <span class="tableAction">
-                                <i class="fa fa-plus"></i>
-                                <a href="javascript:void(0)"
-                                   id="createButton"
-                                   translate
-                                   ng-click="vm.toggleAdding()">
-                                    NEW_TANSACTION
-                                </a>
-                            </span>
-                            <span class="tableAction">
-                                 <i class="fa fa-filter"></i>
-                                 <a href="javascript:void(0)"
-                                    id="filterButton"
-                                    translate
-                                    ng-click="vm.toggleFiltering()">
-                                     FILTER
-                                 </a>
-                           </span>
-                            <span style="float: right" class="tableAction hidden-phone-landscape">
-                              <a href="javascript:void(0)" ng-click="vm.downloadExcel()"
-                                 title="{{'DOWNLOAD'|translate}}">
-                                  <img style="width: 32px;height: 32px" src="../img/excel-3-32.png" alt=""/>
-                              </a>
-                           </span>
-                    </h4>
+                <header>
+                    <div class="row shortStats">
+                        <!--<div class="col-md-3">-->
+                        <!--<span class="fs16">Всего потрачено:</span>-->
+                        <!--<span>43980</span>-->
+                        <!--<span>р.</span>-->
+                        <!--</div>-->
+                        <div class="col-md-3 nl-form">
+                            <span class="fs16">Потрачено</span>
+
+                            <div class="nl-field nl-dd" ng-class="{'nl-field-open':!vm.selectedInterval}">
+                                <a class="nl-field-toggle fs16"
+                                   ng-click="vm.selectedInterval = null">
+                                    {{vm.selectedInterval.text}}
+                                </a>:
+                                <span>{{vm.selectedInterval.sum}}</span>
+                                <span>р.</span>
+                                <ul>
+                                    <li ng-click="vm.selectedInterval = {text:'всего',sum:vm.totals.all}">
+                                        всего
+                                    </li>
+                                    <li ng-click="vm.selectedInterval = {text:'за месяц',sum:vm.totals.month}">
+                                        за месяц
+                                    </li>
+                                    <li ng-click="vm.selectedInterval = {text:'за неделю',sum:vm.totals.week}">
+                                        за неделю
+                                    </li>
+                                    <li ng-click="vm.selectedInterval = {text:'за год', sum:vm.totals.week}">
+                                        за год
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--<span class="fs16">За текущий месяц:</span>-->
+                            <!--<span>34020</span>-->
+                            <!--<span>р.</span>-->
+                        </div>
+                        <div class="col-md-5 nl-form">
+                            <span class="fs16">Всего по тегу </span>
+
+                            <div class="nl-field nl-dd" ng-class="{'nl-field-open':!vm.selectedTag}">
+                                <q class="nl-field-toggle fs16"
+                                   ng-click="vm.selectedTag = null">
+                                    {{vm.selectedTag.text}}
+                                </q>:
+                                <span>{{vm.selectedTag.sum}}</span>
+                                <span>р.</span>
+
+                                <ul>
+                                    <li ng-repeat="tag in vm.userTags"
+                                        ng-click="vm.selectedTag = tag"
+                                        ng-class="{'nl-dd-checked':vm.selectedTag.text == tag.text}">
+                                        {{tag.text}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </header>
 
                 <div>
@@ -115,10 +145,9 @@
                                                         <div style="display:inline-block">
                                                             <span ng-style="{'border-color':vm.getTagColorStyle(tag.color)}"
                                                                   class="beforeTag">
-                                                                  </span><a
-                                                                ng-style="{'background':tag.color}"
-                                                                ng-click="vm.addTag(tag.text)"
-                                                                href="javascript:void(0)">
+                                                                  </span><a class="transaction-tag"
+                                                                            ng-style="{'background':tag.color}"
+                                                                            href="javascript:void(0)">
                                                             {{tag.text}}
                                                         </a>
                                                         </div>
@@ -131,7 +160,6 @@
                                                 class="rowActions">
                                                 <li>
                                                     <a id="pencil"
-                                                       ng-click="vm.toggleEditing(transaction)"
                                                        href="javascript:void(0)">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
@@ -416,7 +444,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="inputHost" style="width: 100%">
                 <label translate>PLACE</label>
                 <br/>
@@ -430,10 +458,10 @@
                 </button>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="inputHost">
+                <label translate>&nbsp;</label>
+                <br/>
                 <button type="button"
                         class="btn btn-primary"
                         ng-click="vm.addTnx()"
@@ -504,7 +532,12 @@
 
     <div class="row">
         <div class="col-md-12">
-            <div class="inputHost">
+            <div class="inputHost" style="float: right">
+                <button type="button" class="btn btn-primary"
+                        ng-click="vm.clearFilters()"
+                        data-placement="right" translate>
+                    <span translate>Сбросить</span>
+                </button>
                 <button type="button" class="btn dark-grey"
                         ng-click="toggleFiltering()"
                         data-placement="right" translate>

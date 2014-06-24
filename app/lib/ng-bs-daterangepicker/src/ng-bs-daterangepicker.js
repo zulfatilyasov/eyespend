@@ -23,7 +23,6 @@ angular.module('ngBootstrap', []).directive('datepicker', function ($compile, $p
 			options.ranges = $attributes.ranges && $parse($attributes.ranges)($scope);
             options.locale = $attributes.locale && $parse($attributes.locale)($scope);
 
-
 			function format(date) {
 				return date.format(options.format);
 			}

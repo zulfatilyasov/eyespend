@@ -6,6 +6,7 @@
 
     function login(common, $rootScope, $location, datacontext, localStorageService) {
         var userTags = null;
+        var totals = null;
         var success = function (def) {
             return function (data, status) {
                 if (status == 401) {
@@ -18,6 +19,7 @@
                     console.log(date);
                     document.cookie = "isAuthenticated=" + true + "; path=/; expires=" + date.toUTCString();
                     userTags = data.userTags;
+                    totals = data.totals
                     $rootScope.hideHeader = false;
                     def.resolve();
                 }

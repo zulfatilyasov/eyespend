@@ -19,6 +19,13 @@
             return $http.get('/api/secure/transactions', { params: params });
         }
 
+        function getTransactionsAndTotals(count) {
+            var params = {
+                count: count
+            };
+            return $http.get('/api/secure/transactionsExtended', { params: params });
+        }
+
         function updateTransaction(transaction) {
             return $http.put('/api/secure/transactions/' + transaction.id, transaction);
         }
@@ -31,7 +38,7 @@
             return $http.delete('/api/secure/transactions/' + transactionId);
         }
 
-        function getExcelFileUrl(sorting, desc, offset, count, fromDate, toDate, tags, withPhoto){
+        function getExcelFileUrl(sorting, desc, offset, count, fromDate, toDate, tags, withPhoto) {
             var params = {
                 sorting: sorting,
                 desc: desc,
@@ -65,7 +72,7 @@
             return $http.get('/api/secure/getUserTags');
         }
 
-        function getSettings(){
+        function getSettings() {
             return $http.get('/api/secure/getSettings');
         }
 
@@ -79,8 +86,9 @@
             changePsw: changePsw,
             linkEmailOrPhone: linkEmailOrPhone,
             getUserTags: getUserTags,
-            getExcelFileUrl:getExcelFileUrl,
-            getSettings:getSettings
+            getExcelFileUrl: getExcelFileUrl,
+            getSettings: getSettings,
+            getTransactionsAndTotals: getTransactionsAndTotals
         };
     }
 })();

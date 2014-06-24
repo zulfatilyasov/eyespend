@@ -6,6 +6,7 @@
     left: 0;
     z-index: 10;
     background: rgb(204, 204, 204);
+    background: #fff;
 }
 
 #overlay-close {

@@ -47,7 +47,15 @@ var ApiInjector = function apiInjector() {
             console.log('withPhoto ' + withPhoto);
 
             var result = db.getTransactions(req.query.sorting, desc, offset, count, fromDate, toDate, tags, withPhoto);
+
             res.json(result);
+        });
+
+        app.get('/api/secure/transactionsExtended', function (req, res) {
+            console.log('calling /api/secure/transactionsExtended');
+            var count = parseInt(req.query.count);
+            var result = db.getTransactions(null, null, null, count);
+            res.json({transactions: result, totals: db.getTotals()});
         });
 
         app.get('/api/secure/getUserTags', function (req, res) {

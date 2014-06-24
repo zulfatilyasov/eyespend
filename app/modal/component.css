@@ -780,7 +780,7 @@ perspective effects (not including the modals and the overlay).
 section.login-widget {
     background: rgba(240, 240, 240, 0.86);
     color: #000;
-    border-radius: 60px !important;
+    border-radius: 30px !important;
 }
 
 .login-widget h4, .login-widget .form-actions .forgot {

@@ -1,18 +1,25 @@
 var uuid = require('node-uuid');
 var fs = require('fs');
 var data = {
-    tags: [ 'аптека',
-        'ресторан',
-        'кино',
-        'кафе',
-        'наличные',
-        'банковская карта',
-        'коммунальные услуги',
-        'продукты',
-        'мвидео',
-        'подарок',
-        'заправка',
-        'аэропорт'],
+    tags: [
+        {text: 'аптека', sum: 2390},
+        {text: 'ресторан', sum: 3980},
+        {text: 'кино', sum: 1500},
+        {text: 'кафе', sum: 5200},
+        {text: 'наличные', sum: 16032},
+        {text: 'банковская карта', sum: 39023},
+        {text: 'коммунальные услуги', sum: 39400},
+        {text: 'продукты', sum: 3400},
+        {text: 'мвидео', sum: 4108},
+        {text: 'подарок', sum: 240},
+        {text: 'заправка', sum: 540},
+        {text: 'аэропорт', sum: 5450}
+    ],
+    totals: {
+        all: 45386,
+        week: 1580,
+        month: 8438
+    },
     addresses: [
         {
             latitude: 48.858335,
@@ -40,9 +47,15 @@ var data = {
 function _randomDate(start, end) {
     return (start.getTime() + parseInt(Math.random() * (end.getTime() - start.getTime())));
 }
+
 function getUserTags() {
     return data.tags;
 }
+
+function getTotals() {
+    return data.totals;
+}
+
 function _distictTags(array) {
     array = array.filter(function (elem, pos1) {
         return array.every(function (t, pos2) {
@@ -91,8 +104,8 @@ function generateTransactions(count) {
         });
     }
 
-    fs.writeFile('transactions.json', JSON.stringify(transactions, null, 4), function(err) {
-        if(err) {
+    fs.writeFile('transactions.json', JSON.stringify(transactions, null, 4), function (err) {
+        if (err) {
             console.log(err);
         } else {
             console.log("JSON saved to transactions.json");
@@ -215,9 +228,9 @@ function getTransactionsByDate(fromDate, toDate, transactions) {
         return (!fromDate || t.timestamp >= fromDate) && (!toDate || t.timestamp <= toDate);
     });
 }
-function readJsonFile(filepath, encoding){
+function readJsonFile(filepath, encoding) {
 
-    if (typeof (encoding) == 'undefined'){
+    if (typeof (encoding) == 'undefined') {
         encoding = 'utf8';
     }
     var file = fs.readFileSync(filepath, encoding);
@@ -244,3 +257,4 @@ exports.getTransactionsByDate = getTransactionsByDate;
 exports.getTransactionsByTags = getTransactionsByTags;
 exports.createId = createId;
 exports.getUserTags = getUserTags;
+exports.getTotals = getTotals;
