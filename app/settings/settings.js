@@ -8,6 +8,7 @@
         var logError = common.logger.getLogFn(controllerId, 'logError');
         var vm = this;
         vm.link = {};
+        vm.email = {};
         vm.linkcode = '2061 1026';
 
         function validLinkEmailForm() {
@@ -29,7 +30,7 @@
                     });
                 return false;
             }
-            if (!vm.link.currentPsw) {
+            if (vm.email.address && !vm.link.currentPsw) {
                 $translate('TYPE_CURRENT_PASSWORD')
                     .then(function (msg) {
                         vm.link.invalidPassword = true;
@@ -48,6 +49,11 @@
                 logError(message);
 //                vm.message = message;
             };
+            if (!vm.currentPsw) {
+                setErrorMessage("Введите текущий пароль");
+                vm.currentPswError = true;
+                return;
+            }
             if (!vm.psw) {
                 setErrorMessage("Введите пароль");
                 vm.passwordError = true;
@@ -73,7 +79,7 @@
                 setErrorMessage(message);
             };
 
-            login.changePassword({psw: vm.psw})
+            login.changePassword({newPsw: vm.psw, currentPsw: vm.currentPsw})
                 .then(success, error);
         };
 
@@ -83,8 +89,9 @@
             datacontext.linkEmailOrPhone(vm.link.emailOrPhone, vm.link.currentPsw)
                 .success(function (data, status) {
                     if (status === 200) {
-                        logSuccess('Email успешно привязан');
-                        vm.existingEmail = vm.link.emailOrPhone;
+                        logSuccess('Отправлено письмо.<br/>Активируйте e-mail');
+                        vm.email.address = vm.link.emailOrPhone;
+                        vm.email.verified = false;
                     }
                     else {
                         vm.link.invalidPassword = true;
@@ -101,7 +108,8 @@
             datacontext.getSettings()
                 .success(function (data) {
                     vm.linkcode = data.linkcode;
-                    vm.existingEmail = data.email;
+                    vm.email = data.email;
+//                    vm.email.verified = data.verified;
                     def.resolve();
                 });
             return def.promise;

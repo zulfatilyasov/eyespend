@@ -61,7 +61,7 @@
         }
 
         function linkEmailOrPhone(emailOrPhone, currentPsw) {
-            return $http.post('/api/user/linkEmailOrPhone', {emailOrPhone: emailOrPhone, currentPsw: currentPsw});
+            return $http.post('/api/secure/linkEmail', {emailOrPhone: emailOrPhone, currentPsw: currentPsw});
         }
 
         function changePsw(psw) {

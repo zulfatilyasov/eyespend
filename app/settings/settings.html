@@ -12,9 +12,10 @@
                         <h4><i class="fa fa-link"></i> <span translate>LINK_EMAIL</span></h4>
                     </header>
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="body">
-                                <form>
+                        <form>
+                            <div ng-hide="!vm.email.verified && vm.email.address" class="col-md-4">
+                                <div class="body">
+
                                     <fieldset>
                                         <div class="control-group">
                                             <label class="control-label"><span>Email</span>
@@ -28,14 +29,14 @@
                                                        ng-model="vm.link.emailOrPhone">
                                             </div>
                                         </div>
-                                        <div class="control-group" ng-show="vm.existingEmail">
+                                        <div class="control-group" ng-show="vm.email.address">
                                             <label class="control-label" translate>CURRENT_PASSWORD
                                                 <ul class="parsley-errors-list"></ul>
                                             </label>
 
                                             <div class="controls form-group">
                                                 <input placeholder="{{'TYPE_CURRENT_PASSWORD' | translate}}"
-                                                       type="text"
+                                                       type="password"
                                                        ng-model="vm.link.currentPsw"
                                                        ng-class="{'form-control':true, styledInput:true,invalid:vm.link.invalidPassword}">
                                             </div>
@@ -46,25 +47,31 @@
                                                 translate>SAVE
                                         </button>
                                     </div>
-                                </form>
+
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-8">
-                            <p ng-hide="vm.existingEmail">
-                                Если Вы хотите входить на сайт использую привычный email, укажите его в поле ввода. На
-                                этот e-mail мы вышлем Вам пароль для входа.
-                            </p>
-
-                            <p ng-show="vm.existingEmail">
-                                Ваша учетная запись привязана у e-mail'у <strong>{{vm.existingEmail}}</strong>. Если Вы
-                                хотите привязать другой e-mail, укажите его и Ваш текущий пароль. На указанный e-mail
-                                будет выслана ссылка для поддверждения.
-                            </p>
-                        </div>
+                            <div class="col-md-12" ng-show="!vm.email.verified && vm.email.address">
+                                <p>
+                                    Необхоимо активировать e-mail. На адрес <strong>{{vm.email.address}}</strong> было
+                                    отправлено письмо с ссылкой для активации.
+                                </p>
+                            </div>
+                            <div class="col-md-8" ng-hide="vm.email.address">
+                                <p>
+                                    Если Вы хотите входить на сайт использую привычный email, укажите его в поле ввода.
+                                    На этот e-mail мы вышлем Вам пароль для входа.
+                                </p>
+                            </div>
+                            <div class="col-md-8" ng-show="vm.email.address && vm.email.verified">
+                                <p>
+                                    Ваша учетная запись привязана к e-mail'у <strong>{{vm.email.address}}</strong>. Если
+                                    Вы хотите привязать другой e-mail, укажите его и Ваш текущий пароль.
+                                </p>
+                            </div>
+                        </form>
                     </div>
-
                 </div>
-                <div class="settings-section">
+                <div class="settings-section" ng-show="vm.email.address && vm.email.verified">
                     <header>
                         <h4>
                             <i class="fa fa-lock"></i>
@@ -78,7 +85,21 @@
                                     <fieldset>
                                         <div class="control-group">
                                             <label class="control-label" for="prefix">
-                                                <span translate>PASSWORD</span>
+                                                <span translate>CURRENT_PASSWORD</span>
+                                                <ul class="parsley-errors-list"></ul>
+                                            </label>
+
+                                            <div class="controls form-group">
+                                                <input placeholder="{{'TYPE_CURRENT_PASSWORD'|translate}}"
+                                                       type="password"
+                                                       ng-class="{invalid:vm.currentPswError}"
+                                                       ng-model="vm.currentPsw"
+                                                       class="form-control styledInput">
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label" for="prefix">
+                                                <span translate>NEW_PASSWORD</span>
                                                 <ul class="parsley-errors-list"></ul>
                                             </label>
 
@@ -92,18 +113,19 @@
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label" for="prefix">
-                                                <span translate>CONFIRMATION</span>
+                                                <span translate>NEW_PASSWORD_CONFIRMATION</span>
                                                 <ul class="parsley-errors-list"></ul>
                                             </label>
 
                                             <div class="controls form-group">
-                                                <input placeholder="{{'TYPE_PASSWORD_CONFIRMATION'|translate}}"
+                                                <input placeholder="{{'TYPE_NEW_PASSWORD_AGAIN'|translate}}"
                                                        type="password"
                                                        ng-class="{invalid:vm.confirmationError}"
                                                        ng-model="vm.confirmation"
                                                        class="form-control styledInput">
                                             </div>
                                         </div>
+
                                     </fieldset>
                                     <div class="actionButton">
                                         <button type="submit" ng-click="vm.changePassword()" class="btn btn-primary"
@@ -160,7 +182,7 @@
                         <div class="col-md-12">
                             <section class="well">
                                 <div id="linkcode">
-                                    Введите этот номер в мобильном приложении eyeSpend сразу после установки для
+                                    Введите этот номер в мобильном приложении <b>eyeSpend</b> сразу после установки для
                                     привязки других устройств к своему аккаунту
                                     <br/>
                                     <span>{{vm.linkcode}}</span>

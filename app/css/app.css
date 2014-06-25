@@ -6,6 +6,7 @@ body {
     font-family: "Roboto", sans-serif;
     font-size: 14px;
     font-style: normal;
+    font-weight: normal;
 }
 
 a {
@@ -41,7 +42,7 @@ body.background-ocean {
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 18px;
     font-style: normal;
-    font-weight: 300;
+    font-weight: normal;
 }
 
 .sideActions {
@@ -75,6 +76,41 @@ body.background-ocean {
     top: 10px;
 }
 
+.action-add span {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+    top: 5px;
+    left: -2px;
+}
+
+.action-filter span {
+    top: -2px;
+    left: -17px;
+}
+
+.sideActions span {
+    position: absolute;
+    font-weight: 300;
+    font-size: 1.3rem;
+    opacity: 0;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.action-add:hover span {
+    opacity: 1;
+    top: -10px;
+}
+.action-filter:hover span{
+    opacity: 1;
+    top: -20px;
+}
 .action-add, .action-filter {
     position: absolute;
     right: 10px;
@@ -195,7 +231,7 @@ body.background-ocean {
 
 input.ng-invalid-required, input.ng-invalid-number, input.invalid {
     border-color: red !important;
-    color: white !important;
+    color: red !important;
 }
 
 #placeInput {
@@ -232,7 +268,7 @@ input.ng-invalid-required, input.ng-invalid-number, input.invalid {
 }
 
 .settings-section p {
-    font-size: 16px;
+    /*font-size: 16px;*/
     margin-top: 10px;
 }
 
@@ -279,15 +315,19 @@ header a:hover {
 }
 
 input.styledInput {
-    color: #f8f8f8;
+    color: #333;
     -webkit-transition: width .2s;
     transition: width .2s;
-    background: rgba(51, 51, 51, .4);
-    font-weight: 400;
+    background: #e0e0e0;
+    font-weight: normal;
 }
 
 input.styledInput:focus {
-    color: #f8f8f8;
+    color: #333;
+}
+
+.bootstrap .tags {
+    border: 1px solid #888;
 }
 
 .menu:before {
@@ -319,9 +359,9 @@ input.styledInput:focus {
 table.dataTable thead th, header.tableLabel h4 {
     font-family: 'Roboto Condensed', sans-serif;
     font-style: normal;
-    font-weight: 300;
-    font-size: 1.85rem;
-    min-width: 40px;
+    font-weight: normal;
+    font-size: 1.8rem;
+    /*min-width: 40px;*/
     text-decoration: none;
 }
 
@@ -370,10 +410,6 @@ table.dataTable th.sorting:hover, table.table thead .sorting_asc:hover, table.ta
     padding-right: 4.5641%;
 }
 
-.bootstrap .tags {
-    border: none;
-}
-
 .host .tags, .searchBlock .host .tags {
     background: rgb(224, 224, 224) !important;
 }
@@ -396,6 +432,10 @@ tags-input .bootstrap .tags .tag-item, .bootstrap .tags .tag-item {
 tags-input .tags .tag-item.selected {
     border-color: #ff5c5c;
     background: #ff5c5c;
+}
+
+tags-input .tags.focused {
+    box-shadow: none;
 }
 
 .tags .tag-item {
@@ -560,14 +600,6 @@ div.tags {
     border-bottom: 1px #ccc dashed;
 }
 
-.tags-th, .tags-td {
-    width: 435px;
-}
-
-.date-td, .date-th {
-    width: 180px;
-}
-
 #languages-menu.ng-hide-remove {
     -webkit-animation: bounceIn 0.5s;
     animation: bounceIn 0.5s;
@@ -621,10 +653,6 @@ div.tags {
     box-sizing: border-box;
 }
 
-.transactionForm .tags {
-    min-width: 280px;
-}
-
 tags-input .tags .input {
     margin: 0;
     height: 35px;
@@ -666,6 +694,7 @@ datepicker {
     /*-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .25), inset 0 -1px 0 rgba(0, 0, 0, .1);*/
     /*box-shadow: 0 1px 3px rgba(0, 0, 0, .25), inset 0 -1px 0 rgba(0, 0, 0, .1);*/
     background: rgb(224, 224, 224) !important;
+    border: 1px solid #888;
     color: #333;
     padding: 8px;
     line-height: 18px;
@@ -786,17 +815,14 @@ tr[ng-repeat-start].ng-leave {
 }
 
 .page-title {
-    /*text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.6);*/
-    color: #444;
+    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.6);
+    color: #555;
+    font-weight: normal;
 }
 
 .background-blue .page-title {
     color: #f8f8f8;
 }
-
-/*.rowActions-td {*/
-/*width: 70px;*/
-/*}*/
 
 .imageContainer {
     text-align: center;
@@ -1076,7 +1102,7 @@ tr[ng-repeat-start].ng-leave {
     padding: 0 10px 0 12px;
     background: #97A6C3;
     color: #000;
-    font-weight: 400;
+    font-weight: normal;
     text-decoration: none;
     -moz-border-radius-bottomright: 4px;
     -webkit-border-bottom-right-radius: 4px;
@@ -1289,12 +1315,8 @@ tr[ng-repeat-start].ng-leave {
     margin-right: 0;
 }
 
-.fs16 {
-    font-size: 16px;
-}
-
-.shortStarts {
-    font-size: 14px;
+.fs15 {
+    font-size: 15px;
 }
 
 /* drop down*/
@@ -1309,16 +1331,17 @@ tr[ng-repeat-start].ng-leave {
     display: inline-block;
     cursor: pointer;
     border-bottom: 1px dashed #eee;
-    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
     quotes: "\00ab" "\00bb";
 }
+
 /*.nl-field-toggle:before{*/
-    /*content: '\2018';*/
+/*content: '\2018';*/
 /*}*/
 /*.nl-field-toggle:after{*/
-    /*content: '\2019';*/
+/*content: '\2019';*/
 /*}*/
-a.nl-field-toggle:hover {
+q:hover, a.nl-field-toggle:hover {
     color: #56BC76;
     border-color: #56BC76;
 }

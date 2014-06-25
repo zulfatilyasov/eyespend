@@ -65,13 +65,18 @@ var ApiInjector = function apiInjector() {
         app.get('/api/secure/getSettings', function (req, res) {
             if (req.user.email === 'foobar@gmail.com') {
                 res.json({
-                    email: 'asdf@gmail.com',
+                    email: {
+                        address: 'asdf@gmail.com',
+                        verified: true
+                    },
                     linkcode: 12312
                 });
             }
             else {
                 res.json({
-                    email: null,
+                    email: {
+                        address: null
+                    },
                     linkcode: 23143
                 });
             }
@@ -114,9 +119,10 @@ var ApiInjector = function apiInjector() {
             res.json({ token: createTokenWithProfile(req.body.authCodeOrEmail), userTags: db.getUserTags() });
         });
 
-        app.post('/api/user/linkEmailOrPhone', function (req, res) {
+        app.post('/api/secure/linkEmail', function (req, res) {
+            console.log('called /api/secure/linkEmail');
             console.log('email or phone: ' + req.body.emailOrPhone + ' psw: ' + req.body.currentPsw);
-            if (req.body.currentPsw !== 'bar') {
+            if (req.body.currentPsw !== 'bar' && !userHasLinkedEmail(req.user)) {
                 res.send(400, 'wrong password');
             }
             res.send(200);
@@ -158,6 +164,10 @@ var ApiInjector = function apiInjector() {
 
         function badCredentials(email, psw) {
             return (email !== 'foo@gmail.com' && email !== 'qwe@gmail.com') || (psw !== 'bar');
+        }
+
+        function userHasLinkedEmail(user) {
+            return user.email === 'qwe@gmail.com';
         }
     };
 

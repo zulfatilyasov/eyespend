@@ -90,6 +90,10 @@
                     return;
                 selectTransaction(vm.trs[index]);
 
+                if(vm.isEditing && $target.is('.transaction-tag')){
+                   vm.toggleEditing(vm.selectedTnx);
+                    return;
+                }
                 if (vm.isAdding) {
                     $rootScope.toggleAdding();
                     return;
@@ -99,7 +103,7 @@
                     return;
                 }
 
-                if ($target.is('.fa-edit')) {
+                if ($target.is('.edit-transaction')) {
                     vm.toggleEditing(vm.selectedTnx);
                 }
                 else if ($target.is('.fa-map-marker')) {
