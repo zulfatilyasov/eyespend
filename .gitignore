@@ -1,4 +1,5 @@
 app/eyeSpend.min.*
+.idea
 bower_components/
 node_modules/
 tags

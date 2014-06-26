@@ -7,6 +7,7 @@ body {
     font-size: 14px;
     font-style: normal;
     font-weight: normal;
+    padding-bottom: 0;
 }
 
 a {
@@ -59,10 +60,6 @@ body.background-ocean {
     color: #f8f8f8;
 }
 
-.sideActions a:hover {
-    color: #eee;
-}
-
 .sideActions .action-filter {
     -webkit-transform: rotate(180deg) translateX(80px);
     -moz-transform: rotate(180deg) translateX(80px);
@@ -71,6 +68,10 @@ body.background-ocean {
     transform: rotate(180deg) translateX(80px);
     padding: 0 10px 10px 10px;
 }
+
+/*.action-add a:hover:after {*/
+/*-webkit-transform: rotate(180deg) translate(50%, 0px) !important;*/
+/*}*/
 
 .action-add {
     top: 10px;
@@ -107,10 +108,12 @@ body.background-ocean {
     opacity: 1;
     top: -10px;
 }
-.action-filter:hover span{
+
+.action-filter:hover span {
     opacity: 1;
     top: -20px;
 }
+
 .action-add, .action-filter {
     position: absolute;
     right: 10px;
@@ -118,6 +121,38 @@ body.background-ocean {
     position: fixed;
     top: 50%;
     display: none;
+}
+
+@keyframes moveOut {
+    0% {
+        translate: scale(1);
+        -webkit-translate: -webkit-scale(1);
+        -webkit-translate: -webkit-transfrom(0, 0);
+        transform: translate(0, 0);
+    }
+
+    100% {
+        translate: scale(1);
+        transform: translate(20px, 80px);
+        -webkit-translate: -webkit-scale(0.5);
+        -webkit-translate: -webkit-transfrom(20px, 80px);
+    }
+}
+
+@-webkit-keyframes moveOut {
+    0% {
+        translate: scale(1);
+        -webkit-translate: -webkit-scale(1);
+        -webkit-translate: -webkit-transfrom(0, 0);
+        transform: translate(0, 0);
+    }
+
+    100% {
+        translate: scale(0.5);
+        translate: transform(80px, 10px);
+        -webkit-translate: -webkit-scale(0.5);
+        -webkit-translate: -webkit-transfrom(20px, 80px);
+    }
 }
 
 .sideActions.shown .action-add {
@@ -144,13 +179,23 @@ body.background-ocean {
     animation: rotateOutUp 2000ms linear both;
 }
 
+.sideActions.notshown span {
+    display: none;
+}
+
 .action-add {
     padding: 10px;
-    -webkit-transform: translateX(80px);
+    -webkit-transform: translateX(80px), rotate(180deg);
     -moz-transform: translateX(80px);
     -ms-transform: translateX(80px);
     -o-transform: translateX(80px);
     transform: translateX(80px);
+}
+
+.add-tooltip {
+    width: 50px;
+    height: 50px;
+    margin-top: 31px;
 }
 
 .sideForm {
@@ -191,12 +236,9 @@ body.background-ocean {
     display: block !important;
 }
 
-.widget a:hover, .widget i:hover {
-    color: #ccc;
-}
-
 .login-widget .form-actions {
     padding-top: 0px;
+    background-color: inherit;
 }
 
 .settings-section header h4 {
@@ -314,6 +356,14 @@ header a:hover {
     padding: 5px;
 }
 
+.loadMore {
+    text-align: center;
+    color: #333;
+    padding: 10px;
+    background: #eee;
+    cursor: pointer;
+}
+
 input.styledInput {
     color: #333;
     -webkit-transition: width .2s;
@@ -324,6 +374,11 @@ input.styledInput {
 
 input.styledInput:focus {
     color: #333;
+}
+
+.settings-section .styledInput, .settings-section .styledInput:focus {
+    background: rgba(0, 0, 0, 0.25);
+    color: #f8f8f8;
 }
 
 .bootstrap .tags {
@@ -655,6 +710,7 @@ div.tags {
 
 tags-input .tags .input {
     margin: 0;
+    color: #333;
     height: 35px;
 }
 
@@ -775,8 +831,23 @@ tr[ng-repeat-start].ng-leave {
     color: #ccc;
 }
 
+.download-excel {
+    float: right
+}
+
+.download-excel span {
+    float: right;
+    margin-right: 5px;
+}
+
+.download-excel img {
+    width: 25px;
+    height: 25px
+}
+
 .content {
     padding-top: 0;
+    padding-bottom: 0;
 }
 
 #loginButton span {
@@ -810,8 +881,8 @@ tr[ng-repeat-start].ng-leave {
     color: #fff;
 }
 
-.page-header .navbar .nav > li > a:hover {
-    color: #eee;
+.page-header .navbar .nav > li > a:hover, .sideActions a:hover, .widget a:hover {
+    color: #56BC76;
 }
 
 .page-title {
@@ -842,6 +913,7 @@ tr[ng-repeat-start].ng-leave {
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, .6), 0 22px 70px 4px rgba(0, 0, 0, 0.56), 0 0 0 1px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
     box-shadow: 0 0 10px 0 #2E2E2E;
+    margin-bottom: 0;
 }
 
 .widget .body {
@@ -863,6 +935,7 @@ tr[ng-repeat-start].ng-leave {
 .loaderBox {
     position: relative;
     margin-top: 30px;
+    padding: 10px 0;
 }
 
 .loader {
@@ -1544,11 +1617,11 @@ q:hover, a.nl-field-toggle:hover {
         background: inherit;
     }
 
-    .mobileEditing {
+    .mobileform {
         padding: 10px;
     }
 
-    .mobileEditing label {
+    .mobileform label {
         color: #333;
     }
 

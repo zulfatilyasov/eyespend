@@ -11,13 +11,19 @@
                 </a>
                 <ul class="nav navbar-nav navbar-right pull-right">
                     <li>
-                        <a href="javascript:void(0)" ng-href="#/settings" id="settings" title="Настройки">
+                        <a href="javascript:void(0)"
+                           ng-href="#/settings"
+                           id="settings"
+                           class="simptip-position-bottom simptip-movable simptip-smooth"
+                           data-tooltip="Настройки">
                             <i class="fa fa-cog"></i>
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)" title="Языки" ng-click="vm.togglePopover()" id="globe"
+                        <a href="javascript:void(0)" ng-click="vm.togglePopover()" id="globe"
                            data-toggle="popover" data-placement="bottom"
+                           class="simptip-position-bottom simptip-movable simptip-smooth"
+                           data-tooltip="Языки"
                            data-original-title="Settings">
                             <i class="fa fa-globe"></i>
                         </a>
@@ -35,9 +41,13 @@
                             </li>
                         </ul>
                     </li>
-                    <li><a href="javascript:void(0)" title="Выйти" id="logoutButton"
-                                             ng-click="vm.logout()">
-                        <i class="fa fa-sign-out"></i></a>
+                    <li>
+                        <a href="javascript:void(0)" title="k" id="logoutButton"
+                           class="simptip-position-bottom simptip-movable simptip-smooth"
+                           data-tooltip="Выйти"
+                           ng-click="vm.logout()">
+                            <i class="fa fa-sign-out"></i>
+                        </a>
                     </li>
                 </ul>
             </div>

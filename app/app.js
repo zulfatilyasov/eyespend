@@ -6,6 +6,7 @@
         "common",
         "ngSanitize",
         "ngTagsInput",
+        "ui.mask",
         "ngAutocomplete",
         "AngularGM",
         "ngAnimate",

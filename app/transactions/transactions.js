@@ -90,8 +90,8 @@
                     return;
                 selectTransaction(vm.trs[index]);
 
-                if(vm.isEditing && $target.is('.transaction-tag')){
-                   vm.toggleEditing(vm.selectedTnx);
+                if (vm.isEditing && $target.is('.transaction-tag')) {
+                    vm.toggleEditing(vm.selectedTnx);
                     return;
                 }
                 if (vm.isAdding) {
@@ -130,6 +130,12 @@
         vm.pickAddress = function () {
             var transaction = vm.isAdding ? vm.newTnx : vm.editedTnx;
             map.pickAddress(transaction);
+        };
+
+        vm.addMobile = function () {
+            vm.isAdding = !vm.isAdding;
+            if(vm.isAdding)
+              vm.curDateTime = date.format(date.now());
         };
 
         vm.closeMobileInfo = function () {
