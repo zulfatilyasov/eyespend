@@ -58,8 +58,8 @@ $(function () {
             setMessage('PASSORD_REQUIRED');
             return;
         }
-        var url = isEmail ? '/api/users/login' : '/quickpass';
-        var data = isEmail ? {authCodeOrEmail: email, password: password} : {psw: email};
+        var url = '/api/users/login';
+        var data = {authCodeOrEmail: email, password: password};
 
         $.post(url, data)
             .done(function (data) {

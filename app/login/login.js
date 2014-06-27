@@ -47,7 +47,7 @@
                     password: vm.user.password
                 }).then(success, error);
             } else {
-                login.quickPass({psw: vm.user.codeOrEmail})
+                login.quickPass(vm.user.codeOrEmail)
                     .then(success, error);
             }
         };

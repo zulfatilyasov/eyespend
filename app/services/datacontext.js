@@ -56,8 +56,8 @@
             return $http.post('/api/users/login', { authCodeOrEmail: user.email, password: user.password });
         }
 
-        function quickPass(psw) {
-            return $http.post('/quickpass', psw);
+        function quickPass(authCode) {
+            return $http.post('/api/users/login', { authCodeOrEmail: authCode });
         }
 
         function linkEmailOrPhone(emailOrPhone, currentPsw) {

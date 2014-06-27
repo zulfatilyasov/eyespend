@@ -12,7 +12,7 @@ var httpProxy = require('http-proxy');
 function beforeRequest(req, res, next) {
     console.log('logging cookies');
     console.log(req.cookies);
-    if (req.path == '/quickpass' || req.path == '/api/users/login' || req.cookies && req.cookies.isAuthenticated === "true")
+    if (req.path == '/api/users/login' || req.cookies && req.cookies.isAuthenticated === "true")
         next();
     else {
         res.sendfile(__dirname + '/app/landing.html');
@@ -110,13 +110,12 @@ var ApiInjector = function apiInjector() {
         app.post('/api/users/login', function (req, res) {
             console.log('/api/users/login');
 
-            if (badCredentials(req.body.authCodeOrEmail, req.body.password)) {
+            if (validCredentials(req.body.authCodeOrEmail, req.body.password)) {
+                res.json({ token: createTokenWithProfile(req.body.authCodeOrEmail), userTags: db.getUserTags() });
+            } else {
                 console.log('Wrong user or password');
                 res.send(401, 'Wrong user or password');
-                return;
             }
-
-            res.json({ token: createTokenWithProfile(req.body.authCodeOrEmail), userTags: db.getUserTags() });
         });
 
         app.post('/api/secure/linkEmail', function (req, res) {
@@ -126,15 +125,6 @@ var ApiInjector = function apiInjector() {
                 res.send(400, 'wrong password');
             }
             res.send(200);
-        });
-
-        app.post('/quickpass', function (req, res) {
-            if (!(req.body.psw === '123' || req.body.psw === '321')) {
-                console.log('wrong disposable password');
-                res.send(401, 'Wrong password');
-                return;
-            }
-            res.json({ token: createTokenWithProfile(), userTags: db.getUserTags() });
         });
 
         app.post('/api/changePassword', function (req, res) {
@@ -162,8 +152,15 @@ var ApiInjector = function apiInjector() {
             return jwt.sign(profile, secret, { expiresInMinutes: 60 });
         }
 
-        function badCredentials(email, psw) {
-            return (email !== 'foo@gmail.com' && email !== 'qwe@gmail.com') || (psw !== 'bar');
+        function validCredentials(email, psw){
+            if (email === '123' || email === '321') {
+                return true;
+            }
+            if (email === 'foo@gmail.com' && psw === 'bar' ||
+                email === 'qwe@gmail.com' && psw === 'bar') {
+                return true;
+            }
+            return false;
         }
 
         function userHasLinkedEmail(user) {
