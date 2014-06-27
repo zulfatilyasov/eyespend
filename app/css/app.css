@@ -558,7 +558,7 @@ ul.rowActions li a {
 }
 
 ul.rowActions li a:hover {
-    color: #ccc;
+    color: #56BC76;
 }
 
 div.tags {
@@ -1694,9 +1694,9 @@ q:hover, a.nl-field-toggle:hover {
         height: 35px;
     }
 
-    .transactions-widget header {
-        text-align: center;
-    }
+    /*.transactions-widget header {*/
+        /*text-align: center;*/
+    /*}*/
 
     .logo h4 span {
         display: none;
