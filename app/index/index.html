@@ -65,7 +65,7 @@
                ng-model="placePicker.place"
                details="placePicker.details"
                type="text"
-               placeholder="Введите местоположение"><span class="input-group-btn">
+               placeholder="{{'ENTER_LOCATION'|translate}}"><span class="input-group-btn">
         </span>
     </div>
     <gm-map gm-map-id="'myMap'" ng-show="showMap" gm-center="mapCenter" gm-zoom="zoom" style="height:100%;">
@@ -80,13 +80,12 @@
 
 <div class="sideActions hidden-xs hidden-xs-portrait" ng-class="{shown:showSideActions,notshown:!showSideActions}">
     <div class="simptip-position-left simptip-movable simptip-smooth add-tooltip"
-         data-tooltip="Добавить">
+         data-tooltip="{{'ADD_NEW'| translate}}">
         <div class="action-add">
             <a href="javascript:void(0)"
                ng-click="toggleAdding()">
                 <i class="fa fa-plus fa-3x"></i>
             </a>
-            <!--<span translate>ADD_NEW</span>-->
         </div>
     </div>
     <div class="action-filter">
@@ -96,7 +95,6 @@
            ng-click="toggleFiltering()">
             <i class="fa fa-filter fa-3x"></i>
         </a>
-        <!--<span translate>FILTER</span>-->
     </div>
 </div>
 

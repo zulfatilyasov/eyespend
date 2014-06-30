@@ -48,7 +48,11 @@ var ApiInjector = function apiInjector() {
 
             var result = db.getTransactions(req.query.sorting, desc, offset, count, fromDate, toDate, tags, withPhoto);
 
-            res.json(result);
+            res.json({
+                    transactions: result,
+                    total: 15670
+                }
+            );
         });
 
         app.get('/api/secure/transactionsExtended', function (req, res) {
@@ -152,7 +156,7 @@ var ApiInjector = function apiInjector() {
             return jwt.sign(profile, secret, { expiresInMinutes: 60 });
         }
 
-        function validCredentials(email, psw){
+        function validCredentials(email, psw) {
             if (email === '123' || email === '321') {
                 return true;
             }

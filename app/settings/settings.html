@@ -52,20 +52,21 @@
                             </div>
                             <div class="col-md-12" ng-show="!vm.email.verified && vm.email.address">
                                 <p>
-                                    Необхоимо активировать e-mail. На адрес <strong>{{vm.email.address}}</strong> было
-                                    отправлено письмо с ссылкой для активации.
+                                    <span translate>
+                                         MUST_ACTIVATE_EMAIL
+                                    </span>
+                                    <strong>{{vm.email.address}}</strong>
                                 </p>
                             </div>
                             <div class="col-md-8" ng-hide="vm.email.address">
-                                <p>
-                                    Если Вы хотите входить на сайт использую привычный email, укажите его в поле ввода.
-                                    На этот e-mail мы вышлем Вам пароль для входа.
+                                <p translate>
+                                    ENTER_LOGIN_EMAIL
                                 </p>
                             </div>
                             <div class="col-md-8" ng-show="vm.email.address && vm.email.verified">
                                 <p>
-                                    Ваша учетная запись привязана к e-mail'у <strong>{{vm.email.address}}</strong>. Если
-                                    Вы хотите привязать другой e-mail, укажите его и Ваш текущий пароль.
+                                    <span translate>EMAIL_ACCOUNT_LINKED_TO_EMAIL</span> <strong>{{vm.email.address}}</strong>.
+                                    <span translate>PROVIDE_CURRENT_PASSWORD_TO_LINK_EMAIL</span>
                                 </p>
                             </div>
                         </form>

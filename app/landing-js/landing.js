@@ -1,11 +1,21 @@
 $(function () {
+    var translations = translationsRu;
+    $.ajax({
+        url: "http://ajaxhttpheaders.appspot.com",
+        dataType: 'jsonp',
+        success: function (headers) {
+            language = headers['Accept-Language'];
+            console.log(language);
+            translations = language.indexOf('ru-RU') >= 0 ? translationsRu : translationsEn;
+        }
+    });
     $(".back-to-top").on('click', function () {
         $("html, body").animate({ scrollTop: 0 }, "fast");
         return false;
     });
 
     function setMessage(message) {
-        $('#loginError').html(message);
+        $('#loginError').text(message);
     }
 
     function validEmail(email) {
@@ -42,20 +52,21 @@ $(function () {
         }
     });
 
+
     $('#loginButton').click(function () {
         var email = $('#email').val();
-        isEmail = !isNumeric(email) && validEmail(email);
+        isEmail = !isNumeric(email);
         if (!email) {
-            setMessage('ENTER_CODE_OR_EMAIL');
+            setMessage(translations['ENTER_CODE_OR_EMAIL']);
             return;
         }
         if (email && isEmail && !validEmail(email)) {
-            setMessage('INVALID_CODE_OR_EMAIL');
+            setMessage(translations['INVALID_CODE_OR_EMAIL']);
             return;
         }
         var password = $('#password').val();
         if (email && isEmail && !password) {
-            setMessage('PASSORD_REQUIRED');
+            setMessage(translations['PASSORD_REQUIRED']);
             return;
         }
         var url = '/api/users/login';

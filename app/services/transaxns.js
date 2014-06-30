@@ -43,13 +43,14 @@
             offset = 0;
             var tagsArray = _convertTagsToArray(tags);
             datacontext.getTransaxns(sortOptions.column, sortOptions.descending, offset, count, fromDate || '', toDate || '', tagsArray, onlyWithPhoto)
-                .success(function (sortedTransactions) {
+                .success(function (data) {
+                    var sortedTransactions = data.transactions;
                     angular.forEach(sortedTransactions, function (t) {
                         _colorAndSaveTags(t.tags);
                     });
                     offset = sortedTransactions.length;
                     transactions = sortedTransactions;
-                    def.resolve(transactions.slice(0));
+                    def.resolve({transactions: transactions.slice(0), total: data.total});
                 });
 
             return def.promise;
@@ -189,7 +190,8 @@
             var tagsArray = _convertTagsToArray(tags);
             datacontext.getTransaxns(sortOptions.column, sortOptions.descending, offset, count, fromDate || '', toDate || '', tagsArray, withPhoto)
                 .then(function (resp) {
-                    var trs = resp.data;
+                    var trs = resp.data.transactions;
+                    var total = resp.data.total;
                     $rootScope.hideContent = false;
                     if (trs && trs instanceof Array) {
                         if (offset > 0) {
@@ -203,7 +205,7 @@
                         transactions.forEach(function (t) {
                             _colorAndSaveTags(t.tags);
                         });
-                        def.resolve({data: transactions.slice(0)});
+                        def.resolve({data: {transactions: transactions.slice(0), total: total}});
                     }
                     else {
                         def.reject();
@@ -309,7 +311,6 @@
             updateSorting: updateSorting,
             getSortingForColumn: getSortingForColumn,
             getFirstPageWithFilters: getFirstPageWithFilters,
-            getTotalAmout: getTotalAmout,
             create: create,
             getUserTags: getUserTags,
             sortOptions: sortOptions,

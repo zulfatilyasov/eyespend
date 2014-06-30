@@ -49,9 +49,10 @@
                 return;
             $rootScope.showSpinner = true;
             transaxns.getFirstPageWithFilters(fromUnixDate, toUnixDate, vm.tags, newVal)
-                .success(function (trs) {
+                .success(function (data) {
                     $rootScope.showSpinner = false;
-                    vm.trs = trs;
+                    vm.trs = data.transactions;
+                    vm.total = data.total;
                 });
         });
 
@@ -134,8 +135,8 @@
 
         vm.addMobile = function () {
             vm.isAdding = !vm.isAdding;
-            if(vm.isAdding)
-              vm.curDateTime = date.format(date.now());
+            if (vm.isAdding)
+                vm.curDateTime = date.format(date.now());
         };
 
         vm.closeMobileInfo = function () {
@@ -149,8 +150,9 @@
             vm.sort = transaxns.updateSorting(column);
             $rootScope.showSpinner = true;
             transaxns.sort(fromUnixDate, toUnixDate, vm.tags, vm.onlyWithPhoto)
-                .success(function (transactions) {
-                    vm.trs = transactions;
+                .success(function (data) {
+                    vm.trs = data.transactions;
+                    vm.total = data.total;
                     vm.richedTheEnd = false;
                     $rootScope.showSpinner = false;
                 });
@@ -174,9 +176,9 @@
 
         vm.getSortingForColumn = transaxns.getSortingForColumn;
 
-        vm.total = function () {
-            return transaxns.getTotalAmout(vm.trs);
-        };
+//        vm.total = function () {
+//            return transaxns.getTotalAmout(vm.trs);
+//        };
 
         vm.tagFilterChange = debounce(applyfilters, 2000, false);
 
@@ -192,9 +194,10 @@
         function applyfilters() {
             $rootScope.showSpinner = true;
             transaxns.getFirstPageWithFilters(fromUnixDate, toUnixDate, vm.tags, vm.onlyWithPhoto)
-                .success(function (trs) {
+                .success(function (data) {
                     $rootScope.showSpinner = false;
-                    vm.trs = trs;
+                    vm.trs = data.transactions;
+                    vm.total = data.total;
                 })
                 .error(function (msg) {
                     $rootScope.showSpinner = false;
@@ -260,8 +263,10 @@
             vm.isLoading = true;
             transaxns.getTransaxns(fromUnixDate, toUnixDate, vm.tags, vm.onlyWithPhoto)
                 .success(function (result) {
-                    if (result && result.length && result.length > vm.trs.length) {
-                        vm.trs = result;
+                    var loadedTransactions = result.transactions;
+                    vm.total = result.total;
+                    if (loadedTransactions && loadedTransactions.length && loadedTransactions.length > vm.trs.length) {
+                        vm.trs = loadedTransactions;
                     }
                     else {
                         vm.richedTheEnd = true;
@@ -412,12 +417,11 @@
             $rootScope.hideContent = true;
 
             vm.isLoading = true;
-            return transaxns.getTransactionsAndTotals()
+            return transaxns.getTransaxns()
                 .success(function (data) {
                     vm.trs = data.transactions;
-                    vm.totals = data.totals;
-                    vm.selectedInterval = {text: 'всего', sum: vm.totals.all};
-                    if (data.transactions.length) {
+                    vm.total = data.total;
+                    if (vm.trs.length) {
                         $rootScope.showSpinner = false;
                         $rootScope.hideContent = false;
                         vm.isLoading = false;
