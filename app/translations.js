@@ -43,6 +43,7 @@ var translationsRu = {
     INVALID_CODE_OR_EMAIL: "Некорректный email или код активации",
     PASSORD_REQUIRED: "Введите пароль.",
     INVALID_EMAIL_OR_PASSWORD: "Неверный email или пароль",
+    INVALID_PASSWORD: "Неверный пароль",
     INVALID_ACTIVATION_CODE: "Неверный код активации",
     FOTO: "Фото",
     TYPE_EMAIL_OR_PHONE: "Введите email или телефон",
@@ -57,6 +58,7 @@ var translationsRu = {
     SEARCH: "Поиск",
     EMAIL_OR_PHONE: "Email или телефон",
     FILTER: "Фильтровать",
+    FILTER: "Фильтровать",
     DOWNLOAD: "Скачать",
     MEET_EYESPEND: "Познакомьтесь с EyeSpend",
     TOTAL_SUM: "Общая сумма",
@@ -70,10 +72,12 @@ var translationsRu = {
     WITH_PHOTOS: "C фотографиями",
     CLEAR: "Сбросить",
     ENTER_LOCATION: "Введите местоположение",
-    MUST_ACTIVATE_EMAIL: "Необхоимо активировать e-mail. Ссылка для активации была отправлена на адрес",
-    ENTER_LOGIN_EMAIL: "Если Вы хотите входить на сайт использую привычный email, укажите его в поле ввода. На этот e-mail мы вышлем Вам пароль для входа.",
-    EMAIL_ACCOUNT_LINKED_TO_EMAIL: "Ваша учетная запись привязана к e-mail'у ",
-    PROVIDE_CURRENT_PASSWORD_TO_LINK_EMAIL: "Если Вы хотите привязать другой e-mail, укажите его и Ваш текущий пароль."
+    MUST_ACTIVATE_EMAIL: "Необхоимо активировать email. Ссылка для активации была отправлена на адрес",
+    ENTER_LOGIN_EMAIL: "Если Вы хотите входить на сайт использую привычный email, укажите его в поле ввода. На этот email мы вышлем Вам пароль для входа.",
+    EMAIL_ACCOUNT_LINKED_TO_EMAIL: "Ваша учетная запись привязана к email'у ",
+    PROVIDE_CURRENT_PASSWORD_TO_LINK_EMAIL: "Если Вы хотите привязать другой email, укажите его и Ваш текущий пароль.",
+    CODE_FOR_APP: "Для привязки других устройств к своему аккаунту, введите этот номер в мобильном приложении <b>eyeSpend</b>",
+    CURRENCY:"р."
 };
 
 var translationsEn = {
@@ -96,10 +100,11 @@ var translationsEn = {
     DATE_AND_TIME: "Date and time",
     PLACE: "Place",
     ADD_NEW: "Add",
+    DELETE:"Delete",
     ADD_TAG: "Add tag",
     PASSWORD: "Password",
     NEW_PASSWORD: "New password",
-    NEW_PASSWORD_CONFIRMATION:"New password confirmation",
+    NEW_PASSWORD_CONFIRMATION: "New password confirmation",
     CONFIRMATION: "Confirmation",
     TYPE_NEW_PASSWORD: "Type new password",
     TYPE_PASSWORD_CONFIRMATION: "Type password confirmation",
@@ -122,6 +127,7 @@ var translationsEn = {
     INVALID_CODE_OR_EMAIL: "Invalid activation code or email",
     PASSORD_REQUIRED: "Password required.",
     INVALID_EMAIL_OR_PASSWORD: "Invalid email or password",
+    INVALID_PASSWORD: "Invalid email or password",
     INVALID_ACTIVATION_CODE: "Invalid activation code",
     FOTO: "Foto",
     TYPE_EMAIL_OR_PHONE: "Type email or phone",
@@ -148,7 +154,9 @@ var translationsEn = {
     MUST_ACTIVATE_EMAIL: "E-mail must be activated. Activation link was sent to",
     ENTER_LOGIN_EMAIL: "If you want to login with e-mail and password, type it to the input field. Password will be sent to that email.",
     EMAIL_ACCOUNT_LINKED_TO_EMAIL: "Your account is linked to e-mail",
-    PROVIDE_CURRENT_PASSWORD_TO_LINK_EMAIL: "Type your current password, if you want to link another email"
+    PROVIDE_CURRENT_PASSWORD_TO_LINK_EMAIL: "Type your current password, if you want to link another email",
+    CODE_FOR_APP: "In order to link this account to mobile device enter this code after installing <b>eyeSpend</b> app",
+    CURRENCY:"&#36;"
 };
 try {
     exports.ru = translationsRu;

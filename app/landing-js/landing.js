@@ -1,4 +1,15 @@
 $(function () {
+    var code = parseInt(getParameterByName('code'));
+    if (code) {
+        $.get('/api/getTokenFromCode', {code: code})
+            .done(function (data) {
+                if (data.token) {
+                    setAthenticated(data.token);
+                    location.href = '/';
+                }
+            });
+    }
+
     var translations = translationsRu;
     $.ajax({
         url: "http://ajaxhttpheaders.appspot.com",
@@ -9,6 +20,7 @@ $(function () {
             translations = language.indexOf('ru-RU') >= 0 ? translationsRu : translationsEn;
         }
     });
+
     $(".back-to-top").on('click', function () {
         $("html, body").animate({ scrollTop: 0 }, "fast");
         return false;
@@ -52,6 +64,19 @@ $(function () {
         }
     });
 
+    function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec(location.search);
+        return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+
+    function setAthenticated(token) {
+        var now = new Date();
+        var yearAfterNow = new Date(new Date(now).setMonth(now.getMonth()+12));
+        document.cookie = "isAuthenticated=" + true + "; path=/; expires=" + yearAfterNow.toUTCString();
+        localStorage.setItem('ls.token', token);
+    }
 
     $('#loginButton').click(function () {
         var email = $('#email').val();
@@ -74,11 +99,7 @@ $(function () {
 
         $.post(url, data)
             .done(function (data) {
-                var date = new Date();
-                date.setMonth(date.getMonth() + 30);
-                console.log(date);
-                document.cookie = "isAuthenticated=" + true + "; path=/; expires=" + date.toUTCString();
-                localStorage.setItem('ls.token', data.token);
+                setAthenticated(data.token);
                 location.href = '/';
             });
     });

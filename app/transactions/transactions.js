@@ -153,7 +153,7 @@
                 .success(function (data) {
                     vm.trs = data.transactions;
                     vm.total = data.total;
-                    vm.richedTheEnd = false;
+                    vm.richedTheEnd = vm.trs.length < 30;
                     $rootScope.showSpinner = false;
                 });
         };
@@ -426,6 +426,9 @@
                         $rootScope.hideContent = false;
                         vm.isLoading = false;
                         vm.sort = transaxns.sortOptions;
+                    }
+                    if (vm.trs.length < 30) {
+                        vm.richedTheEnd = true;
                     }
                 });
         }

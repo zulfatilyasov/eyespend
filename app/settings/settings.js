@@ -88,14 +88,17 @@
                 return;
             datacontext.linkEmailOrPhone(vm.link.emailOrPhone, vm.link.currentPsw)
                 .success(function (data, status) {
-                    if (status === 200) {
+                    if (status === 400) {
+                        $translate('INVALID_PASSWORD')
+                            .then(function (msg) {
+                                vm.link.invalidPassword = true;
+                                logError(msg);
+                            });
+                    }
+                    else {
                         logSuccess('Отправлено письмо.<br/>Активируйте e-mail');
                         vm.email.address = vm.link.emailOrPhone;
                         vm.email.verified = false;
-                    }
-                    else {
-                        vm.link.invalidPassword = true;
-                        logError(data);
                     }
                 })
                 .error(function (data, status) {

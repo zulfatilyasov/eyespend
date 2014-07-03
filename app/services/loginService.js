@@ -5,6 +5,18 @@
     angular.module('app').factory(serviceId, ['common', '$rootScope', '$location', 'datacontext', 'localStorageService', login]);
 
     function login(common, $rootScope, $location, datacontext, localStorageService) {
+        function setAuthenticated(token) {
+            localStorageService.set('token', token);
+            var now = new Date();
+            var yearAfterNow = new Date(new Date(now).setMonth(now.getMonth() + 12));
+            document.cookie = "isAuthenticated=" + true + "; path=/; expires=" + yearAfterNow.toUTCString();
+        }
+
+        function removeAuthenticated() {
+            document.cookie = 'isAuthenticated' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+            localStorageService.remove('token');
+        }
+
         var userTags = null;
         var totals = null;
         var success = function (def) {
@@ -13,11 +25,7 @@
                     error(def)();
                 }
                 else {
-                    localStorageService.set('token', data.token);
-                    var date = new Date();
-                    date.setMonth(date.getMonth() + 30);
-                    console.log(date);
-                    document.cookie = "isAuthenticated=" + true + "; path=/; expires=" + date.toUTCString();
+                    setAuthenticated(data.token);
                     userTags = data.userTags;
                     totals = data.totals
                     $rootScope.hideHeader = false;
@@ -28,8 +36,7 @@
 
         var error = function (def) {
             return function (data, status, headers, config) {
-                document.cookie = 'isAuthenticated' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-                localStorageService.remove('token');
+                removeAuthenticated();
                 def.reject();
             };
         };
@@ -41,6 +48,7 @@
                 .error(error(def));
             return def.promise;
         };
+
         var quickPass = function (psw) {
             var def = common.$q.defer();
             datacontext.quickPass(psw)
@@ -48,9 +56,9 @@
                 .error(error(def));
             return def.promise;
         };
+
         var logout = function () {
-            document.cookie = 'isAuthenticated=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-            localStorageService.remove('token');
+            removeAuthenticated();
             $location.path("/login");
         };
 

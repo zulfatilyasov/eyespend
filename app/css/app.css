@@ -33,6 +33,7 @@ body.background-ocean {
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    /*-webkit-transform: translateZ(0);*/
 }
 
 .widget > header {
@@ -49,7 +50,6 @@ body.background-ocean {
 .sideActions {
     position: fixed;
     top: 50%;
-    /*display: none;*/
     margin-top: -60px;
     right: 0px;
     padding-right: 10px;
@@ -295,7 +295,7 @@ input.ng-invalid-required, input.ng-invalid-number, input.invalid {
 }
 
 #linkcode {
-    padding: 20px 10%;
+    padding:5px 5%;
     text-align: center;
     font-size: 16px;
 }
@@ -1679,7 +1679,7 @@ q:hover, a.nl-field-toggle:hover {
     }
 
     #linkcode {
-        font-size: 14px;
+        padding: 5px 5%;
     }
 
     /*header.tableLabel h4, table.dataTable thead th {*/

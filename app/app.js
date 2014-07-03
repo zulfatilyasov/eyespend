@@ -26,7 +26,6 @@
                 $rootScope.hideHeader = true;
                 if (currRoute.indexOf('quickpass') < 0 && currRoute.indexOf('login') < 0) {
                     $location.path("/login");
-                    console.log('user is not logged redirecting');
                 }
             }
         });

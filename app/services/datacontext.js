@@ -61,7 +61,7 @@
         }
 
         function linkEmailOrPhone(emailOrPhone, currentPsw) {
-            return $http.post('/api/secure/linkEmail', {emailOrPhone: emailOrPhone, currentPsw: currentPsw});
+            return $http.post('/api/secure/change_email', {email: emailOrPhone, password: currentPsw});
         }
 
         function changePsw(psw) {
@@ -73,7 +73,7 @@
         }
 
         function getSettings() {
-            return $http.get('/api/secure/getSettings');
+            return $http.get('/api/secure/settings');
         }
 
         return {

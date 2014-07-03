@@ -10,8 +10,6 @@ var request = require('request');
 var httpProxy = require('http-proxy');
 
 function beforeRequest(req, res, next) {
-    console.log('logging cookies');
-    console.log(req.cookies);
     if (req.path == '/api/users/login' || req.cookies && req.cookies.isAuthenticated === "true")
         next();
     else {
@@ -28,14 +26,14 @@ var ApiInjector = function apiInjector() {
     var injectStubApi = function injectStubApi(app) {
         app.use('/api/secure', expressJwt({secret: secret}));
         app.get('/api/secure/transactions', function (req, res) {
-            console.log('user ' + req.user.email + ' is calling /api/transactions');
+            console.log('calling /api/transactions');
             var offset = parseInt(req.query.offset);
             var count = parseInt(req.query.count);
             var desc = req.query.desc === "true";
             var withPhoto = req.query.withPhotoOnly === "true";
             var fromDate = parseInt(req.query.fromDate);
             var toDate = parseInt(req.query.toDate);
-            var tags = [ ];
+            var tags = [];
 
             if (req.query.tags) {
                 tags = req.query.tags;
@@ -55,12 +53,12 @@ var ApiInjector = function apiInjector() {
             );
         });
 
-        app.get('/api/secure/transactionsExtended', function (req, res) {
-            console.log('calling /api/secure/transactionsExtended');
-            var count = parseInt(req.query.count);
-            var result = db.getTransactions(null, null, null, count);
-            res.json({transactions: result, totals: db.getTotals()});
-        });
+//        app.get('/api/secure/transactionsExtended', function (req, res) {
+//            console.log('calling /api/secure/transactionsExtended');
+//            var count = parseInt(req.query.count);
+//            var result = db.getTransactions(null, null, null, count);
+//            res.json({transactions: result, totals: db.getTotals()});
+//        });
 
         app.get('/api/secure/getUserTags', function (req, res) {
             res.json(db.getUserTags());
@@ -122,6 +120,21 @@ var ApiInjector = function apiInjector() {
             }
         });
 
+        app.get('/api/getTokenFromCode', function (req, res) {
+            console.log('called /api/getTokenFromCode');
+            console.log('code ' + req.query.code);
+            var code = parseInt(req.query.code);
+            if (code == 123456) {
+                var token = createTokenWithProfile(req.query.code);
+                res.json({token: token});
+            }
+            else{
+                res.json({token: null});
+            }
+
+        });
+
+
         app.post('/api/secure/linkEmail', function (req, res) {
             console.log('called /api/secure/linkEmail');
             console.log('email or phone: ' + req.body.emailOrPhone + ' psw: ' + req.body.currentPsw);
@@ -145,7 +158,7 @@ var ApiInjector = function apiInjector() {
             var profile = {
                 first_name: 'Foo',
                 last_name: 'Bar',
-                email: 'foobar@gmail.com',
+                email: codeOrEmail,
                 id: 123
             };
 

@@ -16,8 +16,8 @@ module.exports = function (grunt) {
             'app/lib/bootstrap/tooltip.js',
             'app/lib/bootstrap/popover.js',
             'app/lib/bootstrap-slider-3.0.1/bootstrap-slider.js',
+            'app/lib/ng-tags-input/ng-tags-input.js',
             'bower_components/datetimepicker/jquery.datetimepicker.js',
-            'bower_components/ng-tags-input/ng-tags-input.js',
             'bower_components/switchery/dist/switchery.js',
             'bower_components/ng-switchery/src/ng-switchery.js',
             'bower_components/ngAutocomplete/src/ngAutocomplete.js',
@@ -59,7 +59,7 @@ module.exports = function (grunt) {
             'bower_components/animate.css/animate.css',
             'bower_components/toastr/toastr.css',
 
-            'bower_components/ng-tags-input/ng-tags-input.css',
+            'app/lib/ng-tags-input/ng-tags-input.css',
             'bower_components/switchery/dist/switchery.css',
             'bower_components/datetimepicker/jquery.datetimepicker.css',
             'bower_components/bootstrap-daterangepicker/daterangepicker-bs3.css',

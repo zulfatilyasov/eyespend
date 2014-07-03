@@ -13,7 +13,7 @@
         var setMessage = function (messageCode) {
             $translate(messageCode).then(function(msg){
                 vm.message = msg;
-            })
+            });
         };
         vm.submit = function () {
             if (!vm.user.codeOrEmail) {
