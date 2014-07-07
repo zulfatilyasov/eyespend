@@ -31,7 +31,7 @@
                             <span> {{vm.total}} </span>
                             <span translate>CURRENCY</span>
                         </div>
-                        <div style="float: right" class="col-md-1 download-excel">
+                        <div style="float: right" class="col-md-3 download-excel">
                               <span class="tableAction hidden-phone-landscape">
                                   <a href="javascript:void(0)"
                                      class="simptip-position-top simptip-movable simptip-smooth"
@@ -41,6 +41,11 @@
                                       <img src="../img/excel-3-32.png" alt=""/>
                                   </a>
                                </span>
+                            <span class="tableActions">
+                                <a href="javascript:void(0)" ng-click="vm.addNewTxn = true">
+                                    <i class="fa fa-plus fa-2x"></i>
+                                </a>
+                            </span>
                         </div>
                     </div>
                 </header>
@@ -77,6 +82,20 @@
                                     </tr>
                                     </thead>
                                     <tbody ng-click="vm.tableClicked($event)">
+                                    <tr ng-show="vm.addNewTxn" class="newTransactionRow">
+                                        <td>
+                                            <span ng-click="vm.editNewTxnDate=true" ng-hide="vm.editNewTxnDate">{{vm.curDate}}</span>
+                                            <input type="text" us-date-time-picker focus-me="vm.editNewTxnDate" ng-show="vm.editNewTxnDate" class="inlineInput" ng-model="vm.curDate"/>
+                                        </td>
+                                        <td>
+                                            <span ng-click="vm.editNewTxnTime=true" ng-hide="vm.editNewTxnTime">{{vm.curTime}}</span>
+                                            <input style="width:40px" type="text" ng-show="vm.editNewTxnTime" ng-model="vm.curTime" focus-me="vm.editNewTxnTime"  ui-mask="99:99" class="inlineInput"/>
+                                        </td>
+                                        <td>
+                                            <input type="text" focus-me="vm.addNewTxn" style="width: 50px" class="styledInput transparentInput"/>
+                                            <span translate>{{'CURRENCY'}}</span>
+                                        </td>
+                                    </tr>
                                     <tr ng-repeat="transaction in vm.trs"
                                         ng-class="{selected:vm.selectedTnx.id === transaction.id, striped:$index%2==0}"
                                         data-index="{{$index}}">

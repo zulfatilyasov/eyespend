@@ -4,7 +4,7 @@ html {
 
 body {
     font-family: "Roboto", sans-serif;
-    font-size: 14px;
+    font-size: 15px;
     font-style: normal;
     font-weight: normal;
     padding-bottom: 0;
@@ -33,6 +33,10 @@ body.background-ocean {
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+
+   /* background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAQACAIAAAAP+8yGAAACoklEQVR4Xu3dwQ0CMQxEUTtKvbRCC3RqjtwR3g3WSwP/MDOObaIlH89XdJ4VzQcAACBiZzcgMvs1AAAAAFCu3WiR3YCYcKMBACh2AKopgFJBA7Xoo4Fip1TQAEAtkmQASXZlalsAJLk/aC59AICdSQNJ7ge4DwRN0ORAbypociAHgsamliHWmlwkB7oKnZ0caH7lQA40v3LApmqRHPiBAsBCSvsOYCHFpuZkfZEcsCmbsqn2/XSbchGAHLApm3q9D6Cz07YAaB19oZWLaCAHbHoiwBf52BRADtiUTb1KAJAD384B8Gkbzx4APOyWAwAjlKCx6eQky4GgyYGgCZocAAiapSCAoLkPJBnA03QASZZkGgAoFVpHczKAWmQIVIsAAOxNARQ7AAB9kUEcQLn+/gCopgAAbjQ3Gg1cOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANV8aAAAAADwi7Pr/5+DVt2tAQAAgGK3I6oZUANEBgDQtigVACFoYQBhUwBBEzQAORA0NmVTOWBTADYlMptyEQCbEhnAOzsALjpPA88e6rJ3FUTmIi7Sm3IRF3ERkS1miaxUEFmpILJSURN6UyIT2QhlALHxIjKRiUxk+yKTPpGJbNInMpEN4sMARAawDBG06SIL2goi21UIGpFpcJlNjbFENuEQmQY0MGUaQEyZRBY0QRM0U6YpkwZEFjTrHFMmDTS/RCayKdOUacoUNH+4I2hENmX2AIhMZGMskWlgjCUyke2LNF5EJjINiExkGy8bL8uQCSIbxIlspcZFJn0iE1mpsEogsjGWi7iIi4jMRVzERfamAJaC52sAwEUANl5sCsCmXGRG89e6bEoDOWBTADmQAwBBk4MRAABJFjQAAIBqPvdrAPAGv7GBbaSCtb0AAAAASUVORK5CYII=");
+    background-attachment: fixed;
+    background-size: contain;*/
     /*-webkit-transform: translateZ(0);*/
 }
 
@@ -375,9 +379,26 @@ input.styledInput {
     background: #e0e0e0;
     font-weight: normal;
 }
-
 input.styledInput:focus {
     color: #333;
+}
+input.inlineInput{
+    color: #fff;
+    background: transparent;
+    border: 0px;
+    width:130px;
+    padding: 0;
+    font-weight: normal;
+    box-shadow: none;
+    min-height: 0;
+}
+input.transparentInput{
+    background: transparent;
+    color:#fff
+}
+
+input.transparentInput:focus{
+    color:#fff
 }
 
 .settings-section .styledInput, .settings-section .styledInput:focus {
@@ -769,11 +790,14 @@ datepicker {
     transition: background-color 0.2s;
 }
 
+
 #transactions-table tr:hover td {
     background-color: rgba(231, 124, 124, 0.4) !important;
     cursor: pointer;
 }
-
+#transactions-table tr.newTransactionRow:hover  td{
+    background-color: inherit !important;
+}
 #transactions-table .editorRow:hover td {
     background-color: inherit !important;
 }

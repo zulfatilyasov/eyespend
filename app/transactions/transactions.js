@@ -11,6 +11,8 @@
         var logError = common.logger.getLogFn(controllerId, 'logError');
         var fromUnixDate = null;
         var toUnixDate = null;
+        vm.editNewTxnDate = false;
+        vm.editNewTxnTime = false
         vm.showSideActions = false;
         vm.tags = [];
         vm.trs = [];
@@ -25,7 +27,9 @@
         vm.sort = null;
         vm.showTransactionForm = false;
         vm.showFilterForm = false;
-        vm.curDateTime = date.format(date.now());
+        vm.curDateTime = date.withoutTime(date.now());
+        vm.curDate = date.withoutTime(date.now());
+        vm.curTime = date.onlyTime(date.now());
         vm.isLoading = false;
         vm.maxAmountToShow = 3000;
         vm.minAmountToShow = 0;
@@ -288,7 +292,7 @@
                 }, 300);
             }
             else {
-                vm.curDateTime = date.format(date.now());
+                vm.curDateTime = date.withoutTime(date.now());
                 $rootScope.showSideActions = false;
                 vm.isAdding = true;
                 common.$timeout(function () {
