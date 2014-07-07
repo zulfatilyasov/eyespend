@@ -38,7 +38,8 @@
                     mask: true,
                     lang: 'ru',
                     closeOnDateSelect: true,
-                    format: 'd.m.Y H:i',
+//                    format: 'd.m.Y H:i',
+                    format: 'd.m.Y',
                     onChangeDateTime: function (date, input) {
                         if (attrs.editor) {
                             scope.vm.editedTnx.timestamp = (new Date(date)).getTime();

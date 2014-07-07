@@ -34,9 +34,9 @@ body.background-ocean {
     background-repeat: no-repeat;
     background-attachment: fixed;
 
-   /* background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAQACAIAAAAP+8yGAAACoklEQVR4Xu3dwQ0CMQxEUTtKvbRCC3RqjtwR3g3WSwP/MDOObaIlH89XdJ4VzQcAACBiZzcgMvs1AAAAAFCu3WiR3YCYcKMBACh2AKopgFJBA7Xoo4Fip1TQAEAtkmQASXZlalsAJLk/aC59AICdSQNJ7ge4DwRN0ORAbypociAHgsamliHWmlwkB7oKnZ0caH7lQA40v3LApmqRHPiBAsBCSvsOYCHFpuZkfZEcsCmbsqn2/XSbchGAHLApm3q9D6Cz07YAaB19oZWLaCAHbHoiwBf52BRADtiUTb1KAJAD384B8Gkbzx4APOyWAwAjlKCx6eQky4GgyYGgCZocAAiapSCAoLkPJBnA03QASZZkGgAoFVpHczKAWmQIVIsAAOxNARQ7AAB9kUEcQLn+/gCopgAAbjQ3Gg1cOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANV8aAAAAADwi7Pr/5+DVt2tAQAAgGK3I6oZUANEBgDQtigVACFoYQBhUwBBEzQAORA0NmVTOWBTADYlMptyEQCbEhnAOzsALjpPA88e6rJ3FUTmIi7Sm3IRF3ERkS1miaxUEFmpILJSURN6UyIT2QhlALHxIjKRiUxk+yKTPpGJbNInMpEN4sMARAawDBG06SIL2goi21UIGpFpcJlNjbFENuEQmQY0MGUaQEyZRBY0QRM0U6YpkwZEFjTrHFMmDTS/RCayKdOUacoUNH+4I2hENmX2AIhMZGMskWlgjCUyke2LNF5EJjINiExkGy8bL8uQCSIbxIlspcZFJn0iE1mpsEogsjGWi7iIi4jMRVzERfamAJaC52sAwEUANl5sCsCmXGRG89e6bEoDOWBTADmQAwBBk4MRAABJFjQAAIBqPvdrAPAGv7GBbaSCtb0AAAAASUVORK5CYII=");
-    background-attachment: fixed;
-    background-size: contain;*/
+    /* background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAQACAIAAAAP+8yGAAACoklEQVR4Xu3dwQ0CMQxEUTtKvbRCC3RqjtwR3g3WSwP/MDOObaIlH89XdJ4VzQcAACBiZzcgMvs1AAAAAFCu3WiR3YCYcKMBACh2AKopgFJBA7Xoo4Fip1TQAEAtkmQASXZlalsAJLk/aC59AICdSQNJ7ge4DwRN0ORAbypociAHgsamliHWmlwkB7oKnZ0caH7lQA40v3LApmqRHPiBAsBCSvsOYCHFpuZkfZEcsCmbsqn2/XSbchGAHLApm3q9D6Cz07YAaB19oZWLaCAHbHoiwBf52BRADtiUTb1KAJAD384B8Gkbzx4APOyWAwAjlKCx6eQky4GgyYGgCZocAAiapSCAoLkPJBnA03QASZZkGgAoFVpHczKAWmQIVIsAAOxNARQ7AAB9kUEcQLn+/gCopgAAbjQ3Gg1cOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANV8aAAAAADwi7Pr/5+DVt2tAQAAgGK3I6oZUANEBgDQtigVACFoYQBhUwBBEzQAORA0NmVTOWBTADYlMptyEQCbEhnAOzsALjpPA88e6rJ3FUTmIi7Sm3IRF3ERkS1miaxUEFmpILJSURN6UyIT2QhlALHxIjKRiUxk+yKTPpGJbNInMpEN4sMARAawDBG06SIL2goi21UIGpFpcJlNjbFENuEQmQY0MGUaQEyZRBY0QRM0U6YpkwZEFjTrHFMmDTS/RCayKdOUacoUNH+4I2hENmX2AIhMZGMskWlgjCUyke2LNF5EJjINiExkGy8bL8uQCSIbxIlspcZFJn0iE1mpsEogsjGWi7iIi4jMRVzERfamAJaC52sAwEUANl5sCsCmXGRG89e6bEoDOWBTADmQAwBBk4MRAABJFjQAAIBqPvdrAPAGv7GBbaSCtb0AAAAASUVORK5CYII=");
+     background-attachment: fixed;
+     background-size: contain;*/
     /*-webkit-transform: translateZ(0);*/
 }
 
@@ -299,7 +299,7 @@ input.ng-invalid-required, input.ng-invalid-number, input.invalid {
 }
 
 #linkcode {
-    padding:5px 5%;
+    padding: 5px 5%;
     text-align: center;
     font-size: 16px;
 }
@@ -345,8 +345,9 @@ header a:hover {
     text-align: center;
     margin-bottom: 10px;
 }
-.landing .authError{
-    color:red;
+
+.landing .authError {
+    color: red;
 }
 
 .menu {
@@ -354,6 +355,10 @@ header a:hover {
     border-bottom: 0.1em solid;
     margin-bottom: 2em;
     padding: 0 0 0.5em;
+}
+
+.dashed-bottom {
+    border-bottom: 1px dashed white
 }
 
 .actionButton {
@@ -379,26 +384,35 @@ input.styledInput {
     background: #e0e0e0;
     font-weight: normal;
 }
+
 input.styledInput:focus {
     color: #333;
 }
-input.inlineInput{
+
+input.inlineInput {
     color: #fff;
     background: transparent;
     border: 0px;
-    width:130px;
+    width: 130px;
     padding: 0;
     font-weight: normal;
     box-shadow: none;
-    min-height: 0;
-}
-input.transparentInput{
-    background: transparent;
-    color:#fff
+    min-height: 38px;
 }
 
-input.transparentInput:focus{
-    color:#fff
+input.transparentInput {
+    background: transparent;
+    color: #fff;
+    border: 0;
+    border-bottom: 1px solid #fff;
+    box-shadow: none;
+}
+
+input.transparentInput:focus {
+    color: #fff;
+    border: 0;
+    box-shadow: none;
+    border-bottom: 1px solid #fff;
 }
 
 .settings-section .styledInput, .settings-section .styledInput:focus {
@@ -494,6 +508,21 @@ table.dataTable th.sorting:hover, table.table thead .sorting_asc:hover, table.ta
     background: rgb(224, 224, 224) !important;
 }
 
+.inline-tags-input .tags {
+    background: transparent !important;
+    border: 0;
+    border-bottom: 1px solid #ffffff;
+}
+
+tags-input.inline-tags-input .tags .input, tags-input.inline-tags-input .tags .input:focus {
+    height: 30px;
+    color: #fff
+}
+
+tags-input .host {
+    margin: 0;
+}
+
 tags-input .bootstrap .tags .tag-item, .bootstrap .tags .tag-item {
     display: inline-block;
     margin: 3px;
@@ -569,6 +598,10 @@ ul.rowActions {
     /*transition: opacity 0.2s;*/
 }
 
+.newTransactionRow ul.rowActions {
+    opacity: 1;
+}
+
 ul.rowActions li {
     display: inline-block;
     padding: 4px;
@@ -576,6 +609,12 @@ ul.rowActions li {
 
 ul.rowActions i {
     font-size: 1.3em;
+}
+
+.newTransactionRow ul.rowActions i {
+    font-size: 1.5em;
+    height: 38px;
+    line-height: 38px;
 }
 
 ul.rowActions li a {
@@ -759,6 +798,10 @@ tags-input .tags .input {
     background: rgba(51, 51, 51, 0.25);
 }
 
+td.transactionAmount {
+    min-width: 85px;
+}
+
 .daterangepicker,
 .daterangepicker .ranges li,
 .daterangepicker td,
@@ -790,14 +833,20 @@ datepicker {
     transition: background-color 0.2s;
 }
 
-
 #transactions-table tr:hover td {
     background-color: rgba(231, 124, 124, 0.4) !important;
     cursor: pointer;
 }
-#transactions-table tr.newTransactionRow:hover  td{
+
+#transactions-table tr.newTransactionRow:hover td, tr.selected.edited td, tr.edited:hover td {
     background-color: inherit !important;
 }
+
+.newTransactionRow span.dashed-bottom, .edited span.dashed-bottom {
+    height: 38px;
+    line-height: 38px;
+}
+
 #transactions-table .editorRow:hover td {
     background-color: inherit !important;
 }
@@ -810,12 +859,11 @@ datepicker {
     padding: 20px 30px;
 }
 
-tr.selected {
-    background-color: #9C6565 !important
-}
-
 tr.selected td {
     background-color: #9C6565 !important
+}
+tr.selected.edited td{
+    background-color: inherit !important;
 }
 
 input.code-or-email {
@@ -1666,7 +1714,7 @@ q:hover, a.nl-field-toggle:hover {
         font-size: 14px;
     }
 
-    .transaction-menu.editing ,.transaction-menu.adding{
+    .transaction-menu.editing, .transaction-menu.adding {
         height: 100%;
     }
 
@@ -1723,9 +1771,8 @@ q:hover, a.nl-field-toggle:hover {
     }
 
     /*.transactions-widget header {*/
-        /*text-align: center;*/
+    /*text-align: center;*/
     /*}*/
-
     .logo h4 span {
         display: none;
     }

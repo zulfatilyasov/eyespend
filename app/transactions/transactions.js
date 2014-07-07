@@ -79,6 +79,8 @@
         }
 
         var selectTransaction = function (transaction) {
+            if (vm.editTxn)
+                vm.editTxn = false;
             if (vm.isEditing) {
                 transaxns.copy(transaction, vm.editedTnx);
                 vm.selectedTnxDate = date.format(vm.selectedTnx.timestamp);
@@ -89,7 +91,10 @@
         vm.tableClicked = function ($event) {
             if ($event.target) {
                 var $target = $($event.target);
-                var index = $target.parents('tr').data('index');
+                var $tr = $target.parents('tr');
+                if ($tr.is('.edited'))
+                    return;
+                var index = $tr.data('index');
 
                 if (!vm.trs[index])
                     return;
@@ -109,7 +114,12 @@
                 }
 
                 if ($target.is('.edit-transaction')) {
-                    vm.toggleEditing(vm.selectedTnx);
+                    vm.editedTags = angular.copy(vm.selectedTnx.tags);
+                    transaxns.copy(vm.selectedTnx, vm.editedTnx);
+                    vm.selectedTnxDate = date.withoutTime(vm.selectedTnx.timestamp);
+                    vm.selectedTnxTime = date.onlyTime(vm.selectedTnx.timestamp);
+                    vm.editTxn = true;
+                    //vm.toggleEditing(vm.selectedTnx);
                 }
                 else if ($target.is('.fa-map-marker')) {
                     map.showAddress(vm.selectedTnx);

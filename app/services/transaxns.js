@@ -128,7 +128,7 @@
                     tags[i].color = _getTagColor(tags[i].text);
                 }
                 if (_userTagsContains(tags[i]) === false) {
-                    _userTags.push(tags[i]);
+                    _userTags.push(angular.copy(tags[i]));
                 }
             }
         }
@@ -229,12 +229,13 @@
             target.latitude = source.latitude;
             target.longitude = source.longitude;
             target.timestamp = source.timestamp;
-            target.tags = [];
-            for (var i = 0, len = source.tags.length; i < len; i++) {
-                target.tags.push({
-                    text: source.tags[i].text
-                });
-            }
+            target.tags = angular.copy(source.tags);
+//            target.tags = [];
+//            for (var i = 0, len = source.tags.length; i < len; i++) {
+//                target.tags.push({
+//                    text: source.tags[i].text
+//                });
+//            }
             _colorAndSaveTags(target.tags);
         }
 
