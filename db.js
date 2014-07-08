@@ -243,7 +243,7 @@ function getTransactions(sorting, desc, offset, count, fromDate, toDate, tags, w
 
     var sortFn = getSortFn(sorting, desc);
     var result = transactions.sort(sortFn);
-    if (fromDate || toDate)
+    if ((fromDate || toDate) && fromDate !== toDate)
         result = getTransactionsByDate(fromDate, toDate, result);
     if (tags && tags.length && tags[0] !== '')
         result = getTransactionsByTags(tags, result);

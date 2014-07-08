@@ -26,6 +26,7 @@
         };
 
         vm.translate = function (lang) {
+            config.local = lang
             $translate.use(lang);
             tmhDynamicLocale.set(lang);
             vm.togglePopover();

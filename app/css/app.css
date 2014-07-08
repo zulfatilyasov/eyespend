@@ -591,6 +591,7 @@ label {
 
 ul.rowActions {
     opacity: 0;
+    float: right;
     /*-webkit-transition: opacity 0.2s;*/
     /*-moz-transition: opacity 0.2s;*/
     /*-ms-transition: opacity 0.2s;*/
@@ -598,7 +599,7 @@ ul.rowActions {
     /*transition: opacity 0.2s;*/
 }
 
-.newTransactionRow ul.rowActions {
+.newTransactionRow ul.rowActions, .edited .rowActions {
     opacity: 1;
 }
 
@@ -862,7 +863,8 @@ datepicker {
 tr.selected td {
     background-color: #9C6565 !important
 }
-tr.selected.edited td{
+
+tr.selected.edited td {
     background-color: inherit !important;
 }
 
@@ -880,10 +882,10 @@ div[ng-view].ng-leave {
     animation: fadeOutRight 0.3s;
 }
 
-div[ng-if].ng-enter {
-    -webkit-animation: fadeInRight 0.7s;
-    animation: fadeInRight 0.7s;
-}
+/*div[ng-if].ng-enter {*/
+    /*-webkit-animation: fadeInRight 0.7s;*/
+    /*animation: fadeInRight 0.7s;*/
+/*}*/
 
 tr[ng-repeat-start].ng-enter {
     -webkit-animation: fadeInRight 0.7s;
@@ -1300,6 +1302,18 @@ tr[ng-repeat-start].ng-leave {
     border-color: transparent #fff transparent transparent !important;
 }
 
+.date-td {
+    width: 150px;
+}
+.time-td {
+    width: 50px;
+}
+.transactionAmount{
+    width: 90px;
+}
+.rowActions-td{
+    width:85px;
+}
 /*!
  * Slider for Bootstrap
  *
@@ -1714,7 +1728,7 @@ q:hover, a.nl-field-toggle:hover {
         font-size: 14px;
     }
 
-    .transaction-menu.editing, .transaction-menu.adding {
+    .fullHeight{
         height: 100%;
     }
 

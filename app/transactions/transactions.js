@@ -2,9 +2,9 @@
     'use strict';
     var controllerId = 'transactions';
     angular.module('app').controller(controllerId,
-        ['common', '$rootScope', '$scope', 'date', 'transaxns', '$translate', 'login', 'debounce', 'map', transactions]);
+        ['common', 'config', '$rootScope', '$scope', 'date', 'transaxns', '$translate', 'login', 'debounce', 'map', transactions]);
 
-    function transactions(common, $rootScope, $scope, date, transaxns, $translate, login, debounce, map) {
+    function transactions(common, config, $rootScope, $scope, date, transaxns, $translate, login, debounce, map) {
         moment.lang('ru');
         var vm = this;
         var logInfo = common.logger.getLogFn(controllerId, 'log');
@@ -20,6 +20,7 @@
             latitude: null,
             longitude: null
         };
+        vm.withPhotoVal = false;
         vm.onlyWithPhoto = false;
         vm.isAdding = false;
         vm.isFiltering = false;
@@ -33,10 +34,7 @@
         vm.isLoading = false;
         vm.maxAmountToShow = 3000;
         vm.minAmountToShow = 0;
-        vm.dateRanges = {
-            'Последние 7 дней': [moment().subtract('days', 6), moment()],
-            'Последние 30 дней': [moment().subtract('days', 29), moment()]
-        };
+
         vm.getTagColorStyle = function (color) {
             return 'transparent ' + color + ' transparent transparent';
         };
@@ -48,16 +46,29 @@
             vm.filterByDate(newVal.startDate.unix() * 1000, newVal.endDate.unix() * 1000);
         });
 
-        $scope.$watch('vm.onlyWithPhoto', function (newVal, oldVal) {
+        $scope.$watch('vm.filterMobileDateRange', function (newVal, oldVal) {
+            if (!newVal || !newVal.startDate || !newVal.endDate)
+                return;
+
+            setDates(newVal.startDate.unix() * 1000, newVal.endDate.unix() * 1000);
+        });
+
+        $scope.$watch('vm.withPhotoVal', function (newVal, oldVal) {
             if (newVal == oldVal)
                 return;
             $rootScope.showSpinner = true;
+            vm.onlyWithPhoto = newVal;
             transaxns.getFirstPageWithFilters(fromUnixDate, toUnixDate, vm.tags, newVal)
                 .success(function (data) {
                     $rootScope.showSpinner = false;
                     vm.trs = data.transactions;
                     vm.total = data.total;
                 });
+        });
+        $scope.$watch('vm.onlyWithPhotoMobile', function (newVal, oldVal) {
+            if (newVal == oldVal)
+                return;
+            vm.onlyWithPhoto = newVal;
         });
 
         function editedTransactionNotValid() {
@@ -79,8 +90,11 @@
         }
 
         var selectTransaction = function (transaction) {
-            if (vm.editTxn)
+            if (vm.editTxn) {
                 vm.editTxn = false;
+                vm.editTxnDate = false;
+                vm.editTxnTime = false;
+            }
             if (vm.isEditing) {
                 transaxns.copy(transaction, vm.editedTnx);
                 vm.selectedTnxDate = date.format(vm.selectedTnx.timestamp);
@@ -92,13 +106,14 @@
             if ($event.target) {
                 var $target = $($event.target);
                 var $tr = $target.parents('tr');
-                if ($tr.is('.edited'))
+                if ($tr.is('.edited') && !$target.is('.focus-next'))
                     return;
                 var index = $tr.data('index');
 
                 if (!vm.trs[index])
                     return;
-                selectTransaction(vm.trs[index]);
+                if (!$tr.is('.edited'))
+                    selectTransaction(vm.trs[index]);
 
                 if (vm.isEditing && $target.is('.transaction-tag')) {
                     vm.toggleEditing(vm.selectedTnx);
@@ -119,7 +134,16 @@
                     vm.selectedTnxDate = date.withoutTime(vm.selectedTnx.timestamp);
                     vm.selectedTnxTime = date.onlyTime(vm.selectedTnx.timestamp);
                     vm.editTxn = true;
+                    common.$timeout(function () {
+                        $tr.find('.amount').focus();
+                    });
                     //vm.toggleEditing(vm.selectedTnx);
+                }
+                else if ($target.is('.focus-next')) {
+                    vm.editTxnDate = true;
+                    common.$timeout(function () {
+                        $target.next().focus();
+                    });
                 }
                 else if ($target.is('.fa-map-marker')) {
                     map.showAddress(vm.selectedTnx);
@@ -152,10 +176,16 @@
             if (vm.isAdding)
                 vm.curDateTime = date.format(date.now());
         };
+        vm.filterMobile = function () {
+            vm.isFiltering = !vm.isFiltering;
+        };
 
         vm.closeMobileInfo = function () {
             if (vm.isEditing) {
                 vm.isEditing = false;
+            }
+            if (vm.isFiltering) {
+                vm.isFiltering = false;
             }
             vm.selectedTnx = null;
         };
@@ -196,14 +226,35 @@
 
         vm.tagFilterChange = debounce(applyfilters, 2000, false);
 
-        vm.datePickerRu = {
-            cancelLabel: 'Отмена',
-            applyLabel: 'OK',
-            fromLabel: 'От',
-            toLabel: 'До',
-            customRangeLabel: 'Выбрать интервал',
-            monthNames: 'янв_фев_мар_апр_май_июнь_июль_авг_сен_окт_ноя_дек'.split("_")
-        };
+        if (config.local == 'ru') {
+            vm.datePickerRu = {
+                cancelLabel: 'Отмена',
+                applyLabel: 'OK',
+                fromLabel: 'От',
+                toLabel: 'До',
+                customRangeLabel: 'Выбрать интервал',
+                monthNames: 'янв_фев_мар_апр_май_июнь_июль_авг_сен_окт_ноя_дек'.split("_")
+            };
+            vm.dateRanges = {
+                'Последние 7 дней': [moment().subtract('days', 6), moment()],
+                'Последние 30 дней': [moment().subtract('days', 29), moment()]
+            };
+        }
+        else{
+            vm.datePickerRu = {
+                cancelLabel: 'Cancel',
+                applyLabel: 'OK',
+                fromLabel: 'From',
+                toLabel: 'To',
+                customRangeLabel: 'Select interval',
+                monthNames: 'jan_feb_mar_apr_may_jun_jul_aug_sep_okt_nov_dec'.split("_")
+            };
+            vm.dateRanges = {
+                'Last 7 days': [moment().subtract('days', 6), moment()],
+                'Last 30 days': [moment().subtract('days', 29), moment()]
+            };
+        }
+
 
         function applyfilters() {
             $rootScope.showSpinner = true;
@@ -219,10 +270,9 @@
                 });
         }
 
-        vm.filterByDate = function (fromDate, toDate) {
-            if (dateDidntChange(fromDate, toDate) || fromDate === toDate)
-                return;
+        vm.applyFilters = applyfilters;
 
+        function setDates(fromDate, toDate) {
             if (fromDate) {
                 fromUnixDate = fromDate;
                 vm.minDate = date.format(fromDate);
@@ -231,9 +281,27 @@
                 toUnixDate = toDate;
                 vm.maxDate = date.format(toDate);
             }
+        }
+
+        vm.getTags = function () {
+            var tagsStr = "";
+            for (var i = 0, len = vm.tags.length; i < len; i++) {
+                tagsStr += vm.tags[i].text + "; ";
+            }
+            return tagsStr;
+        };
+
+        vm.filterByDate = function (fromDate, toDate) {
+            if (dateDidntChange(fromDate, toDate) || fromDate === toDate)
+                return;
+            setDates(fromDate, toDate);
 
             applyfilters();
         };
+
+        vm.showPeriod = function () {
+            return (vm.minDate || vm.maxDate) && vm.minDate != vm.maxDate;
+        }
 
         vm.lastWeekTransactions = function () {
             vm.tags = [];
@@ -357,9 +425,21 @@
         };
 
         vm.clearFilters = function () {
+            var shouldApply = vm.tags.length || vm.onlyWithPhoto;
             vm.tags = [];
             vm.onlyWithPhoto = false;
-            applyfilters();
+            if (shouldApply)
+                applyfilters();
+            if (vm.showSideForm) {
+                vm.showSideForm = false;
+                common.$timeout(function () {
+                    $rootScope.showSideActions = true;
+                    vm.isFiltering = false;
+                }, 300);
+            }
+            else {
+                vm.isFiltering = false;
+            }
         };
 
         vm.saveTnx = function () {
@@ -454,16 +534,16 @@
                     common.$timeout(function () {
                         $rootScope.showSideActions = true;
                     }, 1000);
-                    $('.js-slider').slider({
-                        tooltip: 'hide',
-                        max: vm.smaxAmountToShow,
-                        min: vm.minAmountToShow
-                    }).on('slide', function (ev) {
-                        var val = $(this).slider('getValue');
-                        vm.minAmountToShow = val[0];
-                        vm.maxAmountToShow = val[1];
-                        $rootScope.$apply();
-                    });
+//                    $('.js-slider').slider({
+//                        tooltip: 'hide',
+//                        max: vm.smaxAmountToShow,
+//                        min: vm.minAmountToShow
+//                    }).on('slide', function (ev) {
+//                        var val = $(this).slider('getValue');
+//                        vm.minAmountToShow = val[0];
+//                        vm.maxAmountToShow = val[1];
+//                        $rootScope.$apply();
+//                    });
                 });
         }
 
