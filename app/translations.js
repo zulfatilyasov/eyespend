@@ -4,7 +4,7 @@ var translationsRu = {
     SAVE: "Сохранить",
     CANCEL: "Отмена",
     OR: "или",
-    NEW_TANSACTION: "Новая запись",
+    NEW_TRANSACTION: "Новая запись",
     EXPENSES_HISTORY: "История расходов",
     SHOW_TRANSACTIONS: "Показать транзакции",
     FROM: "от",
@@ -57,7 +57,9 @@ var translationsRu = {
     INVALID_EMAIL: "Некорректный email",
     SEARCH: "Поиск",
     EMAIL_OR_PHONE: "Email или телефон",
-    FILTER: "Фильтровать",
+    SETTINGS: "Настройки",
+    LANGUAGE: "Язык",
+    EXIT: "Выйти",
     FILTER: "Фильтровать",
     DOWNLOAD: "Скачать",
     MEET_EYESPEND: "Познакомьтесь с EyeSpend",
@@ -65,6 +67,7 @@ var translationsRu = {
     DOWNLOAD_EXCEL_FILE: "Скачать Excel файл",
     MORE: "Еще",
     LOADING: "Загрузка",
+    PERIOD:"Период",
     EDIT: "Редактировать",
     DELETE: "Удалить",
     CLOSE: "Закрыть",
@@ -77,7 +80,7 @@ var translationsRu = {
     EMAIL_ACCOUNT_LINKED_TO_EMAIL: "Ваша учетная запись привязана к email'у ",
     PROVIDE_CURRENT_PASSWORD_TO_LINK_EMAIL: "Если Вы хотите привязать другой email, укажите его и Ваш текущий пароль.",
     CODE_FOR_APP: "Для привязки других устройств к своему аккаунту, введите этот номер в мобильном приложении <b>eyeSpend</b>",
-    CURRENCY:"р."
+    CURRENCY: "р."
 };
 
 var translationsEn = {
@@ -86,7 +89,8 @@ var translationsEn = {
     SAVE: "Save",
     CANCEL: "Cancel",
     OR: "or",
-    NEW_TANSACTION: "New record",
+    PERIOD:"Period",
+    NEW_TRANSACTION: "New record",
     EXPENSES_HISTORY: "Expenses history",
     SHOW_TRANSACTIONS: "Show transactions",
     FROM: "from",
@@ -100,7 +104,7 @@ var translationsEn = {
     DATE_AND_TIME: "Date and time",
     PLACE: "Place",
     ADD_NEW: "Add",
-    DELETE:"Delete",
+    DELETE: "Delete",
     ADD_TAG: "Add tag",
     PASSWORD: "Password",
     NEW_PASSWORD: "New password",
@@ -110,6 +114,9 @@ var translationsEn = {
     TYPE_PASSWORD_CONFIRMATION: "Type password confirmation",
     TYPE_NEW_PASSWORD_AGAIN: "Type new password again",
     ACCOUNT_SETTINGS: "Account settings",
+    SETTINGS: "Settings",
+    EXIT: "Exit",
+    LANGUAGE: "Language",
     CHANGE_EMAIL: "Change email",
     TYPE_EMAIL: "Type email",
     TYPE_NEW_EMAIL: "Type new email",
@@ -156,7 +163,7 @@ var translationsEn = {
     EMAIL_ACCOUNT_LINKED_TO_EMAIL: "Your account is linked to e-mail",
     PROVIDE_CURRENT_PASSWORD_TO_LINK_EMAIL: "Type your current password, if you want to link another email",
     CODE_FOR_APP: "In order to link this account to mobile device enter this code after installing <b>eyeSpend</b> app",
-    CURRENCY:"&#36;"
+    CURRENCY: "&#36;"
 };
 try {
     exports.ru = translationsRu;

@@ -102,6 +102,23 @@
             vm.selectedTnx = transaction;
         };
 
+        vm.newTransactions = [];
+        vm.addNewTxn = function(){
+            vm.newTransactions.push({
+                timestamp:date.now()
+            });
+            if(vm.isAdding == false)
+                vm.isAdding = true;
+        };
+
+        vm.removeNewTxn = function(index){
+            vm.newTransactions.splice(index, 1);
+        };
+
+        vm.saveNewTxn = function(newTxn){
+
+        };
+
         vm.tableClicked = function ($event) {
             if ($event.target) {
                 var $target = $($event.target);
@@ -133,7 +150,8 @@
                     transaxns.copy(vm.selectedTnx, vm.editedTnx);
                     vm.selectedTnxDate = date.withoutTime(vm.selectedTnx.timestamp);
                     vm.selectedTnxTime = date.onlyTime(vm.selectedTnx.timestamp);
-                    vm.editTxn = true;
+                    vm.trs[index].edited = true;
+//                    vm.editTxn = true;
                     common.$timeout(function () {
                         $tr.find('.amount').focus();
                     });
@@ -504,7 +522,6 @@
                 }
             );
         };
-
 
         function _getTransactions() {
             $rootScope.showSpinner = true;

@@ -609,7 +609,7 @@ ul.rowActions li {
 }
 
 ul.rowActions i {
-    font-size: 1.3em;
+    font-size: 1.5em;
 }
 
 .newTransactionRow ul.rowActions i {
@@ -794,10 +794,18 @@ tags-input .tags .input {
 .dark-grey {
     background-color: #797676;
 }
-
-.striped td {
+.table-striped tbody > tr:nth-child(odd) > td{
     background: rgba(51, 51, 51, 0.25);
 }
+#transactions-table.table-striped tbody > tr.newTransactionRow:nth-child(odd):hover > td{
+    background: rgba(51, 51, 51, 0.25) !important;
+}
+#transactions-table.table-striped tbody > tr.newTransactionRow:nth-child(even):hover > td{
+    background-color: inherit !important;
+}
+/*.striped td {*/
+    /*background: rgba(51, 51, 51, 0.25);*/
+/*}*/
 
 td.transactionAmount {
     min-width: 85px;
@@ -838,8 +846,8 @@ datepicker {
     background-color: rgba(231, 124, 124, 0.4) !important;
     cursor: pointer;
 }
-
-#transactions-table tr.newTransactionRow:hover td, tr.selected.edited td, tr.edited:hover td {
+/*tr.newTransactionRow:hover */
+tr.selected.edited td, tr.edited:hover td {
     background-color: inherit !important;
 }
 
@@ -919,8 +927,8 @@ tr[ng-repeat-start].ng-leave {
 }
 
 .download-excel img {
-    width: 25px;
-    height: 25px
+    height: 28px;
+    line-height: 28px;
 }
 
 .content {
@@ -976,6 +984,9 @@ tr[ng-repeat-start].ng-leave {
 .imageContainer {
     text-align: center;
     margin-top: 100px
+}
+.imageContainer img{
+    max-width: 100%;
 }
 
 .toast-top-right {
@@ -1307,6 +1318,9 @@ tr[ng-repeat-start].ng-leave {
 }
 .time-td {
     width: 50px;
+}
+.foto-td{
+    width: 70px;
 }
 .transactionAmount{
     width: 90px;

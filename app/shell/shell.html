@@ -15,7 +15,7 @@
                            ng-href="#/settings"
                            id="settings"
                            class="simptip-position-bottom simptip-movable simptip-smooth"
-                           data-tooltip="Настройки">
+                           data-tooltip="{{'SETTINGS'| translate}}">
                             <i class="fa fa-cog"></i>
                         </a>
                     </li>
@@ -23,7 +23,7 @@
                         <a href="javascript:void(0)" ng-click="vm.togglePopover()" id="globe"
                            data-toggle="popover" data-placement="bottom"
                            class="simptip-position-bottom simptip-movable simptip-smooth"
-                           data-tooltip="Языки"
+                           data-tooltip="{{'LANGUAGE'|translate}}"
                            data-original-title="Settings">
                             <i class="fa fa-globe"></i>
                         </a>
@@ -44,7 +44,7 @@
                     <li>
                         <a href="javascript:void(0)" title="k" id="logoutButton"
                            class="simptip-position-bottom simptip-movable simptip-smooth"
-                           data-tooltip="Выйти"
+                           data-tooltip="{{'EXIT'|translate}}"
                            ng-click="vm.logout()">
                             <i class="fa fa-sign-out"></i>
                         </a>
