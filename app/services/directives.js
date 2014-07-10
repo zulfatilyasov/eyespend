@@ -31,8 +31,6 @@
             };
         })
         .directive('usDateTimePicker', function () {
-            var minDate,
-                maxDate;
             return function (scope, element, attrs) {
                 $(element).datetimepicker({
                     mask: true,
@@ -41,36 +39,27 @@
 //                    format: 'd.m.Y H:i',
                     format: 'd.m.Y',
                     onChangeDateTime: function (date, input) {
-                        if (attrs.editor) {
-                            scope.vm.editedTnx.timestamp = (new Date(date)).getTime();
-                            return;
-                        }
-                        if (!attrs.filter) {
-                            scope.vm.newTnx.timestamp = date;
-                            return;
-                        }
-
-                        var unixDate = (new Date(date)).getTime();
-                        if (input.attr('id') == 'fromDate') {
-                            minDate = unixDate;
-                        } else {
-                            maxDate = unixDate;
-                        }
-                        scope.vm.filterByDate(minDate, maxDate);
+                        var d = (new Date(date));
+                        var time = scope.$parent.transaction.time.split(':');
+                        var hours = time[0];
+                        var minutes = time[1];
+                        d.setHours(hours);
+                        d.setMinutes(minutes);
+                        scope.$parent.transaction.timestamp = d.getTime();
                     }
                 });
             };
         })
-        .directive('onTransitionEnd',function(){
-            function transitionEndEventName () {
+        .directive('onTransitionEnd', function () {
+            function transitionEndEventName() {
                 var i,
-                el = document.createElement('div'),
-                transitions = {
-                    'transition':'transitionend',
-                    'OTransition':'otransitionend',  // oTransitionEnd in very old Opera
-                    'MozTransition':'transitionend',
-                    'WebkitTransition':'webkitTransitionEnd'
-                };
+                    el = document.createElement('div'),
+                    transitions = {
+                        'transition': 'transitionend',
+                        'OTransition': 'otransitionend',  // oTransitionEnd in very old Opera
+                        'MozTransition': 'transitionend',
+                        'WebkitTransition': 'webkitTransitionEnd'
+                    };
 
                 for (i in transitions) {
                     if (transitions.hasOwnProperty(i) && el.style[i] !== undefined) {
@@ -81,28 +70,28 @@
 
             var transitionEnd = transitionEndEventName();
 
-            function link(scope, element, atts){
-                element.on(transitionEnd,function(){
+            function link(scope, element, atts) {
+                element.on(transitionEnd, function () {
                     scope.transtionEnd();
                 });
             }
 
             return {
-                restrict:'A',
+                restrict: 'A',
                 scope: {
                     transtionEnd: "=onTransitionEnd"
                 },
-                link:link
+                link: link
             };
         })
-        .directive('focusMe', function($timeout) {
+        .directive('focusMe', function ($timeout) {
             return {
                 scope: { trigger: '=focusMe' },
-                link: function(scope, element) {
-                    scope.$watch('trigger', function(value) {
+                link: function (scope, element) {
+                    scope.$watch('trigger', function (value) {
                         console.log(value);
-                        if(value === true) {
-                            $timeout(function() {
+                        if (value === true) {
+                            $timeout(function () {
                                 element[0].focus();
                             });
                         }

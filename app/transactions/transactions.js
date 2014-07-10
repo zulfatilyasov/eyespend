@@ -90,8 +90,8 @@
         }
 
         var selectTransaction = function (transaction) {
-            if (vm.editTxn) {
-                vm.editTxn = false;
+            if (vm.editing) {
+                vm.editing = false;
                 vm.editTxnDate = false;
                 vm.editTxnTime = false;
             }
@@ -101,31 +101,24 @@
             }
             vm.selectedTnx = transaction;
         };
-
-        vm.newTransactions = [];
-        vm.addNewTxn = function(){
-            vm.newTransactions.push({
-                timestamp:date.now()
+        vm.addNewTxn = function () {
+            vm.trs.unshift({
+                timestamp: date.now(),
+                date: date.withoutTimeShort(date.now()),
+                time: date.onlyTime(date.now()),
+                new: true
             });
-            if(vm.isAdding == false)
+            if (vm.isAdding == false)
                 vm.isAdding = true;
-        };
-
-        vm.removeNewTxn = function(index){
-            vm.newTransactions.splice(index, 1);
-        };
-
-        vm.saveNewTxn = function(newTxn){
-
         };
 
         vm.tableClicked = function ($event) {
             if ($event.target) {
                 var $target = $($event.target);
                 var $tr = $target.parents('tr');
-                if ($tr.is('.edited') && !$target.is('.focus-next'))
-                    return;
-                var index = $tr.data('index');
+//                if ($tr.is('.edited') && !$target.is('.focus-next'))
+//                    return;
+                var index = parseInt($tr.attr('data-index'));
 
                 if (!vm.trs[index])
                     return;
@@ -136,10 +129,10 @@
                     vm.toggleEditing(vm.selectedTnx);
                     return;
                 }
-                if (vm.isAdding) {
-                    $rootScope.toggleAdding();
-                    return;
-                }
+//                if (vm.isAdding) {
+//                    $rootScope.toggleAdding();
+//                    return;
+//                }
                 if (vm.isFiltering && !$target.is('.transaction-tag')) {
                     $rootScope.toggleFiltering();
                     return;
@@ -150,8 +143,8 @@
                     transaxns.copy(vm.selectedTnx, vm.editedTnx);
                     vm.selectedTnxDate = date.withoutTime(vm.selectedTnx.timestamp);
                     vm.selectedTnxTime = date.onlyTime(vm.selectedTnx.timestamp);
-                    vm.trs[index].edited = true;
-//                    vm.editTxn = true;
+//                    vm.trs[index].edited = true;
+                    vm.editing = true;
                     common.$timeout(function () {
                         $tr.find('.amount').focus();
                     });
@@ -168,6 +161,12 @@
                 }
                 else if ($target.is('.fa-picture-o')) {
                     showImage(vm.selectedTnx.imgUrl)
+                }
+                else if ($target.is('.fa-check')) {
+                    vm.saveTnx(vm.trs[index])
+                }
+                else if ($target.is('.fa-trash-o')) {
+                    vm.remove(vm.trs[index]);
                 }
                 else if ($target.is('.transaction-tag')) {
                     var text = $target.text().trim();
@@ -258,7 +257,7 @@
                 'Последние 30 дней': [moment().subtract('days', 29), moment()]
             };
         }
-        else{
+        else {
             vm.datePickerRu = {
                 cancelLabel: 'Cancel',
                 applyLabel: 'OK',
@@ -460,34 +459,42 @@
             }
         };
 
-        vm.saveTnx = function () {
-            if (editedTransactionNotValid()) {
-                vm.editError = "Неверные данные";
-                logError('Неверные данные при редактировании транзакции');
-                return;
+        vm.saveTnx = function (transaction) {
+            if (transaction.new) {
+                return transaxns.create(transaction)
+                    .then(function () {
+                        transaction.new = false;
+                    }
+                );
             }
-
-            return transaxns.update(vm.editedTnx)
-                .then(function () {
-                    transaxns.copy(vm.editedTnx, vm.selectedTnx);
-                    vm.toggleEditing(vm.selectedTnx);
-                },
-                function (msg) {
-                    vm.editError = msg;
-                }
-            );
+            else {
+                return transaxns.update(transaction)
+                    .then(function () {
+                        if (vm.editing)
+                            vm.editing = false;
+                    },
+                    function (msg) {
+                        vm.editError = msg;
+                    }
+                );
+            }
         };
 
         vm.remove = function (transaction) {
+            if (transaction.new) {
+                removeTransactionById(transaction.id);
+                return;
+            }
+
             if (!vm.selectedTnx || !transaction || vm.selectedTnx.id !== transaction.id)
                 return;
+
             transaxns.remove(vm.selectedTnx.id)
                 .then(function () {
                     if (vm.isEditing) {
                         vm.toggleEditing(vm.selectedTnx);
                     }
-                    var index = transaxns.getTransactionIndex(vm.selectedTnx.id, vm.trs);
-                    vm.trs.splice(index, 1);
+                    removeTransactionById(vm.selectedTnx.id);
                     vm.selectedTnx = null;
                 },
                 function (msg) {
@@ -495,6 +502,11 @@
                 }
             );
         };
+
+        function removeTransactionById(id) {
+            var index = transaxns.getTransactionIndex(id, vm.trs);
+            vm.trs.splice(index, 1);
+        }
 
         vm.addTag = function (tagText) {
             if (_tagIsAlreadyAdded(tagText)) {

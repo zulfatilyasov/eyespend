@@ -63,8 +63,8 @@
                                 <a href="javascript:void(0)"
                                    class="simptip-position-top simptip-movable simptip-smooth"
                                    data-tooltip="{{'FILTER'|translate}}"
-                                   ng-click="vm.addNewTxn = !vm.addNewTxn">
-                                    <i class="fa fa-filter fa-2x"></i>
+                                   ng-click="vm.filtering = !vm.filtering">
+                                    <i class="fa fa-search fa-2x"></i>
                                 </a>
                             </span>
                             <span class="tableActions">
@@ -76,6 +76,44 @@
                                 </a>
                             </span>
 
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px;" ng-show="vm.filtering">
+        <div class="col-md-6">
+            <div>
+                <!--<label translate>BY_TAGS</label><br/>-->
+                <tags-input ng-model="vm.tags"
+                            min-Length="1"
+                            add-from-autocomplete-only="false"
+                            replace-spaces-with-dashes="false"
+                            placeholder="{{'SEARCH_BY_TAGS'|translate}}"
+                            on-tag-added="vm.tagFilterChange()"
+                            on-tag-removed="vm.tagFilterChange()"
+                            class="bootstrap inline-tags-input">
+                    <auto-complete source="vm.loadTags()"
+                                   min-length="0"
+                                   debounce-delay="0"
+                                   max-results-to-show="50">
+                    </auto-complete>
+                </tags-input>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="searchByDate">
+                <!--<label translate>BY_DATE</label><br/>-->
+                <div style="padding: 6px 0">
+                    <datepicker type="daterange"
+                                locale="vm.datePickerRu"
+                                format="DD.MM.YYYY"
+                                opens="left"
+                                ranges="vm.dateRanges"
+                                ng-model="vm.filterDateRange">
+                        <i class="fa fa-calendar fa-lg"></i>
+                        <span translate>Поиск по дате</span>
+                        <b class="caret"></b>
+                    </datepicker>
+                </div>
+            </div>
         </div>
     </div>
 </header>
@@ -112,81 +150,82 @@
 </tr>
 </thead>
 <tbody ng-click="vm.tableClicked($event)">
-<tr ng-repeat="newTxn in vm.newTransactions" class="newTransactionRow">
-    <td>
-                        <span class="dashed-bottom focus-next"
-                              ng-click="vm.editNewTxnDate=true"
-                              ng-hide="vm.editNewTxnDate">
-                            {{newTxn.timestamp | date:'dd MMMM yyyy'}}
-                        </span>
-        <input type="text" us-date-time-picker focus-me="vm.editNewTxnDate"
-               ng-show="vm.editNewTxnDate" class="inlineInput"
-               ng-model="vm.curDate"/>
-    </td>
-    <td>
-        <div>
-                            <span class="dashed-bottom focus-next"
-                                  ng-click="vm.editNewTxnTime=true"
-                                  ng-hide="vm.editNewTxnTime">
-                                {{newTxn.timestamp | date:'HH:mm'}}
-                            </span>
-            <input style="width:40px" type="text" ng-show="vm.editNewTxnTime"
-                   ng-model="vm.curTime" focus-me="vm.editNewTxnTime" ui-mask="99:99"
-                   class="inlineInput"/>
-        </div>
-    </td>
-    <td>
-        <div>
-            <input type="text" focus-me="vm.isAdding" ng-model="newTxn.amountInBaseCurrency"
-                   style="width: 50px"
-                   class="styledInput transparentInput"/>
-            <span translate>{{'CURRENCY'}}</span>
-        </div>
-    </td>
-    <td>
-        <div class="dashed-bottom" style="width: 21px;margin: 0 auto;">
-            <a href="javascript:void(0)" ng-click="vm.pickAddress()">
-                <i class="fa fa-question fa-2x"></i>
-            </a>
-        </div>
-    </td>
-    <td>
+<!--<tr ng-repeat="newTxn in vm.newTransactions" class="newTransactionRow">-->
+<!--<td>-->
+<!--<span class="dashed-bottom focus-next"-->
+<!--ng-click="vm.editNewTxnDate=true"-->
+<!--ng-hide="vm.editNewTxnDate">-->
+<!--{{newTxn.timestamp | date:'dd MMMM yyyy'}}-->
+<!--</span>-->
+<!--<input type="text" us-date-time-picker focus-me="vm.editNewTxnDate"-->
+<!--ng-show="vm.editNewTxnDate" class="inlineInput"-->
+<!--ng-model="vm.curDate"/>-->
+<!--</td>-->
+<!--<td>-->
+<!--<div>-->
+<!--<span class="dashed-bottom focus-next"-->
+<!--ng-click="vm.editNewTxnTime=true"-->
+<!--ng-hide="vm.editNewTxnTime">-->
+<!--{{newTxn.timestamp | date:'HH:mm'}}-->
+<!--</span>-->
+<!--<input style="width:40px" type="text" ng-show="vm.editNewTxnTime"-->
+<!--ng-model="vm.curTime" focus-me="vm.editNewTxnTime" ui-mask="99:99"-->
+<!--class="inlineInput"/>-->
+<!--</div>-->
+<!--</td>-->
+<!--<td>-->
+<!--<div>-->
+<!--<input type="text" focus-me="vm.isAdding" ng-model="newTxn.amountInBaseCurrency"-->
+<!--style="width: 50px"-->
+<!--class="styledInput transparentInput"/>-->
+<!--<span translate>{{'CURRENCY'}}</span>-->
+<!--</div>-->
+<!--</td>-->
+<!--<td>-->
+<!--<div class="dashed-bottom" style="width: 21px;margin: 0 auto;">-->
+<!--<a href="javascript:void(0)" ng-click="vm.pickAddress()">-->
+<!--<i class="fa fa-question fa-2x"></i>-->
+<!--</a>-->
+<!--</div>-->
+<!--</td>-->
+<!--<td>-->
 
-    </td>
-    <td>
-        <tags-input
-                ng-model="newTxn.tags"
-                min-Length="1"
-                replace-spaces-with-dashes="false"
-                placeholder="{{'ADD_TAG'|translate}}"
-                class="bootstrap inline-tags-input">
-            <auto-complete source="vm.loadTags()" min-length="0"
-                           debounce-delay="0"
-                           max-results="5">
-            </auto-complete>
-        </tags-input>
-    </td>
+<!--</td>-->
+<!--<td>-->
+<!--<tags-input-->
+<!--ng-model="newTxn.tags"-->
+<!--min-Length="1"-->
+<!--replace-spaces-with-dashes="false"-->
+<!--placeholder="{{'ADD_TAG'|translate}}"-->
+<!--class="bootstrap inline-tags-input">-->
+<!--<auto-complete source="vm.loadTags()" min-length="0"-->
+<!--debounce-delay="0"-->
+<!--max-results="5">-->
+<!--</auto-complete>-->
+<!--</tags-input>-->
+<!--</td>-->
 
-    <td class="rowActions-td hidden-phone-landscape">
-        <ul class="rowActions">
-            <li>
-                <a href="javascript:void(0)" ng-click="vm.addTnx()">
-                    <i class="fa fa-check fa-2x"></i>
-                </a>
-            </li>
-            <li>
-                <a href="javascript:void(0)" ng-click="vm.removeNewTxn($index)">
-                    <i class="fa fa-times fa-2x"></i>
-                </a>
-            </li>
-        </ul>
-    </td>
-</tr>
-<tr ng-repeat="transaction in vm.trs"
-    ng-class="{selected:vm.selectedTnx.id === transaction.id, striped:$index%2==0, edited:transaction.edited }"
+<!--<td class="rowActions-td hidden-phone-landscape">-->
+<!--<ul class="rowActions">-->
+<!--<li>-->
+<!--<a href="javascript:void(0)" ng-click="vm.addTnx()">-->
+<!--<i class="fa fa-check fa-2x"></i>-->
+<!--</a>-->
+<!--</li>-->
+<!--<li>-->
+<!--<a href="javascript:void(0)" ng-click="vm.removeNewTxn($index)">-->
+<!--<i class="fa fa-times fa-2x"></i>-->
+<!--</a>-->
+<!--</li>-->
+<!--</ul>-->
+<!--</td>-->
+<!--</tr>-->
+<tr ng-repeat-start="transaction in vm.trs"
+    ng-class="{selected:vm.selectedTnx.id === transaction.id}"
+    ng-if="(!vm.editing || vm.selectedTnx.id !== transaction.id) && !transaction.new"
     data-index="{{$index}}">
     <td class="date-td">
-        <div ng-hide="transaction.edited">
+        <div>
                               <span class="hidden-phone-landscape fullDate">
                                    {{transaction.timestamp | date:'dd MMMM yyyy'}}
                               </span>
@@ -194,55 +233,22 @@
                                    {{transaction.timestamp | date:'dd.MM.yy'}}
                               </span>
         </div>
-        <div ng-if="transaction.edited">
-                            <span class="dashed-bottom focus-next"
-                                  ng-hide="vm.editTxnDate">
-                                   {{transaction.timestamp | date:'dd.MM.yy'}}
-                            </span>
-            <input type="text" us-date-time-picker
-                   ng-show="vm.editTxnDate" class="inlineInput"
-                   ng-model="vm.selectedTnxDate"/>
-        </div>
     </td>
     <td class="hidden-phone-landscape time-td">
-        <div ng-hide="transaction.edited">
+        <div>
             {{transaction.timestamp | date:'HH:mm'}}
-        </div>
-        <div ng-if="transaction.edited">
-                <span class="dashed-bottom focus-next"
-                      ng-click="vm.editTxnTime=true"
-                      ng-hide="vm.editTxnTime">
-                    {{transaction.timestamp | date:'HH:mm'}}
-                </span>
-            <input style="width:40px" type="text" ng-show="vm.editTxnTime"
-                   ng-model="vm.selectedTnxTime" ui-mask="99:99"
-                   class="inlineInput"/>
         </div>
     </td>
     <td class="transactionAmount">
-        <div ng-hide="transaction.edited">
+        <div>
             {{transaction.amountInBaseCurrency}} р.
-        </div>
-        <div ng-if="transaction.edited">
-            <input type="text" ng-model="transaction.amountInBaseCurrency"
-                   style="width: 50px"
-                   class="styledInput transparentInput amount"/>
-            <span translate>{{'CURRENCY'}}</span>
         </div>
     </td>
     <td class="map">
-        <div ng-if="transaction.latitude && transaction.longitude"
-             ng-hide="transaction.edited">
+        <div ng-if="transaction.latitude && transaction.longitude">
             <a title="{{'SHOW_ON_MAP'|translate}}"
                href="javascript:void(0)">
                 <i class="fa fa-map-marker fa-2x"></i>
-            </a>
-        </div>
-        <div class="dashed-bottom"
-             ng-if="transaction.edited"
-             style="width: 21px;margin: 0 auto;">
-            <a href="javascript:void(0)" ng-click="vm.pickAddress()">
-                <i class="fa fa-question fa-2x"></i>
             </a>
         </div>
     </td>
@@ -253,7 +259,7 @@
         </a>
     </td>
     <td class="hidden-sm bootstrap tags-td">
-        <div ng-hide="transaction.edited">
+        <div>
             <ul class="transaction-tags">
                 <li ng-repeat="tag in transaction.tags"
                     ng-mouseenter="vm.hoveredTag = tag"
@@ -271,7 +277,57 @@
                 </li>
             </ul>
         </div>
-        <div ng-if="transaction.edited">
+    </td>
+    <td class="rowActions-td hidden-phone-landscape">
+        <ul ng-class="{visible:vm.selectedTnx.id === transaction.id}"
+            class="rowActions">
+            <li>
+                <a id="pencil"
+                   href="javascript:void(0)">
+                    <i class="fa fa-gear edit-transaction"></i>
+                </a>
+            </li>
+        </ul>
+    </td>
+</tr>
+<tr ng-repeat-end class="edited"
+    data-index="{{$index}}"
+    ng-if="(vm.selectedTnx.id === transaction.id && vm.editing) || transaction.new">
+    <td class="date-td">
+        <div>
+            <input type="text" us-date-time-picker class="inlineInput transparentInput" ng-model="transaction.date"/>
+        </div>
+    </td>
+    <td class="hidden-phone-landscape time-td">
+        <div>
+            <input style="width:40px" type="text" ng-model="transaction.time" ui-mask="99:99"
+                   class="inlineInput transparentInput"/>
+        </div>
+    </td>
+    <td class="transactionAmount">
+        <div>
+            <input type="text" ng-model="transaction.amountInBaseCurrency"
+                   style="width: 50px"
+                   class="styledInput transparentInput amount inlineInput"/>
+            <span translate>{{'CURRENCY'}}</span>
+        </div>
+    </td>
+    <td class="map">
+        <div class="dashed-bottom"
+             style="margin: 0 auto;">
+            <a href="javascript:void(0)" ng-click="vm.pickAddress()">
+                <i class="fa fa-question fa-2x"></i>
+            </a>
+        </div>
+    </td>
+    <td class="foto-td">
+        <a href="javascript:void(0)"
+           ng-if="transaction.imgUrl">
+            <i class="fa fa-picture-o fa-2x"></i>
+        </a>
+    </td>
+    <td class="hidden-sm bootstrap tags-td">
+        <div>
             <tags-input
                     ng-model="transaction.tags"
                     min-Length="1"
@@ -286,17 +342,7 @@
         </div>
     </td>
     <td class="rowActions-td hidden-phone-landscape">
-        <ul ng-class="{visible:vm.selectedTnx.id === transaction.id}"
-            ng-hide="transaction.edited"
-            class="rowActions">
-            <li>
-                <a id="pencil"
-                   href="javascript:void(0)">
-                    <i class="fa fa-gear edit-transaction"></i>
-                </a>
-            </li>
-        </ul>
-        <ul class="rowActions" ng-if="transaction.edited">
+        <ul class="rowActions">
             <li>
                 <a href="javascript:void(0)">
                     <i class="fa fa-check"></i>
@@ -562,7 +608,7 @@
 
                 <div style="padding: 6px 0">
                     <datepicker type="daterange"
-                                locale="vm. datePickerRu"
+                                locale="vm.datePickerRu"
                                 format="DD.MM.YYYY"
                                 opens="left"
                                 ranges="vm.dateRanges"

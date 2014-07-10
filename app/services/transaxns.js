@@ -203,6 +203,8 @@
                             offset = trs.length;
                         }
                         transactions.forEach(function (t) {
+                            t.date = date.withoutTimeShort(t.timestamp);
+                            t.time = date.onlyTime(t.timestamp);
                             _colorAndSaveTags(t.tags);
                         });
                         def.resolve({data: {transactions: transactions.slice(0), total: total}});
@@ -229,6 +231,8 @@
             target.latitude = source.latitude;
             target.longitude = source.longitude;
             target.timestamp = source.timestamp;
+            target.date = source.date;
+            target.time = source.time;
             target.tags = angular.copy(source.tags);
 //            target.tags = [];
 //            for (var i = 0, len = source.tags.length; i < len; i++) {
@@ -247,7 +251,9 @@
 
         function update(tnx) {
             var def = common.$q.defer();
+            tnx.timestamp = date.addTimeToTimestamp(tnx.timestamp, tnx.time);
             map.setTransactionCoords(tnx);
+            _colorAndSaveTags(tnx.tags);
             datacontext.updateTransaction(_serverFormatTnx(tnx))
                 .then(function () {
                     var transaction = transactions.filter(function (t) {
@@ -273,6 +279,9 @@
             var def = common.$q.defer();
             var txnCopy = {};
             copy(tnx, txnCopy);
+            tnx.timestamp = date.addTimeToTimestamp(tnx.timestamp, tnx.time);
+            _colorAndSaveTags(tnx.tags);
+            txnCopy.timestamp = tnx.timestamp;
             if (!txnCopy.timestamp) {
                 txnCopy.timestamp = date.now();
             }
@@ -282,8 +291,8 @@
             datacontext.createTransaction(txnCopy)
                 .then(function (response) {
                     var createdTnx = response.data;
-                    _colorAndSaveTags(createdTnx.tags);
                     transactions.push(createdTnx);
+                    tnx.id = createdTnx.id;
                     def.resolve(createdTnx);
                 }, function () {
                     def.reject();
