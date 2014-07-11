@@ -39,10 +39,10 @@
 //                    format: 'd.m.Y H:i',
                     format: 'd.m.Y',
                     onChangeDateTime: function (date, input) {
-                        var d = (new Date(date));
-                        var time = scope.$parent.transaction.time.split(':');
-                        var hours = time[0];
-                        var minutes = time[1];
+                        var d = new Date(date);
+                        var time = scope.$parent.transaction.time.replace(':', '');
+                        var hours = time.slice(0, 2);
+                        var minutes = time.slice(2, 4);
                         d.setHours(hours);
                         d.setMinutes(minutes);
                         scope.$parent.transaction.timestamp = d.getTime();
@@ -92,6 +92,9 @@
                         console.log(value);
                         if (value === true) {
                             $timeout(function () {
+                                if (element.tagName !== 'INPUT') {
+                                    element = element.context ? $(element.context).find('input').first() : element.find('input').first();
+                                }
                                 element[0].focus();
                             });
                         }

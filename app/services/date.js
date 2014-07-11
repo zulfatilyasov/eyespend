@@ -22,7 +22,6 @@
                 return $filter('date')(date, 'dd.MM.yyyy HH:mm');
             },
             addTimeToTimestamp: function (timestamp, time) {
-                console.log(time);
                 var d = new Date();
                 d.setTime(timestamp);
                 time = time.replace(':','');

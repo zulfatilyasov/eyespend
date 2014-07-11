@@ -42,9 +42,9 @@
         </div>
     </div>
 </header>
-<header class="hidden-phone-landscape">
+<header>
     <div class="row shortStats">
-        <div class="col-md-3">
+        <div class="col-md-3 hidden-phone-landscape">
             <span class="fs15"><span translate>TOTAL_SUM</span>:</span>
             <span> {{vm.total}} </span>
             <span translate>CURRENCY</span>
@@ -59,15 +59,15 @@
                                       <img src="../img/excel-3-32.png" alt=""/>
                                   </a>
                             </span>
-                            <span class="tableActions">
+                            <span class="tableAction">
                                 <a href="javascript:void(0)"
                                    class="simptip-position-top simptip-movable simptip-smooth"
                                    data-tooltip="{{'FILTER'|translate}}"
-                                   ng-click="vm.filtering = !vm.filtering">
+                                   ng-click="vm.toggleFiltering()">
                                     <i class="fa fa-search fa-2x"></i>
                                 </a>
                             </span>
-                            <span class="tableActions">
+                            <span class="tableAction">
                                 <a href="javascript:void(0)"
                                    class="simptip-position-top simptip-movable simptip-smooth"
                                    data-tooltip="{{'NEW_TRANSACTION'|translate}}"
@@ -78,9 +78,9 @@
 
         </div>
     </div>
-    <div class="row" style="margin-top: 10px;" ng-show="vm.filtering">
+    <div class="row" style="margin-top: 10px;" ng-show="vm.isFiltering">
         <div class="col-md-6">
-            <div>
+            <div focus-me="vm.isFiltering">
                 <!--<label translate>BY_TAGS</label><br/>-->
                 <tags-input ng-model="vm.tags"
                             min-Length="1"
@@ -150,76 +150,6 @@
 </tr>
 </thead>
 <tbody ng-click="vm.tableClicked($event)">
-<!--<tr ng-repeat="newTxn in vm.newTransactions" class="newTransactionRow">-->
-<!--<td>-->
-<!--<span class="dashed-bottom focus-next"-->
-<!--ng-click="vm.editNewTxnDate=true"-->
-<!--ng-hide="vm.editNewTxnDate">-->
-<!--{{newTxn.timestamp | date:'dd MMMM yyyy'}}-->
-<!--</span>-->
-<!--<input type="text" us-date-time-picker focus-me="vm.editNewTxnDate"-->
-<!--ng-show="vm.editNewTxnDate" class="inlineInput"-->
-<!--ng-model="vm.curDate"/>-->
-<!--</td>-->
-<!--<td>-->
-<!--<div>-->
-<!--<span class="dashed-bottom focus-next"-->
-<!--ng-click="vm.editNewTxnTime=true"-->
-<!--ng-hide="vm.editNewTxnTime">-->
-<!--{{newTxn.timestamp | date:'HH:mm'}}-->
-<!--</span>-->
-<!--<input style="width:40px" type="text" ng-show="vm.editNewTxnTime"-->
-<!--ng-model="vm.curTime" focus-me="vm.editNewTxnTime" ui-mask="99:99"-->
-<!--class="inlineInput"/>-->
-<!--</div>-->
-<!--</td>-->
-<!--<td>-->
-<!--<div>-->
-<!--<input type="text" focus-me="vm.isAdding" ng-model="newTxn.amountInBaseCurrency"-->
-<!--style="width: 50px"-->
-<!--class="styledInput transparentInput"/>-->
-<!--<span translate>{{'CURRENCY'}}</span>-->
-<!--</div>-->
-<!--</td>-->
-<!--<td>-->
-<!--<div class="dashed-bottom" style="width: 21px;margin: 0 auto;">-->
-<!--<a href="javascript:void(0)" ng-click="vm.pickAddress()">-->
-<!--<i class="fa fa-question fa-2x"></i>-->
-<!--</a>-->
-<!--</div>-->
-<!--</td>-->
-<!--<td>-->
-
-<!--</td>-->
-<!--<td>-->
-<!--<tags-input-->
-<!--ng-model="newTxn.tags"-->
-<!--min-Length="1"-->
-<!--replace-spaces-with-dashes="false"-->
-<!--placeholder="{{'ADD_TAG'|translate}}"-->
-<!--class="bootstrap inline-tags-input">-->
-<!--<auto-complete source="vm.loadTags()" min-length="0"-->
-<!--debounce-delay="0"-->
-<!--max-results="5">-->
-<!--</auto-complete>-->
-<!--</tags-input>-->
-<!--</td>-->
-
-<!--<td class="rowActions-td hidden-phone-landscape">-->
-<!--<ul class="rowActions">-->
-<!--<li>-->
-<!--<a href="javascript:void(0)" ng-click="vm.addTnx()">-->
-<!--<i class="fa fa-check fa-2x"></i>-->
-<!--</a>-->
-<!--</li>-->
-<!--<li>-->
-<!--<a href="javascript:void(0)" ng-click="vm.removeNewTxn($index)">-->
-<!--<i class="fa fa-times fa-2x"></i>-->
-<!--</a>-->
-<!--</li>-->
-<!--</ul>-->
-<!--</td>-->
-<!--</tr>-->
 <tr ng-repeat-start="transaction in vm.trs"
     ng-class="{selected:vm.selectedTnx.id === transaction.id}"
     ng-if="(!vm.editing || vm.selectedTnx.id !== transaction.id) && !transaction.new"

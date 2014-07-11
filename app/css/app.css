@@ -671,6 +671,9 @@ div.tags {
 .tableAction:hover {
     color: #ccc;
 }
+.tableAction i{
+    font-size: 1.8em;
+}
 
 .form-slider {
     max-height: 180px;
@@ -792,6 +795,9 @@ tags-input .tags .input {
     margin: 0;
     color: #333;
     height: 35px;
+    font-family: "Roboto", sans-serif;
+    font-size: 15px;
+    font-weight: normal;
 }
 
 .transactionForm .host {

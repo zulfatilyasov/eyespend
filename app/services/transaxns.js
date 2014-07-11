@@ -45,15 +45,21 @@
             datacontext.getTransaxns(sortOptions.column, sortOptions.descending, offset, count, fromDate || '', toDate || '', tagsArray, onlyWithPhoto)
                 .success(function (data) {
                     var sortedTransactions = data.transactions;
-                    angular.forEach(sortedTransactions, function (t) {
-                        _colorAndSaveTags(t.tags);
-                    });
+                    extendTransactions(sortedTransactions);
                     offset = sortedTransactions.length;
                     transactions = sortedTransactions;
-                    def.resolve({transactions: transactions.slice(0), total: data.total});
+                    def.resolve({transactions: angular.copy(transactions), total: data.total});
                 });
 
             return def.promise;
+        }
+
+        function extendTransactions(transactions) {
+            angular.forEach(transactions, function (t) {
+                t.date = date.withoutTimeShort(t.timestamp);
+                t.time = date.onlyTime(t.timestamp);
+                _colorAndSaveTags(t.tags);
+            });
         }
 
         function getUserTags() {
@@ -67,6 +73,7 @@
                 }
             }
         }
+
 
         function getExcelFile(fromDate, toDate, tags, withPhoto) {
             var tagsArray = _convertTagsToArray(tags);
@@ -169,10 +176,8 @@
                     if (trs && trs instanceof Array) {
                         transactions = trs;
                         offset = transactions.length;
-                        transactions.forEach(function (t) {
-                            _colorAndSaveTags(t.tags);
-                        });
-                        def.resolve({data: {transactions: transactions.slice(0), totals: totals}});
+                        extendTransactions(transactions);
+                        def.resolve({data: {transactions: angular.copy(transactions), totals: totals}});
                     }
                     else {
                         def.reject();
@@ -202,12 +207,8 @@
                             transactions = trs;
                             offset = trs.length;
                         }
-                        transactions.forEach(function (t) {
-                            t.date = date.withoutTimeShort(t.timestamp);
-                            t.time = date.onlyTime(t.timestamp);
-                            _colorAndSaveTags(t.tags);
-                        });
-                        def.resolve({data: {transactions: transactions.slice(0), total: total}});
+                        extendTransactions(transactions);
+                        def.resolve({data: {transactions: angular.copy(transactions), total: total}});
                     }
                     else {
                         def.reject();
@@ -220,7 +221,7 @@
         }
 
         function getLocalTransaxns() {
-            return transactions.slice(0);
+            return angular.copy(transactions);
         }
 
         function copy(source, target) {
@@ -241,6 +242,15 @@
 //                });
 //            }
             _colorAndSaveTags(target.tags);
+            return target;
+        }
+
+        function getTransasctionById(id) {
+            for (var i = 0, len = transactions.length; i < len; i++) {
+                if (transactions[i].id === id)
+                    return copy(transactions[i]);
+            }
+            return null;
         }
 
         function _serverFormatTnx(tnx) {
@@ -277,6 +287,8 @@
 
         function create(tnx) {
             var def = common.$q.defer();
+            if (!tnx.amountInBaseCurrency)
+                tnx.amountInBaseCurrency = 0;
             var txnCopy = {};
             copy(tnx, txnCopy);
             tnx.timestamp = date.addTimeToTimestamp(tnx.timestamp, tnx.time);
@@ -318,6 +330,7 @@
         return {
             getLocalTransaxns: getLocalTransaxns,
             getTransaxns: getTransaxns,
+            getTransasctionById: getTransasctionById,
             updateSorting: updateSorting,
             getSortingForColumn: getSortingForColumn,
             getFirstPageWithFilters: getFirstPageWithFilters,
