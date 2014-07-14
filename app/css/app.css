@@ -1,5 +1,7 @@
 html {
     overflow-y: scroll;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
 }
 
 body {
@@ -33,6 +35,11 @@ body.background-ocean {
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    /*-webkit-transform: translateZ(0);*/
+    /*-moz-transform: translateZ(0);*/
+    /*-ms-transform: translateZ(0);*/
+    /*-o-transform: translateZ(0);*/
+    /*transform: translateZ(0);*/
 
     /* background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAQACAIAAAAP+8yGAAACoklEQVR4Xu3dwQ0CMQxEUTtKvbRCC3RqjtwR3g3WSwP/MDOObaIlH89XdJ4VzQcAACBiZzcgMvs1AAAAAFCu3WiR3YCYcKMBACh2AKopgFJBA7Xoo4Fip1TQAEAtkmQASXZlalsAJLk/aC59AICdSQNJ7ge4DwRN0ORAbypociAHgsamliHWmlwkB7oKnZ0caH7lQA40v3LApmqRHPiBAsBCSvsOYCHFpuZkfZEcsCmbsqn2/XSbchGAHLApm3q9D6Cz07YAaB19oZWLaCAHbHoiwBf52BRADtiUTb1KAJAD384B8Gkbzx4APOyWAwAjlKCx6eQky4GgyYGgCZocAAiapSCAoLkPJBnA03QASZZkGgAoFVpHczKAWmQIVIsAAOxNARQ7AAB9kUEcQLn+/gCopgAAbjQ3Gg1cOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANV8aAAAAADwi7Pr/5+DVt2tAQAAgGK3I6oZUANEBgDQtigVACFoYQBhUwBBEzQAORA0NmVTOWBTADYlMptyEQCbEhnAOzsALjpPA88e6rJ3FUTmIi7Sm3IRF3ERkS1miaxUEFmpILJSURN6UyIT2QhlALHxIjKRiUxk+yKTPpGJbNInMpEN4sMARAawDBG06SIL2goi21UIGpFpcJlNjbFENuEQmQY0MGUaQEyZRBY0QRM0U6YpkwZEFjTrHFMmDTS/RCayKdOUacoUNH+4I2hENmX2AIhMZGMskWlgjCUyke2LNF5EJjINiExkGy8bL8uQCSIbxIlspcZFJn0iE1mpsEogsjGWi7iIi4jMRVzERfamAJaC52sAwEUANl5sCsCmXGRG89e6bEoDOWBTADmQAwBBk4MRAABJFjQAAIBqPvdrAPAGv7GBbaSCtb0AAAAASUVORK5CYII=");
      background-attachment: fixed;
@@ -502,7 +509,7 @@ table.dataTable th.sorting:hover, table.table thead .sorting_asc:hover, table.ta
     /*width: 83.333333% !important;*/
     max-width: 1150px;
     padding-left: 2.5641%;
-    padding-right: 4.5641%;
+    padding-right: 2.5641%;
 }
 
 .host .tags, .searchBlock .host .tags {
@@ -560,20 +567,29 @@ tags-input .tags.focused {
     border-color: #fff;
     cursor: pointer;
 }
-::-webkit-input-placeholder { /* WebKit browsers */
+
+::-webkit-input-placeholder {
+    /* WebKit browsers */
     color: rgba(255, 255, 255, 0.8);
 }
-:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+
+:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
     color: rgba(255, 255, 255, 0.8);
-    opacity:  1;
+    opacity: 1;
 }
-::-moz-placeholder { /* Mozilla Firefox 19+ */
+
+::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
     color: rgba(255, 255, 255, 0.8);
-    opacity:  1;
+    opacity: 1;
 }
-:-ms-input-placeholder { /* Internet Explorer 10+ */
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
     color: rgba(255, 255, 255, 0.8);
 }
+
 .searchBlock .host .tags {
     /*background: url(../img/search-white.png) no-repeat center right rgba(51, 51, 51, 0.4);*/
     background: rgba(51, 51, 51, 0.4);
@@ -671,7 +687,8 @@ div.tags {
 .tableAction:hover {
     color: #ccc;
 }
-.tableAction i{
+
+.tableAction i {
     font-size: 1.8em;
 }
 
@@ -865,6 +882,8 @@ datepicker {
     -ms-transition: background-color 0.2s;
     -o-transition: background-color 0.2s;
     transition: background-color 0.2s;
+    height: 50px;
+    line-height: 1;
 }
 
 #transactions-table tr:hover td {
@@ -1645,15 +1664,10 @@ q:hover, a.nl-field-toggle:hover {
         background: #8BA7C2;
     }
 
-    /*body{*/
-    /*font: -apple-system-body*/
-    /*}*/
-    /*.widget > header h4, .loader.theEnd, table.dataTable thead th, header.tableLabel h4 {*/
-    /*font: -apple-system-headline;*/
-    /*}*/
-    /*label{*/
-    /*font: -apple-system-subheadline;*/
-    /*}*/
+    [data-tooltip]:after, [data-tooltip]:before {
+        display: none;
+    }
+
     .background, body.background-blue {
         background: rgb(38, 109, 175);
     }
@@ -1840,6 +1854,49 @@ q:hover, a.nl-field-toggle:hover {
     .sideForm {
         padding-right: 0;
         width: 100%;
+    }
+
+    ::-webkit-input-placeholder {
+        /* WebKit browsers */
+        color: #5d5d5d;
+    }
+
+    :-moz-placeholder {
+        /* Mozilla Firefox 4 to 18 */
+        color: #5d5d5d;
+        opacity: 1;
+    }
+
+    ::-moz-placeholder {
+        /* Mozilla Firefox 19+ */
+        color: #5d5d5d;
+        opacity: 1;
+    }
+
+    :-ms-input-placeholder {
+        /* Internet Explorer 10+ */
+        color: #5d5d5d;
+    }
+
+    .filter tags-input input::-webkit-input-placeholder {
+        color: #eee;
+    }
+
+    .filter tags-input input:-moz-placeholder {
+        color: #eee;
+    }
+
+    .filter tags-input input:-ms-input-placeholder {
+        color: #eee;
+    }
+
+    .filter tags-input input::-moz-placeholder {
+        color: #eee;
+    }
+
+    .searchBlock .host .tags {
+        /*background: url(../img/search-white.png) no-repeat center right rgba(51, 51, 51, 0.4);*/
+        background: rgba(51, 51, 51, 0.4);
     }
 
 }

@@ -85,20 +85,20 @@
         var selectTransaction = function (transaction) {
             if (vm.editing) {
                 vm.editing = false;
-                vm.editTxnDate = false;
-                vm.editTxnTime = false;
                 var original = transaxns.getTransasctionById(vm.selectedTnx.id);
                 transaxns.copy(original, vm.selectedTnx)
             }
             vm.selectedTnx = transaction;
         };
-        vm.addNewTxn = function () {
-            vm.trs.unshift({
-                timestamp: date.now(),
-                date: date.withoutTimeShort(date.now()),
-                time: date.onlyTime(date.now()),
-                new: true
-            });
+        vm.addNewTxn = function (isDesktop) {
+            if (isDesktop)
+                vm.trs.unshift({
+                    timestamp: date.now(),
+                    date: date.withoutTimeShort(date.now()),
+                    time: date.onlyTime(date.now()),
+                    new: true
+                });
+            vm.newTnx.dateTime = date.format(date.now());
             if (vm.isAdding == false)
                 vm.isAdding = true;
         };
@@ -151,22 +151,22 @@
             map.pickAddress(transaction);
         };
 
-        vm.addMobile = function () {
-            vm.isAdding = !vm.isAdding;
-            if (vm.isAdding)
-                vm.curDateTime = date.format(date.now());
-        };
-        vm.filterMobile = function () {
-            vm.isFiltering = !vm.isFiltering;
-        };
+//        vm.addMobile = function () {
+//            vm.isAdding = !vm.isAdding;
+//            if (vm.isAdding)
+//                vm.curDateTime = date.format(date.now());
+//        };
+//        vm.filterMobile = function () {
+//            vm.isFiltering = !vm.isFiltering;
+//        };
 
         vm.closeMobileInfo = function () {
-            if (vm.isEditing) {
-                vm.isEditing = false;
+            if (vm.editingMobile) {
+                vm.editingMobile = false;
             }
-            if (vm.isFiltering) {
-                vm.isFiltering = false;
-            }
+//            if (vm.isFiltering) {
+//                vm.isFiltering = false;
+//            }
             vm.selectedTnx = null;
         };
 
@@ -351,12 +351,18 @@
             vm.isFiltering = !vm.isFiltering;
         };
 
+        vm.toggleEditingMobile = function () {
+            vm.editedTnx = transaxns.copy(vm.selectedTnx);
+            vm.editedTnx.dateTime = date.format(vm.selectedTnx.timestamp);
+            vm.editingMobile = true;
+        };
+
         vm.saveTnx = function (transaction) {
             if (transaction.new) {
                 return transaxns.create(transaction)
                     .then(function (createdTxn) {
-                        transaction.latitude =  createdTxn.latitude;
-                        transaction.longitude =  createdTxn.longitude;
+                        transaction.latitude = createdTxn.latitude;
+                        transaction.longitude = createdTxn.longitude;
                         transaction.new = false;
                     }
                 );
@@ -366,6 +372,10 @@
                     .then(function () {
                         if (vm.editing)
                             vm.editing = false;
+                        if (vm.editingMobile) {
+                            vm.editingMobile = false;
+                            transaxns.copy(transaction, vm.selectedTnx);
+                        }
                     },
                     function (msg) {
                         vm.editError = msg;
@@ -385,8 +395,11 @@
 
             transaxns.remove(vm.selectedTnx.id)
                 .then(function () {
-                    if (vm.isEditing) {
-                        vm.toggleEditing(vm.selectedTnx);
+                    if (vm.editing) {
+                        vm.editing = false;
+                    }
+                    if (vm.editingMobile) {
+                        vm.editingMobile = false;
                     }
                     removeTransactionById(vm.selectedTnx.id);
                     vm.selectedTnx = null;
@@ -401,6 +414,22 @@
             var index = transaxns.getTransactionIndex(id, vm.trs);
             vm.trs.splice(index, 1);
         }
+
+        vm.addTnx = function () {
+            var newTransactionIsValid = validateAndAddErrors();
+            if (!newTransactionIsValid)
+                return;
+
+            transaxns.create(vm.newTnx)
+                .then(function (tnx) {
+                    vm.trs.unshift(tnx);
+                    vm.newTnx = {};
+                },
+                function (msg) {
+                    vm.createError = msg;
+                }
+            );
+        };
 
         vm.addTag = function (tagText) {
             if (_tagIsAlreadyAdded(tagText)) {

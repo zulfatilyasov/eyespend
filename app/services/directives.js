@@ -89,7 +89,6 @@
                 scope: { trigger: '=focusMe' },
                 link: function (scope, element) {
                     scope.$watch('trigger', function (value) {
-                        console.log(value);
                         if (value === true) {
                             $timeout(function () {
                                 if (element.tagName !== 'INPUT') {

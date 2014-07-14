@@ -235,12 +235,6 @@
             target.date = source.date;
             target.time = source.time;
             target.tags = angular.copy(source.tags);
-//            target.tags = [];
-//            for (var i = 0, len = source.tags.length; i < len; i++) {
-//                target.tags.push({
-//                    text: source.tags[i].text
-//                });
-//            }
             _colorAndSaveTags(target.tags);
             return target;
         }
@@ -259,9 +253,55 @@
             return serverFormattedTnx;
         }
 
+
+        function dateTimeToTimestamp(dateTime) {
+            dateTime = dateTime.replace(/\./g, '');
+            dateTime = dateTime.replace(/\s/g, '');
+            dateTime = dateTime.replace(/\:/g, '');
+            var day = dateTime.slice(0, 2);
+            var month = parseInt(dateTime.slice(2, 4)) - 1;
+            var year = dateTime.slice(4, 8);
+            var hours = dateTime.slice(8, 10);
+            var minutes = dateTime.slice(10, 12);
+            var date = new Date(year, month, day, hours, minutes);
+            return date.getTime();
+        }
+
+        function setTxnTime(txn) {
+            if (txn.dateTime)
+                txn.timestamp = dateTimeToTimestamp(txn.dateTime);
+            if (txn.timestamp && txn.time)
+                txn.timestamp = date.addTimeToTimestamp(txn.timestamp, txn.time);
+        }
+
+        function create(tnx) {
+            var def = common.$q.defer();
+            if (!tnx.amountInBaseCurrency)
+                tnx.amountInBaseCurrency = 0;
+            var txnCopy = {};
+            setTxnTime(tnx);
+            copy(tnx, txnCopy);
+            if (!txnCopy.timestamp) {
+                txnCopy.timestamp = date.now();
+            }
+            extendTransactions([tnx]);
+            txnCopy.tags = _convertTagsToArray(txnCopy.tags);
+            map.setTransactionCoords(txnCopy);
+            datacontext.createTransaction(txnCopy)
+                .then(function (response) {
+                    var createdTnx = response.data;
+                    tnx.id = createdTnx.id;
+                    transactions.push(tnx);
+                    def.resolve(tnx);
+                }, function () {
+                    def.reject();
+                });
+            return def.promise;
+        }
+
         function update(tnx) {
             var def = common.$q.defer();
-            tnx.timestamp = date.addTimeToTimestamp(tnx.timestamp, tnx.time);
+            setTxnTime(tnx);
             map.setTransactionCoords(tnx);
             _colorAndSaveTags(tnx.tags);
             datacontext.updateTransaction(_serverFormatTnx(tnx))
@@ -282,33 +322,6 @@
                     def.reject("При сохранении проихошла ошибка.")
                 }
             );
-            return def.promise;
-        }
-
-        function create(tnx) {
-            var def = common.$q.defer();
-            if (!tnx.amountInBaseCurrency)
-                tnx.amountInBaseCurrency = 0;
-            var txnCopy = {};
-            copy(tnx, txnCopy);
-            tnx.timestamp = date.addTimeToTimestamp(tnx.timestamp, tnx.time);
-            _colorAndSaveTags(tnx.tags);
-            txnCopy.timestamp = tnx.timestamp;
-            if (!txnCopy.timestamp) {
-                txnCopy.timestamp = date.now();
-            }
-            txnCopy.timestamp = date.toUnix(txnCopy.timestamp);
-            txnCopy.tags = _convertTagsToArray(txnCopy.tags);
-            map.setTransactionCoords(txnCopy);
-            datacontext.createTransaction(txnCopy)
-                .then(function (response) {
-                    var createdTnx = response.data;
-                    transactions.push(createdTnx);
-                    tnx.id = createdTnx.id;
-                    def.resolve(createdTnx);
-                }, function () {
-                    def.reject();
-                });
             return def.promise;
         }
 
