@@ -280,13 +280,13 @@
                 tnx.amountInBaseCurrency = 0;
             var txnCopy = {};
             setTxnTime(tnx);
+            map.setTxnCoords(tnx);
             copy(tnx, txnCopy);
             if (!txnCopy.timestamp) {
                 txnCopy.timestamp = date.now();
             }
             extendTransactions([tnx]);
             txnCopy.tags = _convertTagsToArray(txnCopy.tags);
-            map.setTransactionCoords(txnCopy);
             datacontext.createTransaction(txnCopy)
                 .then(function (response) {
                     var createdTnx = response.data;
@@ -302,7 +302,7 @@
         function update(tnx) {
             var def = common.$q.defer();
             setTxnTime(tnx);
-            map.setTransactionCoords(tnx);
+            map.setTxnCoords(tnx);
             _colorAndSaveTags(tnx.tags);
             datacontext.updateTransaction(_serverFormatTnx(tnx))
                 .then(function () {

@@ -64,7 +64,7 @@ var ApiInjector = function apiInjector() {
             res.json(db.getUserTags());
         });
 
-        app.get('/api/secure/getSettings', function (req, res) {
+        app.get('/api/secure/settings', function (req, res) {
             if (req.user.email === 'foobar@gmail.com') {
                 res.json({
                     email: {

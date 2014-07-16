@@ -9,12 +9,11 @@
         var vm = this;
         vm.link = {};
         vm.email = {};
-        vm.linkcode = '2061 1026';
 
         function validLinkEmailForm() {
             vm.link.invalidEmail = false;
             vm.link.invalidPassword = false;
-            if (!vm.link.emailOrPhone) {
+            if (!vm.link.email) {
                 $translate('TYPE_EMAIL')
                     .then(function (msg) {
                         vm.link.invalidEmail = true;
@@ -22,7 +21,7 @@
                     });
                 return false;
             }
-            if (!login.validEmail(vm.link.emailOrPhone)) {
+            if (!login.validEmail(vm.link.email)) {
                 $translate('INVALID_EMAIL')
                     .then(function (msg) {
                         vm.link.invalidEmail = true;
@@ -30,7 +29,7 @@
                     });
                 return false;
             }
-            if (vm.email.address && !vm.link.currentPsw) {
+            if (vm.email.address && !vm.link.password) {
                 $translate('TYPE_CURRENT_PASSWORD')
                     .then(function (msg) {
                         vm.link.invalidPassword = true;
@@ -47,7 +46,6 @@
             var setErrorMessage = function (message) {
                 vm.error = true;
                 logError(message);
-//                vm.message = message;
             };
             if (!vm.currentPsw) {
                 setErrorMessage("Введите текущий пароль");
@@ -79,32 +77,44 @@
                 setErrorMessage(message);
             };
 
-            login.changePassword({newPsw: vm.psw, currentPsw: vm.currentPsw})
+            login.changePassword({psw: vm.psw, old: vm.currentPsw})
                 .then(success, error);
         };
 
         vm.linkEmail = function () {
             if (validLinkEmailForm() == false)
                 return;
-            datacontext.linkEmailOrPhone(vm.link.emailOrPhone, vm.link.currentPsw)
-                .success(function (data, status) {
-                    if (status === 400) {
-                        $translate('INVALID_PASSWORD')
-                            .then(function (msg) {
-                                vm.link.invalidPassword = true;
-                                logError(msg);
-                            });
-                    }
-                    else {
-                        logSuccess('Отправлено письмо.<br/>Активируйте e-mail');
-                        vm.email.address = vm.link.emailOrPhone;
-                        vm.email.verified = false;
-                    }
-                })
-                .error(function (data, status) {
-                    logError('Fail');
-                });
+            if (!vm.email.address) {
+                datacontext.linkEmail(vm.link.email)
+                    .success(emailChangeSuccess);
+            }
+            else {
+                console.log(vm.link.password);
+                datacontext.changeEmail(vm.link.email, vm.link.password)
+                    .success(emailChangeSuccess);
+            }
         };
+
+        function emailChangeSuccess(data, status) {
+            if (status !== 200 && status != 201) {
+                if (vm.email.address) {
+                    $translate('INVALID_PASSWORD')
+                        .then(function (msg) {
+                            vm.link.invalidPassword = true;
+                            logError(msg);
+                        });
+                }
+                else {
+                    logError('Произошла ошибка');
+                }
+
+            }
+            else {
+                logSuccess('Отправлено письмо.<br/>Активируйте e-mail');
+                vm.email.address = vm.link.email;
+                vm.email.verified = false;
+            }
+        }
 
         function getSettings() {
             var def = common.defer();

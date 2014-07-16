@@ -16,6 +16,7 @@
             var promises = [];
             common.activateController(promises, controllerId)
                 .then(function () {
+                    $rootScope.lang = config.local;
                     //@todo: Переместить в директивы.
                     $('div.overlay').css('display', 'block');
                 });
@@ -26,9 +27,10 @@
         };
 
         vm.translate = function (lang) {
-            config.local = lang
+            config.local = lang;
             $translate.use(lang);
             tmhDynamicLocale.set(lang);
+            $rootScope.lang = lang;
             vm.togglePopover();
         };
 

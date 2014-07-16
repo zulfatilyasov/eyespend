@@ -42,26 +42,6 @@
             .preferredLanguage(config.local);
     }]);
 
-    app.factory('authInterceptor', function ($rootScope, $q, $window, $location, localStorageService) {
-        return {
-            request: function (config) {
-                config.headers = config.headers || {};
-                var token = localStorageService.get('token');
-                if (token) {
-                    config.headers.Authorization = 'Bearer ' + token;
-                }
-                return config;
-            },
-            responseError: function (response) {
-                if (response.status === 401 && response.config.url.indexOf('quickpass') < 0) {
-                    $rootScope.hideHeader = true;
-                    $location.path('/login');
-                }
-                return response || $q.when(response);
-            }
-        };
-    });
-
     app.config(function ($httpProvider) {
         $httpProvider.interceptors.push('authInterceptor');
     });

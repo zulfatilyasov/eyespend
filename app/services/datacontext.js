@@ -60,12 +60,20 @@
             return $http.post('/api/users/login', { authCodeOrEmail: authCode });
         }
 
-        function linkEmailOrPhone(emailOrPhone, currentPsw) {
-            return $http.post('/api/secure/change_email', {email: emailOrPhone, password: currentPsw});
+        function linkEmail(email) {
+            return $http.post('/api/secure/linkUser', {email: email});
         }
 
-        function changePsw(psw) {
-            return $http.post('/api/changePassword', psw);
+        function changeEmail(email, password) {
+            return $http.post('/api/secure/changeEmail', {email: email, password: password});
+        }
+
+//        function linkEmailOrPhone(emailOrPhone, currentPsw) {
+//            return $http.post('/api/secure/change_email', {email: emailOrPhone, password: currentPsw});
+//        }
+
+        function changePsw(psw, old) {
+            return $http.post('/api/secure/changePassword', {password: psw, old: old});
         }
 
         function getUserTags() {
@@ -84,7 +92,9 @@
             authenticate: authenticate,
             quickPass: quickPass,
             changePsw: changePsw,
-            linkEmailOrPhone: linkEmailOrPhone,
+//            linkEmailOrPhone: linkEmailOrPhone,
+            linkEmail: linkEmail,
+            changeEmail: changeEmail,
             getUserTags: getUserTags,
             getExcelFileUrl: getExcelFileUrl,
             getSettings: getSettings,

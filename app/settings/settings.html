@@ -26,7 +26,7 @@
                                                 <input placeholder="{{'TYPE_EMAIL' | translate}}" type="text"
                                                        class="form-control styledInput"
                                                        ng-class="{'form-control':true, styledInput:true,invalid:vm.link.invalidEmail}"
-                                                       ng-model="vm.link.emailOrPhone">
+                                                       ng-model="vm.link.email">
                                             </div>
                                         </div>
                                         <div class="control-group" ng-show="vm.email.address">
@@ -37,7 +37,7 @@
                                             <div class="controls form-group">
                                                 <input placeholder="{{'TYPE_CURRENT_PASSWORD' | translate}}"
                                                        type="password"
-                                                       ng-model="vm.link.currentPsw"
+                                                       ng-model="vm.link.password"
                                                        ng-class="{'form-control':true, styledInput:true,invalid:vm.link.invalidPassword}">
                                             </div>
                                         </div>

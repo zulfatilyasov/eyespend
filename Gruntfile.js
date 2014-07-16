@@ -40,6 +40,7 @@ module.exports = function (grunt) {
             'app/config.route.js',
             'app/translations.js',
             'app/services/datacontext.js',
+            'app/services/authInterceptor.js',
             'app/services/directives.js',
             'app/services/constants.js',
             'app/services/date.js',

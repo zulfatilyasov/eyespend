@@ -59,7 +59,7 @@
 
         var logout = function () {
             removeAuthenticated();
-            $location.path("/login");
+            location.reload();
         };
 
         var authenticated = function () {
@@ -69,7 +69,7 @@
 
         var changeSuccess = function (def) {
             return function (data, status, headers, config) {
-                if (status === 400) {
+                if (status !== 200 && status !==201) {
                     def.reject("Произошла ошибка при смене пароля");
                     return;
                 }
@@ -83,9 +83,9 @@
             };
         };
 
-        var changePassword = function (psw) {
+        var changePassword = function (data) {
             var def = common.$q.defer();
-            datacontext.changePsw(psw)
+            datacontext.changePsw(data.psw, data.old)
                 .success(changeSuccess(def))
                 .error(changeError(def));
             return def.promise;
@@ -112,6 +112,7 @@
         return {
             authenticate: authenticate,
             logout: logout,
+            removeAuthenticated: removeAuthenticated,
             quickPass: quickPass,
             authenticated: authenticated,
             changePassword: changePassword,

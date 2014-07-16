@@ -118,7 +118,7 @@
         return {
             pickAddress: pickAddress,
             showAddress: showAddress,
-            setTransactionCoords: setTransactionCoords
+            setTxnCoords: setTransactionCoords
         };
     }
 })();

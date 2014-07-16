@@ -95,7 +95,7 @@ $(function () {
             return;
         }
         var url = '/api/users/login';
-        var data = {authCodeOrEmail: email, password: password};
+        var data = {auth_code_or_email: email, password: password};
 
         $.post(url, data)
             .done(function (data) {

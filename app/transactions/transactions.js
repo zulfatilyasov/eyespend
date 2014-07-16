@@ -90,6 +90,7 @@
             }
             vm.selectedTnx = transaction;
         };
+
         vm.addNewTxn = function (isDesktop) {
             if (isDesktop)
                 vm.trs.unshift({
@@ -108,11 +109,12 @@
                 var $target = $($event.target);
                 var $tr = $target.parents('tr');
                 var index = parseInt($tr.attr('data-index'));
+                var transaction = vm.trs[index];
 
-                if (!vm.trs[index])
+                if (!transaction)
                     return;
                 if (!$tr.is('.edited'))
-                    selectTransaction(vm.trs[index]);
+                    selectTransaction(transaction);
                 if ($target.is('.edit-transaction')) {
                     vm.editing = true;
                     common.$timeout(function () {
@@ -122,14 +124,17 @@
                 else if ($target.is('.fa-map-marker')) {
                     map.showAddress(vm.selectedTnx);
                 }
+                else if ($target.is('.pickAddress')) {
+                    map.pickAddress(transaction);
+                }
                 else if ($target.is('.fa-picture-o')) {
                     showImage(vm.selectedTnx.imgUrl)
                 }
                 else if ($target.is('.fa-check')) {
-                    vm.saveTnx(vm.trs[index])
+                    vm.saveTnx(transaction)
                 }
                 else if ($target.is('.fa-trash-o')) {
-                    vm.remove(vm.trs[index]);
+                    vm.remove(transaction);
                 }
                 else if ($target.is('.transaction-tag')) {
                     var text = $target.text().trim();
@@ -138,35 +143,13 @@
             }
         };
 
-        vm.onTransitionEnd = function () {
-            if (!vm.formIsOpen && vm.isAdding)
-                vm.isAdding = false;
-            if (!vm.formIsOpen && vm.isFiltering)
-                vm.isFiltering = false;
-        };
-
         vm.showAddress = map.showAddress;
-        vm.pickAddress = function () {
-            var transaction = vm.isAdding ? vm.newTnx : vm.editedTnx;
-            map.pickAddress(transaction);
-        };
-
-//        vm.addMobile = function () {
-//            vm.isAdding = !vm.isAdding;
-//            if (vm.isAdding)
-//                vm.curDateTime = date.format(date.now());
-//        };
-//        vm.filterMobile = function () {
-//            vm.isFiltering = !vm.isFiltering;
-//        };
+        vm.pickAddress = map.pickAddress;
 
         vm.closeMobileInfo = function () {
             if (vm.editingMobile) {
                 vm.editingMobile = false;
             }
-//            if (vm.isFiltering) {
-//                vm.isFiltering = false;
-//            }
             vm.selectedTnx = null;
         };
 
@@ -181,7 +164,6 @@
                     $rootScope.showSpinner = false;
                 });
         };
-        vm.selectedInterval = "всего";
 
         vm.loadTags = function () {
             var def = common.defer();
@@ -203,12 +185,13 @@
         vm.tagFilterChange = debounce(applyfilters, 0, false);
 
         if (config.local == 'ru') {
-            vm.datePickerRu = {
+            vm.datePickerTexts = {
                 cancelLabel: 'Отмена',
                 applyLabel: 'OK',
                 fromLabel: 'От',
                 toLabel: 'До',
                 customRangeLabel: 'Выбрать интервал',
+                firstDay: 1,
                 monthNames: 'янв_фев_мар_апр_май_июнь_июль_авг_сен_окт_ноя_дек'.split("_")
             };
             vm.dateRanges = {
@@ -217,12 +200,14 @@
             };
         }
         else {
-            vm.datePickerRu = {
+            vm.datePickerTexts = {
                 cancelLabel: 'Cancel',
                 applyLabel: 'OK',
                 fromLabel: 'From',
                 toLabel: 'To',
+                firstDay: 0,
                 customRangeLabel: 'Select interval',
+                daysOfWeek: 'Su_Mo_Tu_We_Th_Fr_Sa'.split("_"),
                 monthNames: 'jan_feb_mar_apr_may_jun_jul_aug_sep_okt_nov_dec'.split("_")
             };
             vm.dateRanges = {
@@ -438,6 +423,8 @@
             vm.tags.push({
                 text: tagText
             });
+            if (!vm.isFiltering)
+                vm.isFiltering = true;
             applyfilters();
         };
 
@@ -450,12 +437,10 @@
                 .success(function (data) {
                     vm.trs = data.transactions;
                     vm.total = data.total;
-                    if (vm.trs.length) {
-                        $rootScope.showSpinner = false;
-                        $rootScope.hideContent = false;
-                        vm.isLoading = false;
-                        vm.sort = transaxns.sortOptions;
-                    }
+                    $rootScope.showSpinner = false;
+                    $rootScope.hideContent = false;
+                    vm.isLoading = false;
+                    vm.sort = transaxns.sortOptions;
                     if (vm.trs.length < 30) {
                         vm.richedTheEnd = true;
                     }
@@ -466,9 +451,7 @@
             var promises = [_getTransactions(), vm.loadTags()];
             common.activateController(promises, controllerId)
                 .then(function () {
-                    common.$timeout(function () {
-                        $rootScope.showSideActions = true;
-                    }, 1000);
+
                 });
         }
 
