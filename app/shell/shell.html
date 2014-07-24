@@ -10,18 +10,38 @@
                     </div>
                 </a>
                 <ul class="nav navbar-nav navbar-right pull-right">
+                    <!--<li>-->
+                        <!--<a href="javascript:void(0)"-->
+                           <!--ng-href="#/stats"-->
+                           <!--id="stats"-->
+                           <!--class="simptip-position-bottom simptip-movable simptip-smooth"-->
+                           <!--data-tooltip="Статистика">-->
+                            <!--<i class="fa fa-bar-chart-o"></i>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="javascript:void(0)"-->
+                           <!--ng-href="#/settings"-->
+                           <!--id="settings"-->
+                           <!--class="simptip-position-bottom simptip-movable simptip-smooth"-->
+                           <!--data-tooltip="{{'SETTINGS'| translate}}">-->
+                            <!--<i class="fa fa-cog"></i>-->
+                        <!--</a>-->
+                    <!--</li>-->
                     <li>
                         <a href="javascript:void(0)"
-                           ng-href="#/settings"
-                           id="settings"
+                           ng-href="#/menu"
+                           id="menu"
                            class="simptip-position-bottom simptip-movable simptip-smooth"
-                           data-tooltip="{{'SETTINGS'| translate}}">
-                            <i class="fa fa-cog"></i>
+                           data-tooltip="Меню">
+                            <i class="fa fa-home"></i>
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)" ng-click="vm.togglePopover()" id="globe"
-                           data-toggle="popover" data-placement="bottom"
+                        <a href="javascript:void(0)" 
+                          ng-click="vm.togglePopover()" id="globe"
+                           data-toggle="popover" 
+                           data-placement="bottom"
                            class="simptip-position-bottom simptip-movable simptip-smooth"
                            data-tooltip="{{'LANGUAGE'|translate}}"
                            data-original-title="Settings">

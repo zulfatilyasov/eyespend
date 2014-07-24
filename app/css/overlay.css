@@ -4,9 +4,10 @@
     height: 100%;
     top: 0;
     left: 0;
-    z-index: 1000;
+    z-index: 100;
     background: rgb(204, 204, 204);
     background: #fff;
+    /*margin-top: -15px;*/
 }
 
 #overlay-close {

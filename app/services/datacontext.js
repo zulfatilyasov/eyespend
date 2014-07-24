@@ -6,6 +6,8 @@
 
     function datacontext($http) {
         function getTransaxns(sorting, desc, offset, count, fromDate, toDate, tags, withPhoto) {
+            if (fromDate == toDate)
+                fromDate = toDate = '';
             var params = {
                 sorting: sorting,
                 desc: desc,
@@ -68,10 +70,6 @@
             return $http.post('/api/secure/changeEmail', {email: email, password: password});
         }
 
-//        function linkEmailOrPhone(emailOrPhone, currentPsw) {
-//            return $http.post('/api/secure/change_email', {email: emailOrPhone, password: currentPsw});
-//        }
-
         function changePsw(psw, old) {
             return $http.post('/api/secure/changePassword', {password: psw, old: old});
         }
@@ -84,6 +82,10 @@
             return $http.get('/api/secure/settings');
         }
 
+        function getTransactionsForChart() {
+            return $http.get('/api/secure/transactionsForChart');
+        }
+
         return {
             getTransaxns: getTransaxns,
             updateTransaction: updateTransaction,
@@ -92,13 +94,13 @@
             authenticate: authenticate,
             quickPass: quickPass,
             changePsw: changePsw,
-//            linkEmailOrPhone: linkEmailOrPhone,
             linkEmail: linkEmail,
             changeEmail: changeEmail,
             getUserTags: getUserTags,
             getExcelFileUrl: getExcelFileUrl,
             getSettings: getSettings,
-            getTransactionsAndTotals: getTransactionsAndTotals
+            getTransactionsAndTotals: getTransactionsAndTotals,
+            getTransactionsForChart: getTransactionsForChart
         };
     }
 })();

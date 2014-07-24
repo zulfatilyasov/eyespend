@@ -51,7 +51,10 @@
 
             promise.error = function (fn) {
                 promise.then(null, function (response) {
-                    fn(response.data, response.status, response.headers, response.config);
+                    if(response)
+                        fn(response.data, response.status, response.headers, response.config);
+                    else
+                        console.error('response undefined');
                 });
                 return promise;
             };

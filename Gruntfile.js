@@ -1,4 +1,4 @@
-module.exports = function (grunt) {
+module.exports = function(grunt) {
     var target = grunt.option('target') || 'dev';
     var scripts = [
             'bower_components/jquery/dist/jquery.js',
@@ -8,15 +8,7 @@ module.exports = function (grunt) {
             'bower_components/angular-sanitize/angular-sanitize.js',
             'bower_components/angular-animate/angular-animate.js',
             'bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js',
-//            'bower_components/angular-touch/angular-touch.js',
             'bower_components/toastr/toastr.js',
-            'app/lib/select2.js',
-            'app/lib/angular-ui-mask/ng-mask.js',
-            'app/lib/modernizr-custom.js',
-            'app/lib/bootstrap/tooltip.js',
-            'app/lib/bootstrap/popover.js',
-            'app/lib/bootstrap-slider-3.0.1/bootstrap-slider.js',
-            'app/lib/ng-tags-input/ng-tags-input.js',
             'bower_components/datetimepicker/jquery.datetimepicker.js',
             'bower_components/switchery/dist/switchery.js',
             'bower_components/ng-switchery/src/ng-switchery.js',
@@ -31,15 +23,23 @@ module.exports = function (grunt) {
             'bower_components/momentjs/lang/ru.js',
             'bower_components/angularjs-geolocation/src/geolocation.js',
             'bower_components/bootstrap-daterangepicker/daterangepicker.js',
-//            'bower_components/fastclick/lib/fastclick.js',
+            'bower_components/d3/d3.js',
+            'bower_components/n3-line-chart/dist/line-chart.js',
+            'app/lib/select2.js',
+            'app/lib/angular-ui-mask/ng-mask.js',
+            'app/lib/modernizr-custom.js',
+            'app/lib/bootstrap/tooltip.js',
+            'app/lib/bootstrap/popover.js',
+            'app/lib/bootstrap-slider-3.0.1/bootstrap-slider.js',
+            'app/lib/ng-tags-input/ng-tags-input.js',
             'app/lib/ng-bs-daterangepicker/src/ng-bs-daterangepicker.js',
-
             'app/app.js',
             'app/config.exceptionHandler.js',
             'app/config.js',
             'app/config.route.js',
             'app/translations.js',
             'app/services/datacontext.js',
+            'app/services/statsService.js',
             'app/services/authInterceptor.js',
             'app/services/directives.js',
             'app/services/constants.js',
@@ -53,7 +53,9 @@ module.exports = function (grunt) {
             'app/transactions/transactions.js',
             'app/shell/shell.js',
             'app/login/login.js',
-            'app/settings/settings.js'
+            'app/settings/settings.js',
+            'app/stats/stats.js',
+            'app/menu/menu.js'
         ],
         styles = [
             'app/css/application.css',
@@ -74,16 +76,16 @@ module.exports = function (grunt) {
             mangle: false,
             compress: false
         },
-        uglifyDevOptions= {
+        uglifyDevOptions = {
             mangle: false,
             compress: false,
-            sourceMap : true
+            sourceMap: true
         };
 
-//    if (target === 'dev') {
-//        scripts.push('app/services/modelStub.js');
-//        scripts.push('app/httpBackendStub.js');
-//    }
+    //    if (target === 'dev') {
+    //        scripts.push('app/services/modelStub.js');
+    //        scripts.push('app/httpBackendStub.js');
+    //    }
 
     grunt.initConfig({
         uglify: {
@@ -108,19 +110,32 @@ module.exports = function (grunt) {
             }
         },
         watch: {
-            scripts: {
-                files: ['Gruntfile.js',
-                    'app/**/*',
-                    '!app/eyeSpend.min.css',
-                    '!app/eyeSpend.min.js',
-                    '!app/eyeSpend.min.map'
+            A: {
+                    files: ['Gruntfile.js',
+                        'app/**/*',
+                        '!app/eyeSpend.min.css',
+                        '!app/eyeSpend.min.js',
+                        '!app/eyeSpend.min.map'
+                    ],
+                    tasks: ['default'],
+                    options: {
+                        interrupt: true,
+                        livereload: true
+                    }
+
+            },
+            B: {
+
+                files: [
+                    'app/landing/**/*'
                 ],
-                tasks: ['default'],
                 options: {
                     interrupt: true,
                     livereload: true
                 }
+
             }
+
         }
     });
 
@@ -129,4 +144,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
 
     grunt.registerTask('default', ['uglify:' + target, 'cssmin']);
+    grunt.registerTask('landing', ["watch:B"]);
+    grunt.registerTask('app', ["watch:A"]);
 };

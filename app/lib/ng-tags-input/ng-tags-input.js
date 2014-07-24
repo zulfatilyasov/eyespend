@@ -452,7 +452,7 @@
             };
             self.select = function (index) {
                 self.items = self.items.filter(function (item) {
-                    return item[options.tagsInput.displayProperty].toLowerCase().indexOf(self.query) > -1;
+                    return item[options.tagsInput.displayProperty].toLowerCase().indexOf(self.query.toLowerCase()) > -1;
                 });
                 if (index < 0) {
                     index = self.items.length - 1;

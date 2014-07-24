@@ -65,10 +65,10 @@ var ApiInjector = function apiInjector() {
         });
 
         app.get('/api/secure/settings', function (req, res) {
-            if (req.user.email === 'foobar@gmail.com') {
+            if (req.user.email === 'qwe@gmail.com') {
                 res.json({
                     email: {
-                        address: 'asdf@gmail.com',
+                        address: 'qew@gmail.com',
                         verified: true
                     },
                     linkcode: 12312
@@ -111,9 +111,8 @@ var ApiInjector = function apiInjector() {
 
         app.post('/api/users/login', function (req, res) {
             console.log('/api/users/login');
-
-            if (validCredentials(req.body.authCodeOrEmail, req.body.password)) {
-                res.json({ token: createTokenWithProfile(req.body.authCodeOrEmail), userTags: db.getUserTags() });
+            if (validCredentials(req.body.auth_code_or_email, req.body.password)) {
+                res.json({ token: createTokenWithProfile(req.body.auth_code_or_email), userTags: db.getUserTags() });
             } else {
                 console.log('Wrong user or password');
                 res.send(401, 'Wrong user or password');
@@ -128,23 +127,29 @@ var ApiInjector = function apiInjector() {
                 var token = createTokenWithProfile(req.query.code);
                 res.json({token: token});
             }
-            else{
+            else {
                 res.json({token: null});
             }
 
         });
 
 
-        app.post('/api/secure/linkEmail', function (req, res) {
-            console.log('called /api/secure/linkEmail');
-            console.log('email or phone: ' + req.body.emailOrPhone + ' psw: ' + req.body.currentPsw);
-            if (req.body.currentPsw !== 'bar' && !userHasLinkedEmail(req.user)) {
+        app.post('/api/secure/linkUser', function (req, res) {
+            console.log('called /api/secure/linkUser');
+            console.log('email: ' + req.body.email);
+            res.send(200);
+        });
+        app.post('/api/secure/changeEmail', function (req, res) {
+            console.log('called /api/secure/changeEmail');
+            console.log('email: ' + req.body.email);
+            if (req.body.password !== 'bar' && !userHasLinkedEmail(req.user)) {
                 res.send(400, 'wrong password');
             }
             res.send(200);
         });
 
-        app.post('/api/changePassword', function (req, res) {
+
+        app.post('/api/secure/changePassword', function (req, res) {
             if (!req.body.psw || req.body.psw.length < 6) {
                 console.log('new password is not valid');
                 res.send(400, 'Wrong password');
@@ -152,6 +157,11 @@ var ApiInjector = function apiInjector() {
             }
             console.log(req.body.psw);
             res.send(200);
+        });
+
+        app.get('/api/secure/getTransactionsForChart', function (req, res) {
+            var data = db.getTransactionsForChart();
+            res.json({transactions: data});
         });
 
         function createTokenWithProfile(codeOrEmail) {

@@ -243,7 +243,7 @@ function getTransactions(sorting, desc, offset, count, fromDate, toDate, tags, w
 
     var sortFn = getSortFn(sorting, desc);
     var result = transactions.sort(sortFn);
-    if ((fromDate || toDate) && fromDate !== toDate)
+    if ((fromDate || toDate))
         result = getTransactionsByDate(fromDate, toDate, result);
     if (tags && tags.length && tags[0] !== '')
         result = getTransactionsByTags(tags, result);
@@ -252,9 +252,14 @@ function getTransactions(sorting, desc, offset, count, fromDate, toDate, tags, w
     return result.slice(offset, offset + count);
 }
 
+function getTransactionsForChart(){
+
+}
+
 exports.getTransactions = getTransactions;
 exports.getTransactionsByDate = getTransactionsByDate;
 exports.getTransactionsByTags = getTransactionsByTags;
 exports.createId = createId;
 exports.getUserTags = getUserTags;
 exports.getTotals = getTotals;
+exports.getTransactionsForChart = getTransactionsForChart;

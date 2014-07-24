@@ -17,7 +17,7 @@
     function getRoutes() {
         return [
             {
-                url: '/',
+                url: '/expenses',
                 config: {
                     templateUrl: 'transactions/transactions.html',
                     title: 'transactions'
@@ -37,13 +37,26 @@
                     templateUrl: 'quickpass/quickpass.html',
                     title: 'quickpass'
                 }
-            }
-            ,
+            },
             {
                 url: '/settings',
                 config: {
                     templateUrl: 'settings/settings.html',
                     title: 'settings'
+                }
+            },
+            {
+                url: '/stats',
+                config: {
+                    templateUrl: 'stats/stats.html',
+                    title: 'stats'
+                }
+            },
+            {
+                url: '/',
+                config: {
+                    templateUrl: 'menu/menu.html',
+                    title: 'menu'
                 }
             }
         ];

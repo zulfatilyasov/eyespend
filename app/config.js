@@ -12,11 +12,15 @@
         locationSet: 'location.set'
     };
 
+    var lang = getCookie('lang');
+    if (!lang)
+        lang = 'ru';
+
     var config = {
         appErrorPrefix: '[HT Error] ',
         events: events,
         version: '1.0',
-        local: 'ru'
+        local: lang
     };
 
     app.value('config', config);
@@ -45,4 +49,11 @@
     app.config(function ($httpProvider) {
         $httpProvider.interceptors.push('authInterceptor');
     });
+
+    function getCookie(name) {
+        var matches = document.cookie.match(new RegExp(
+                "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ))
+        return matches ? decodeURIComponent(matches[1]) : undefined
+    }
 })();

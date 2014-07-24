@@ -1,4 +1,4 @@
-(function () {
+(function() {
     'use strict';
 
     var serviceId = 'map';
@@ -12,17 +12,19 @@
         $rootScope.showMap = true;
         $rootScope.placePicker = {};
 
-        $rootScope.saveLocation = function () {
-//            common.$broadcast(events.locationSet, {
-//                latitude: $rootScope.markers[0].location.lat,
-//                longitude: $rootScope.markers[0].location.lng
-//            });
+        $rootScope.saveLocation = function() {
             lat = $rootScope.markers[0].location.lat;
             lng = $rootScope.markers[0].location.lng;
             $rootScope.overlayIsOpen = false;
         };
 
-        $rootScope.setMarkerLocation = function (marker) {
+        $rootScope.closeMap = function() {
+            $rootScope.overlayIsOpen = false;
+            $rootScope.showImage = false;
+            $('body').scrollTop(scrollValue);
+        }
+
+        $rootScope.setMarkerLocation = function(marker) {
             var position = marker.getPosition();
             $rootScope.markers[0].location.lat = position.lat();
             $rootScope.markers[0].location.lng = position.lng();
@@ -33,68 +35,60 @@
             $rootScope.zoom = 17;
             if (!props.latitude || !props.longitude)
                 $rootScope.zoom = 2;
-            $rootScope.markers = [
-                {
-                    id: props.id,
-                    location: {
-                        lat: props.latitude,
-                        lng: props.longitude
-                    },
-                    options: function () {
-                        return {
-                            draggable: props.markerDraggable
-                        }
+            $rootScope.markers = [{
+                id: props.id,
+                location: {
+                    lat: props.latitude,
+                    lng: props.longitude
+                },
+                options: function() {
+                    return {
+                        draggable: props.markerDraggable
                     }
                 }
-            ];
+            }];
         }
 
         function showAddress(transaction) {
-            $rootScope.showMap = true;
-            common.$timeout(function () {
-                var mapProperties = {
-                    latitude: transaction.latitude,
-                    longitude: transaction.longitude,
-                    markerDraggable: false,
-                    id: transaction.id
-                };
-                _setLocation(mapProperties);
-                $rootScope.overlayIsOpen = true;
-                $rootScope.showPlacesInput = false;
-            }, 300);
+            $rootScope.showPlacesInput = false;
+            $rootScope.overlayIsOpen = true;
+            var mapProperties = {
+                latitude: transaction.latitude,
+                longitude: transaction.longitude,
+                markerDraggable: false,
+                id: transaction.id
+            };
+            _setLocation(mapProperties);
         }
 
         function pickAddress(transaction) {
-            $rootScope.showMap = true;
-            common.$timeout(function () {
-                var mapProperties = {
-                    latitude: transaction.latitude,
-                    longitude: transaction.longitude,
-                    markerDraggable: true,
-                    id: transaction.id
-                };
-                _setLocation(mapProperties);
-                if (!transaction.latitude || !transaction.longitude) {
-                    geolocation.getLocation().then(function (data) {
-                        mapProperties.longitude = data.coords.longitude;
-                        mapProperties.latitude = data.coords.latitude;
-                        _setLocation(mapProperties);
-                    });
-                }
-                $rootScope.overlayIsOpen = true;
-                $rootScope.placePicker = {};
-                $rootScope.showPlacesInput = true;
-            }, 300);
+            var mapProperties = {
+                latitude: transaction.latitude,
+                longitude: transaction.longitude,
+                markerDraggable: true,
+                id: transaction.id
+            };
+            _setLocation(mapProperties);
+            if (!transaction.latitude || !transaction.longitude) {
+                geolocation.getLocation().then(function(data) {
+                    mapProperties.longitude = data.coords.longitude;
+                    mapProperties.latitude = data.coords.latitude;
+                    _setLocation(mapProperties);
+                });
+            }
+            $rootScope.overlayIsOpen = true;
+            $rootScope.placePicker = {};
+            $rootScope.showPlacesInput = true;
         }
 
-        $rootScope.$watch('placePicker.details', function (newVal, oldVal) {
+        $rootScope.$watch('placePicker.details', function(newVal, oldVal) {
             if (!newVal)
                 return;
             $rootScope.refreshMap();
         });
 
-        $rootScope.refreshMap = function () {
-            common.$timeout(function () {
+        $rootScope.refreshMap = function() {
+            common.$timeout(function() {
                 var placeDetails = $rootScope.placePicker.details;
                 if (!placeDetails)
                     return;

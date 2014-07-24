@@ -357,7 +357,8 @@
             remove: remove,
             copy: copy,
             getExcelFile: getExcelFile,
-            getTransactionsAndTotals: getTransactionsAndTotals
+            getTransactionsAndTotals: getTransactionsAndTotals,
+            batchSize:count
         };
     }
 })();

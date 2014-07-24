@@ -1,0 +1,421 @@
+/*! HTML5 Boilerplate v4.3.0 | MIT License | http://h5bp.com/ */
+
+html,
+button,
+input,
+select,
+textarea {
+    color: #222;
+}
+html {
+    font-size: 1em;
+    line-height: 1.4;
+}
+::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+::selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+audio,
+canvas,
+img,
+video {
+    vertical-align: middle;
+}
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+textarea {
+    resize: vertical;
+}
+.browsehappy {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+/* ===== Initializr Styles ==================================================
+   Author: Jonathan Verrecchia - verekia.com/initializr/responsive-template
+   ========================================================================== */
+
+body {
+    font: 16px/26px Helvetica Neue, Arial;
+}
+.wrapper {
+    width: 90%;
+    margin: 0 5%;
+    max-width: 960px;
+}
+/* ===================
+    ALL: Orange Theme
+   =================== */
+
+.header-container {
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.14);
+    height: 70px;
+}
+.footer-container {
+    background: -webkit-linear-gradient(90deg, #6183AB 0%, #6793B9 100%);
+    background: -moz-linear-gradient(90deg, #6183AB 0%, #6793B9 100%);
+    background: -o-linear-gradient(90deg, #6183AB 0%, #6793B9 100%);
+    background: -ms-linear-gradient(90deg, #6183AB 0%, #6793B9 100%);
+    background: linear-gradient(0deg, #6183AB 0%, #6793B9 100%);
+    text-align: center;
+    
+}
+.header-container {
+    background: #FDFEFE;
+}
+.logo {
+    color: #8e8e8e;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 50px;
+    width: 50px;
+    float: left;
+    height: 50px;
+}
+/* ==============
+    MOBILE: Menu
+   ============== */
+
+nav ul {
+    margin: 0;
+    padding: 0;
+}
+nav a {
+    color: #727272;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    height: 20px;
+    width: 60px;
+    text-decoration: none;
+}
+nav a:hover {
+    text-decoration: none;
+    color: #71afd0;
+}
+nav a:hover div.signIn {
+    background: url(../img/sign-in-hover.png);
+}
+/* ==============
+    MOBILE: Main
+   ============== */
+
+.main {
+    padding: 30px 0;
+    max-width: 810px;
+}
+.main article h1 {
+    font-size: 2em;
+}
+.main aside {
+    color: white;
+    padding: 0px 5% 10px;
+}
+.footer-container footer {
+    color: white;
+    padding: 20px 0;
+}
+/* ===============
+    ALL: IE Fixes
+   =============== */
+
+.ie7 .title {
+    padding-top: 20px;
+}
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+/* ==========================================================================
+   Media Queries
+   ========================================================================== */
+
+@media only screen and (min-width: 480px) {
+    /* ====================
+    INTERMEDIATE: Menu
+   ==================== */
+    nav a {
+        float: left;
+        margin: 0 1.7%;
+        padding: 25px 2%;
+        margin-bottom: 0;
+    }
+    nav li:first-child a {
+        margin-left: 0;
+    }
+    nav li:last-child a {
+        margin-right: 0;
+    }
+    /* ========================
+    INTERMEDIATE: IE Fixes
+   ======================== */
+    nav ul li {
+        display: inline;
+        float: right;
+    }
+    .oldie nav a {
+        margin: 0 0.7%;
+    }
+}
+@media only screen and (min-width: 768px) {
+    /* ====================
+    WIDE: CSS3 Effects
+   ==================== */
+    .header-container {
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.24);
+    }
+    /* ============
+    WIDE: Menu
+   ============ */
+    .title {
+        float: left;
+    }
+    nav {
+        float: right;
+        width: 38%;
+    }
+    /* ============
+    WIDE: Main
+   ============ */
+    .main article {
+        float: left;
+        width: 57%;
+    }
+    .main aside {
+        float: right;
+        width: 28%;
+    }
+}
+@media only screen and (min-width: 1140px) {
+    /* ===============
+    Maximal Width
+   =============== */
+    .wrapper {
+        width: 1026px;
+        /* 1140px - 10% for margins */
+        margin: 0 auto;
+    }
+}
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+.ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    *text-indent: -9999px;
+}
+.ir:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 150%;
+}
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+.invisible {
+    visibility: hidden;
+}
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix {
+    *zoom: 1;
+}
+/* ==========================================================================
+   Print styles
+   ========================================================================== */
+
+@media print {
+    * {
+        background: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+    a,
+    a:visited {
+        text-decoration: none;
+    }
+    a[href]:after {
+        content: " (" attr(href)")";
+    }
+    abbr[title]:after {
+        content: " (" attr(title)")";
+    }
+    .ir a:after,
+    a[href^="javascript:"]:after,
+    a[href^="#"]:after {
+        content: "";
+    }
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+    thead {
+        display: table-header-group;
+    }
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+    img {
+        max-width: 100% !important;
+    }
+    @page {
+        margin: 0.5cm;
+    }
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}
+.slides-bg {
+    background: -webkit-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #E8EFF2 100%);
+    background: -moz-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #E8EFF2 100%);
+    background: -o-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #E8EFF2 100%);
+    background: -ms-linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #E8EFF2 100%);
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, #E8EFF2 100%);
+    height: 209px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+}
+.slide h1 {
+    font-weight: 300;
+    color: #71a5bc;
+    font-size: 47px;
+    font-weight: 100;
+    line-height: 52px;
+    width: 376px;
+    height: 95px;
+}
+.slides {
+    position: relative;
+}
+.middle {
+    background: -webkit-linear-gradient(90deg, #4f5475 0%, #4f506d 25%, #505c80 53%, #516691 100%);
+    background: -moz-linear-gradient(90deg, #4f5475 0%, #4f506d 25%, #505c80 53%, #516691 100%);
+    background: -o-linear-gradient(90deg, #4f5475 0%, #4f506d 25%, #505c80 53%, #516691 100%);
+    background: -ms-linear-gradient(90deg, #4f5475 0%, #4f506d 25%, #505c80 53%, #516691 100%);
+    background: linear-gradient(0deg, #4f5475 0%, #4f506d 25%, #505c80 53%, #516691 100%);
+    position: relative;
+    color: #fff;
+}
+footer h2 {
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: 100;
+    line-height: 41px;
+}
+.triangle {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 30px 50px 0 50px;
+    border-color: #ffffff transparent transparent transparent;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -60px;
+}
+.header-container header {
+    height: 70px
+}
+.icon {
+    display: inline;
+}
+.icon.signIn {
+    background: url(../img/sign-in.png);
+    float: right;
+    width: 20px;
+    height: 20px;
+}
+.middle h2 {
+    font-size: 36px;
+    font-weight: 100;
+    line-height: 41px;
+    width: 270px;
+}
+.middle p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 25px;
+    padding-right: 80px;
+} 
+.feature .featureImage {
+    text-align: center;
+    height: 70px;
+}
+.feature b {
+    color: #7c7c7c;
+    font-size: 16px;
+}
+.featureText span {
+    color: #8e8e8e;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 25px;
+}
+.featureText p {
+    line-height: 25px;
+    padding: 0 26px 0 30px;
+}
+.header-container .main {
+    padding: 0;
+}
+.feature.first p {
+    padding-left: 0;
+}

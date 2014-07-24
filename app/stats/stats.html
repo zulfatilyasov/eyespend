@@ -1,0 +1,30 @@
+<div class="page" ng-controller="stats as vm">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="page-title ng-scope" translate="">Сатистика</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <section class="widget">
+                <header>
+                    <datepicker type="daterange"
+                        style="float:right"
+                        locale="vm.datePickerTexts"
+                        format="DD.MM.YYYY"
+                        opens="left"
+                        ranges="vm.dateRanges"
+                        ng-model="vm.chartDateRange">
+                        <i class="fa fa-calendar fa-lg"></i>
+                        <span translate>Уточнить интервал</span>
+                        <b class="caret"></b>
+                    </datepicker> 
+                </header>
+                <div style="width: 100%; height: 600px">
+                    <linechart data="vm.data" options="vm.options" mode="">
+                    </linechart>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
