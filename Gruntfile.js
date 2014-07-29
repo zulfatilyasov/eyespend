@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+    module.exports = function(grunt) {
     var target = grunt.option('target') || 'dev';
     var scripts = [
             'bower_components/jquery/dist/jquery.js',

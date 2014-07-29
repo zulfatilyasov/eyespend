@@ -46,7 +46,7 @@ textarea {
 
 /* ==============
     MOBILE: Menu
-   ============== */
+    ============== */
 
 nav ul {
     margin: 0;
@@ -89,7 +89,7 @@ nav ul li {
 }
 /* ==============
     MOBILE: Main
-   ============== */
+    ============== */
 
 .main {
     padding: 30px 0;
@@ -107,7 +107,7 @@ nav ul li {
 }
 /* ===============
     ALL: IE Fixes
-   =============== */
+    =============== */
 
 .ie7 .title {
     padding-top: 20px;
@@ -269,7 +269,8 @@ footer h2 {
 }
 .carousel-inner {
     position: relative;
-    overflow: hidden;
+    /*    overflow: hidden;
+*/
     width: 100%;
 }
 .carousel-inner > .item {
@@ -277,6 +278,7 @@ footer h2 {
     position: relative;
     -webkit-transition: 0.6s ease-in-out left;
     transition: 0.6s ease-in-out left;
+    height: 100%;
 }
 .carousel-inner > .item > img, .carousel-inner > .item > a > img {
     display: block;
@@ -376,7 +378,7 @@ footer h2 {
 }
 .carousel-control.right {
     left: auto;
-    right: -20px;
+    right: -15px;
     background-image: -webkit-linear-gradient(left, color-stop(rgba(0, 0, 0, 0.0001) 0%), color-stop(rgba(0, 0, 0, 0.5) 100%));
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
     background-repeat: repeat-x;
@@ -464,15 +466,53 @@ footer h2 {
 }
 /*slides*/
 
-.slide1-text {
+.slide-text {
     color: #A3A3A3;
     font-size: 14px;
     font-weight: 300;
     line-height: 24px;
     margin-top: 0;
+    text-align: left;
+}
+.slide1-text {
+    -webkit-animation-delay: 0.2s;
+    -o-animation-delay: 0.2s;
+    animation-delay: 0.2s;
+}
+.slide3-text {
+    max-width: 290px;
+}
+.slide-header {
+    padding-top: 40px;
+}
+.slide2-image {
+    position: absolute;
+    bottom: -60px;
+    right: -60px;
+    max-width: 100%;
+}
+.slide3-phones {
+    position: absolute;
+    bottom: 30px;
+    right: -60px;
+    max-width: 100%;
+}
+.slide3-keyboard {
+    position: absolute;
+    bottom: -100px;
+    right: 100px;
+    max-width: 100%;
+}
+.slide3-receipt {
+    position: absolute;
+    bottom: -58px;
+    left: -55px
 }
 .slide-1-icons {
     text-align: left;
+    -webkit-animation-delay: 0.3s;
+    -o-animation-delay: 0.3s;
+    animation-delay: 0.3s;
 }
 .slide-1-icon {
     display: none;
@@ -490,9 +530,11 @@ footer h2 {
 }
 .arrow-right {
     background: url(../img/arrow_right.png) no-repeat center;
+    left: -23px;
 }
 .arrow-left {
     background: url(../img/arrow-left.png) no-repeat center;
+    left: 23px;
 }
 .arrow-right:hover {
     background: url(../img/arrow-right-hover.png) no-repeat center;
@@ -519,7 +561,7 @@ footer h2 {
 @media only screen and (min-width: 480px) {}@media only screen and (min-width: 768px) {
     /* ====================
     WIDE: CSS3 Effects
-   ==================== */
+    ==================== */
     .header-container {
         box-shadow: 0 0 3px rgba(0, 0, 0, 0.24);
     }
@@ -534,17 +576,21 @@ footer h2 {
     }
     /* ============
     WIDE: Menu
-   ============ */
+    ============ */
     .title {
         float: left;
+    }
+    .logo {
+        margin-left: -42px;
     }
     nav {
         float: right;
         width: 38%;
+        margin-right: -25px;
     }
     /* ============
     WIDE: Main
-   ============ */
+    ============ */
     .main article {
         float: left;
         width: 57%;
@@ -568,21 +614,30 @@ footer h2 {
     .slide-1-icon {
         display: inline-block;
     }
-    .slide1-text {
+    .slide-text {
         font-size: 20px;
         line-height: 27px;
+    }
+    .slide1-text {
         max-width: 266px;
+    }
+    .slide2-text {
+        max-width: 300px;
+        text-align: left;
     }
     .slide h1 {
         font-size: 47px;
         line-height: 52px;
         max-width: 376px;
     }
+    .arrow-right, .arrow-left {
+        left: 0;
+    }
 }
 @media only screen and (min-width: 1140px) {
     /* ===============
     Maximal Width
-   =============== */
+    =============== */
     .wrapper {
         width: 1026px;
         /* 1140px - 10% for margins */
