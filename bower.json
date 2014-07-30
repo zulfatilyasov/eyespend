@@ -38,7 +38,8 @@
     "angular-local-storage": "https://github.com/grevory/angular-local-storage.git#~0.0.5",
     "fastclick": "~1.0.2",
     "angular-touch": "~1.2.17",
-    "n3-line-chart": "~1.1.2"
+    "n3-line-chart": "~1.1.2",
+    "angular-nouislider": "~0.3.1"
   },
   "resolutions": {
     "angular": "1.2.17"

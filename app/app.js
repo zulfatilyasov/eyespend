@@ -17,7 +17,8 @@
         "NgSwitchery",
         "geolocation",
         "LocalStorageModule",
-        "n3-line-chart"
+        "n3-line-chart",
+        "nouislider"
     ]);
 
     app.run(['$rootScope', '$location', '$window', 'login', function ($rootScope, $location, $window, login) {

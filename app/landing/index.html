@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="modal/component.css">
 </head>
 
 <body>
@@ -33,7 +35,7 @@
                 <nav>
                     <ul>
                         <li>
-                            <a href="#">
+                            <a href="#" class="md-trigger" id="login" data-modal="modal-11">
                             Вход <div class="icon signIn"></div>
                         </a>
                         </li>
@@ -53,7 +55,7 @@
                         <div class="item active">
                             <div class="row">
                                 <div class="col-xs-6">
-                                    <h1 class="animated fadeInLeftBig">
+                                    <h1 class="animated fadeInLeftMedium">
                                         Центр управления финансами
                                     </h1>
                                 </div>
@@ -62,10 +64,10 @@
                             <div class="row">
                                 <div class="col-xs-6">
                                     <div>
-                                        <p class="slide-text slide1-text animated fadeInLeftBig">
+                                        <p class="slide-text slide1-text animated fadeInLeftMedium">
                                             Просмотр истории расходов, анализ и статистика – всё на удобном интерактивном Веб-сайте
                                         </p>
-                                        <div class="slide-1-icons animated fadeInLeftBig">
+                                        <div class="slide-1-icons animated fadeInLeftMedium">
                                             <div class="slide-1-icon">
                                                 <img src="img/icon1-01.png" height="55" width="55" alt="">
                                             </div>
@@ -118,8 +120,8 @@
                         <div class="item">
                             <div class="row">
                                 <div class="col-xs-6">
-                                    <div class="animated fadeInLeftBig">
-                                        <h1 class="animated fadeInLeftBig slide-header slide2-header">
+                                    <div class="animated flipInXShort">
+                                        <h1 class="animated flipInXShort slide-header slide2-header">
                                             Где и как угоднo
                                         </h1>
                                         <p class="slide2-text slide-text">
@@ -127,7 +129,7 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div class="slide2-image animated fadeInRightBig">
+                                <div class="slide2-image animated flipInXShortRevert">
                                     <img src="img/excel-01.png" alt="">
                                 </div>
                             </div>
@@ -277,6 +279,71 @@
         </footer>
     </div>
 
+    <!-- overlay -->
+    <div class="md-modal md-effect-11" id="modal-11">
+
+        <div class="md-content">
+            <div class="modal-bg"></div>
+            <div class="modal-bg-overlay"></div>
+            <div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="black-overlay"></div>
+                        <section style="margin:0 auto" class="widget login-widget">
+                            <header class="text-align-center">
+                                <h4 translate>Введите код активации или email</h4>
+                            </header>
+                            <div class="authError" id="loginError"></div>
+                            <div class="body">
+                                <form class="no-margin" method="POST">
+                                    <fieldset>
+                                        <div class="form-group ">
+                                            <label for="email" translate>Email или код активации</label>
+
+                                            <div class="input-group input-group-lg">
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-user"></i>
+                                                </span>
+                                                <input id="email" type="text" class="form-control input-lg code-or-email" placeholder="Введите email или код активации">
+                                            </div>
+                                        </div>
+
+                                        <div style="margin-top: 10px;" class="form-group" id="password-area">
+                                            <label for="password" translate>Пароль</label>
+
+                                            <div class="input-group input-group-lg">
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-lock"></i>
+                                                </span>
+                                                <input id="password" type="password" class="form-control input-lg" placeholder="Введите пароль">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <div class="login-footer">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <button type="button" id="loginButton" class="btn login-button btn-block btn-lg btn-danger">
+                                                    <span>Войти</span>
+                                                </button>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="forgot">
+                                                    <a class="forgot" href="#" translate>Забыли пароль?</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <a href="javascript:void(0)" class="md-close hide"><i class="fa fa-times"></i></a>
+        </div>
+    </div>
+    <div class="md-overlay"></div>
+
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script>
     window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')
@@ -284,6 +351,8 @@
     <script src="js/main.js"></script>
     <script src="js/vendor/transition.js"></script>
     <script src="js/vendor/carousel.js"></script>
+    <script src="modal/classie.js"></script>
+    <script src="modal/modalEffects.js"></script>
 
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

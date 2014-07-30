@@ -87,7 +87,6 @@
             var promises = [getStats()];
             common.activateController(promises, controllerId)
                 .then(function() {
-
                 });
         }
 
