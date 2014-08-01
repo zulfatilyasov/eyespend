@@ -615,6 +615,18 @@ div.tags {
     transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
     margin: 0;
 }
+.date-range-slider{
+    min-height: 100px;
+    padding: 30px 50px;
+}
+.date-tip{
+    font-size: 12px;
+    margin-left: -20px;
+    display: none;
+}
+.stats-header select, .stats-header datepicker{
+    float:right;
+}
 .newTransactionForm.form-slider {
     max-height: 160px;
 }

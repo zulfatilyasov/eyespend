@@ -1,19 +1,27 @@
 (function() {
     'use strict';
     var controllerId = 'stats';
-    angular.module('app').controller(controllerId, ['common', 'statsService', 'date', 'config', '$scope', stats]);
+    angular.module('app').controller(controllerId, ['common', '$rootScope', 'statsService', 'date', 'config', '$scope', stats]);
 
-    function stats(common, statsService, date, config, $scope) {
+    function stats(common, $rootScope, statsService, date, config, $scope) {
         var vm = this;
         vm.data = null;
+        var fromDate = null;
+        var toDate = null
         $scope.$watch('vm.chartDateRange', function(newVal, oldVal) {
             if (!newVal || !newVal.startDate || !newVal.endDate)
                 return;
-            var fromDate = newVal.startDate.unix() * 1000;
-            var toDate = newVal.endDate.unix() * 1000;
-            if(vm.data)
+            fromDate = newVal.startDate.unix() * 1000;
+            toDate = newVal.endDate.unix() * 1000;
+            if (vm.data)
                 vm.data = statsService.changeDateRange(fromDate, toDate);
         });
+
+        $scope.$watch('vm.interval', function(newVal, oldVal) {
+            if(newVal === oldVal)
+                return;
+            vm.data = statsService.reducePoints(newVal);
+        })
 
         if (config.local == 'ru') {
             vm.datePickerTexts = {
@@ -64,7 +72,7 @@
             series: [{
                 y: 'value',
                 thickness: '3px',
-                color: '#e5603b',
+                color: '#3FB8AF',
                 type: 'area',
                 striped: true,
                 label: 'График расходов'
@@ -82,12 +90,100 @@
             mode: "thumbnail",
             columnsHGap: 5
         };
+        vm.interval = 1;
+
 
         function activate() {
             var promises = [getStats()];
             common.activateController(promises, controllerId)
                 .then(function() {
+                    initDateRangeSlider();
                 });
+        }
+
+        function initDateRangeSlider() {
+            $(".no-slider").noUiSlider({
+                connect: true,
+                range: {
+                    'min': statsService.minDate(),
+                    'max': statsService.maxDate()
+                },
+                // step: vm.interval * 24 * 60 * 60 * 1000,
+                start: [statsService.minDate(), statsService.maxDate()],
+                serialization: {
+                    lower: [
+                        $.Link({
+                            target: $("#start"),
+                            method: lowerChange
+                        })
+                    ],
+                    upper: [
+                        $.Link({
+                            target: $("#end"),
+                            method: upperChange
+                        })
+                    ],
+                    format: {
+                        decimals: 0
+                    }
+                }
+            });
+            common.$timeout(function() {
+                setLeftDateTipPosition();
+                setRightDateTipPosition();
+                $('.date-tip').show(200);
+            }, 800);
+        }
+
+        function setLeftDateTipPosition() {
+            var left = getLeftPostion('.noUi-handle-lower');
+            setLeftPosition('#start', left);
+        }
+
+        function setRightDateTipPosition() {
+            var left = getLeftPostion('.noUi-handle-upper');
+            setLeftPosition('#end', left);
+        }
+
+        function safeDigest() {
+            if (!$scope.$$phase) {
+                $rootScope.$apply();
+            }
+        }
+
+        function upperChange(value) {
+            value = parseInt(value);
+            if (!value)
+                return;
+            setDate('#end', value);
+            setRightDateTipPosition();
+            toDate = value;
+            vm.data = statsService.changeDateRange(fromDate, toDate);
+            safeDigest();
+        }
+
+
+        function lowerChange(value) {
+            value = parseInt(value);
+            if (!value)
+                return;
+            setDate('#start', value);
+            setLeftDateTipPosition();
+            fromDate = value;
+            vm.data = statsService.changeDateRange(fromDate, toDate);
+            safeDigest();
+        }
+
+        function getLeftPostion(el) {
+            return $(el).offset().left;
+        }
+
+        function setLeftPosition(el, l) {
+            $(el).css('left', l + 'px')
+        }
+
+        function setDate(el, value) {
+            $(el).html(date.withoutTime(value));
         }
 
         function getStats() {
