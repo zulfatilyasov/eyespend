@@ -14,29 +14,29 @@
                         <div class="row shortStats">
                             <div style="float: left" class="col-md-3 hidden-phone-landscape">
                                 <span class="fs15">
-                                    <span translate>TOTAL_SUM</span>:</span>
+                                <span translate>TOTAL_SUM</span>:</span>
                                 <span>{{vm.total}}</span>
                             </div>
                             <div style="float: right" class="col-md-3 download-excel">
                                 <span class="tableAction hidden-phone-landscape">
-                                    <a href="javascript:void(0)" class="simptip-position-top simptip-movable simptip-smooth" data-tooltip="{{'DOWNLOAD_EXCEL_FILE'|translate}}" ng-click="vm.downloadExcel()" title="{{'DOWNLOAD'|translate}}">
-                                        <img src="../img/excel-3-32.png" alt="" />
-                                    </a>
+                                <a href="javascript:void(0)" class="simptip-position-top simptip-movable simptip-smooth" data-tooltip="{{'DOWNLOAD_EXCEL_FILE'|translate}}" ng-click="vm.downloadExcel()" title="{{'DOWNLOAD'|translate}}">
+                                    <img src="../img/excel-3-32.png" alt="" />
+                                </a>
                                 </span>
                                 <span class="tableAction">
-                                    <a href="javascript:void(0)" class="simptip-position-top simptip-movable simptip-smooth" data-tooltip="{{'FILTER'|translate}}" ng-click="vm.toggleFiltering()">
-                                        <i class="fa fa-search fa-2x"></i>
-                                    </a>
+                                <a href="javascript:void(0)" class="simptip-position-top simptip-movable simptip-smooth" data-tooltip="{{'FILTER'|translate}}" ng-click="vm.toggleFiltering()">
+                                    <i class="fa fa-search fa-2x"></i>
+                                </a>
                                 </span>
                                 <span class="tableAction hidden-xs">
-                                    <a href="javascript:void(0)" class="simptip-position-top simptip-movable simptip-smooth" data-tooltip="{{'NEW_TRANSACTION'|translate}}" ng-click="vm.addNewTxn(true)">
-                                        <i class="fa fa-plus fa-2x"></i>
-                                    </a>
+                                <a href="javascript:void(0)" class="simptip-position-top simptip-movable simptip-smooth" data-tooltip="{{'NEW_TRANSACTION'|translate}}" ng-click="vm.addNewTxn(true)">
+                                    <i class="fa fa-plus fa-2x"></i>
+                                </a>
                                 </span>
                                 <span class="tableAction hidden-md hidden-lg hidden-sm">
-                                    <a href="javascript:void(0)" ng-click="vm.addNewTxn(false)">
-                                        <i class="fa fa-plus fa-2x"></i>
-                                    </a>
+                                <a href="javascript:void(0)" ng-click="vm.addNewTxn(false)">
+                                    <i class="fa fa-plus fa-2x"></i>
+                                </a>
                                 </span>
                             </div>
                         </div>
@@ -85,33 +85,33 @@
                                             </tr>
                                         </thead>
                                         <tbody ng-click="vm.tableClicked($event)">
-                                            <tr ng-repeat-start="transaction in vm.trs" ng-class="{selected:vm.selectedTnx.id === transaction.id}" ng-if="(!vm.editing || vm.selectedTnx.id !== transaction.id) && !transaction.new" data-index="{{$index}}">
+                                            <tr ng-repeat-start="transaction in vm.trs track by $index" ng-class="{selected:vm.selectedTnx.id === transaction.id}" ng-if="(!vm.editing || vm.selectedTnx.id !== transaction.id) && !transaction.new" data-index="{{$index}}">
                                                 <td class="date-td">
                                                     <div>
                                                         <span class="hidden-phone-landscape fullDate">
-                                                            {{transaction.timestamp | date:'dd MMMM yyyy'}}
+                                                        {{transaction.timestamp | date:'dd MMMM yyyy'}}
                                                         </span>
                                                         <span class="visible-phone-landscape shortDate">
-                                                            {{transaction.timestamp | date:'dd.MM.yy'}}
+                                                        {{transaction.timestamp | date:'dd.MM.yy'}}
                                                         </span>
                                                     </div>
                                                 </td>
                                                 <td class="hidden-phone-landscape time-td">
                                                     <div ng-show="lang === 'en'">
                                                         <span>
-                                                            {{transaction.timestamp | date:'hh:mm a'}}
+                                                        {{transaction.timestamp | date:'hh:mm a'}}
                                                         </span>
                                                     </div>
                                                     <div ng-show="lang === 'ru'">
                                                         <span>
-                                                            {{transaction.timestamp | date:'HH:mm'}}
+                                                        {{transaction.timestamp | date:'HH:mm'}}
                                                         </span>
                                                     </div>
                                                 </td>
                                                 <td class="transactionAmount">
                                                     <div>
                                                         <span>
-                                                            {{transaction.amountInBaseCurrency}}
+                                                        {{transaction.amountInBaseCurrency}}
                                                         </span>
                                                     </div>
                                                 </td>
@@ -224,7 +224,7 @@
                                         <div ng-click="vm.loadMoreTransactions(true,'both')">
                                             <span ng-hide="vm.isLoading || vm.richedTheEnd" translate>MORE</span>
                                             <span ng-show="vm.isLoading">
-                                                <span translate>LOADING</span>...</span>
+                                            <span translate>LOADING</span>...</span>
                                         </div>
                                     </div>
                                     <div ng-hide="vm.richedTheEnd" class="hidden-phone-landscape" in-view-offset="-500" in-view="vm.loadMoreTransactions($inview,$inviewpart)">
@@ -299,7 +299,7 @@
                         <label translate>PLACE</label>
                         <br/>
                         <button style="display:inline-block" type="button" ng-click="vm.pickAddress(vm.editedTnx)" class="btn btn-success">
-                            <i style="font-size:15px;" class="fa fa-map-marker fa-1x"></i> 
+                            <i style="font-size:15px;" class="fa fa-map-marker fa-1x"></i>
                             <span translate>SHOW_ON_MAP</span>
                         </button>
                     </div>
@@ -355,7 +355,7 @@
                         <label translate>PLACE</label>
                         <br/>
                         <button style="display:inline-block" type="button" ng-click="vm.pickAddress(vm.newTnx)" class="btn btn-success">
-                            <i style="font-size:15px;" class="fa fa-map-marker fa-1x"></i> 
+                            <i style="font-size:15px;" class="fa fa-map-marker fa-1x"></i>
                             <span translate>SHOW_ON_MAP</span>
                         </button>
                     </div>

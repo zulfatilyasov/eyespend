@@ -131,7 +131,7 @@
                 B: {
 
                     files: [
-                        'app/landing/**/*'
+                        'app/landing-2/**/*'
                     ],
                     options: {
                         interrupt: true,

@@ -92,14 +92,15 @@
         };
 
         vm.addNewTxn = function(isDesktop) {
+            var timestamp = date.now();
             if (isDesktop)
                 vm.trs.unshift({
-                    timestamp: date.now(),
-                    date: date.withoutTimeShort(date.now()),
-                    time: date.onlyTime(date.now()),
+                    timestamp: timestamp,
+                    date: date.withoutTimeShort(timestamp),
+                    time: date.onlyTime(timestamp),
                     new: true
                 });
-            vm.newTnx.dateTime = date.format(date.now());
+            vm.newTnx.dateTime = date.format(timestamp);
             if (vm.isAdding == false)
                 vm.isAdding = true;
         };
