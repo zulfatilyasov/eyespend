@@ -33,11 +33,11 @@
   animation-name: fadeInLeftMedium;
 }
 
-@-webkit-keyframes fadeInRightMediumo{
+@-webkit-keyframes fadeInRightMedium{
   0% {
     opacity: 0;
-    -webkit-transform: translateX(-500px);
-    transform: translateX(-500px);
+    -webkit-transform: translateX(500px);
+    transform: translateX(500px);
   }
 
   100% {
@@ -47,12 +47,12 @@
   }
 }
 
-@keyframes fadeInRightMediumo{
+@keyframes fadeInRightMedium{
   0% {
     opacity: 0;
-    -webkit-transform: translateX(-500px);
-    -ms-transform: translateX(-500px);
-    transform: translateX(-500px);
+    -webkit-transform: translateX(500px);
+    -ms-transform: translateX(500px);
+    transform: translateX(500px);
   }
 
   100% {
@@ -63,9 +63,9 @@
   }
 }
 
-.fadeInRightMediumo{
-  -webkit-animation-name: fadeInRightMediumo;
-  animation-name: fadeInRightMediumo;
+.fadeInRightMedium{
+  -webkit-animation-name: fadeInRightMedium;
+  animation-name: fadeInRightMedium;
 }
 
 @-webkit-keyframes flipInXShort {

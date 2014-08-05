@@ -129,11 +129,12 @@ body {
     height: 70px;
 }
 .footer-container {
-    background: url(../img/texture.png), -webkit-linear-gradient(90deg, #a85f3d 0%, #ab6b2c 100%);
-    background: url(../img/texture.png), -moz-linear-gradient(90deg, #a85f3d 0%, #ab6b2c 100%);
-    background: url(../img/texture.png), -o-linear-gradient(90deg, #a85f3d 0%, #ab6b2c 100%);
-    background: url(../img/texture.png), -ms-linear-gradient(90deg, #a85f3d 0%, #ab6b2c 100%);
-    background: url(../img/texture.png), linear-gradient(0deg, #a85f3d 0%, #ab6b2c 100%);
+    background: url(../img/texture.png), -webkit-linear-gradient(90deg, #ab6b2c 0%, #a85f3d 100%);
+    background: url(../img/texture.png), -moz-linear-gradient(90deg, #ab6b2c 0%, #a85f3d 100%);
+    background: url(../img/texture.png), -o-linear-gradient(90deg, #ab6b2c 0%, #a85f3d 100%);
+    background: url(../img/texture.png), -ms-linear-gradient(90deg, #ab6b2c 0%, #a85f3d 100%);
+    background: url(../img/texture.png), linear-gradient(0deg, #ab6b2c 0%, #a85f3d 100%);
+    opacity: 0.9;
     text-align: center;
 }
 .footer-container .wrapper {
@@ -217,7 +218,7 @@ footer h2 {
     font-size: 14px;
     letter-spacing: 1px;
 }
-.icons div {
+.icons a {
     float: right;
     height: 30px;
     width: 30px;
@@ -225,9 +226,6 @@ footer h2 {
 }
 .appstore {
     background: url(../img/appstore.svg);
-}
-.appstore:hover {
-    background: url(../img/appstore-hover.svg);
 }
 .facebook {
     background: url(../img/facebook.svg);
@@ -523,6 +521,12 @@ Carousel
     right: -60px;
     max-width: 100%;
 }
+.slide2-phone {
+    position: absolute;
+    bottom: -22px;
+    right: 172px;
+    max-width: 100%;
+}
 .slide3-phones {
     position: absolute;
     bottom: 30px;
@@ -564,15 +568,12 @@ Carousel
     -o-transform: scale(1.2);
     transform: scale(1.2);
 }
-.app-ref{
-    background: url(../img/app-ref.svg);
-    height: 40px;
-    width: 135px;
-    z-index: 10;
+.app-ref {
+    -webkit-animation-delay: 1s;
+    -o-animation-delay: 1s;
+    animation-delay: 1s;
 }
-/*.app-ref:hover{
-    background: url(../img/app-ref-hover.svg);
-}*/
+
 .arrow {
     top: 50%;
     left: 0;
@@ -629,7 +630,7 @@ WIDE: CSS3 Effects
     }
     .featureText p {
         line-height: 25px;
-        padding: 0 26px 0 30px;
+        padding: 0 20px 0 30px;
         text-align: left;
     }
     /* ============

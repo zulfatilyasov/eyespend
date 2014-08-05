@@ -8,18 +8,21 @@
  * Copyright 2013, Codrops
  * http://www.codrops.com
  */
-var ModalEffects = (function () {
+var ModalEffects = (function() {
 
     function init() {
 
         var overlay = document.querySelector('.md-overlay');
 
-        [].slice.call(document.querySelectorAll('.md-trigger')).forEach(function (el, i) {
+        [].slice.call(document.querySelectorAll('.md-trigger')).forEach(function(el, i) {
 
             var modal = document.querySelector('#' + el.getAttribute('data-modal')),
                 close = modal.querySelector('.md-close');
-            overlay.style.display = 'block';
-            modal.style.display = 'block';
+            setTimeout(function() {
+                overlay.style.display = 'block';
+                modal.style.display = 'block';
+            })
+
 
             function removeModal(hasPerspective) {
                 classie.remove(modal, 'md-show');
@@ -33,19 +36,19 @@ var ModalEffects = (function () {
                 removeModal(classie.has(el, 'md-setperspective'));
             }
 
-            el.addEventListener('click', function (ev) {
+            el.addEventListener('click', function(ev) {
                 classie.add(modal, 'md-show');
                 overlay.removeEventListener('click', removeModalHandler);
                 overlay.addEventListener('click', removeModalHandler);
 
                 if (classie.has(el, 'md-setperspective')) {
-                    setTimeout(function () {
+                    setTimeout(function() {
                         classie.add(document.documentElement, 'md-perspective');
                     }, 25);
                 }
             });
 
-            close.addEventListener('click', function (ev) {
+            close.addEventListener('click', function(ev) {
                 ev.stopPropagation();
                 removeModalHandler();
             });
