@@ -1,7 +1,7 @@
     module.exports = function(grunt) {
         var target = grunt.option('target') || 'dev';
         var scripts = [
-                'bower_components/jquery/dist/jquery.js',
+                'bower_components/jquery/jquery.js',
                 'bower_components/angular/angular.js',
                 'bower_components/angular-mocks/angular-mocks.js',
                 'bower_components/angular-route/angular-route.js',
@@ -28,6 +28,12 @@
                 'bower_components/nouislider/jquery.nouislider.js',
                 'bower_components/nouislider/Link.js',
                 'bower_components/angular-nouislider/src/nouislider.js',
+
+                // 'bower_components/jquery-ui/ui/core.js',
+                // 'bower_components/jquery-ui/ui/widget.js',
+                'bower_components/jquery-ui/jquery-ui.js',
+                'app/lib/jQAllRangeSliders-min.js',
+
                 'app/lib/select2.js',
                 'app/lib/angular-ui-mask/ng-mask.js',
                 'app/lib/modernizr-custom.js',
@@ -70,11 +76,12 @@
                 'bower_components/datetimepicker/jquery.datetimepicker.css',
                 'bower_components/bootstrap-daterangepicker/daterangepicker-bs3.css',
                 'bower_components/jqrangeslider/css/iThing.css',
-                'app/css/app.css',
+                'bower_components/nouislider/jquery.nouislider.css',
+                'bower_components/jqrangeslider/demo/lib/jquery-ui/css/jquery-ui-1.8.16.custom.css',
                 'app/css/overlay.css',
                 'app/css/simptip.css',
-                'app/css/animations.css',
-                'bower_components/nouislider/jquery.nouislider.css'
+                'app/css/app.css',
+                'app/css/animations.css'
             ],
             uglifyOptions = {
                 mangle: false,

@@ -758,7 +758,7 @@ label {
 .forgot {
     font-size: 14px;
     font-weight: 400;
-    text-decoration: underline;
+    text-decoration: underline
 }
 .login-widget input {
     color: #8e8e8e;

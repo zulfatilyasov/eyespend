@@ -1,19 +1,14 @@
 <div class="page" ng-controller="stats as vm">
     <div class="row">
         <div class="col-md-12">
-            <h2 class="page-title ng-scope" translate="">Сатистика</h2>
+            <h2 class="page-title ng-scope" translate="">Статистика</h2>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
             <section class="widget">
                 <header class="stats-header">
-                    <datepicker type="daterange"
-                        locale="vm.datePickerTexts"
-                        format="DD.MM.YYYY"
-                        opens="left"
-                        ranges="vm.dateRanges"
-                        ng-model="vm.chartDateRange">
+                    <datepicker type="daterange" locale="vm.datePickerTexts" format="DD.MM.YYYY" opens="left" ranges="vm.dateRanges" ng-model="vm.chartDateRange">
                         <i class="fa fa-calendar fa-lg"></i>
                         <span translate>Уточнить интервал</span>
                         <b class="caret"></b>
@@ -28,7 +23,7 @@
                     <linechart data="vm.data" options="vm.options" mode="">
                     </linechart>
                 </div>
-                <div class="date-range-slider">
+                <!--                 <div class="date-range-slider">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="no-slider">
@@ -37,9 +32,18 @@
                             <div id="start" class="date-tip" style="position:fixed;"></div>
                             <div id="end" class="date-tip" style="position:fixed;"></div>
                         </div>
-                    </div></div>
-                </section>
-            </div>
+                    </div>
+                </div>
+ -->
+                <div class="date-slider">
+                    <div class="minichart">
+                        <linechart data="vm.miniData" options="vm.miniOptions" mode="">
+                        </linechart>  
+                    </div>
+                    <div id="slider">
+                    </div>
+                </div>
+            </section>
         </div>
-        
     </div>
+</div>

@@ -16,13 +16,11 @@
             if (vm.data)
                 vm.data = statsService.changeDateRange(fromDate, toDate);
         });
-
         $scope.$watch('vm.interval', function(newVal, oldVal) {
-            if(newVal === oldVal)
+            if (newVal === oldVal)
                 return;
             vm.data = statsService.reducePoints(newVal);
         })
-
         if (config.local == 'ru') {
             vm.datePickerTexts = {
                 cancelLabel: 'Отмена',
@@ -48,13 +46,11 @@
                 daysOfWeek: 'Su_Mo_Tu_We_Th_Fr_Sa'.split("_"),
                 monthNames: 'jan_feb_mar_apr_may_jun_jul_aug_sep_okt_nov_dec'.split("_")
             };
-
             vm.dateRanges = {
                 'Last 7 days': [moment().subtract('days', 6), moment()],
                 'Last 30 days': [moment().subtract('days', 29), moment()]
             };
         }
-
         vm.options = {
             lineMode: 'cardinal',
             axes: {
@@ -90,14 +86,52 @@
             mode: "thumbnail",
             columnsHGap: 5
         };
-        vm.interval = 1;
 
+        vm.miniOptions = {
+            lineMode: 'cardinal',
+            series: [{
+                y: 'value',
+                thickness: '2px',
+                color: '#3FB8AF',
+                type: 'area',
+                striped: true,
+            }],
+            tooltip: {
+                mode: 'none'
+            },
+            tension: 0.7,
+            stacks: [],
+            drawLegend: false,
+            drawDots: true,
+            mode: "thumbnail",
+            columnsHGap: 5
+        };
+        vm.interval = 1;
 
         function activate() {
             var promises = [getStats()];
             common.activateController(promises, controllerId)
                 .then(function() {
-                    initDateRangeSlider();
+                    // initDateRangeSlider();
+                    $("#slider").dateRangeSlider({
+                        defaultValues: {
+                            min: new Date(statsService.minDate()),
+                            max: new Date(statsService.maxDate())
+                        },
+                        bounds: {
+                            min: new Date(statsService.minDate()),
+                            max: new Date(statsService.maxDate())
+                        },
+                        step: {
+                            days: 1
+                        },
+                        arrows:false
+                    }).bind("valuesChanging", function(e, data) {
+                        $rootScope.$apply(function() {
+                            vm.data = statsService.changeDateRange(data.values.min.getTime(), data.values.max.getTime());
+                        });
+                        console.log("Something moved. min: " + data.values.min + " max: " + data.values.max);
+                    });;
                 });
         }
 
@@ -162,7 +196,6 @@
             safeDigest();
         }
 
-
         function lowerChange(value) {
             value = parseInt(value);
             if (!value)
@@ -190,9 +223,9 @@
             return statsService.transactionsForChart()
                 .success(function(data) {
                     vm.data = data;
+                    vm.miniData = data;
                 });
         }
-
         activate();
     }
 })();

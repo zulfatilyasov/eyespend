@@ -118,6 +118,8 @@ Author's custom styles
 
 body {
     font: 16px/26px Helvetica Neue, Arial;
+    -webkit-font-smoothing: antialiased;
+    /*font-family: 'Open Sans', sans-serif;*/
 }
 .wrapper {
     width: 90%;
@@ -214,7 +216,7 @@ footer h2 {
 }
 .copyright {
     float: left;
-    font-weight: 100;
+    font-weight: 300;
     font-size: 14px;
     letter-spacing: 1px;
 }
@@ -263,12 +265,12 @@ footer h2 {
 }
 .middle p {
     font-size: 14px;
-    font-weight: 300;
+    font-weight: normal;
     line-height: 25px;
     padding-right: 80px;
 }
 .feature {
-    margin-top: 50px;
+    margin:25px 0;
 }
 .feature .featureImage {
     text-align: center;
