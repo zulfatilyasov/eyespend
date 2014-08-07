@@ -4,14 +4,12 @@
     -webkit-transform: translateX(-500px);
     transform: translateX(-500px);
   }
-
   100% {
     opacity: 1;
     -webkit-transform: translateX(0);
     transform: translateX(0);
   }
 }
-
 @keyframes fadeInLeftMedium {
   0% {
     opacity: 0;
@@ -19,7 +17,6 @@
     -ms-transform: translateX(-500px);
     transform: translateX(-500px);
   }
-
   100% {
     opacity: 1;
     -webkit-transform: translateX(0);
@@ -27,34 +24,29 @@
     transform: translateX(0);
   }
 }
-
 .fadeInLeftMedium {
   -webkit-animation-name: fadeInLeftMedium;
   animation-name: fadeInLeftMedium;
 }
-
-@-webkit-keyframes fadeInRightMedium{
+@-webkit-keyframes fadeInRightMedium {
   0% {
     opacity: 0;
     -webkit-transform: translateX(500px);
     transform: translateX(500px);
   }
-
   100% {
     opacity: 1;
     -webkit-transform: translateX(0);
     transform: translateX(0);
   }
 }
-
-@keyframes fadeInRightMedium{
+@keyframes fadeInRightMedium {
   0% {
     opacity: 0;
     -webkit-transform: translateX(500px);
     -ms-transform: translateX(500px);
     transform: translateX(500px);
   }
-
   100% {
     opacity: 1;
     -webkit-transform: translateX(0);
@@ -62,26 +54,22 @@
     transform: translateX(0);
   }
 }
-
-.fadeInRightMedium{
+.fadeInRightMedium {
   -webkit-animation-name: fadeInRightMedium;
   animation-name: fadeInRightMedium;
 }
-
 @-webkit-keyframes flipInXShort {
   0% {
     -webkit-transform: perspective(400px) rotateX(90deg);
     transform: perspective(400px) rotateX(90deg);
     opacity: 0;
   }
-
   100% {
     -webkit-transform: perspective(400px) rotateX(0deg);
     transform: perspective(400px) rotateX(0deg);
     opacity: 1;
   }
 }
-
 @keyframes flipInXShort {
   0% {
     -webkit-transform: perspective(400px) rotateX(90deg);
@@ -89,7 +77,6 @@
     transform: perspective(400px) rotateX(90deg);
     opacity: 0;
   }
-
   100% {
     -webkit-transform: perspective(400px) rotateX(0deg);
     -ms-transform: perspective(400px) rotateX(0deg);
@@ -97,7 +84,6 @@
     opacity: 1;
   }
 }
-
 .flipInXShort {
   -webkit-backface-visibility: visible !important;
   -ms-backface-visibility: visible !important;
@@ -105,29 +91,25 @@
   -webkit-animation-name: flipInXShort;
   animation-name: flipInXShort;
 }
-
 @-webkit-keyframes flipInXShortRevert {
   0% {
-    -webkit-transform: perspective(400px) rotateX(-900deg);
+    -webkit-transform: perspective(400px) rotateX(-90deg);
     transform: perspective(400px) rotateX(-90deg);
     opacity: 0;
   }
-
   100% {
     -webkit-transform: perspective(400px) rotateX(0deg);
     transform: perspective(400px) rotateX(0deg);
     opacity: 1;
   }
 }
-
 @keyframes flipInXShortRevert {
   0% {
-    -webkit-transform: perspective(400px) rotateX(-900deg);
+    -webkit-transform: perspective(400px) rotateX(-90deg);
     -ms-transform: perspective(400px) rotateX(-90deg);
     transform: perspective(400px) rotateX(-90deg);
     opacity: 0;
   }
-
   100% {
     -webkit-transform: perspective(400px) rotateX(0deg);
     -ms-transform: perspective(400px) rotateX(0deg);
@@ -135,7 +117,6 @@
     opacity: 1;
   }
 }
-
 .flipInXShortRevert {
   -webkit-backface-visibility: visible !important;
   -ms-backface-visibility: visible !important;

@@ -1,53 +1,58 @@
 var isEmail = false;
 $(function() {
-    $('.goUp').click(function() {
-        $("body").animate({
-            scrollTop: 0
-        }, "slow");
-    });
-    $('.twitter-icon').click(function() {
-        alert(123);
-    });
+  $('.goUp').click(function() {
+    $("body").animate({
+      scrollTop: 0
+    }, "slow");
+  });
+  $('.twitter-icon').click(function() {
+    alert(123);
+  });
 
-    $('#password-area').hide();
+  $('#password-area').hide();
 
-    $('#email').keyup(function(e) {
-        var code = e.keyCode || e.which;
-        if (code === 9)
-            return;
-        var email = $('#email').val();
-        if (!email || isNumeric(email)) {
-            $('#password-area').hide(300);
-            isEmail = false;
-        }
-        if (email && !isNumeric(email)) {
-            $('#password-area').show(300);
-            isEmail = true;
-        }
-    });
+  $('#email').keyup(function(e) {
+    var code = e.keyCode || e.which;
+    if (code === 9)
+      return;
+    var email = $('#email').val();
+    if (!email || isNumeric(email)) {
+      $('#password-area').hide(300);
+      isEmail = false;
+    }
+    if (email && !isNumeric(email)) {
+      $('#password-area').show(300);
+      isEmail = true;
+    }
+  });
+
+  setTimeout(function() {
+    $('.carousel-control').fadeTo("slow", 1);
+  }, 1000);
+
 });
 
 function setMessage(message) {
-    $('#loginError').text(message);
+  $('#loginError').text(message);
 }
 
 function validEmail(email) {
-    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
+  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
 }
 
 function isNumeric(str) {
-    return /^[0-9]+$/.test(str);
+  return /^[0-9]+$/.test(str);
 }
 
 function goToAppStore() {
-    alert('appstore');
+  alert('appstore');
 }
 
 function shareFacebook() {
-    alert('facebook');
+  alert('facebook');
 }
 
 function shareTwitter() {
-    alert('twitter');
+  alert('twitter');
 }

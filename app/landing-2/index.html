@@ -4,383 +4,395 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
 <html class="no-js">
-    <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'> -->
-        <link rel="stylesheet" href="css/normalize.min.css">
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/animate.css">
-        <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="../css/animations.css">
-        <link rel="stylesheet" href="modal/component.css">
-    </head>
-    <body>
-        <!--[if lt IE 7]>
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'> -->
+  <link rel="stylesheet" href="css/normalize.min.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/animate.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="../css/animations.css">
+  <link rel="stylesheet" href="modal/component.css">
+  <script src="bower_components/scrollReveal.js/dist/scrollReveal.js"></script>
+</head>
+
+<body>
+  <!--[if lt IE 7]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <div class="header-container">
-            <header class="wrapper main clearfix">
-                <div>
-                    <h1 class="logo">
-                    <img src="img/Logo.png" height="20" width="90" alt="">
+  <div class="header-container">
+    <header class="wrapper main clearfix">
+      <div>
+        <h2 class="logo">
+          eye<b>Spend</b>
+          <!-- <img src=/Logo.png" height="20" width="90" alt=""> -->
+        </h2>
+        <nav>
+          <ul>
+            <li>
+              <a href="#" class="md-trigger" id="login" data-modal="modal-11">
+                     Вход <div class="icon signIn"></div>
+                   </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+  </div>
+  <div class="main-container">
+    <div class="slides">
+      <div class="slides-bg">
+      </div>
+      <div class="main wrapper clearfix">
+        <div id="carousel-landing" class="carousel slide carousel-landing carousel-fade">
+          <div class="carousel-inner">
+            <div class="item active">
+              <div class="row">
+                <div class="col-xs-6">
+                  <h1 class="animated fadeInLeftMedium">
+                    Центр управления финансами
+                  </h1>
+                </div>
+                <div class="col-xs-6"></div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6">
+                  <div>
+                    <p class="slide-text slide1-text animated fadeInLeftMedium">
+                      Просмотр истории расходов, анализ и статистика – всё на удобном интерактивном Веб-сайте
+                    </p>
+                    <div class="slide-1-icons animated fadeInLeftMedium">
+                      <div class="slide-1-icon">
+                        <img src="img/icon1-01.svg" height="55" width="55" alt="">
+                      </div>
+                      <div class="slide-1-icon">
+                        <img src="img/icon2-01.svg" height="55" width="55" alt="">
+                      </div>
+                      <div class="slide-1-icon">
+                        <img src="img/icon3-01.svg" height="55" width="55" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="carousel-image-col col-xs-6 ">
+                  <div class="text-align-center animated fadeInRightMedium">
+                    <img src="img/iMac2-01.png" alt="Second slide">
+                  </div>
+                </div>
+              </div>
+              <div class="chart chart-1 animated fadeInUp">
+                <img src="img/chart1.png" alt="">
+              </div>
+              <div class="chart chart-2 animated fadeInUp">
+                <img src="img/chart2.png" alt="">
+              </div>
+            </div>
+            <div class="item">
+              <div class="row">
+                <div class="col-xs-6">
+                  <div class="animated fadeInDown">
+                    <h1 class="animated slide-header slide3-header">
+                      Быстрее ветра
                     </h1>
-                    <nav>
-                        <ul>
-                            <li>
-                                <a href="#" class="md-trigger" id="login" data-modal="modal-11">
-                                    Вход <div class="icon signIn"></div>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
+                    <p class="slide3-text slide-text">
+                      Записывайте расходы при помощи iPhone-приложения пока печатается чек и выдают сдачу.
+                    </p>
+                  </div>
                 </div>
-            </header>
-        </div>
-        <div class="main-container">
-            <div class="slides">
-                <div class="slides-bg">
+              </div>
+              <div class="row">
+                <div class="col-xs-6">
+                  <object data="img/app-ref.svg" class="animated flipInX app-ref" style="float:left"></object>
                 </div>
-                <div class="main wrapper clearfix">
-                    <div id="carousel-landing" class="carousel slide carousel-landing carousel-fade">
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                        <h1 class="animated fadeInLeftMedium">
-                                        Центр управления финансами
-                                        </h1>
-                                    </div>
-                                    <div class="col-xs-6"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                        <div>
-                                            <p class="slide-text slide1-text animated fadeInLeftMedium">
-                                            Просмотр истории расходов, анализ и статистика – всё на удобном интерактивном Веб-сайте
-                                            </p>
-                                            <div class="slide-1-icons animated fadeInLeftMedium">
-                                                <div class="slide-1-icon">
-                                                    <img src="img/icon1-01.svg" height="55" width="55" alt="">
-                                                </div>
-                                                <div class="slide-1-icon">
-                                                    <img src="img/icon2-01.svg" height="55" width="55" alt="">
-                                                </div>
-                                                <div class="slide-1-icon">
-                                                    <img src="img/icon3-01.svg" height="55" width="55" alt="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="carousel-image-col col-xs-6 ">
-                                        <div class="text-align-center animated fadeInRightMedium">
-                                            <img src="img/iMac2-01.png" alt="Second slide">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="chart chart-1 animated fadeInUp">
-                                    <img src="img/chart1.png" alt="">
-                                </div>
-                                <div class="chart chart-2 animated fadeInUp">
-                                    <img src="img/chart2.png" alt="">
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                        <div class="animated fadeInDown">
-                                            <h1 class="animated slide-header slide3-header">
-                                            Быстрее ветра
-                                            </h1>
-                                            <p class="slide3-text slide-text">
-                                            Записывайте расходы при помощи iPhone-приложения пока печатается чек и выдают сдачу.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                        <object data="img/app-ref.svg" class="animated flipInX app-ref" style="float:left"></object>
-                                    </div>
-                                </div>
-                                <div class="slide3-phones animated fadeInUp">
-                                    <img src="img/iPhone-displays-01.png" alt="">
-                                </div>
-                                <div class="slide3-keyboard animated fadeInUp">
-                                    <img src="img/keyboard-01.png" alt="">
-                                </div>
-                                <div class="slide3-receipt animated fadeInUp">
-                                    <img src="img/check-machine-01.png" alt="">
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                        <div class="animated flipInXShort">
-                                            <h1 class="animated flipInXShort slide-header slide2-header">
-                                            Где и как угоднo
-                                            </h1>
-                                            <p class="slide2-text slide-text">
-                                            Функция экспорта расходов в Excel даёт Вам возможность архивировать и анализировать их как угодно, не ограничиваясь возможностями сайта.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="slide2-image animated flipInXShortRevert">
-                                        <img src="img/excel.png" alt="">
-                                    </div>
-                                    <div class="slide2-phone animated flipInXShortRevert">
-                                        <img src="img/iPhone.png" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a class="left carousel-control carousel-control-landing" href="#carousel-landing" data-slide="prev">
-                            <div class="arrow arrow-left">
-                            </div>
-                        </a>
-                        <a class="right carousel-control carousel-control-landing" href="#carousel-landing" data-slide="next">
-                            <div class="arrow arrow-right">
-                            </div>
-                        </a>
-                        <ol class="carousel-indicators">
-                            <li data-target="#carousel-landing" data-slide-to="0" class="active"></li>
-                            <li data-target="#carousel-landing" data-slide-to="1" class=""></li>
-                            <li data-target="#carousel-landing" data-slide-to="2" class=""></li>
-                        </ol>
-                    </div>
-                </div>
+              </div>
+              <div class="slide3-phones animated fadeInUp">
+                <img src="img/iPhone-displays-01.png" alt="">
+              </div>
+              <div class="slide3-keyboard animated fadeInUp">
+                <img src="img/keyboard-01.png" alt="">
+              </div>
+              <div class="slide3-receipt animated fadeInUp">
+                <img src="img/check-machine-01.png" alt="">
+              </div>
             </div>
-        </div>
-        <div class="middle">
-            <div class="triangle"></div>
-            <div class="main wrapper clearfix">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h2>Познакомьтесь с eyeSpend</h2>
-                    </div>
-                    <div class="col-md-6"></div>
+            <div class="item">
+              <div class="row">
+                <div class="col-xs-6">
+                  <div class="animated flipInXShort">
+                    <h1 class="animated flipInXShort slide-header slide2-header">
+                      Где и как угоднo
+                    </h1>
+                    <p class="slide2-text slide-text">
+                      Функция экспорта расходов в Excel даёт Вам возможность архивировать и анализировать их как угодно, не ограничиваясь возможностями сайта.
+                    </p>
+                  </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p>
-                        eyeSpend – это простое и удобное приложение, позволяющее по-новому взглянуть на учет личных финансов. Минимализм и удобство для пользователя – вот основная концепция приложения.
-                        </p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p>
-                        Теперь добавить расход можно всего в 2 шага внеся сумму и теги, а наши алгоритмы, учитывающие Ваше местоположение и частоту использования тегов, сделают этот процесс еще проще. Просто откройте его и добавьте запись о расходе, отметив её несколькими метками на Ваш вкус.
-                        </p>
-                    </div>
+                <div class="slide2-image animated flipInXShortRevert">
+                  <img src="img/excel.png" alt="">
                 </div>
+                <div class="slide2-phone animated flipInXShortRevert">
+                  <img src="img/iPhone.png" alt="">
+                </div>
+              </div>
             </div>
-        </div>
-        <div class="features">
-            <div class="main wrapper clearfix">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="feature first">
-                            <div class="featureImage">
-                                <img src="img/fast_edit.svg" alt="">
-                            </div>
-                            <div class="featureText">
-                                <p>
-                                <b>Незаметно</b>
-                                <br>
-                                <span>Записывать расходы так просто, что быстро станет для Вас незаметной, но очень полезной привычкой.</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="feature">
-                            <div class="featureImage">
-                                <img src="img/tags.svg" alt="">
-                            </div>
-                            <div class="featureText">
-                                <p>
-                                <b>Умное тегирование</b>
-                                <br>
-                                <span>Со временем приложение само предлагает всё более подходящие метки.</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="feature">
-                            <div class="featureImage">
-                                <img src="img/password.svg" alt="">
-                            </div>
-                            <div class="featureText">
-                                <p>
-                                <b>Защита паролем</b>
-                                <br>
-                                <span>Ваши данные легко и надёжно защищаются паролем.</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="feature first">
-                            <div class="featureImage">
-                                <img src="img/pics.svg" alt="">
-                            </div>
-                            <div class="featureText">
-                                <p>
-                                <b>С картинками</b>
-                                <br>
-                                <span>Прикрепляйте чеки и фотографии к Вашим расходам.</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="feature">
-                            <div class="featureImage">
-                                <img src="img/earth.svg" alt="">
-                            </div>
-                            <div class="featureText">
-                                <p>
-                                <b>По всему миру</b>
-                                <br>
-                                <span>Записывайте расходы в любой валюте.</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="feature">
-                            <div class="featureImage">
-                                <img src="img/single_pass.svg" alt="">
-                            </div>
-                            <div class="featureText">
-                                <p>
-                                <b>Без СМС и регистрации</b>
-                                <br>
-                                <span>Пароль невозможно потерять или украсть. Ведь он одноразовый!</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          </div>
+          <a class="left carousel-control carousel-control-landing" href="#carousel-landing" data-slide="prev">
+            <div class="arrow arrow-left">
             </div>
+          </a>
+          <a class="right carousel-control carousel-control-landing" href="#carousel-landing" data-slide="next">
+            <div class="arrow arrow-right">
+            </div>
+          </a>
+          <ol class="carousel-indicators">
+            <li data-target="#carousel-landing" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-landing" data-slide-to="1" class=""></li>
+            <li data-target="#carousel-landing" data-slide-to="2" class=""></li>
+          </ol>
         </div>
+      </div>
     </div>
-    <!-- #main-container -->
-    <div class="footer-container">
-        <footer class="wrapper main">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="copyright">
-                        &#169; 2014 UNIQ Systems
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="icons">
-                        <a href="#" onclick="alert(123)">
-                            <object data="img/twitter.svg" onclick="alert(123)" type="image/svg+xml"></object>
-                        </a>
-                        <a href="#">
-                            <object data="img/facebook.svg" type="image/svg+xml"></object>
-                        </a>
-                        <a href="#">
-                            <object data="img/appstore.svg" type="image/svg+xml"></object>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    </div>
-    <!-- overlay -->
-    <div class="md-modal md-effect-11" id="modal-11">
-        <div class="md-content">
-            <div class="modal-bg"></div>
-            <div class="modal-bg-overlay"></div>
-            <div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="black-overlay"></div>
-                        <section style="margin:0 auto" class="widget login-widget">
-                            <header class="text-align-center">
-                                <h4 translate>Введите код активации или email</h4>
-                            </header>
-                            <div class="authError" id="loginError"></div>
-                            <div class="body">
-                                <form class="no-margin" method="POST">
-                                    <fieldset>
-                                        <div class="form-group ">
-                                            <label for="email" translate>Email или код активации</label>
-                                            <div class="input-group input-group-lg">
-                                                <span class="input-group-addon">
-                                                <i class="fa fa-user"></i>
-                                                </span>
-                                                <input id="email" type="text" class="form-control input-lg code-or-email" placeholder="Введите email или код активации">
-                                            </div>
-                                        </div>
-                                        <div style="margin-top: 10px;" class="form-group" id="password-area">
-                                            <label for="password" translate>Пароль</label>
-                                            <div class="input-group input-group-lg">
-                                                <span class="input-group-addon">
-                                                <i class="fa fa-lock"></i>
-                                                </span>
-                                                <input id="password-area" type="password" class="form-control input-lg" placeholder="Введите пароль">
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                    <div class="login-footer">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <button type="button" id="loginButton" class="btn login-button btn-block btn-lg btn-danger">
-                                                    <span>Войти</span>
-                                                </button>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="forgot">
-                                                    <a class="forgot" href="#" translate>Забыли пароль?</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </section>
-                    </div>
-                </div>
-            </div>
-            <a href="javascript:void(0)" class="md-close hide"><i class="fa fa-times"></i></a>
+  </div>
+  <div class="middle">
+    <div class="triangle"></div>
+    <div class="main wrapper clearfix">
+      <div class="row">
+        <div class="col-sm-6">
+          <h2>Познакомьтесь с eyeSpend</h2>
         </div>
+        <div class="col-md-6"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <p>
+            eyeSpend – это простое и удобное приложение, позволяющее по-новому взглянуть на учет личных финансов. Минимализм и удобство для пользователя – вот основная концепция приложения.
+          </p>
+        </div>
+        <div class="col-sm-6">
+          <p>
+            Теперь добавить расход можно всего в 2 шага внеся сумму и теги, а наши алгоритмы, учитывающие Ваше местоположение и частоту использования тегов, сделают этот процесс еще проще. Просто откройте его и добавьте запись о расходе, отметив её несколькими метками на Ваш вкус.
+          </p>
+        </div>
+      </div>
     </div>
-    <div class="md-overlay"></div>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script>
-    window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')
-    </script>
-    <script src="js/main.js"></script>
-    <script src="js/vendor/transition.js"></script>
-    <script src="js/vendor/carousel.js"></script>
-    <script src="modal/classie.js"></script>
-    <script src="modal/modalEffects.js"></script>
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-    <script>
-    (function(b, o, i, l, e, r) {
+  </div>
+  <div class="features">
+    <div class="main wrapper clearfix">
+      <div class="row">
+        <div class="col-sm-4">
+          <div data-scroll-reveal class="feature first">
+            <div class="featureImage">
+              <img src="img/fast_edit.svg" alt="">
+            </div>
+            <div class="featureText">
+              <p>
+                <b>Незаметно</b>
+                <br>
+                <span>Записывать расходы так просто, что быстро станет для Вас незаметной, но очень полезной привычкой.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div data-scroll-reveal="after 0.22s" class="feature">
+            <div class="featureImage">
+              <img src="img/tags.svg" alt="">
+            </div>
+            <div class="featureText">
+              <p>
+                <b>Умное тегирование</b>
+                <br>
+                <span>Со временем приложение само предлагает всё более подходящие метки.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div data-scroll-reveal="after 0.44s" class="feature">
+            <div class="featureImage">
+              <img src="img/password.svg" alt="">
+            </div>
+            <div class="featureText">
+              <p>
+                <b>Защита паролем</b>
+                <br>
+                <span>Ваши данные легко и надёжно защищаются паролем.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div data-scroll-reveal="after" class="feature first">
+            <div class="featureImage">
+              <img src="img/pics.svg" alt="">
+            </div>
+            <div class="featureText">
+              <p>
+                <b>С картинками</b>
+                <br>
+                <span>Прикрепляйте чеки и фотографии к Вашим расходам.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div data-scroll-reveal="after 0.22s" class="feature">
+            <div class="featureImage">
+              <img src="img/earth.svg" alt="">
+            </div>
+            <div class="featureText">
+              <p>
+                <b>По всему миру</b>
+                <br>
+                <span>Записывайте расходы в любой валюте.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div data-scroll-reveal="after 0.44s" class="feature">
+            <div class="featureImage">
+              <img src="img/single_pass.svg" alt="">
+            </div>
+            <div class="featureText">
+              <p>
+                <b>Без СМС и регистрации</b>
+                <br>
+                <span>Пароль невозможно потерять или украсть. Ведь он одноразовый!</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <!-- #main-container -->
+  <div class="footer-container">
+    <footer class="wrapper main">
+      <div class="row">
+        <div data-scroll-reveal="enter left" class="col-md-6">
+          <div class="copyright">
+            &#169; 2014 UNIQ Systems
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="icons">
+            <a data-scroll-reveal="enter right after 0.44s" href="#" onclick="alert(123)">
+              <object data="img/twitter.svg" onclick="alert(123)" type="image/svg+xml"></object>
+            </a>
+            <a data-scroll-reveal="enter right after 0.22s" href="#">
+              <object data="img/facebook.svg" type="image/svg+xml"></object>
+            </a>
+            <a data-scroll-reveal="enter right" href="#">
+              <object data="img/appstore.svg" type="image/svg+xml"></object>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <!-- overlay -->
+  <div class="md-modal md-effect-11" id="modal-11">
+    <div class="md-content">
+      <div class="modal-bg"></div>
+      <div class="modal-bg-overlay"></div>
+      <div>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="black-overlay"></div>
+            <section style="margin:0 auto" class="widget login-widget">
+              <header class="text-align-center">
+                <h4 translate>Введите код активации или email</h4>
+              </header>
+              <div class="authError" id="loginError"></div>
+              <div class="body">
+                <form class="no-margin" method="POST">
+                  <fieldset>
+                    <div class="form-group ">
+                      <label for="email" translate>Email или код активации</label>
+                      <div class="input-group input-group-lg">
+                        <span class="input-group-addon">
+                          <i class="fa fa-user"></i>
+                        </span>
+                        <div>
+                          <input id="email" type="text" class="form-control input-lg code-or-email" placeholder="Введите email или код активации">
+                          <img src="img/user-icon.svg" alt="">
+                        </div>
+                      </div>
+                    </div>
+                    <div style="margin-top: 10px;" class="form-group" id="password-area">
+                      <label for="password" translate>Пароль</label>
+                      <div class="input-group input-group-lg">
+                        <span class="input-group-addon">
+                          <i class="fa fa-lock"></i>
+                        </span>
+                        <input id="password-area" type="password" class="form-control input-lg" placeholder="Введите пароль">
+                        <img src="img/password-icon.svg" alt="">
+                      </div>
+                    </div>
+                  </fieldset>
+                  <div class="login-footer">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <button type="button" id="loginButton" class="btn login-button btn-block btn-lg btn-danger">
+                          <span>Войти</span>
+                        </button>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="forgot">
+                          <a class="forgot" href="#" translate>Забыли пароль?</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+      <a href="javascript:void(0)" class="md-close hide"><i class="fa fa-times"></i></a>
+    </div>
+  </div>
+  <div class="md-overlay"></div>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script>
+  window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')
+  </script>
+  <script src="js/main.js"></script>
+  <script src="js/vendor/transition.js"></script>
+  <script src="js/vendor/carousel.js"></script>
+  <script src="modal/classie.js"></script>
+  <script src="modal/modalEffects.js"></script>
+  <script>
+  window.scrollReveal = new scrollReveal();
+  </script>
+  <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+  <script>
+  (function(b, o, i, l, e, r) {
     b.GoogleAnalyticsObject = l;
     b[l] || (b[l] =
-    function() {
-    (b[l].q = b[l].q || []).push(arguments)
-    });
+      function() {
+        (b[l].q = b[l].q || []).push(arguments)
+      });
     b[l].l = +new Date;
     e = o.createElement(i);
     r = o.getElementsByTagName(i)[0];
     e.src = '//www.google-analytics.com/analytics.js';
     r.parentNode.insertBefore(e, r)
-    }(window, document, 'script', 'ga'));
-    ga('create', 'UA-XXXXX-X');
-    ga('send', 'pageview');
-    </script>
+  }(window, document, 'script', 'ga'));
+  ga('create', 'UA-XXXXX-X');
+  ga('send', 'pageview');
+  </script>
 </body>
+
 </html>
