@@ -160,6 +160,13 @@ g.content {
   padding: 0;
   max-width: 940px;
 }
+.scrubberDot {
+  stroke-width: 10px;
+}
+/*.dot {
+  stroke-width: 5px !important;
+}
+*/
 @keyframes moveOut {
   0% {
     translate: scale(1);

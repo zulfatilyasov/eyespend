@@ -28,7 +28,7 @@ $(function() {
 
   setTimeout(function() {
     $('.carousel-control').fadeTo("slow", 1);
-  }, 1000);
+  }, 800);
 
 });
 

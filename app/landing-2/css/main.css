@@ -538,14 +538,12 @@ Carousel
 }
 .slide3-keyboard {
   position: absolute;
-  bottom: -100px;
-  right: 100px;
-  max-width: 100%;
+  bottom: -86px;
+  right: -23px;
+  max-width: 54%;
 }
 .slide3-receipt {
-  position: absolute;
-  bottom: -58px;
-  left: -55px;
+  display: none;
 }
 .slide-1-icons {
   text-align: left;
@@ -571,9 +569,9 @@ Carousel
   transform: scale(1.2);
 }
 .app-ref {
-  -webkit-animation-delay: 1s;
-  -o-animation-delay: 1s;
-  animation-delay: 1s;
+  -webkit-animation-delay: 0.8s;
+  -o-animation-delay: 0.8s;
+  animation-delay: 0.8s;
 }
 .arrow {
   top: 50%;
@@ -613,6 +611,9 @@ Carousel
 }
 .chart-2 {
   z-index: -1;
+}
+.scrubberDot {
+  stroke-width: 12px;
 }
 /* ==========================================================================
 Media Queries
@@ -692,6 +693,18 @@ WIDE: Main
   }
   .arrow-right, .arrow-left {
     left: 0;
+  }
+  .slide3-keyboard {
+    position: absolute;
+    bottom: -100px;
+    right: 100px;
+    max-width: 100%;
+  }
+  .slide3-receipt {
+    display: block;
+    position: absolute;
+    bottom: -58px;
+    left: -55px;
   }
 }
 @media only screen and (min-width: 1140px) {
