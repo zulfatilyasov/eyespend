@@ -1,36 +1,31 @@
 <div class="page" ng-controller="transactions as vm">
   <div class="row">
     <div class="col-md-12">
-      <h2 class="page-title" translate>EXPENSES_HISTORY</h2>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
       <div class="widgetWrapper">
         <div ng-show="showSpinner" class="widgetOverlay">
         </div>
         <section class="widget transactions-widget">
           <header>
             <div class="row shortStats">
-              <div style="float: left" class="col-md-3 hidden-phone-landscape">
-                <span class="fs15">
+              <div style="float: left" class="col-md-4 hidden-phone-landscape widgeTitle">
+                <span>
                   <span translate>TOTAL_SUM</span>:</span>
                 <span>{{vm.total}}</span>
               </div>
-              <div style="float: right" class="col-md-3 download-excel">
+              <div style="float: right" class="col-md-3 table-icons ">
                 <span class="tableAction hidden-phone-landscape">
-                  <a href="javascript:void(0)" class="simptip-position-top simptip-movable simptip-smooth" data-tooltip="{{'DOWNLOAD_EXCEL_FILE'|translate}}" ng-click="vm.downloadExcel()" title="{{'DOWNLOAD'|translate}}">
-                    <img src="../img/excel-3-32.png" alt="" />
+                  <a href="javascript:void(0)" ng-click="vm.downloadExcel()" class="download-excel-icon" title="{{'DOWNLOAD'|translate}}">
+                    <object data="../img/excel.svg" type="image/svg+xml"></object>
                   </a>
                 </span>
                 <span class="tableAction">
-                  <a href="javascript:void(0)" class="simptip-position-top simptip-movable simptip-smooth" data-tooltip="{{'FILTER'|translate}}" ng-click="vm.toggleFiltering()">
-                    <i class="fa fa-search fa-2x"></i>
+                  <a href="javascript:void(0)" ng-click="vm.toggleFiltering()">
+                    <object data="../img/filter-icon.svg" type="image/svg+xml"></object>
                   </a>
                 </span>
                 <span class="tableAction hidden-xs">
-                  <a href="javascript:void(0)" class="simptip-position-top simptip-movable simptip-smooth" data-tooltip="{{'NEW_TRANSACTION'|translate}}" ng-click="vm.addNewTxn(true)">
-                    <i class="fa fa-plus fa-2x"></i>
+                  <a href="javascript:void(0)" ng-click="vm.addNewTxn(true)">
+                    <object data="../img/plus-icon.svg" type="image/svg+xml"></object>
                   </a>
                 </span>
                 <span class="tableAction hidden-md hidden-lg hidden-sm">
@@ -39,6 +34,8 @@
                   </a>
                 </span>
               </div>
+              <div class="clearfix"></div>
+
             </div>
             <div class="row filter" style="margin-top: 10px;" ng-show="vm.isFiltering">
               <div class="col-md-6">
@@ -82,11 +79,20 @@
                         <th ng-class="vm.getSortingForColumn('foto')" ng-click="vm.changeSorting('foto')" id="foto" translate>
                           FOTO
                         </th>
+                        <th>
+                          Теги
+                        </th>
+                        <th class="rowActions-th">
+
+                        </th>
                       </tr>
                     </thead>
                     <tbody ng-click="vm.tableClicked($event)">
                       <tr ng-repeat-start="transaction in vm.trs track by $index" ng-class="{selected:vm.selectedTnx.id === transaction.id}" ng-if="(!vm.editing || vm.selectedTnx.id !== transaction.id) && !transaction.new" data-index="{{$index}}">
                         <td class="date-td">
+                          <div class="pointer">
+                            <img src="../img/pointer.svg" alt="">
+                          </div>
                           <div>
                             <span class="hidden-phone-landscape fullDate">
                               {{transaction.timestamp | date:'dd MMMM yyyy'}}
@@ -118,13 +124,13 @@
                         <td class="map">
                           <div ng-if="transaction.latitude && transaction.longitude">
                             <a title="{{'SHOW_ON_MAP'|translate}}" href="javascript:void(0)">
-                              <i class="fa fa-map-marker fa-2x"></i>
+                              <img src="../img/map-icon.svg" alt="">
                             </a>
                           </div>
                         </td>
                         <td class="foto-td">
                           <a href="javascript:void(0)" ng-if="transaction.imgUrl">
-                            <i class="fa fa-picture-o fa-2x"></i>
+                            <img src="../img/image-icon.png" alt="">
                           </a>
                         </td>
                         <td class="hidden-sm bootstrap tags-td">
@@ -133,7 +139,7 @@
                               <li ng-repeat="tag in transaction.tags" ng-mouseenter="vm.hoveredTag = tag" ng-mouseleave="vm.hoveredTag = null" ng-class="{'tag-hovered':vm.hoveredTag.text === tag.text}">
                                 <div style="display:inline-block">
                                   <span ng-style="{'border-color':vm.getTagColorStyle(tag.color)}" class="beforeTag">
-                                  </span><a class="transaction-tag" ng-style="{'background':tag.color}" href="javascript:void(0)">
+                                  </span><a class="transaction-tag" ng-style="{'background-color':tag.color}" href="javascript:void(0)">
                                                                         {{tag.text}}
                                                                     </a>
                                 </div>

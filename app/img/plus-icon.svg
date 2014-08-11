@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events" width="23px" height="23px">
+  <style>
+  path {
+    transition: opacity 0.2s;
+  }
+  svg:hover {
+    cursor: pointer;
+  }
+  svg:hover path {
+    opacity: 1;
+  }
+  </style>
+  <g>
+    <path opacity="0.301961" fill="rgb(173,107,43)" fill-rule="evenodd" d="M22 12 C22 12 13 12 13 12 C13 12 13 22 13 22 C13 22.5523 12.5523 23 12.0001 23 C11.4477 23 11 22.5523 11 22 C11 22 11 12 11 12 C11 12 0.999992 12 0.999992 12 C0.447758 12 -2.09747e-005 11.5523 -2.09747e-005 11 C-2.09747e-005 10.4477 0.447758 10 0.999992 10 C0.999992 10 11 10 11 10 C11 10 11 1.00003 11 1.00003 C11 0.447739 11.4477 8.68859e-009 12.0001 8.68859e-009 C12.5523 8.68859e-009 13 0.447739 13 1.00003 C13 1.00003 13 10 13 10 C13 10 22 10 22 10 C22.5523 10 23 10.4477 23 11 C23 11.5523 22.5523 12 22 12 Z" />
+  </g>
+</svg>

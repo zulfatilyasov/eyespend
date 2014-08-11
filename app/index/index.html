@@ -1,58 +1,61 @@
 <!doctype html>
 <html lang="en" ng-app="app">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
-        <title>eyeSpend</title>
-        <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700&subset=latin,cyrillic'-->
-        <!--rel='stylesheet' type='text/css'>-->
-        <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700|Roboto:400,300,700&subset=latin,cyrillic' rel='stylesheet' type='text/css' />
-        <link rel="stylesheet" type="text/css" href="../eyeSpend.min.css" />
-        <style type="text/css">
-        @-moz-document url-prefix() {
-        .slider {
-        overflow: hidden;
-        }
-        }
-        [ng-cloak] {
-        display: none;
-        }
-        </style>
-    </head>
-    <body class="background-ocean">
-        <div ng-class="{'overlay-open':overlayIsOpen}" id="all">
-            <div ng-include="'shell/shell.html'"></div>
-            <div class="content container">
-                <div ng-hide="hideContent" ng-view></div>
-            </div>
-        </div>
-        <div ng-show="showSpinner" class="spinner">
-            <h4>&nbsp;</h4>
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <div style="display: none" class="overlay overlay-contentscale" ng-class="{open:overlayIsOpen}" ng-cloak="ng-cloak">
-            <a id="overlay-close" ng-click="closeMap();" href="javascript:void(0)">
-                <i class="fa fa-times fa-4x"></i>
-            </a>
-            <a id="overlay-save" ng-show="showPlacesInput" ng-click="saveLocation()" href="javascript:void(0)">
-                <i class="fa fa-check fa-4x"></i>
-            </a>
-            <div ng-show="showImage" class="imageContainer">
-                <img src="{{imgUrl}}" alt="" />
-            </div>
-            <div ng-show="showPlacesInput" id="placeInput">
-                <input id="pac-input" class="controls" ng-autocomplete ng-enter="refreshMap()" ng-model="placePicker.place" details="placePicker.details" type="text" placeholder="{{'ENTER_LOCATION'|translate}}" />
-                <span class="input-group-btn">
-                </span>
-            </div>
-            <gm-map gm-map-id="'myMap'" gm-center="mapCenter" gm-zoom="zoom" style="height:100%;width:100%;">
-            <gm-markers gm-marker-options="object.options()" gm-objects="markers" gm-id="object.id" gm-on-dragend="setMarkerLocation(marker)" gm-position="{lat: object.location.lat, lng: object.location.lng}">
-            </gm-markers>
-            </gm-map>
-        </div>
-        <script src="../eyeSpend.min.js"></script>
-        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
-    </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+  <title>eyeSpend</title>
+  <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700&subset=latin,cyrillic'-->
+  <!--rel='stylesheet' type='text/css'>-->
+  <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700|Roboto:400,300,700&subset=latin,cyrillic' rel='stylesheet' type='text/css' />
+  <link rel="stylesheet" type="text/css" href="../eyeSpend.min.css" />
+  <style type="text/css">
+  @-moz-document url-prefix() {
+    .slider {
+      overflow: hidden;
+    }
+  }
+  [ng-cloak] {
+    display: none;
+  }
+  </style>
+</head>
+
+<body class="background-chocolate">
+  <div ng-class="{'overlay-open':overlayIsOpen}" id="all">
+    <div ng-include="'shell/shell.html'"></div>
+    <div class="content container">
+      <div ng-hide="hideContent" ng-view></div>
+    </div>
+  </div>
+  <div ng-show="showSpinner" class="spinner">
+    <h4>&nbsp;</h4>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <div style="display: none" class="overlay overlay-contentscale" ng-class="{open:overlayIsOpen}" ng-cloak="ng-cloak">
+    <a id="overlay-close" ng-click="closeMap();" href="javascript:void(0)">
+      <i class="fa fa-times fa-4x"></i>
+    </a>
+    <a id="overlay-save" ng-show="showPlacesInput" ng-click="saveLocation()" href="javascript:void(0)">
+      <i class="fa fa-check fa-4x"></i>
+    </a>
+    <div ng-show="showImage" class="imageContainer">
+      <img src="{{imgUrl}}" alt="" />
+    </div>
+    <div ng-show="showPlacesInput" id="placeInput">
+      <input id="pac-input" class="controls" ng-autocomplete ng-enter="refreshMap()" ng-model="placePicker.place" details="placePicker.details" type="text" placeholder="{{'ENTER_LOCATION'|translate}}" />
+      <span class="input-group-btn">
+      </span>
+    </div>
+    <gm-map gm-map-id="'myMap'" gm-center="mapCenter" gm-zoom="zoom" style="height:100%;width:100%;">
+      <gm-markers gm-marker-options="object.options()" gm-objects="markers" gm-id="object.id" gm-on-dragend="setMarkerLocation(marker)" gm-position="{lat: object.location.lat, lng: object.location.lng}">
+      </gm-markers>
+    </gm-map>
+  </div>
+  <script src="../eyeSpend.min.js"></script>
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+</body>
+
 </html>
