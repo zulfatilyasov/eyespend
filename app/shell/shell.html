@@ -1,78 +1,81 @@
-<div ng-controller="shell as vm">
-    <header ng-class="{visible:!hideHeader}" class="page-header">
-        <div>
-            <div class="navbar">
-                <a href="/">
-                    <div class="logo sidebar-icons">
-                        <h4 style="display:inline-block">
-                            eye<strong>Spend</strong>
-                        </h4>
-                    </div>
-                </a>
-                <ul class="nav navbar-nav navbar-right pull-right">
-                    <!--<li>-->
-                        <!--<a href="javascript:void(0)"-->
-                           <!--ng-href="#/stats"-->
-                           <!--id="stats"-->
-                           <!--class="simptip-position-bottom simptip-movable simptip-smooth"-->
-                           <!--data-tooltip="Статистика">-->
-                            <!--<i class="fa fa-bar-chart-o"></i>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a href="javascript:void(0)"-->
-                           <!--ng-href="#/settings"-->
-                           <!--id="settings"-->
-                           <!--class="simptip-position-bottom simptip-movable simptip-smooth"-->
-                           <!--data-tooltip="{{'SETTINGS'| translate}}">-->
-                            <!--<i class="fa fa-cog"></i>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <li>
-                        <a href="javascript:void(0)"
-                           ng-href="#/menu"
-                           id="menu"
-                           class="simptip-position-bottom simptip-movable simptip-smooth"
-                           data-tooltip="Меню">
-                            <i class="fa fa-home"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)" 
-                          ng-click="vm.togglePopover()" id="globe"
-                           data-toggle="popover" 
-                           data-placement="bottom"
-                           class="simptip-position-bottom simptip-movable simptip-smooth"
-                           data-tooltip="{{'LANGUAGE'|translate}}"
-                           data-original-title="Settings">
-                            <i class="fa fa-globe"></i>
-                        </a>
-                        <ul id="languages-menu" ng-show="vm.langsOpen" ng-class="{'dropdown-menu':true, messages:true}"
-                            role="menu">
-                            <li role="presentation">
-                                <a href="#" id="ru" ng-click="vm.translate('ru')" class="message">
+<div ng-controller="shell as vm" class="container" style="position:relative">
+  <header ng-class="{visible:!hideHeader}" class="page-header">
+    <div>
+      <div class="navbar">
+        <a href="/">
+          <div class="logo sidebar-icons">
+            <h4 style="display:inline-block">
+              eye<b>Spend</b>
+            </h4>
+          </div>
+        </a>
+        <ul class="nav navbar-nav navbar-right pull-right">
+          <li>
+            <a href="javascript:void(0)" ng-click="vm.togglePopover()" id="globe" data-toggle="popover" data-placement="bottom" class="simptip-position-bottom simptip-movable simptip-smooth" data-tooltip="{{'LANGUAGE'|translate}}" data-original-title="Settings">
+              <object data="../img/earth.svg" type="image/svg+xml"></object>
+            </a>
+            <ul id="languages-menu" ng-show="vm.langsOpen" ng-class="{'dropdown-menu':true, messages:true}" role="menu">
+              <li role="presentation">
+                <a href="#" id="ru" ng-click="vm.translate('ru')" class="message">
                                     Русский
                                 </a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#" id="en" ng-click="vm.translate('en')" class="message">
+              </li>
+              <li role="presentation">
+                <a href="#" id="en" ng-click="vm.translate('en')" class="message">
                                     English
                                 </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)" title="k" id="logoutButton"
-                           class="simptip-position-bottom simptip-movable simptip-smooth"
-                           data-tooltip="{{'EXIT'|translate}}"
-                           ng-click="vm.logout()">
-                            <i class="fa fa-sign-out"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-    </header>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="javascript:void(0)" title="k" id="logoutButton" class="simptip-position-bottom simptip-movable simptip-smooth" data-tooltip="{{'EXIT'|translate}}" ng-click="vm.logout()">
+              <object data="../img/sign-in.svg" type="image/svg+xml"></object>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </header>
+  <nav class="side-bar">
+    <ul>
+      <li ng-class="{active:vm.activePage == 'expenses'}">
+        <a href="#/expenses" ng-click="vm.activePage = 'expenses'">
+          <span>Расходы</span>
+          <div class="icon-container">
+            <img src="../img/expenses-icon.svg" alt="">
+          </div>
+          <div class="pointer">
+            <img src="../img/menu-pointer.svg" alt="">
+          </div>
+          <div class="clearfix"></div>
+        </a>
+      </li>
+      <li ng-class="{active:vm.activePage == 'stats'}">
+        <a href="#/stats" ng-click="vm.activePage = 'stats'">
+          <span>Статистика</span>
+          <div class="icon-container">
+            <img src="../img/stats-icon.svg" alt="">
+          </div>
+          <div class="pointer">
+            <img src="../img/menu-pointer.svg" alt="">
+          </div>
+          <div class="clearfix"></div>
+        </a>
+      </li>
+      <li ng-class="{active:vm.activePage == 'settings'}">
+        <a href="#/settings" ng-click="vm.activePage = 'settings'">
+          <span>Настройки</span>
+          <div class="icon-container">
+            <img src="../img/gear-icon.svg" alt="">
+          </div>
+          <div class="pointer">
+            <img src="../img/menu-pointer.svg" alt="">
+          </div>
+          <div class="clearfix"></div>
+        </a>
+      </li>
+    </ul>
+  </nav>
 
 </div>

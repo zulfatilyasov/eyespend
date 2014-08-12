@@ -134,24 +134,24 @@
                           </a>
                         </td>
                         <td class="hidden-sm bootstrap tags-td">
-                          <div>
-                            <ul class="transaction-tags">
-                              <li ng-repeat="tag in transaction.tags" ng-mouseenter="vm.hoveredTag = tag" ng-mouseleave="vm.hoveredTag = null" ng-class="{'tag-hovered':vm.hoveredTag.text === tag.text}">
+                          <div class="tags-container">
+                            <div class="transaction-tags">
+                              <div ng-repeat="tag in transaction.tags" ng-mouseenter="vm.hoveredTag = tag" ng-mouseleave="vm.hoveredTag = null" ng-class="{'tag-hovered':vm.hoveredTag.text === tag.text}">
                                 <div style="display:inline-block">
                                   <span ng-style="{'border-color':vm.getTagColorStyle(tag.color)}" class="beforeTag">
                                   </span><a class="transaction-tag" ng-style="{'background-color':tag.color}" href="javascript:void(0)">
                                                                         {{tag.text}}
                                                                     </a>
                                 </div>
-                              </li>
-                            </ul>
+                              </div>
+                            </div>
                           </div>
                         </td>
                         <td class="rowActions-td hidden-phone-landscape">
                           <ul ng-class="{visible:vm.selectedTnx.id === transaction.id}" class="rowActions">
                             <li>
-                              <a id="pencil" href="javascript:void(0)">
-                                <i class="fa fa-gear edit-transaction"></i>
+                              <a href="javascript:void(0)">
+                                <img src="../img/gear-icon.svg" alt="">
                               </a>
                             </li>
                           </ul>
