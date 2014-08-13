@@ -24,13 +24,13 @@
                   </a>
                 </span>
                 <span class="tableAction hidden-xs">
-                  <a href="javascript:void(0)" ng-click="vm.addNewTxn(true)">
-                    <object data="../img/plus-icon.svg" type="image/svg+xml"></object>
+                  <a href="javascript:void(0)">
+                    <object ng-click="vm.addNewTxn(true)" data="../img/plus-icon.svg" type="image/svg+xml"></object>
                   </a>
                 </span>
                 <span class="tableAction hidden-md hidden-lg hidden-sm">
                   <a href="javascript:void(0)" ng-click="vm.addNewTxn(false)">
-                    <i class="fa fa-plus fa-2x"></i>
+                    <object data="../img/plus-icon.svg" type="image/svg+xml"></object>
                   </a>
                 </span>
               </div>
@@ -69,7 +69,7 @@
                         <th ng-class="vm.getSortingForColumn('timestamp')" ng-click="vm.changeSorting('timestamp')" id="timestamp" class="date-th" translate>
                           DATE
                         </th>
-                        <th class="hidden-phone-landscape no-sort" translate>
+                        <th class="no-sort" translate>
                           TIME
                         </th>
                         <th ng-class="vm.getSortingForColumn('amountInBaseCurrency')" ng-click="vm.changeSorting('amountInBaseCurrency')" id="amount">
@@ -79,8 +79,8 @@
                         <th ng-class="vm.getSortingForColumn('foto')" ng-click="vm.changeSorting('foto')" id="foto" translate>
                           FOTO
                         </th>
-                        <th>
-                          Теги
+                        <th class="tags-header">
+                          <span class="tags-header">Теги</span>
                         </th>
                         <th class="rowActions-th">
 
@@ -88,7 +88,7 @@
                       </tr>
                     </thead>
                     <tbody ng-click="vm.tableClicked($event)">
-                      <tr ng-repeat-start="transaction in vm.trs track by $index" ng-class="{selected:vm.selectedTnx.id === transaction.id}" ng-if="(!vm.editing || vm.selectedTnx.id !== transaction.id) && !transaction.new" data-index="{{$index}}">
+                      <tr ng-repeat-start="transaction in vm.trs track by $index" ng-class="{selected:vm.selectedTnx.id === transaction.id}" ng-if="(!vm.editing || vm.selectedTnx.id !== transaction.id) && !transaction.new" data-index="{{$index}}" ng-dblclick="vm.editTransaction($index)">
                         <td class="date-td">
                           <div class="pointer">
                             <img src="../img/pointer.svg" alt="">
@@ -102,7 +102,7 @@
                             </span>
                           </div>
                         </td>
-                        <td class="hidden-phone-landscape time-td">
+                        <td class="time-td">
                           <div ng-show="lang === 'en'">
                             <span>
                               {{transaction.timestamp | date:'hh:mm a'}}
@@ -124,13 +124,13 @@
                         <td class="map">
                           <div ng-if="transaction.latitude && transaction.longitude">
                             <a title="{{'SHOW_ON_MAP'|translate}}" href="javascript:void(0)">
-                              <img src="../img/map-icon.svg" alt="">
+                              <img src="../img/map-icon.svg" class="showMap" alt="">
                             </a>
                           </div>
                         </td>
                         <td class="foto-td">
                           <a href="javascript:void(0)" ng-if="transaction.imgUrl">
-                            <img src="../img/image-icon.png" alt="">
+                            <img src="../img/image-icon.png" class="showPicture" alt="">
                           </a>
                         </td>
                         <td class="hidden-sm bootstrap tags-td">
@@ -151,7 +151,7 @@
                           <ul ng-class="{visible:vm.selectedTnx.id === transaction.id}" class="rowActions">
                             <li>
                               <a href="javascript:void(0)">
-                                <img src="../img/gear-icon.svg" alt="">
+                                <img class="edit-transaction" src="../img/gear-icon.svg" alt="">
                               </a>
                             </li>
                           </ul>
@@ -159,6 +159,9 @@
                       </tr>
                       <tr ng-repeat-end class="edited" data-index="{{$index}}" ng-if="(vm.selectedTnx.id === transaction.id && vm.editing) || transaction.new">
                         <td class="date-td">
+                          <div class="pointer">
+                            <img src="../img/pointer.svg" alt="">
+                          </div>
                           <div>
                             <input type="text" us-date-time-picker class="inlineInput transparentInput" ng-model="transaction.date" />
                           </div>
@@ -174,15 +177,15 @@
                           </div>
                         </td>
                         <td class="map">
-                          <div class="dashed-bottom" style="margin: 0 auto;">
+                          <div style="margin: 0 auto;">
                             <a href="javascript:void(0)">
-                              <i class="fa fa-question fa-2x pickAddress"></i>
+                              <img src="../img/question.png" height="19" width="11" class="pickAddress" alt="">
                             </a>
                           </div>
                         </td>
                         <td class="foto-td">
                           <a href="javascript:void(0)" ng-if="transaction.imgUrl">
-                            <i class="fa fa-picture-o fa-2x"></i>
+                            <img src="../img/image-icon.png" class="showPicture" alt="">
                           </a>
                         </td>
                         <td class="hidden-sm bootstrap tags-td">
@@ -197,12 +200,12 @@
                           <ul class="rowActions">
                             <li>
                               <a href="javascript:void(0)">
-                                <i class="fa fa-check"></i>
+                                <img src="../img/check-icon.png" height="18" width="22" alt="">
                               </a>
                             </li>
                             <li>
                               <a href="javascript:void(0)">
-                                <i class="fa fa-trash-o"></i>
+                                <img src="../img/trash.png" height="22" width="20" alt="">
                               </a>
                             </li>
                           </ul>

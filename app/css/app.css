@@ -2,7 +2,6 @@ html {
   overflow-y: scroll;
   -ms-touch-action: manipulation;
   touch-action: manipulation;
-  /*height: 100%;*/
 }
 body {
   font: 16px/26px Helvetica Neue, Arial;
@@ -12,6 +11,14 @@ body {
   padding-bottom: 0;
   /*transform: translateZ(0);*/
   /*height: 100%;*/
+}
+@-moz-document url-prefix() {
+  body, header.tableLabel h4, table.dataTable thead th {
+    font-weight: 300 !important;
+  }
+  .widgeTitle {
+    font-weight: 100 !important;
+  }
 }
 a {
   color: #f8f8f8;
@@ -395,8 +402,14 @@ header a:hover {
   padding: 0 0 0.5em;
 }
 .dashed-bottom {
-  border-bottom: 1px dashed white
+  border-bottom: 1px dashed white;
 }
+/*.map .dashed-bottom a {
+  height: 20px;
+  line-height: 20px;
+}
+*/
+
 .actionButton {
   margin-top: 10px;
 }
@@ -431,10 +444,15 @@ input.inlineInput {
 }
 input.transparentInput {
   background: transparent;
-  color: #fff;
+  font: 16px/26px Helvetica Neue, Arial;
+  -webkit-font-smoothing: antialiased;
+  color: rgba(255, 255, 254, 0.6);
   border: 0;
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: none;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
 }
 input.transparentInput:focus {
   color: #fff;
@@ -481,12 +499,11 @@ table.dataTable thead {
   background: linear-gradient(0deg, rgba(82, 164, 187, 0.06) 0%, rgba(82, 164, 187, 0.07) 14%, rgba(255, 255, 255, 0) 100%);
   background-color: rgba(255, 255, 255, 0.3);
 }
-table.dataTable thead th {
-  border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-}
 table.table thead .sorting_desc {
   background: url(../img/arrow-down.svg) no-repeat center right;
+}
+table.table thead .sorting_asc {
+  background: url(../img/arrow-up.svg) no-repeat center right;
 }
 table.table thead .sorting {
   background: url(../img/arrow-down-top.svg) no-repeat center right;
@@ -549,7 +566,7 @@ table.dataTable thead th, header.tableLabel h4 {
   border: 0;
 }
 #transactions-table .inline-tags-input .tags {
-  border-bottom: 1px solid #ffffff;
+  padding-top: 5px;
 }
 .no-transactions {
   line-height: 30px;
@@ -565,15 +582,17 @@ tags-input .host {
 }
 tags-input .bootstrap .tags .tag-item, .bootstrap .tags .tag-item {
   display: inline-block;
-  margin: 3px;
-  background: #56bc76;
-  border-color: #47b268;
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.2);
+  border: none;
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
   color: #000;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.7px;
+  font: 16px/26px Helvetica Neue, Arial;
+}
+tags-input .tags .tag-item .remove-button {
+  /*font: 16px/26px Helvetica Neue, Arial;*/
+  color: #fff;
 }
 tags-input .tags .tag-item.selected {
   border-color: #ff5c5c;
@@ -584,12 +603,9 @@ tags-input .tags.focused {
 }
 .tags .tag-item {
   border-radius: 24px;
-  padding: 2px 10px;
+  /*padding: 2px 10px;*/
 }
 .bootstrap .tags .tag-item:hover {
-  color: red;
-  background-color: #fff;
-  border-color: #fff;
   cursor: pointer;
 }
 ::-webkit-input-placeholder {
@@ -706,8 +722,11 @@ div.tags {
   max-height: 18px;
   margin-top: 5px;
 }
-.side-bar li:hover, .side-bar li.active {
+.side-bar li:hover {
   background-color: rgba(226, 184, 136, 0.4);
+}
+.side-bar li.active {
+  background-color: rgba(103, 188, 145, .6);
   cursor: pointer;
 }
 .side-bar li .pointer {
@@ -892,12 +911,19 @@ tags-input .tags .input {
   background-color: inherit !important;
 }*/
 
-#transactions-table tr {
+/*#transactions-table tr {
   box-shadow: 2px 4px 4.95px 0.05px rgba(0, 0, 0, 0.5);
   border-radius: 3px;
 }
+*/
+
 #transactions-table td span {
   line-height: 40px;
+}
+#transactions-table td .tag-item span {
+  line-height: initial;
+  font-weight: 400;
+  color: #fff;
 }
 td.transactionAmount {
   min-width: 85px;
@@ -960,11 +986,14 @@ tr.selected.edited td, tr.edited:hover td {
 tr.selected {
   background-color: rgba(255, 255, 255, .15);
 }
-tr.selected .pointer {
+tr.edited .pointer {
   display: block;
 }
-#transactions-table tr.selected td {
+#transactions-table tr.selected td, #transactions-table tr.edited td {
   background-color: rgba(103, 188, 145, 0.6)!important;
+}
+#transactions-table tr.edited td {
+  overflow: initial;
 }
 tr.selected.edited td {
   background-color: inherit !important;
@@ -1093,6 +1122,7 @@ div[ng-view].ng-leave {
   border-radius: 10px;
   box-shadow: 0 0 10px 0 #2E2E2E;
   margin-bottom: 0;
+  width: 1050px;
 }
 .widget .body {
   margin-top: 0;
@@ -1331,7 +1361,7 @@ div[ng-view].ng-leave {
   position: relative;
 }
 .transaction-tags a {
-  margin-left: 20px;
+  margin-left: 17px;
   padding: 0 10px 0 12px;
   background: #97A6C3;
   color: #fff;
@@ -1349,7 +1379,7 @@ div[ng-view].ng-leave {
   float: left;
   position: absolute;
   top: 0px;
-  left: 7px;
+  left: 4px;
   width: 0;
   height: 0;
   border-color: transparent #97A6C3 transparent transparent;
@@ -1360,7 +1390,7 @@ div[ng-view].ng-leave {
   content: "";
   position: absolute;
   top: 13px;
-  left: 0;
+  left: 0px;
   float: left;
   width: 5px;
   height: 5px;
@@ -1399,12 +1429,6 @@ div[ng-view].ng-leave {
 }
 .pointer img {
   height: 40px;
-}
-.table>thead:first-child>tr:first-child>th:first-child {
-  border-left: 1px solid rgba(255, 255, 255, .12);
-}
-.table>thead:first-child>tr:first-child>th:last-child {
-  border-right: 1px solid rgba(255, 255, 255, .12);
 }
 #transactions-table tr td.date-td, #transactions-table tr th.date-th {
   /*width: auto;*/
@@ -1679,7 +1703,10 @@ table.dataTable {
   border-collapse: separate;
   border-spacing: 0px 2px;
 }
-/*drop down*/
+/*.transactions-widget header, table.dataTable {
+  width: 1070px;
+}
+*/
 
 @media (min-width: 992px) {
   .container {
@@ -1716,33 +1743,39 @@ table.dataTable {
     margin: 0;
   }
 }
-thead, tbody {
+#transactions-table thead, #transactions-table tbody {
   display: block;
   max-height: 770px;
   overflow: auto;
 }
-td:nth-child(1), th:nth-child(1) {
+thead {
+  border: 1px solid rgba(255, 255, 255, .12);
+}
+#transactions-table td:nth-child(1), #transactions-table th:nth-child(1) {
   min-width: 165px;
 }
-td:nth-child(2), th:nth-child(2) {
+#transactions-table td:nth-child(2), #transactions-table th:nth-child(2) {
   min-width: 80px;
 }
-td:nth-child(3), th:nth-child(3) {
+#transactions-table td:nth-child(3), #transactions-table th:nth-child(3) {
   min-width: 85px;
 }
-td:nth-child(4), th:nth-child(4) {
+#transactions-table td:nth-child(4), #transactions-table th:nth-child(4) {
   min-width: 65px;
 }
-td:nth-child(5), th:nth-child(5) {
+#transactions-table td:nth-child(5), #transactions-table th:nth-child(5) {
   min-width: 65px;
 }
-td:nth-child(6), th:nth-child(6) {
-  min-width: 200px;
-  max-width: 470px;
+#transactions-table td:nth-child(6), #transactions-table th:nth-child(6) {
+  min-width: 485px;
+  max-width: 485px;
   overflow: hidden;
 }
-td:nth-child(7), th:nth-child(7) {
-  width: 100px;
+#transactions-table td:nth-child(7), #transactions-table th:nth-child(7) {
+  width: 80px;
+}
+.tags-header {
+  padding-left: 25px;
 }
 .tags-container {
   margin-top: 5px;
@@ -1977,6 +2010,47 @@ td:nth-child(7), th:nth-child(7) {
   .searchBlock .host .tags {
     /*background: url(../img/search-white.png) no-repeat center right rgba(51, 51, 51, 0.4);*/
     background: rgba(51, 51, 51, 0.4);
+  }
+  thead, tbody {
+    display: table;
+    max-height: inherit;
+    overflow: auto;
+  }
+  td:nth-child(1), th:nth-child(1) {
+    min-width: initial;
+  }
+  td:nth-child(2), th:nth-child(2) {
+    min-width: initial;
+  }
+  td:nth-child(3), th:nth-child(3) {
+    min-width: initial;
+  }
+  td:nth-child(4), th:nth-child(4) {
+    min-width: initial;
+  }
+  td:nth-child(5), th:nth-child(5) {
+    min-width: initial;
+  }
+  td:nth-child(6), th:nth-child(6) {
+    min-width: initial;
+  }
+  #transactions-table tr td.date-td, #transactions-table tr th.date-th {
+    padding-left: 15px;
+  }
+  .time-td {
+    width: 55px;
+  }
+  .date-td {
+    width: 90px;
+  }
+  td.transactionAmount {
+    width: 55px;
+  }
+  .side-bar {
+    display: none;
+  }
+  .transaction-tags a:after {
+    background: #fff;
   }
 }
 @media (max-width: 640px) {

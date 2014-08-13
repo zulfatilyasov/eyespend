@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" baseProfile="full" 
+	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:ev="http://www.w3.org/2001/xml-events"
+	width="16px" height="16px">
+<g>
+<path fill="none" fill-rule="evenodd" d="M7.00005 13 C7.00005 13 7.00005 11 7.00005 11 C7.00005 11 13 11 13 11 C13 11 13 13 13 13 C13 13 7.00005 13 7.00005 13 Z M2.99999 11 C2.99999 11 6.00003 11 6.00003 11 C6.00003 11 6.00003 12 6.00003 12 C6.00003 12 2.99999 12 2.99999 12 C2.99999 12 2.99999 11 2.99999 11 Z" stroke="rgb(255,255,255)" stroke-width="1px" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path fill="none" fill-rule="evenodd" d="M7.00005 9.00002 C7.00005 9.00002 7.00005 7 7.00005 7 C7.00005 7 13 7 13 7 C13 7 13 9.00002 13 9.00002 C13 9.00002 7.00005 9.00002 7.00005 9.00002 Z M2.99999 7 C2.99999 7 6.00003 7 6.00003 7 C6.00003 7 6.00003 8.00003 6.00003 8.00003 C6.00003 8.00003 2.99999 8.00003 2.99999 8.00003 C2.99999 8.00003 2.99999 7 2.99999 7 Z" stroke="rgb(255,255,255)" stroke-width="1px" stroke-linecap="butt" stroke-linejoin="miter"/>
+<path fill="none" fill-rule="evenodd" d="M7.00005 5.00003 C7.00005 5.00003 7.00005 3.00002 7.00005 3.00002 C7.00005 3.00002 13 3.00002 13 3.00002 C13 3.00002 13 5.00003 13 5.00003 C13 5.00003 7.00005 5.00003 7.00005 5.00003 Z M2.99999 3.00002 C2.99999 3.00002 6.00003 3.00002 6.00003 3.00002 C6.00003 3.00002 6.00003 4 6.00003 4 C6.00003 4 2.99999 4 2.99999 4 C2.99999 4 2.99999 3.00002 2.99999 3.00002 Z" stroke="rgb(255,255,255)" stroke-width="1px" stroke-linecap="butt" stroke-linejoin="miter"/>
+<rect x="0" y="0" width="16" height="16" fill="none" rx="3" stroke="rgb(255,255,255)" stroke-width="1px" stroke-linecap="butt" stroke-linejoin="miter"/>
+</g>
+</svg>
