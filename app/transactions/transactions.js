@@ -441,6 +441,21 @@
           if (vm.trs.length < transaxns.batchSize) {
             vm.richedTheEnd = true;
           }
+          $('.scroll-pane').niceScroll({
+            cursoropacitymin: 0.3,
+            cursoropacitymax: 0.3,
+            cursorwidth: 6,
+            cursorborder: "none",
+            smoothscroll: false,
+            background: "rgba(255, 255, 255, 0.5)",
+            railpadding: {
+              top: "20px",
+              right: 0,
+              left: 0,
+              bottom: 0
+            }
+          });
+
         });
     }
 

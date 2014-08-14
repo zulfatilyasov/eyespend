@@ -3,9 +3,9 @@
   'use strict';
 
   var serviceId = "transaxns";
-  angular.module('app').factory(serviceId, ['datacontext', 'common', 'color', 'date', '$rootScope', 'map', transaxns]);
+  angular.module('app').factory(serviceId, ['datacontext', 'common', 'color', 'rcolor', 'date', '$rootScope', 'map', transaxns]);
 
-  function transaxns(datacontext, common, color, date, $rootScope, map) {
+  function transaxns(datacontext, common, color, rcolor, date, $rootScope, map) {
     var transactions = [],
       _userTags = [],
       sortOptions = {
@@ -155,7 +155,7 @@
       if (tag.length && tag[0].color) {
         return tag[0].color;
       } else {
-        return color.get(true, 0.4);
+        return rcolor.get();
       }
     }
 

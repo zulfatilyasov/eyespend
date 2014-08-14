@@ -87,7 +87,7 @@
                         </th>
                       </tr>
                     </thead>
-                    <tbody ng-click="vm.tableClicked($event)">
+                    <tbody class="scroll-pane" ng-click="vm.tableClicked($event)">
                       <tr ng-repeat-start="transaction in vm.trs track by $index" ng-class="{selected:vm.selectedTnx.id === transaction.id}" ng-if="(!vm.editing || vm.selectedTnx.id !== transaction.id) && !transaction.new" data-index="{{$index}}" ng-dblclick="vm.editTransaction($index)">
                         <td class="date-td">
                           <div class="pointer">
@@ -212,8 +212,9 @@
                         </td>
                       </tr>
                       <tr ng-show="vm.trs.length === 0">
-                        <td colspan="10" style="text-align: center">
-                          <span class="no-transactions">Пусто</span>
+                        <td colspan="10" class="empty-td">
+                          <span ng-hide="vm.isLoading" class="no-transactions">Пусто</span>
+                          <span ng-show="vm.isLoading" class="no-transactions" translate>LOADING</span>
                         </td>
                       </tr>
                     </tbody>
@@ -384,4 +385,5 @@
       </div>
     </div>
   </div>
+
 </div>

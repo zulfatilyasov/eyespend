@@ -497,7 +497,10 @@ table.dataTable thead {
   background: -o-linear-gradient(90deg, rgba(82, 164, 187, 0.06) 0%, rgba(82, 164, 187, 0.07) 14%, rgba(255, 255, 255, 0) 100%);
   background: -ms-linear-gradient(90deg, rgba(82, 164, 187, 0.06) 0%, rgba(82, 164, 187, 0.07) 14%, rgba(255, 255, 255, 0) 100%);
   background: linear-gradient(0deg, rgba(82, 164, 187, 0.06) 0%, rgba(82, 164, 187, 0.07) 14%, rgba(255, 255, 255, 0) 100%);
-  background-color: rgba(255, 255, 255, 0.3);
+  background: url(../img/bg-texture.png), -webkit-linear-gradient(0deg, rgba(180, 146, 118, 0.8) 0, rgba(182, 145, 116, 0.8) 90%, rgba(188, 145, 113, 0.8) 90%);
+  background: url(../img/bg-texture.png), -moz-linear-gradient(0deg, rgba(180, 146, 118, 0.8) 0, rgba(182, 145, 116, 0.8) 90%, rgba(188, 145, 113, 0.8) 90%);
+  background: url(../img/bg-texture.png), -o-linear-gradient(0deg, rgba(180, 146, 118, 0.8) 0, rgba(182, 145, 116, 0.8) 90%, rgba(188, 145, 113, 0.8) 90%);
+  background: url(../img/bg-texture.png), linear-gradient(0deg, rgba(180, 146, 118, 0.8) 0, rgba(182, 145, 116, 0.8) 90%, rgba(188, 145, 113, 0.8) 90%);
 }
 table.table thead .sorting_desc {
   background: url(../img/arrow-down.svg) no-repeat center right;
@@ -1386,6 +1389,11 @@ div[ng-view].ng-leave {
   border-style: solid;
   border-width: 15px 13px 15px 0;
 }
+.transaction-tags a, .beforeTag {
+  -webkit-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
 .transaction-tags a:after {
   content: "";
   position: absolute;
@@ -1404,7 +1412,7 @@ div[ng-view].ng-leave {
 }
 .tag-hovered a {
   background: #ffffff !important;
-  color: red !important;
+  color: #ad6b2b !important;
 }
 .tag-hovered .beforeTag {
   border-color: transparent #fff transparent transparent !important;
@@ -1702,6 +1710,7 @@ table.dataTable {
   background: none;
   border-collapse: separate;
   border-spacing: 0px 2px;
+  margin-top: 1px;
 }
 /*.transactions-widget header, table.dataTable {
   width: 1070px;
@@ -1743,13 +1752,20 @@ table.dataTable {
     margin: 0;
   }
 }
+.empty-td {
+  width: 1050px;
+  text-align: center;
+}
 #transactions-table thead, #transactions-table tbody {
   display: block;
-  max-height: 770px;
-  overflow: auto;
 }
-thead {
-  border: 1px solid rgba(255, 255, 255, .12);
+#transactions-table tbody {
+  max-height: 770px;
+  overflow-y: scroll;
+}
+#transactions-table thead {
+  outline: 1px solid rgba(255, 255, 255, 0.4);
+  margin-left: 1px;
 }
 #transactions-table td:nth-child(1), #transactions-table th:nth-child(1) {
   min-width: 165px;
@@ -1771,8 +1787,11 @@ thead {
   max-width: 485px;
   overflow: hidden;
 }
-#transactions-table td:nth-child(7), #transactions-table th:nth-child(7) {
+#transactions-table td:nth-child(7) {
   width: 80px;
+}
+#transactions-table th:nth-child(7) {
+  width: 88px;
 }
 .tags-header {
   padding-left: 25px;
@@ -1789,6 +1808,23 @@ thead {
 .transaction-tags div {
   display: inline-block;
   position: relative;
+}
+#transactions-table thead {
+  position: absolute;
+  z-index: 100;
+}
+#transactions-table thead::before {
+  content: "";
+  z-index: -1;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.12)0, rgba(241, 183, 122, 0.36) 90%);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#transactions-table tbody {
+  padding-top: 47px;
 }
 @media (max-width: 1280px) {
   .container {
@@ -2011,27 +2047,27 @@ thead {
     /*background: url(../img/search-white.png) no-repeat center right rgba(51, 51, 51, 0.4);*/
     background: rgba(51, 51, 51, 0.4);
   }
-  thead, tbody {
+  #transactions-table thead, #transactions-table tbody {
     display: table;
     max-height: inherit;
     overflow: auto;
   }
-  td:nth-child(1), th:nth-child(1) {
+  #transactions-table td:nth-child(1), #transactions-table th:nth-child(1) {
     min-width: initial;
   }
-  td:nth-child(2), th:nth-child(2) {
+  #transactions-table td:nth-child(2), #transactions-table th:nth-child(2) {
     min-width: initial;
   }
-  td:nth-child(3), th:nth-child(3) {
+  #transactions-table td:nth-child(3), #transactions-table th:nth-child(3) {
     min-width: initial;
   }
-  td:nth-child(4), th:nth-child(4) {
+  #transactions-table td:nth-child(4), #transactions-table th:nth-child(4) {
     min-width: initial;
   }
-  td:nth-child(5), th:nth-child(5) {
+  #transactions-table td:nth-child(5), #transactions-table th:nth-child(5) {
     min-width: initial;
   }
-  td:nth-child(6), th:nth-child(6) {
+  #transactions-table td:nth-child(6), #transactions-table th:nth-child(6) {
     min-width: initial;
   }
   #transactions-table tr td.date-td, #transactions-table tr th.date-th {

@@ -1,7 +1,7 @@
     module.exports = function(grunt) {
       var target = grunt.option('target') || 'dev';
       var scripts = [
-          'bower_components/jquery/jquery.js',
+          'bower_components/jquery/dist/jquery.js',
           'bower_components/angular/angular.js',
           'bower_components/angular-mocks/angular-mocks.js',
           'bower_components/angular-route/angular-route.js',
@@ -25,9 +25,7 @@
           'bower_components/bootstrap-daterangepicker/daterangepicker.js',
           'bower_components/d3/d3.js',
           'bower_components/n3-line-chart/dist/line-chart.js',
-          'bower_components/nouislider/jquery.nouislider.js',
-          'bower_components/nouislider/Link.js',
-          'bower_components/angular-nouislider/src/nouislider.js',
+          'bower_components/nicescroll/jquery.nicescroll.js',
 
           // 'bower_components/jquery-ui/ui/core.js',
           // 'bower_components/jquery-ui/ui/widget.js',
@@ -58,6 +56,7 @@
           'app/services/loginService.js',
           'app/services/debounce.js',
           'app/services/map.js',
+          'app/services/rcolor.js',
           'app/common/common.js',
           'app/common/logger.js',
           'app/transactions/transactions.js',
@@ -82,7 +81,6 @@
           'app/css/simptip.css',
           'app/css/animations.css',
           'app/css/app.css'
-
         ],
         uglifyOptions = {
           mangle: false,
