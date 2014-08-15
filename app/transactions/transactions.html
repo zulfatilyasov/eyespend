@@ -2,9 +2,9 @@
   <div class="row">
     <div class="col-md-12">
       <div class="widgetWrapper">
-        <div ng-show="showSpinner" class="widgetOverlay">
+        <div ng-show="showSpinner" ng-style="{'height':vm.tableHeight}" class="widgetOverlay">
         </div>
-        <section class="widget transactions-widget">
+        <section ng-style="{'height':vm.tableHeight}" class="widget transactions-widget">
           <header>
             <div class="row shortStats">
               <div style="float: left" class="col-md-4 hidden-phone-landscape widgeTitle">
@@ -12,20 +12,20 @@
                   <span translate>TOTAL_SUM</span>:</span>
                 <span>{{vm.total}}</span>
               </div>
-              <div style="float: right" class="col-md-3 table-icons ">
+              <div style="float: right" class="col-md-3 table-icons">
                 <span class="tableAction hidden-phone-landscape">
                   <a href="javascript:void(0)" ng-click="vm.downloadExcel()" class="download-excel-icon" title="{{'DOWNLOAD'|translate}}">
-                    <object data="../img/excel.svg" type="image/svg+xml"></object>
+                    <img src="../img/excel-icon.png" alt="">
                   </a>
                 </span>
                 <span class="tableAction">
                   <a href="javascript:void(0)" ng-click="vm.toggleFiltering()">
-                    <object data="../img/filter-icon.svg" type="image/svg+xml"></object>
+                    <img src="../img/filter-icon.svg" alt="">
                   </a>
                 </span>
                 <span class="tableAction hidden-xs">
-                  <a href="javascript:void(0)">
-                    <object ng-click="vm.addNewTxn(true)" data="../img/plus-icon.svg" type="image/svg+xml"></object>
+                  <a ng-click="vm.addNewTxn(true)" href="javascript:void(0)">
+                    <img src="../img/plus-icon.svg" alt="">
                   </a>
                 </span>
                 <span class="tableAction hidden-md hidden-lg hidden-sm">
@@ -62,8 +62,8 @@
           <div>
             <div class="row">
               <div class="col-md-12">
-                <div class="body">
-                  <table id="transactions-table" class="table table-striped dataTable">
+                <div class="body" id="transactions-table">
+                  <table class="table table-striped dataTable">
                     <thead>
                       <tr>
                         <th ng-class="vm.getSortingForColumn('timestamp')" ng-click="vm.changeSorting('timestamp')" id="timestamp" class="date-th" translate>
@@ -87,8 +87,10 @@
                         </th>
                       </tr>
                     </thead>
-                    <tbody class="scroll-pane" ng-click="vm.tableClicked($event)">
-                      <tr ng-repeat-start="transaction in vm.trs track by $index" ng-class="{selected:vm.selectedTnx.id === transaction.id}" ng-if="(!vm.editing || vm.selectedTnx.id !== transaction.id) && !transaction.new" data-index="{{$index}}" ng-dblclick="vm.editTransaction($index)">
+                  </table>
+                  <table ng-click="vm.tableClicked($event)" ng-style="{'height':vm.tableHeight}" class="table table-body table-striped dataTable" scrollable="">
+                    <tbody ng-repeat="transaction in vm.trs track by $index">
+                      <tr ng-class="{selected:vm.selectedTnx.id === transaction.id}" ng-if="!(vm.editing && vm.selectedTnx.id === transaction.id) && !transaction.new" ng-dblclick="vm.editTransaction($index)" data-index="{{$index}}">
                         <td class="date-td">
                           <div class="pointer">
                             <img src="../img/pointer.svg" alt="">
@@ -157,7 +159,7 @@
                           </ul>
                         </td>
                       </tr>
-                      <tr ng-repeat-end class="edited" data-index="{{$index}}" ng-if="(vm.selectedTnx.id === transaction.id && vm.editing) || transaction.new">
+                      <tr class="edited" data-index="{{$index}}" ng-if="(vm.selectedTnx.id === transaction.id && vm.editing) || transaction.new">
                         <td class="date-td">
                           <div class="pointer">
                             <img src="../img/pointer.svg" alt="">
@@ -205,16 +207,17 @@
                             </li>
                             <li>
                               <a href="javascript:void(0)">
-                                <img src="../img/trash.png" height="22" width="20" alt="">
+                                <img src="../img/trash.png" class="remove-tr" height="22" width="20" alt="">
                               </a>
                             </li>
                           </ul>
                         </td>
                       </tr>
-                      <tr ng-show="vm.trs.length === 0">
+                    </tbody>
+                    <tbody ng-show="vm.trs.length === 0 && !vm.isLoading">
+                      <tr>
                         <td colspan="10" class="empty-td">
-                          <span ng-hide="vm.isLoading" class="no-transactions">Пусто</span>
-                          <span ng-show="vm.isLoading" class="no-transactions" translate>LOADING</span>
+                          <span class="no-transactions">Пусто</span>
                         </td>
                       </tr>
                     </tbody>

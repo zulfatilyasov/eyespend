@@ -440,7 +440,7 @@ input.inlineInput {
   padding: 0;
   box-shadow: none;
   min-height: 25px;
-  margin-top: 8px;
+  margin-top: 2px;
 }
 input.transparentInput {
   background: transparent;
@@ -514,8 +514,8 @@ table.table thead .sorting {
 table.dataTable thead th, header.tableLabel h4 {
   font-style: normal;
   font-weight: normal;
-  height: 42px;
-  line-height: 42px;
+  height: 38px;
+  line-height: 38px;
   padding: 0px 8px;
   text-decoration: none;
 }
@@ -569,7 +569,7 @@ table.dataTable thead th, header.tableLabel h4 {
   border: 0;
 }
 #transactions-table .inline-tags-input .tags {
-  padding-top: 5px;
+  padding-top: 1px;
 }
 .no-transactions {
   line-height: 30px;
@@ -666,8 +666,8 @@ ul.rowActions {
   opacity: 1;
 }
 .rowActions a {
-  height: 30px;
-  line-height: 30px;
+  height: 31px;
+  line-height: 31px;
 }
 ul.rowActions li {
   display: inline-block;
@@ -839,13 +839,19 @@ div.tags {
   animation: bounceIn 0.5s;
 }
 .widgetOverlay.ng-hide-remove {
-  -webkit-animation: fadeIn 0.5s;
-  animation: fadeIn 0.5s;
+  -webkit-animation: fadeIn;
+  animation: fadeIn;
+  -webkit-animation-duration: 0.5s;
+  -o-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  display: block !important;
 }
 .widgetOverlay.ng-hide-add {
-  -webkit-animation: fadeOut 0.3s;
-  animation: fadeOut 0.3s;
-  display: block !important;
+  -webkit-animation: fadeOut;
+  animation: fadeOut;
+  -webkit-animation-duration: 0.5s;
+  -o-animation-duration: 0.5s;
+  animation-duration: 0.5s;
 }
 #languages-menu.ng-hide-add {
   -webkit-animation: flipOutX 0.5s;
@@ -907,10 +913,11 @@ tags-input .tags .input {
   background-color: rgba(255, 255, 255, 0.15);
   box-shadow: 0px 4px 0px 0px rgba(0, 0, 0, 0.05);
 }
-/*#transactions-table.table-striped tbody > tr.newTransactionRow:nth-child(odd):hover > td {
+.table-hover tbody tr:hover>td, .table-hover tbody tr:hover>th, .table-striped tbody>tr:nth-child(odd)>td, .table-striped tbody>tr:nth-child(odd)>th
+/*#transactions-table.table-striped .table-body > tr.newTransactionRow:nth-child(odd):hover > td {
   background: rgba(51, 51, 51, 0.25) !important;
 }
-#transactions-table.table-striped tbody > tr.newTransactionRow:nth-child(even):hover > td {
+#transactions-table.table-striped .table-body > tr.newTransactionRow:nth-child(even):hover > td {
   background-color: inherit !important;
 }*/
 
@@ -1053,13 +1060,26 @@ div[ng-view].ng-leave {
 .table-icons a {
   float: right;
   margin-right: 5px;
+  height: 46px;
+  line-height: 46px;
+}
+.table-icons a:hover img {
+  opacity: 1;
 }
 .table-icons img {
-  height: 28px;
-  line-height: 28px;
+  height: 25px;
+  line-height: 25px;
+  opacity: 0.5;
+  -webkit-transition: opacity 0.3s;
+  -o-transition: opacity 0.3s;
+  transition: opacity 0.3s;
 }
 .download-excel-icon {
   margin-top: 3px;
+}
+.download-excel-icon img {
+  height: 30px;
+  margin-bottom: 5px;
 }
 .content {
   padding-top: 0;
@@ -1120,7 +1140,7 @@ div[ng-view].ng-leave {
 .widgetWrapper {
   position: relative;
 }
-.widget {
+.widget, .widgetOverlay {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .6), 0 22px 70px 4px rgba(0, 0, 0, 0.56), 0 0 0 1px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   box-shadow: 0 0 10px 0 #2E2E2E;
@@ -1136,9 +1156,9 @@ div[ng-view].ng-leave {
 .widgetOverlay {
   position: absolute;
   height: 100%;
-  width: 100%;
   background: rgba(0, 0, 0, 0.3);
   z-index: 100;
+  margin-top: 75px;
 }
 .loaderBox {
   position: relative;
@@ -1458,6 +1478,15 @@ div[ng-view].ng-leave {
   width: 85px;
   border-radius: 0 3px 3px 0px;
 }
+.rowActions-td li img {
+  opacity: 0.5;
+  -webkit-transition: opacity 0.3s;
+  -o-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+}
+.rowActions-td li:hover img {
+  opacity: 1;
+}
 /*!
  * Slider for Bootstrap
  *
@@ -1756,12 +1785,9 @@ table.dataTable {
   width: 1050px;
   text-align: center;
 }
-#transactions-table thead, #transactions-table tbody {
+.table-body {
   display: block;
-}
-#transactions-table tbody {
-  max-height: 770px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 #transactions-table thead {
   outline: 1px solid rgba(255, 255, 255, 0.4);
@@ -1791,7 +1817,7 @@ table.dataTable {
   width: 80px;
 }
 #transactions-table th:nth-child(7) {
-  width: 88px;
+  width: 103px;
 }
 .tags-header {
   padding-left: 25px;
@@ -1812,6 +1838,7 @@ table.dataTable {
 #transactions-table thead {
   position: absolute;
   z-index: 100;
+  height: 42px;
 }
 #transactions-table thead::before {
   content: "";
@@ -1823,8 +1850,42 @@ table.dataTable {
   margin: 0;
   padding: 0;
 }
-#transactions-table tbody {
-  padding-top: 47px;
+.nano .nano-content {
+  padding: 41px 0 0 0;
+  right: 0 !important;
+}
+.nano .nano-pane {
+  background: #555;
+  background: -webkit-linear-gradient(0deg, rgba(0, 0, 0, 0.06) 0%, rgba(255, 255, 255, 0.01) 49%, rgba(252, 252, 252, 0) 50%, rgba(0, 0, 0, 0.06) 98%, #fcfcfc 100%);
+  background: -moz-linear-gradient(0deg, rgba(0, 0, 0, 0.06) 0%, rgba(255, 255, 255, 0.01) 49%, rgba(252, 252, 252, 0) 50%, rgba(0, 0, 0, 0.06) 98%, #fcfcfc 100%);
+  background: -o-linear-gradient(0deg, rgba(0, 0, 0, 0.06) 0%, rgba(255, 255, 255, 0.01) 49%, rgba(252, 252, 252, 0) 50%, rgba(0, 0, 0, 0.06) 98%, #fcfcfc 100%);
+  background: -ms-linear-gradient(0deg, rgba(0, 0, 0, 0.06) 0%, rgba(255, 255, 255, 0.01) 49%, rgba(252, 252, 252, 0) 50%, rgba(0, 0, 0, 0.06) 98%, #fcfcfc 100%);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.06) 0%, rgba(255, 255, 255, 0.01) 49%, rgba(252, 252, 252, 0) 50%, rgba(0, 0, 0, 0.06) 98%, #fcfcfc 100%);
+  width: 11px;
+  margin: 44px 2px 0 0;
+  border: 2px solid rgba(255, 255, 255, 0.09);
+  opacity: .99;
+}
+.nano .nano-pane::before {
+  margin-right: 1px;
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  margin-right: 2px;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.08);
+}
+.nano>.nano-pane>.nano-slider {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  margin: 0;
+}
+.nano > .nano-content:focus {
+  outline: none;
 }
 @media (max-width: 1280px) {
   .container {
@@ -2047,7 +2108,7 @@ table.dataTable {
     /*background: url(../img/search-white.png) no-repeat center right rgba(51, 51, 51, 0.4);*/
     background: rgba(51, 51, 51, 0.4);
   }
-  #transactions-table thead, #transactions-table tbody {
+  #transactions-table thead, #transactions-table .table-body {
     display: table;
     max-height: inherit;
     overflow: auto;

@@ -1,9 +1,9 @@
 (function() {
   'use strict';
   var controllerId = 'transactions';
-  angular.module('app').controller(controllerId, ['common', 'config', '$rootScope', '$scope', 'date', 'transaxns', '$translate', 'login', 'debounce', 'map', transactions]);
+  angular.module('app').controller(controllerId, ['common', '$window', 'config', '$rootScope', '$scope', 'date', 'transaxns', '$translate', 'login', 'debounce', 'map', transactions]);
 
-  function transactions(common, config, $rootScope, $scope, date, transaxns, $translate, login, debounce, map) {
+  function transactions(common, $window, config, $rootScope, $scope, date, transaxns, $translate, login, debounce, map) {
     moment.lang('ru');
     var vm = this;
     var logInfo = common.logger.getLogFn(controllerId, 'log');
@@ -26,11 +26,22 @@
     vm.showFilterForm = false;
     vm.curDateTime = date.withoutTime(date.now());
     vm.isLoading = false;
-    //        vm.filterDateRange = null;
+    vm.tableHeight = getTableHeight();
 
+    function getTableHeight() {
+      var theight = $window.innerHeight - 208;
+      return theight - (theight % 42);
+    }
     vm.getTagColorStyle = function(color) {
       return 'transparent ' + color + ' transparent transparent';
     };
+
+    $(window).resize(function() {
+      $scope.$apply(function() {
+        vm.tableHeight = getTableHeight();
+      });
+    });
+
 
     $scope.$watch('vm.filterDateRange', function(newVal, oldVal) {
       if (!newVal || !newVal.startDate || !newVal.endDate)
@@ -126,7 +137,7 @@
           showImage(vm.selectedTnx.imgUrl)
         } else if ($target.is('.fa-check')) {
           vm.saveTnx(transaction)
-        } else if ($target.is('.fa-trash-o')) {
+        } else if ($target.is('.remove-tr')) {
           vm.remove(transaction);
         } else if ($target.is('.transaction-tag')) {
           var text = $target.text().trim();
@@ -426,35 +437,21 @@
     };
 
     function _getTransactions() {
-      $rootScope.showSpinner = true;
-      $rootScope.hideContent = true;
+      // $rootScope.showSpinner = true;
+      // $rootScope.hideContent = true;
 
       vm.isLoading = true;
       return transaxns.getTransaxns()
         .success(function(data) {
           vm.trs = data.transactions;
           vm.total = data.total;
-          $rootScope.showSpinner = false;
-          $rootScope.hideContent = false;
-          vm.isLoading = false;
           vm.sort = transaxns.sortOptions;
           if (vm.trs.length < transaxns.batchSize) {
             vm.richedTheEnd = true;
           }
-          $('.scroll-pane').niceScroll({
-            cursoropacitymin: 0.3,
-            cursoropacitymax: 0.3,
-            cursorwidth: 6,
-            cursorborder: "none",
-            smoothscroll: false,
-            background: "rgba(255, 255, 255, 0.5)",
-            railpadding: {
-              top: "20px",
-              right: 0,
-              left: 0,
-              bottom: 0
-            }
-          });
+          // $rootScope.showSpinner = false;
+          // $rootScope.hideContent = false;
+          vm.isLoading = false;
 
         });
     }

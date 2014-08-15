@@ -184,7 +184,8 @@
         colors = usedColors;
         usedColors = [];
       }
-      return changeSaturation(color, 0.5);
+      return "#" + color;
+      // return changeSaturation(color, 0.5);
     }
 
     return {

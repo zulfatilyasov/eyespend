@@ -17,7 +17,8 @@
     "NgSwitchery",
     "geolocation",
     "LocalStorageModule",
-    "n3-line-chart"
+    "n3-line-chart",
+    "sun.scrollable"
   ]);
 
   app.run(['$rootScope', '$location', '$window', 'login',

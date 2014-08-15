@@ -203,7 +203,7 @@
         .then(function(resp) {
           var trs = resp.data.transactions;
           var total = resp.data.total;
-          $rootScope.hideContent = false;
+          // $rootScope.hideContent = false;
           if (trs && trs instanceof Array) {
             if (offset > 0) {
               transactions = transactions.concat(trs);

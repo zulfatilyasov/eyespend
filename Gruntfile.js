@@ -26,12 +26,14 @@
           'bower_components/d3/d3.js',
           'bower_components/n3-line-chart/dist/line-chart.js',
           'bower_components/nicescroll/jquery.nicescroll.js',
-
+          'bower_components/nanoscroller/bin/javascripts/jquery.nanoscroller.js',
+          'bower_components/angular-nanoscroller/scrollable.js',
+          // 'bower_components/quick-ngrepeat/quick-ng-repeat.js',
           // 'bower_components/jquery-ui/ui/core.js',
           // 'bower_components/jquery-ui/ui/widget.js',
           'bower_components/jquery-ui/jquery-ui.js',
-          'app/lib/jQAllRangeSliders-min.js',
 
+          'app/lib/jQAllRangeSliders-min.js',
           'app/lib/select2.js',
           'app/lib/angular-ui-mask/ng-mask.js',
           'app/lib/modernizr-custom.js',
@@ -57,6 +59,7 @@
           'app/services/debounce.js',
           'app/services/map.js',
           'app/services/rcolor.js',
+
           'app/common/common.js',
           'app/common/logger.js',
           'app/transactions/transactions.js',
@@ -67,20 +70,25 @@
           'app/menu/menu.js'
         ],
         styles = [
-          'app/css/application.css',
+          'app/lib/ng-tags-input/ng-tags-input.css',
+
           'bower_components/animate.css/animate.css',
           'bower_components/toastr/toastr.css',
-          'app/lib/ng-tags-input/ng-tags-input.css',
           'bower_components/switchery/dist/switchery.css',
           'bower_components/datetimepicker/jquery.datetimepicker.css',
           'bower_components/bootstrap-daterangepicker/daterangepicker-bs3.css',
           'bower_components/jqrangeslider/css/iThing.css',
           'bower_components/nouislider/jquery.nouislider.css',
           'bower_components/jqrangeslider/demo/lib/jquery-ui/css/jquery-ui-1.8.16.custom.css',
+          'bower_components/nanoscroller/bin/css/nanoscroller.css',
+          'bower_components/nanoscroller/bin/css/style.css',
+
+          'app/css/application.css',
           'app/css/overlay.css',
           'app/css/simptip.css',
           'app/css/animations.css',
           'app/css/app.css'
+
         ],
         uglifyOptions = {
           mangle: false,

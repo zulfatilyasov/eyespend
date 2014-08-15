@@ -42,7 +42,7 @@
     "angular-nouislider": "~0.3.1",
     "jqrangeslider": "~5.7.0",
     "jquery-ui": "~1.11.0",
-    "nicescroll": "*"
+    "quick-ngrepeat": "*"
   },
   "resolutions": {
     "angular": "1.2.17"
