@@ -26,7 +26,9 @@
     vm.showFilterForm = false;
     vm.curDateTime = date.withoutTime(date.now());
     vm.isLoading = false;
+
     vm.tableHeight = getTableHeight();
+    vm.widgetHeight = vm.tableHeight + 75;
 
     function getTableHeight() {
       var theight = $window.innerHeight - 208;
@@ -39,6 +41,7 @@
     $(window).resize(function() {
       $scope.$apply(function() {
         vm.tableHeight = getTableHeight();
+        vm.widgetHeight = vm.tableHeight + 75;
       });
     });
 
