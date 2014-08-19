@@ -27,21 +27,25 @@
     vm.curDateTime = date.withoutTime(date.now());
     vm.isLoading = false;
 
-    vm.tableHeight = getTableHeight();
-    vm.widgetHeight = vm.tableHeight + 75;
+    setWidgetAndTableHeight();
+
+    function setWidgetAndTableHeight() {
+      vm.tableHeight = getTableHeight();
+      vm.widgetHeight = vm.tableHeight + 73;
+    }
 
     function getTableHeight() {
       var theight = $window.innerHeight - 208;
       return theight - (theight % 42);
     }
+
     vm.getTagColorStyle = function(color) {
       return 'transparent ' + color + ' transparent transparent';
     };
 
     $(window).resize(function() {
       $scope.$apply(function() {
-        vm.tableHeight = getTableHeight();
-        vm.widgetHeight = vm.tableHeight + 75;
+        setWidgetAndTableHeight();
       });
     });
 
@@ -341,12 +345,19 @@
     function filtersApplied() {
       return vm.tags.length || (vm.filterDateRange && fromUnixDate !== toUnixDate);
     }
-
+    var filtersHeight = 0;
     vm.toggleFiltering = function() {
       if (vm.isFiltering && filtersApplied()) {
         dropFilters();
       }
       vm.isFiltering = !vm.isFiltering;
+      common.$timeout(function() {
+        if (vm.isFiltering) {
+          var filtersHeight = $('.filters').height();
+          vm.widgetHeight += filtersHeight;
+        } else
+          vm.widgetHeight -= filtersHeight;
+      })
     };
 
     vm.toggleEditingMobile = function() {
@@ -463,7 +474,7 @@
       var promises = [_getTransactions(), vm.loadTags()];
       common.activateController(promises, controllerId)
         .then(function() {
-
+          // $(".nano").nanoScroller();
         });
     }
 

@@ -81,7 +81,6 @@
           'bower_components/nouislider/jquery.nouislider.css',
           'bower_components/jqrangeslider/demo/lib/jquery-ui/css/jquery-ui-1.8.16.custom.css',
           'bower_components/nanoscroller/bin/css/nanoscroller.css',
-          'bower_components/nanoscroller/bin/css/style.css',
 
           'app/css/application.css',
           'app/css/overlay.css',

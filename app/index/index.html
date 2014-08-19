@@ -21,7 +21,7 @@
   </style>
 </head>
 
-<body class="background-chocolate">
+<body class="coffee">
   <div ng-class="{'overlay-open':overlayIsOpen}" id="all">
     <div ng-include="'shell/shell.html'"></div>
     <div class="content container">
@@ -42,7 +42,7 @@
       <i class="fa fa-check fa-4x"></i>
     </a>
     <div ng-show="showImage" class="imageContainer">
-      <img src="{{imgUrl}}" alt="" />
+      <img ng-src="{{imgUrl}}" alt="" />
     </div>
     <div ng-show="showPlacesInput" id="placeInput">
       <input id="pac-input" class="controls" ng-autocomplete ng-enter="refreshMap()" ng-model="placePicker.place" details="placePicker.details" type="text" placeholder="{{'ENTER_LOCATION'|translate}}" />
