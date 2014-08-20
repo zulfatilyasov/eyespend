@@ -653,7 +653,7 @@
       restrict: 'A',
       require: 'ngModel',
       link: function(scope, element, attrs, ctrl) {
-        var THRESHOLD = 3,
+        var THRESHOLD = 10,
           span, resize;
 
         span = angular.element('<span class="input"></span>');

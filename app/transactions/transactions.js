@@ -12,6 +12,7 @@
     var toUnixDate = null;
     vm.tags = [];
     vm.trs = [];
+    vm.newTransactions = [];
     vm.newTnx = {
       latitude: null,
       longitude: null
@@ -142,7 +143,7 @@
           map.pickAddress(transaction);
         } else if ($target.is('.showPicture')) {
           showImage(vm.selectedTnx.imgUrl)
-        } else if ($target.is('.fa-check')) {
+        } else if ($target.is('.save')) {
           vm.saveTnx(transaction)
         } else if ($target.is('.remove-tr')) {
           vm.remove(transaction);
@@ -152,6 +153,7 @@
         }
       }
     };
+
     vm.editTransaction = function(index) {
       vm.editing = true;
       common.$timeout(function() {
@@ -317,24 +319,25 @@
     }
 
     vm.loadMoreTransactions = function($inview, $inviewpart) {
-      if (vm.isLoading || !$inview || ($inviewpart !== "bottom" && $inviewpart !== "both"))
-        return;
-      vm.isLoading = true;
-      transaxns.getTransaxns(fromUnixDate, toUnixDate, vm.tags, vm.onlyWithPhoto)
-        .success(function(result) {
-          var loadedTransactions = result.transactions;
-          vm.total = result.total;
-          if (loadedTransactions && loadedTransactions.length && loadedTransactions.length > vm.trs.length) {
-            vm.trs = loadedTransactions;
-          } else {
-            vm.richedTheEnd = true;
-          }
-          vm.isLoading = false;
-        })
-        .error(function() {
-          vm.isLoading = false;
-          logError('error loading next batch');
-        });
+      // if (vm.isLoading || !$inview || ($inviewpart !== "bottom" && $inviewpart !== "both"))
+//   return;
+// vm.isLoading = true;
+// transaxns.getTransaxns(fromUnixDate, toUnixDate, vm.tags, vm.onlyWithPhoto)
+//   .success(function(result) {
+//     var loadedTransactions = result.transactions;
+//     vm.total = result.total;
+//     if (loadedTransactions && loadedTransactions.length && loadedTransactions.length > vm.trs.length) {
+//       vm.trs = loadedTransactions;
+//     } else {
+//       vm.richedTheEnd = true;
+//     }
+//     vm.isLoading = false;
+//   })
+//   .error(function() {
+//     vm.isLoading = false;
+//     logError('error loading next batch');
+//   });
+
     };
 
     function dropFilters() {

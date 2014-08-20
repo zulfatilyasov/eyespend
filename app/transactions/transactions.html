@@ -95,6 +95,64 @@
                       </tr>
                     </thead>
                   </table>
+                  <table>
+                    <tbody>
+                      <tr ng-repeat="transaction in vm.newTransactions" class="edited" data-index="{{$index}}" ng-enter="vm.saveTnx(transaction)">
+                        <td class="date-td">
+                          <div class="pointer">
+                            <img src="../img/pointer.svg" alt="">
+                          </div>
+                          <div>
+                            <input type="text" us-date-time-picker class="inlineInput transparentInput" ng-model="transaction.date" />
+                          </div>
+                        </td>
+                        <td class="hidden-phone-landscape time-td">
+                          <div>
+                            <input style="width:40px" type="text" ng-model="transaction.time" ui-mask="99:99" class="inlineInput transparentInput" />
+                          </div>
+                        </td>
+                        <td class="transactionAmount">
+                          <div>
+                            <input type="text" ng-model="transaction.amountInBaseCurrency" style="width: 50px" class="styledInput transparentInput amount inlineInput" />
+                          </div>
+                        </td>
+                        <td class="map">
+                          <div style="margin: 0 auto;">
+                            <a href="javascript:void(0)">
+                              <img src="../img/question.png" height="19" width="11" class="pickAddress" alt="">
+                            </a>
+                          </div>
+                        </td>
+                        <td class="foto-td">
+                          <a href="javascript:void(0)" ng-if="transaction.imgUrl">
+                            <img src="../img/camera.png" class="showPicture" alt="">
+                          </a>
+                        </td>
+                        <td class="hidden-sm bootstrap tags-td">
+                          <div>
+                            <tags-input ng-model="transaction.tags" min-Length="1" replace-spaces-with-dashes="false" placeholder="{{'ADD_TAG'|translate}}" class="bootstrap inline-tags-input">
+                              <auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0" max-results="5">
+                              </auto-complete>
+                            </tags-input>
+                          </div>
+                        </td>
+                        <td class="rowActions-td hidden-phone-landscape">
+                          <ul class="rowActions">
+                            <li>
+                              <a href="javascript:void(0)">
+                                <img src="../img/check-icon.png" class="save" height="18" width="22" alt="">
+                              </a>
+                            </li>
+                            <li>
+                              <a href="javascript:void(0)">
+                                <img src="../img/trash.png" class="remove-tr" height="22" width="20" alt="">
+                              </a>
+                            </li>
+                          </ul>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                   <table ng-click="vm.tableClicked($event)" ng-style="{'height':vm.tableHeight}" class="table table-body table-striped dataTable" scrollable="{scrollTop: '45px'}">
                     <tbody ng-repeat="transaction in vm.trs track by $index">
                       <tr ng-class="{selected:vm.selectedTnx.id === transaction.id}" ng-if="!(vm.editing && vm.selectedTnx.id === transaction.id) && !transaction.new" ng-dblclick="vm.editTransaction($index)" data-index="{{$index}}">
@@ -166,7 +224,7 @@
                           </ul>
                         </td>
                       </tr>
-                      <tr class="edited" data-index="{{$index}}" ng-if="(vm.selectedTnx.id === transaction.id && vm.editing) || transaction.new">
+                      <tr class="edited" data-index="{{$index}}" ng-enter="vm.saveTnx(transaction)" ng-if="(vm.selectedTnx.id === transaction.id && vm.editing) || transaction.new">
                         <td class="date-td">
                           <div class="pointer">
                             <img src="../img/pointer.svg" alt="">
@@ -209,7 +267,7 @@
                           <ul class="rowActions">
                             <li>
                               <a href="javascript:void(0)">
-                                <img src="../img/check-icon.png" height="18" width="22" alt="">
+                                <img src="../img/check-icon.png" class="save" height="18" width="22" alt="">
                               </a>
                             </li>
                             <li>
