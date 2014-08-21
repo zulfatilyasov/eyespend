@@ -428,6 +428,9 @@ input.ng-invalid-required, input.ng-invalid-number, input.invalid {
   margin-top: 10px;
   line-height: 16px;
 }
+.settings-section p.opac {
+  color: #fff;
+}
 h2 {
   font-style: normal;
   font-size: 26px;
@@ -472,7 +475,7 @@ header a:hover {
   margin-top: 10px;
 }
 .settings-section {
-  padding: 24px;
+  padding: 24px 24px 0 24px;
 }
 .loadMore {
   text-align: center;
@@ -609,6 +612,9 @@ table.dataTable thead th, header.tableLabel h4 {
   display: inline-block;
   margin-left: 25px;
   width: 65%;
+}
+.searchByDate {
+  position: relative;
 }
 .tags-filter {
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
@@ -1878,9 +1884,22 @@ q:hover, a.nl-field-toggle:hover {
   background: linear-gradient(0deg, rgba(80, 166, 189, 0.06) 0, rgba(255, 255, 255, 0)72%, rgba(0, 0, 0, 0.06)99%, rgba(0, 0, 0, 0.06) 100%);
   background-color: rgba(255, 255, 255, 0.15);
 }
+.link-code-container {
+  height: 60px;
+  margin-top: 10px;
+  position: relative;
+}
+.link-code {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  top: 11px;
+  left: 50px;
+}
 .widget-content {
   border-left: 1px solid rgba(255, 255, 255, 0.08);
   border-right: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 20px;
 }
 .widget>header {
   background: -webkit-linear-gradient(90deg, rgba(82, 164, 187, 0.06) 0%, rgba(254, 254, 255, 0) 72%, rgba(255, 255, 255, 0) 73%, rgba(0, 0, 0, 0) 100%);
@@ -1928,7 +1947,7 @@ table.dataTable {
 }
 .settings button:hover {
   border: rgba(173, 107, 43, 0.7);
-  background: rgba(173, 107, 43, 0.7);
+  background: #67BC91;
 }
 @media (min-width: 992px) {
   .container {
@@ -2418,7 +2437,7 @@ table.dataTable {
 .messages {
   background-color: rgba(0, 0, 0, 0.4);
 }
-.dropdown-menu {
+#languages-menu {
   min-width: inherit;
   padding: 0;
   margin: 0;
@@ -2426,17 +2445,17 @@ table.dataTable {
   left: -48px !important;
   width: 130px;
 }
-.dropdown-menu li {
+#languages-menu li {
   border-radius: 3px;
   width: 130px;
   height: 26px;
 }
-.dropdown-menu>li>a:focus, .dropdown-menu>li:hover {
+#languages-menu li>a:focus, #languages-menu li:hover {
   background-color: rgba(0, 0, 0, 0.3);
 }
-.page-header .navbar .nav>li>.dropdown-menu.pull-right:after, .page-header .navbar .pull-right>li>.dropdown-menu:after {
+.page-header .navbar .nav>li>#languages-menu .pull-right:after, .page-header .navbar .pull-right>li>#languages-menu:after {
   right: 56px;
 }
-.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
+#languages-menu li>a:focus, #languages-menu li>a:hover {
   background-color: inherit;
 }

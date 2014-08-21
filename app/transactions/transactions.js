@@ -133,16 +133,15 @@
 
         if (!transaction)
           return;
-        if (!$tr.is('.edited'))
-          selectTransaction(transaction);
-        if ($target.is('.edit-transaction')) {
+
+        if ($target.is('.edit-transaction') && vm.selectedTnx.id === transaction.id) {
           vm.editTransaction(index);
         } else if ($target.is('.showMap')) {
-          map.showAddress(vm.selectedTnx);
+          map.showAddress(transaction);
         } else if ($target.is('.pickAddress')) {
           map.pickAddress(transaction);
         } else if ($target.is('.showPicture')) {
-          showImage(vm.selectedTnx.imgUrl)
+          showImage(transaction.imgUrl)
         } else if ($target.is('.save')) {
           vm.saveTnx(transaction)
         } else if ($target.is('.remove-tr')) {
@@ -150,6 +149,8 @@
         } else if ($target.is('.transaction-tag')) {
           var text = $target.text().trim();
           vm.addTag(text);
+        } else if (!$tr.is('.edited')) {
+          selectTransaction(transaction);
         }
       }
     };
@@ -245,6 +246,10 @@
           vm.richedTheEnd = vm.trs.length < transaxns.batchSize;
           vm.trs = data.transactions;
           vm.total = data.total;
+          // common.$timeout(function() {
+          //   refreshBlocksHeight();
+          // });
+
         })
         .error(function(msg) {
           $rootScope.showSpinner = false;
@@ -320,23 +325,23 @@
 
     vm.loadMoreTransactions = function($inview, $inviewpart) {
       // if (vm.isLoading || !$inview || ($inviewpart !== "bottom" && $inviewpart !== "both"))
-//   return;
-// vm.isLoading = true;
-// transaxns.getTransaxns(fromUnixDate, toUnixDate, vm.tags, vm.onlyWithPhoto)
-//   .success(function(result) {
-//     var loadedTransactions = result.transactions;
-//     vm.total = result.total;
-//     if (loadedTransactions && loadedTransactions.length && loadedTransactions.length > vm.trs.length) {
-//       vm.trs = loadedTransactions;
-//     } else {
-//       vm.richedTheEnd = true;
-//     }
-//     vm.isLoading = false;
-//   })
-//   .error(function() {
-//     vm.isLoading = false;
-//     logError('error loading next batch');
-//   });
+      //   return;
+      // vm.isLoading = true;
+      // transaxns.getTransaxns(fromUnixDate, toUnixDate, vm.tags, vm.onlyWithPhoto)
+      //   .success(function(result) {
+      //     var loadedTransactions = result.transactions;
+      //     vm.total = result.total;
+      //     if (loadedTransactions && loadedTransactions.length && loadedTransactions.length > vm.trs.length) {
+      //       vm.trs = loadedTransactions;
+      //     } else {
+      //       vm.richedTheEnd = true;
+      //     }
+      //     vm.isLoading = false;
+      //   })
+      //   .error(function() {
+      //     vm.isLoading = false;
+      //     logError('error loading next batch');
+      //   });
 
     };
 
@@ -473,11 +478,23 @@
         });
     }
 
+    function refreshBlocksHeight() {
+      var rowsCount = $('.nano-content tbody').length;
+      var height = getTableHeight();
+      if (rowsCount * 40 < height) {
+        vm.tableHeight = rowsCount * 40 + 25;
+
+      } else {
+        vm.tableHeight = height;
+      }
+      vm.widgetHeight = vm.tableHeight + 105;
+    }
+
     function activate() {
       var promises = [_getTransactions(), vm.loadTags()];
       common.activateController(promises, controllerId)
         .then(function() {
-          // $(".nano").nanoScroller();
+          $rootScope.showSpinner = false;
         });
     }
 

@@ -11,7 +11,7 @@
           <div class="widget-content">
             <div class="row">
               <div class="col-md-6">
-                <div class="settings-section">
+                <div ng-hide="!vm.email.verified && vm.email.address" class="settings-section">
                   <h4><i class="fa fa-link"></i> 
                     <span translate>LINK_EMAIL</span>
                   </h4>
@@ -19,27 +19,41 @@
                     <label for="email">
                       Email
                     </label>
-                    <input type="text" id="email" class="styledInput" placeholder="{{'TYPE_EMAIL' | translate}}" ng-class="{invalid:vm.link.invalidEmail}">
+                    <input type="text" id="email" ng-model="vm.link.email" class="styledInput" placeholder="{{'TYPE_EMAIL' | translate}}" ng-class="{invalid:vm.link.invalidEmail}">
                   </div>
-                  <p translate>
+                  <p ng-hide="vm.email.address" translate>
                     ENTER_LOGIN_EMAIL
                   </p>
-                  <div class="control-group">
+                  <p ng-show="vm.email.address && vm.email.verified">
+                    <span translate>EMAIL_ACCOUNT_LINKED_TO_EMAIL</span>
+                    <strong>{{vm.email.address}}</strong>.
+                    <span translate>PROVIDE_CURRENT_PASSWORD_TO_LINK_EMAIL</span>
+                  </p>
+                  <div ng-show="vm.email.address" class="control-group">
                     <label for="email" translate>
                       CURRENT_PASSWORD
                     </label>
-                    <input type="text" id="email" class="styledInput" placeholder="{{'TYPE_CURRENT_PASSWORD' | translate}}" ng-class="{invalid:vm.link.invalidEmail}">
+                    <input type="text" id="email" ng-model="vm.link.password" class="styledInput" placeholder="{{'TYPE_CURRENT_PASSWORD' | translate}}" ng-class="{invalid:vm.link.invalidEmail}">
                   </div>
                   <div class="control-group">
-                    <button translate>
+                    <button ng-click="vm.linkEmail()" translate>
                       SAVE
                     </button>
                   </div>
                 </div>
+                <div ng-show="!vm.email.verified && vm.email.address" class="settings-section">
+                  <h4><i class="fa fa-link"></i> 
+                    <span translate>LINK_EMAIL</span>
+                  </h4>
+                  <p class="opac" translate>
+                    MUST_ACTIVATE_EMAIL
+                    <strong ng-bind-html="vm.email.address"></strong>
+                  </p>
+                </div>
               </div>
               <div class="col-md-6">
-                <div class="settings-section">
-                  <h4><i class="fa fa-link"></i> 
+                <div ng-show="vm.email.address && vm.email.verified" class="settings-section">
+                  <h4><i class="fa fa-lock"></i> 
                     <span translate>CHANGE_PASSWORD</span>
                   </h4>
                   <div class="control-group">
@@ -49,7 +63,7 @@
                     <input type="text" id="email" class="styledInput" placeholder="{{'TYPE_CURRENT_PASSWORD' | translate}}" ng-model="vm.currentPsw" ng-class="{invalid:vm.currentPswError}">
                   </div>
                   <p translate>
-                    ENTER_LOGIN_EMAIL
+                    Вы можете изменить пароль после привязки вашего почтового ящика к аккаунту.
                   </p>
                   <div class="control-group">
                     <label for="email" translate>
@@ -64,193 +78,211 @@
                     <input type="text" id="email" class="styledInput" placeholder="{{'TYPE_NEW_PASSWORD_AGAIN' | translate}}" ng-model="vm.confirmation" ng-class="{invalid:vm.confirmationError}">
                   </div>
                   <div class="control-group">
-                    <button translate>
+                    <button ng-click="vm.changePassword()" translate>
                       SAVE
                     </button>
                   </div>
                 </div>
+                <div class="settings-section">
+                  <h4>
+                    <i class="fa fa-mobile"></i> 
+                    <span translate>LINK_ACCOUNT</span>
+                  </h4>
+                  <div class="row">
+                    <div class="col-md-8">
+                      <p class="opac" translate>CODE_FOR_APP</p>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="link-code-container">
+                        <svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events" width="154px" height="48px">
+                          <path opacity="0.14902" fill="rgb(0,0,0)" fill-rule="evenodd" d="M10 1.52547e-005 C10 1.52547e-005 154 1.52547e-005 154 1.52547e-005 C154 1.52547e-005 154 48 154 48 C154 48 10 48 10 48 C10 48 10 45.6474 10 40 C10 36.0582 -7.63302e-006 28.81 -7.63302e-006 24 C-7.63302e-006 18.2672 10 12.5555 10 8.00003 C10 2.79361 10 1.52547e-005 10 1.52547e-005 Z" />
+                        </svg>
+                        <span class="link-code">{{vm.linkcode}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </section>
       </div>
-    </div>
-  </div>
-
-  <div style="display:none" class="row">
-    <div class="col-md-12">
-      <section class="widget">
-        <div class="settings-section">
-          <header>
-            <h4><i class="fa fa-link"></i> 
-              <span translate>LINK_EMAIL</span>
-            </h4>
-          </header>
-          <div class="row">
-            <form>
-              <div ng-hide="!vm.email.verified && vm.email.address" class="col-md-4">
-                <div class="body">
-
-                  <fieldset>
-                    <div class="control-group">
-                      <label class="control-label">
-                        <span>Email</span>
-                        <ul class="parsley-errors-list"></ul>
-                      </label>
-
-                      <div class="controls form-group">
-                        <input placeholder="{{'TYPE_EMAIL' | translate}}" type="text" class="form-control styledInput" ng-class="{'form-control':true, styledInput:true,invalid:vm.link.invalidEmail}" ng-model="vm.link.email">
-                      </div>
-                    </div>
-                    <div class="control-group" ng-show="vm.email.address">
-                      <label class="control-label" translate>CURRENT_PASSWORD
-                        <ul class="parsley-errors-list"></ul>
-                      </label>
-
-                      <div class="controls form-group">
-                        <input placeholder="{{'TYPE_CURRENT_PASSWORD' | translate}}" type="password" ng-model="vm.link.password" ng-class="{'form-control':true, styledInput:true,invalid:vm.link.invalidPassword}">
-                      </div>
-                    </div>
-                  </fieldset>
-                  <div class="actionButton">
-                    <button type="submit" class="btn btn-primary" ng-click="vm.linkEmail()" translate>SAVE
-                    </button>
-                  </div>
-
-                </div>
-              </div>
-              <div class="col-md-12" ng-show="!vm.email.verified && vm.email.address">
-                <p>
-                  <span translate>
-                    MUST_ACTIVATE_EMAIL
-                  </span>
-                  <strong>{{vm.email.address}}</strong>
-                </p>
-              </div>
-              <div class="col-md-8" ng-hide="vm.email.address">
-                <p translate>
-                  ENTER_LOGIN_EMAIL
-                </p>
-              </div>
-              <div class="col-md-8" ng-show="vm.email.address && vm.email.verified">
-                <p>
-                  <span translate>EMAIL_ACCOUNT_LINKED_TO_EMAIL</span>
-                  <strong>{{vm.email.address}}</strong>.
-                  <span translate>PROVIDE_CURRENT_PASSWORD_TO_LINK_EMAIL</span>
-                </p>
-              </div>
-            </form>
-          </div>
-        </div>
-        <div class="settings-section" ng-show="vm.email.address && vm.email.verified">
-          <header>
-            <h4>
-              <i class="fa fa-lock"></i>
-              <span translate>CHANGE_PASSWORD</span>
-            </h4>
-          </header>
-          <div class="row">
-            <div class="col-md-4">
-              <div class="body">
-                <form>
-                  <fieldset>
-                    <div class="control-group">
-                      <label class="control-label" for="prefix">
-                        <span translate>CURRENT_PASSWORD</span>
-                        <ul class="parsley-errors-list"></ul>
-                      </label>
-
-                      <div class="controls form-group">
-                        <input placeholder="{{'TYPE_CURRENT_PASSWORD'|translate}}" type="password" ng-class="{invalid:vm.currentPswError}" ng-model="vm.currentPsw" class="form-control styledInput">
-                      </div>
-                    </div>
-                    <div class="control-group">
-                      <label class="control-label" for="prefix">
-                        <span translate>NEW_PASSWORD</span>
-                        <ul class="parsley-errors-list"></ul>
-                      </label>
-
-                      <div class="controls form-group">
-                        <input type="password" placeholder="{{'TYPE_NEW_PASSWORD'|translate}}" ng-model="vm.psw" ng-class="{invalid:vm.passwordError}" class="form-control styledInput">
-                      </div>
-                    </div>
-                    <div class="control-group">
-                      <label class="control-label" for="prefix">
-                        <span translate>NEW_PASSWORD_CONFIRMATION</span>
-                        <ul class="parsley-errors-list"></ul>
-                      </label>
-
-                      <div class="controls form-group">
-                        <input placeholder="{{'TYPE_NEW_PASSWORD_AGAIN'|translate}}" type="password" ng-class="{invalid:vm.confirmationError}" ng-model="vm.confirmation" class="form-control styledInput">
-                      </div>
-                    </div>
-
-                  </fieldset>
-                  <div class="actionButton">
-                    <button type="submit" ng-click="vm.changePassword()" class="btn btn-primary" translate>SAVE
-                    </button>
-                    <span ng-class="{validationMessage: true, error:vm.error}">{{vm.message}}</span>
-                  </div>
-                </form>
-              </div>
-            </div>
-            <div class="col-md-8">
-              <p>
-                Вы можете изменить пароль после привязки вашего почтового ящика к аккаунту.
-              </p>
-            </div>
-          </div>
-
-        </div>
-        <div class="hide settings-section">
-          <header>
-            <h4><i class="fa fa-user"></i> 
-              <span translate>CHANGE_EMAIL</span>
-            </h4>
-          </header>
-          <div class="row">
-            <div class="col-md-4">
-              <div class="body">
-                <form>
-                  <fieldset>
-                    <div class="control-group">
-                      <label class="control-label">Email
-                        <ul class="parsley-errors-list"></ul>
-                      </label>
-
-                      <div class="controls form-group">
-                        <input placeholder="{{'TYPE_NEW_EMAIL' | translate}}" type="text" class="form-control styledInput">
-                      </div>
-                    </div>
-                  </fieldset>
-                  <div class="actionButton">
-                    <button type="submit" class="btn btn-primary" translate>SAVE</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-
-        </div>
-        <div class="settings-section">
-          <header>
-            <h4><i class="fa fa-mobile"></i> 
-              <span translate>LINK_ACCOUNT</span>
-            </h4>
-          </header>
-          <div class="row">
-            <div class="col-md-12">
-              <section class="well">
-                <div id="linkcode">
-                  <p translate>CODE_FOR_APP</p>
-                  <br/>
-                  <span>{{vm.linkcode}}</span>
-                </div>
-              </section>
-            </div>
-          </div>
-        </div>
       </section>
     </div>
   </div>
+</div>
+
+<div style="display:none" class="row">
+  <div class="col-md-12">
+    <section class="widget">
+      <div class="settings-section">
+        <header>
+          <h4><i class="fa fa-link"></i> 
+            <span translate>LINK_EMAIL</span>
+          </h4>
+        </header>
+        <div class="row">
+          <form>
+            <div ng-hide="!vm.email.verified && vm.email.address" class="col-md-4">
+              <div class="body">
+                <fieldset>
+                  <div class="control-group">
+                    <label class="control-label">
+                      <span>Email</span>
+                      <ul class="parsley-errors-list"></ul>
+                    </label>
+
+                    <div class="controls form-group">
+                      <input placeholder="{{'TYPE_EMAIL' | translate}}" type="text" class="form-control styledInput" ng-class="{'form-control':true, styledInput:true,invalid:vm.link.invalidEmail}" ng-model="vm.link.email">
+                    </div>
+                  </div>
+                  <div class="control-group" ng-show="vm.email.address">
+                    <label class="control-label" translate>CURRENT_PASSWORD
+                      <ul class="parsley-errors-list"></ul>
+                    </label>
+
+                    <div class="controls form-group">
+                      <input placeholder="{{'TYPE_CURRENT_PASSWORD' | translate}}" type="password" ng-model="vm.link.password" ng-class="{'form-control':true, styledInput:true,invalid:vm.link.invalidPassword}">
+                    </div>
+                  </div>
+                </fieldset>
+                <div class="actionButton">
+                  <button type="submit" class="btn btn-primary" ng-click="vm.linkEmail()" translate>SAVE
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12" ng-show="!vm.email.verified && vm.email.address">
+              <p>
+                <span translate>
+                  MUST_ACTIVATE_EMAIL
+                </span>
+                <strong>{{vm.email.address}}</strong>
+              </p>
+            </div>
+            <div class="col-md-8" ng-hide="vm.email.address">
+              <p translate>
+                ENTER_LOGIN_EMAIL
+              </p>
+            </div>
+            <div class="col-md-8" ng-show="vm.email.address && vm.email.verified">
+              <p>
+                <span translate>EMAIL_ACCOUNT_LINKED_TO_EMAIL</span>
+                <strong>{{vm.email.address}}</strong>.
+                <span translate>PROVIDE_CURRENT_PASSWORD_TO_LINK_EMAIL</span>
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="settings-section" ng-show="vm.email.address && vm.email.verified">
+        <header>
+          <h4>
+            <i class="fa fa-lock"></i>
+            <span translate>CHANGE_PASSWORD</span>
+          </h4>
+        </header>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="body">
+              <form>
+                <fieldset>
+                  <div class="control-group">
+                    <label class="control-label" for="prefix">
+                      <span translate>CURRENT_PASSWORD</span>
+                      <ul class="parsley-errors-list"></ul>
+                    </label>
+
+                    <div class="controls form-group">
+                      <input placeholder="{{'TYPE_CURRENT_PASSWORD'|translate}}" type="password" ng-class="{invalid:vm.currentPswError}" ng-model="vm.currentPsw" class="form-control styledInput">
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label class="control-label" for="prefix">
+                      <span translate>NEW_PASSWORD</span>
+                      <ul class="parsley-errors-list"></ul>
+                    </label>
+
+                    <div class="controls form-group">
+                      <input type="password" placeholder="{{'TYPE_NEW_PASSWORD'|translate}}" ng-model="vm.psw" ng-class="{invalid:vm.passwordError}" class="form-control styledInput">
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label class="control-label" for="prefix">
+                      <span translate>NEW_PASSWORD_CONFIRMATION</span>
+                      <ul class="parsley-errors-list"></ul>
+                    </label>
+
+                    <div class="controls form-group">
+                      <input placeholder="{{'TYPE_NEW_PASSWORD_AGAIN'|translate}}" type="password" ng-class="{invalid:vm.confirmationError}" ng-model="vm.confirmation" class="form-control styledInput">
+                    </div>
+                  </div>
+
+                </fieldset>
+                <div class="actionButton">
+                  <button type="submit" ng-click="vm.changePassword()" class="btn btn-primary" translate>SAVE
+                  </button>
+                  <span ng-class="{validationMessage: true, error:vm.error}">{{vm.message}}</span>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <p>
+              Вы можете изменить пароль после привязки вашего почтового ящика к аккаунту.
+            </p>
+          </div>
+        </div>
+
+      </div>
+      <div class="hide settings-section">
+        <header>
+          <h4><i class="fa fa-user"></i> 
+            <span translate>CHANGE_EMAIL</span>
+          </h4>
+        </header>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="body">
+              <form>
+                <fieldset>
+                  <div class="control-group">
+                    <label class="control-label">Email
+                      <ul class="parsley-errors-list"></ul>
+                    </label>
+
+                    <div class="controls form-group">
+                      <input placeholder="{{'TYPE_NEW_EMAIL' | translate}}" type="text" class="form-control styledInput">
+                    </div>
+                  </div>
+                </fieldset>
+                <div class="actionButton">
+                  <button type="submit" class="btn btn-primary" translate>SAVE</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="settings-section">
+        <header>
+          <h4><i class="fa fa-mobile"></i> 
+            <span translate>LINK_ACCOUNT</span>
+          </h4>
+        </header>
+        <div class="row">
+          <div class="col-md-12">
+            <section class="well">
+              <div id="linkcode">
+                <p translate>CODE_FOR_APP</p>
+                <br/>
+                <span>{{vm.linkcode}}</span>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
 </div>
