@@ -37,11 +37,11 @@ body.background-dark, .background {
 */
 
 body.green-blue {
-  background: url("../img/bg-texture.png"), -webkit-linear-gradient(-145deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
-  background: url("../img/bg-texture.png"), -moz-linear-gradient(-145deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
-  background: url("../img/bg-texture.png"), -o-linear-gradient(-145deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
-  background: url("../img/bg-texture.png"), -ms-linear-gradient(-145deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
-  background: url("../img/bg-texture.png"), linear-gradient(235deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
+  background: url("../img/texture-light.png"), -webkit-linear-gradient(-145deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
+  background: url("../img/texture-light.png"), -moz-linear-gradient(-145deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
+  background: url("../img/texture-light.png"), -o-linear-gradient(-145deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
+  background: url("../img/texture-light.png"), -ms-linear-gradient(-145deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
+  background: url("../img/texture-light.png"), linear-gradient(235deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
 }
 body.coffee {
   position: absolute;
@@ -847,10 +847,10 @@ div.tags {
   margin-top: 5px;
 }
 .side-bar li:hover {
-  background-color: rgba(226, 184, 136, 0.4);
+  background-color: rgba(255, 255, 255, 0.33);
 }
 .side-bar li.active {
-  background-color: rgba(103, 188, 145, .6);
+  background-color: rgba(103, 188, 145, 0.6);
   cursor: pointer;
 }
 .side-bar li .pointer {
@@ -1117,7 +1117,7 @@ datepicker {
   line-height: 1;
 }
 #transactions-table tr:hover td {
-  background-color: rgba(255, 255, 255, 0.28) !important;
+  background-color: rgba(255, 255, 255, 0.33) !important;
   cursor: pointer;
 }
 /*#transactions-table tr:hover .pointer {
@@ -1214,12 +1214,12 @@ div[ng-view].ng-leave {
   line-height: 46px;
 }
 .table-icons a:hover img {
-  opacity: 1;
+  opacity: 0.7;
 }
 .table-icons img {
   height: 24px;
   line-height: 24px;
-  opacity: 0.5;
+  opacity: 0.4;
   -webkit-transition: opacity 0.3s;
   -o-transition: opacity 0.3s;
   transition: opacity 0.3s;
@@ -1400,6 +1400,66 @@ div[ng-view].ng-leave {
   -webkit-animation: kanan 1.2s infinite linear;
   -moz-animation: kanan 1.2s infinite linear;
   -o-animation: kanan 1.2s infinite linear;
+}
+.daterangepicker.opensright::after, .daterangepicker.opensright::before {
+  left: 24px;
+}
+.btn-success {
+  background-color: rgba(103, 188, 145, 0.9);
+}
+.btn-success:hover {
+  background-color: rgba(103, 188, 145, 1);
+}
+.dropdown-menu, .daterangepicker .calendar-date {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+.daterangepicker .ranges .input-mini {
+  background-color: rgba(238, 238, 238, 0.52);
+}
+.xdsoft_datetimepicker {
+  background: rgba(255, 255, 255, 0.8);
+}
+.xdsoft_datetimepicker .xdsoft_calendar td, .xdsoft_datetimepicker .xdsoft_calendar th {
+  background: rgba(245, 245, 245, 0.8);
+}
+.xdsoft_datetimepicker .xdsoft_label {
+  background-color: transparent;
+}
+.daterangepicker .ranges li {
+  font-size: 14px;
+}
+.daterangepicker .ranges li.active, .daterangepicker .ranges li:hover {
+  background: #54747b;
+  border: 1px solid #54747b;
+}
+.daterangepicker td.active, .daterangepicker td.active:hover {
+  background: #54747b;
+  border: 1px solid #54747b;
+}
+.range_inputs .applyBtn {
+  width: 74px;
+}
+.range_inputs .cancelBtn {
+  width: 74px;
+  margin-left: 7px;
+  background: rgba(84, 116, 123, 0.7);
+}
+.range_inputs .cancelBtn:hover {
+  background: rgba(84, 116, 123, 1);
+}
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box >div >div, .xdsoft_datetimepicker .xdsoft_calendar td, .xdsoft_datetimepicker .xdsoft_calendar th, .xdsoft_datetimepicker, .daterangepicker .ranges li, .available, .daterangepicker .calendar th, .daterangepicker .daterangepicker_end_input label, .daterangepicker .daterangepicker_start_input label {
+  color: #54747b;
+}
+.daterangepicker td.available:hover, .daterangepicker th.available:hover {
+  background: rgba(84, 116, 123, 0.2);
+}
+.xdsoft_datetimepicker .xdsoft_label>.xdsoft_select>div>.xdsoft_option.xdsoft_current, .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_current, .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_default, .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box >div >div.xdsoft_current {
+  background: #54747b;
+  box-shadow: none;
+}
+.xdsoft_datetimepicker .xdsoft_label>.xdsoft_select>div>.xdsoft_option:hover, .xdsoft_datetimepicker .xdsoft_calendar td:hover, .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box > div > div:hover {
+  background: rgba(84, 116, 123, .2) !important;
+  color: #54747b !important;
 }
 @-webkit-keyframes kanan {
   0% {
@@ -1585,7 +1645,7 @@ div[ng-view].ng-leave {
 }
 .tag-hovered a {
   background: #ffffff !important;
-  color: #ad6b2b !important;
+  color: #54747b !important;
 }
 .tag-hovered .beforeTag {
   border-color: transparent #fff transparent transparent !important;
@@ -1913,7 +1973,7 @@ q:hover, a.nl-field-toggle:hover {
   border-top-right-radius: 6px;
 }
 .widgeTitle {
-  color: #ad6b2b;
+  color: #54747b;
   font-size: 24px;
   font-weight: 300;
   height: 46px;
@@ -2063,7 +2123,7 @@ table.dataTable {
 #transactions-table thead::before {
   content: "";
   z-index: -1;
-  background: url("../img/bg-texture.png"), linear-gradient(90deg, rgba(255, 255, 255, .12)0, rgba(199, 202, 176, 1) 90%);
+  background: url("../img/texture-light.png"), linear-gradient(90deg, rgba(255, 255, 255, .12)0, rgba(199, 202, 176, 1) 90%);
   position: absolute;
   width: 100%;
   height: 100%;
@@ -2167,7 +2227,7 @@ table.dataTable {
     -o-transform: translateY(-320px);
     transform: translateY(-0px);
   }
-  div[ng-view].ng-enter, div[ng-view].ng-leave, tr[ng-repeat-start].ng-enter, tr[ng-repeat-start].ng-leave {
+  tr[ng-repeat-start].ng-enter, tr[ng-repeat-start].ng-leave {
     -webkit-animation: none;
     animation: none;
   }

@@ -208,7 +208,7 @@
     if (config.local == 'ru') {
       vm.datePickerTexts = {
         cancelLabel: 'Отмена',
-        applyLabel: 'Ok',
+        applyLabel: 'ok',
         fromLabel: 'От',
         toLabel: 'До',
         customRangeLabel: 'Выбрать интервал',
@@ -494,7 +494,7 @@
       var promises = [_getTransactions(), vm.loadTags()];
       common.activateController(promises, controllerId)
         .then(function() {
-          $rootScope.showSpinner = false;
+
         });
     }
 
