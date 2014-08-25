@@ -1,14 +1,9 @@
-EyeSpend api
-==
-
-Версия
-----
+#EyeSpend api
+####Версия
 2.0
-
-Данные для страницы настроек
---
-url:
-**/api/secure/settings**
+####Данные для страницы настроек
+request:
+**GET /api/secure/settings**
 
 response:
 ```sh
@@ -20,22 +15,37 @@ response:
 	}
 }
 ```
-Привязать email
----
-url: **/api/secure/linkUser**
+####Привязать email
+request: 
+**POST /api/secure/linkUser**
+
+params: 
+**email**:  email адрес пользователя.
 
 response:
-```sh
-http код 200 в случае успеха.
-```
+http код **200** в случае успеха.
+http код **400** если не валидные параметры.
 
-Изменить email
----
-url: **/api/secure/changeEmail**
+####Изменить email
+request: 
+**POST /api/secure/changeEmail**
+
+params:
+**email**:  новый email пользователя 
+**password**:  текущий пароль
 
 response:
-```sh
-http код 200 в случае успеха.
+http код **200** в случае успеха.
+http код **400**, если не валидные параметры. Описание ошибки в поле message
 
-```
+####Изменить текущий пароль
+request:
+**POST /api/secure/changePassword**
 
+params:
+**password**: новый пароль
+**old**: старый пароль
+
+response:
+http **200** в случае успеха.
+http код **400** если не валидные параметры.  Описание ошибки в поле message
