@@ -120,7 +120,7 @@
       var def = common.defer();
       datacontext.getSettings()
         .success(function(data) {
-          vm.linkcode = data.linkcode;
+          vm.linkcode = data.linkCode;
           vm.email = data.email;
           //                    vm.email.verified = data.verified;
           def.resolve();

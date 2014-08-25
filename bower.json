@@ -42,9 +42,8 @@
     "angular-nouislider": "~0.3.1",
     "jqrangeslider": "~5.7.0",
     "jquery-ui": "~1.11.0",
-    "quick-ngrepeat": "*"
-  },
-  "resolutions": {
-    "angular": "1.2.17"
+    "quick-ngrepeat": "*",
+    "angular-nanoscroller": "~0.2.1",
+    "momentjs": "~2.8.1"
   }
 }
