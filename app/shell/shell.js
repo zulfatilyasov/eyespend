@@ -29,6 +29,10 @@
       vm.langsOpen = !vm.langsOpen;
     };
 
+    $rootScope.closeImageOverlay = function() {
+      $rootScope.showImage = false;
+    };
+
     vm.translate = function(lang) {
       config.local = lang;
       var now = new Date();

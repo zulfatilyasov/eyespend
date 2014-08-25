@@ -314,9 +314,7 @@
 
     var showImage = function(imgUrl) {
       $rootScope.showImage = true;
-      $rootScope.showMap = false;
       $rootScope.imgUrl = imgUrl;
-      $rootScope.overlayIsOpen = true;
     };
 
     vm.downloadExcel = function() {
@@ -324,25 +322,24 @@
     }
 
     vm.loadMoreTransactions = function($inview, $inviewpart) {
-      // if (vm.isLoading || !$inview || ($inviewpart !== "bottom" && $inviewpart !== "both"))
-      //   return;
-      // vm.isLoading = true;
-      // transaxns.getTransaxns(fromUnixDate, toUnixDate, vm.tags, vm.onlyWithPhoto)
-      //   .success(function(result) {
-      //     var loadedTransactions = result.transactions;
-      //     vm.total = result.total;
-      //     if (loadedTransactions && loadedTransactions.length && loadedTransactions.length > vm.trs.length) {
-      //       vm.trs = loadedTransactions;
-      //     } else {
-      //       vm.richedTheEnd = true;
-      //     }
-      //     vm.isLoading = false;
-      //   })
-      //   .error(function() {
-      //     vm.isLoading = false;
-      //     logError('error loading next batch');
-      //   });
-
+      if (vm.isLoading)
+        return;
+      vm.isLoading = true;
+      transaxns.getTransaxns(fromUnixDate, toUnixDate, vm.tags, vm.onlyWithPhoto)
+        .success(function(result) {
+          var loadedTransactions = result.transactions;
+          vm.total = result.total;
+          if (loadedTransactions && loadedTransactions.length && loadedTransactions.length > vm.trs.length) {
+            vm.trs = loadedTransactions;
+          } else {
+            vm.richedTheEnd = true;
+          }
+          vm.isLoading = false;
+        })
+        .error(function() {
+          vm.isLoading = false;
+          logError('error loading next batch');
+        });
     };
 
     function dropFilters() {
@@ -494,7 +491,18 @@
       var promises = [_getTransactions(), vm.loadTags()];
       common.activateController(promises, controllerId)
         .then(function() {
-
+          $(".nano").debounce("update", function(event, values) {
+            if (values.maximum - values.position < 300 && values.direction === "down") {
+              if (values.maximum = values.position) {
+                $(".nano").nanoScroller({
+                  scrollTo: $('[data-index="' + (vm.trs.length - 20) + '"]')
+                });
+              }
+              common.$timeout(function() {
+                vm.loadMoreTransactions();
+              }, 100);
+            }
+          }, 100);
         });
     }
 

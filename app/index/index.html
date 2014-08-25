@@ -41,9 +41,6 @@
     <a id="overlay-save" ng-show="showPlacesInput" ng-click="saveLocation()" href="javascript:void(0)">
       <i class="fa fa-check fa-4x"></i>
     </a>
-    <div ng-show="showImage" class="imageContainer">
-      <img ng-src="{{imgUrl}}" alt="" />
-    </div>
     <div ng-show="showPlacesInput" id="placeInput">
       <input id="pac-input" class="controls" ng-autocomplete ng-enter="refreshMap()" ng-model="placePicker.place" details="placePicker.details" type="text" placeholder="{{'ENTER_LOCATION'|translate}}" />
       <span class="input-group-btn">
@@ -54,16 +51,14 @@
       </gm-markers>
     </gm-map>
   </div>
-  <svg style="width: 0;  height: 0;  margin: 0;  padding: 0;  border: 0;" version="1.1" xmlns="http://www.w3.org/2000/svg">
-    <filter id="svgfilter">
-      <feGaussianBlur stdDeviation="3" />
-      <feComponentTransfer>
-        <feFuncR type="linear" slope="0.7" />
-        <feFuncG type="linear" slope="0.7" />
-        <feFuncB type="linear" slope="0.7" />
-      </feComponentTransfer>
-    </filter>
-  </svg>
+  <div class="overlay overlay-contentscale imageOverlay" ng-class="{open:showImage}">
+    <a id="overlay-close" ng-click="closeImageOverlay();" href="javascript:void(0)">
+      <i class="fa fa-times fa-4x"></i>
+    </a>
+    <div class="imageContainer">
+      <img ng-src="{{imgUrl}}" alt="" />
+    </div>
+  </div>
   <script src="../eyeSpend.min.js"></script>
   <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
 </body>

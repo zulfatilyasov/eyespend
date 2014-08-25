@@ -44,6 +44,7 @@
     "jquery-ui": "~1.11.0",
     "quick-ngrepeat": "*",
     "angular-nanoscroller": "~0.2.1",
-    "momentjs": "~2.8.1"
+    "momentjs": "~2.8.1",
+    "jquery-debounce": "~1.0.5"
   }
 }

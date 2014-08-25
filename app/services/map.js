@@ -20,9 +20,8 @@
 
     $rootScope.closeMap = function() {
       $rootScope.overlayIsOpen = false;
-      $rootScope.showImage = false;
       $('body').scrollTop(scrollValue);
-    }
+    };
 
     $rootScope.setMarkerLocation = function(marker) {
       var position = marker.getPosition();

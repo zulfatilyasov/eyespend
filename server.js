@@ -13,7 +13,7 @@ function beforeRequest(req, res, next) {
   if (req.path == '/api/users/login' || req.cookies && req.cookies.isAuthenticated === "true")
     next();
   else {
-    res.sendfile(__dirname + '/app/landing.html');
+    res.sendfile(__dirname + '/app/landing-2/index.html');
   }
 }
 
@@ -72,14 +72,14 @@ var ApiInjector = function apiInjector() {
             address: 'qew@gmail.com',
             verified: true
           },
-          linkcode: 12312
+          linkCode: 12312
         });
       } else {
         res.json({
           email: {
             address: null
           },
-          linkcode: 23143
+          linkCode: 23143
         });
       }
 
@@ -239,7 +239,9 @@ if (useRealServer) {
 }
 
 app.use(cookieParser());
-app.use(express.static(__dirname + '/app'));
+app.use(express.static(__dirname + '/app', {
+  maxAge: 86400000
+}));
 app.use(beforeRequest);
 app.get('/', function(req, res) {
   res.sendfile(__dirname + '/app/index/index.html');

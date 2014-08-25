@@ -32,6 +32,7 @@
           // 'bower_components/jquery-ui/ui/core.js',
           // 'bower_components/jquery-ui/ui/widget.js',
           'bower_components/jquery-ui/jquery-ui.js',
+          'bower_components/jquery-debounce/jquery.debounce.js',
 
           'app/lib/jQAllRangeSliders-min.js',
           'app/lib/select2.js',
