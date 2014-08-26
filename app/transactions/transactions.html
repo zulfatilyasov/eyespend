@@ -290,17 +290,18 @@
                       </tr>
                     </tbody>
                   </table>
-                  <div ng-show="vm.isLoading && !vm.richedTheEnd" class="loaderBox hidden-phone-landscape">
-                    <div class="loader">
-                      <div class='bar'></div>
-                      <div class='bar'></div>
-                      <div class='bar'></div>
-                      <div class='bar'></div>
-                      <div class='bar'></div>
-                    </div>
-                    <div ng-show="vm.richedTheEnd" class="loader theEnd">
-                    </div>
-                  </div>
+                  <!-- <div ng-show="vm.isLoading && !vm.richedTheEnd" class="loaderBox hidden-phone-landscape">
+  <div class="loader">
+    <div class='bar'></div>
+    <div class='bar'></div>
+    <div class='bar'></div>
+    <div class='bar'></div>
+    <div class='bar'></div>
+  </div>
+  <div ng-show="vm.richedTheEnd" class="loader theEnd">
+  </div>
+</div>
+ -->
                   <div class="hidden-lg hidden-md loadMore">
                     <div ng-click="vm.loadMoreTransactions(true,'both')">
                       <span ng-hide="vm.isLoading || vm.richedTheEnd" translate>MORE</span>

@@ -13,7 +13,7 @@ function beforeRequest(req, res, next) {
   if (req.path == '/api/users/login' || req.cookies && req.cookies.isAuthenticated === "true")
     next();
   else {
-    res.sendfile(__dirname + '/app/landing-2/index.html');
+    res.sendfile(__dirname + '/app/landing-3/index.html');
   }
 }
 

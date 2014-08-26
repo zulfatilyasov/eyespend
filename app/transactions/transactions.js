@@ -54,8 +54,8 @@
     $scope.$watch('vm.filterDateRange', function(newVal, oldVal) {
       if (!newVal || !newVal.startDate || !newVal.endDate)
         return;
-      if (vm.trs.length)
-        vm.filterByDate(newVal.startDate.unix() * 1000, newVal.endDate.unix() * 1000);
+
+      vm.filterByDate(newVal.startDate.unix() * 1000, newVal.endDate.unix() * 1000);
     });
 
     $scope.$watch('vm.filterMobileDateRange', function(newVal, oldVal) {
@@ -134,7 +134,7 @@
         if (!transaction)
           return;
 
-        if ($target.is('.edit-transaction') && vm.selectedTnx.id === transaction.id) {
+        if ($target.is('.edit-transaction') && vm.selectedTnx && vm.selectedTnx.id === transaction.id) {
           vm.editTransaction(index);
         } else if ($target.is('.showMap')) {
           map.showAddress(transaction);
@@ -279,6 +279,8 @@
     };
 
     vm.filterByDate = function(fromDate, toDate) {
+      if (fromDate === toDate)
+        return;
       setDates(fromDate, toDate);
       applyfilters();
     };
@@ -344,6 +346,8 @@
 
     function dropFilters() {
       vm.tags = [];
+      setDates(9, 9);
+      applyfilters();
       vm.filterDateRange = null;
     }
 
@@ -362,7 +366,7 @@
           vm.widgetHeight += filtersHeight;
         } else
           vm.widgetHeight -= filtersHeight;
-      })
+      });
     };
 
     vm.toggleEditingMobile = function() {

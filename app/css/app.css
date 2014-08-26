@@ -2060,10 +2060,10 @@ table.dataTable {
   min-width: 165px;
 }
 #transactions-table td:nth-child(2), #transactions-table th:nth-child(2) {
-  min-width: 80px;
+  min-width: 85px;
 }
 #transactions-table td:nth-child(3), #transactions-table th:nth-child(3) {
-  min-width: 85px;
+  min-width: 75px;
 }
 #transactions-table td:nth-child(4), #transactions-table th:nth-child(4) {
   min-width: 65px;
@@ -2072,15 +2072,15 @@ table.dataTable {
   min-width: 65px;
 }
 #transactions-table td:nth-child(6), #transactions-table th:nth-child(6) {
-  min-width: 485px;
-  max-width: 485px;
+  min-width: 480px;
+  max-width: 480px;
   overflow: hidden;
 }
 #transactions-table td:nth-child(7) {
   width: 80px;
 }
 #transactions-table th:nth-child(7) {
-  width: 103px;
+  width: 110px;
 }
 .tags-header {
   padding-left: 25px;
@@ -2107,8 +2107,8 @@ table.dataTable {
 }
 .transaction-tags {
   display: inline;
-  white-space: nowrap;
-  overflow: hidden;
+  /*white-space: nowrap;*/
+  /*overflow: hidden;*/
   max-height: 35px;
 }
 .transaction-tags div {

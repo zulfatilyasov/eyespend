@@ -81,7 +81,8 @@ var translationsRu = {
   EMAIL_ACCOUNT_LINKED_TO_EMAIL: "Ваша учетная запись привязана к email'у ",
   PROVIDE_CURRENT_PASSWORD_TO_LINK_EMAIL: "Если Вы хотите привязать другой email, укажите его и Ваш текущий пароль.",
   CODE_FOR_APP: "Для привязки других устройств к своему аккаунту, введите этот номер в мобильном приложении <b>eyeSpend</b>",
-  CURRENCY: "р."
+  CURRENCY: "р.",
+  EMPTY: "Пусто"
 };
 
 var translationsEn = {
@@ -166,7 +167,8 @@ var translationsEn = {
   EMAIL_ACCOUNT_LINKED_TO_EMAIL: "Your account is linked to e-mail",
   PROVIDE_CURRENT_PASSWORD_TO_LINK_EMAIL: "Type your current password, if you want to link another email",
   CODE_FOR_APP: "In order to link this account to mobile device enter this code after installing <b>eyeSpend</b> app",
-  CURRENCY: "&#36;"
+  CURRENCY: "&#36;",
+  EMPTY: "Empty"
 };
 try {
   exports.ru = translationsRu;
