@@ -98,7 +98,7 @@
                       </tr>
                     </thead>
                   </table>
-                  <table>
+                  <table in-view-container>
                     <tbody>
                       <tr ng-repeat="transaction in vm.newTransactions" class="edited" data-index="{{$index}}" ng-enter="vm.saveTnx(transaction)">
                         <td class="date-td">
@@ -282,6 +282,14 @@
                         </td>
                       </tr>
                     </tbody>
+                    <!-- <tbody in-view="vm.inView($inview, $inviewpart)">
+  <tr>
+    <td colspan="10">
+      <span>&nbsp;</span>
+    </td>
+  </tr>
+</tbody>
+ -->
                     <tbody ng-show="vm.trs.length === 0 && !vm.isLoading">
                       <tr>
                         <td colspan="10" class="empty-td">
@@ -289,6 +297,7 @@
                         </td>
                       </tr>
                     </tbody>
+
                   </table>
                   <!-- <div ng-show="vm.isLoading && !vm.richedTheEnd" class="loaderBox hidden-phone-landscape">
   <div class="loader">

@@ -27,7 +27,7 @@
     vm.showFilterForm = false;
     vm.curDateTime = date.withoutTime(date.now());
     vm.isLoading = false;
-
+    var scrollPosition = 0;
     setWidgetAndTableHeight();
 
     function setWidgetAndTableHeight() {
@@ -243,9 +243,9 @@
       transaxns.getFirstPageWithFilters(fromUnixDate, toUnixDate, vm.tags, vm.onlyWithPhoto)
         .success(function(data) {
           $rootScope.showSpinner = false;
-          vm.richedTheEnd = vm.trs.length < transaxns.batchSize;
           vm.trs = data.transactions;
           vm.total = data.total;
+          vm.richedTheEnd = vm.trs.length < transaxns.batchSize;
           // common.$timeout(function() {
           //   refreshBlocksHeight();
           // });
@@ -322,9 +322,12 @@
     vm.downloadExcel = function() {
       transaxns.getExcelFile(fromUnixDate, toUnixDate, vm.tags, vm.onlyWithPhoto);
     }
-
+    vm.inView = function(inView, viewPart) {
+      console.log(viewPart);
+      alert(123);
+    }
     vm.loadMoreTransactions = function($inview, $inviewpart) {
-      if (vm.isLoading)
+      if (vm.isLoading || vm.richedTheEnd)
         return;
       vm.isLoading = true;
       transaxns.getTransaxns(fromUnixDate, toUnixDate, vm.tags, vm.onlyWithPhoto)
@@ -336,7 +339,12 @@
           } else {
             vm.richedTheEnd = true;
           }
-          vm.isLoading = false;
+          common.$timeout(function() {
+            $(".nano").nanoScroller({
+              scrollTop: scrollPosition
+            });
+            vm.isLoading = false;
+          });
         })
         .error(function() {
           vm.isLoading = false;
@@ -349,6 +357,7 @@
       setDates(9, 9);
       applyfilters();
       vm.filterDateRange = null;
+      vm.richedTheEnd = false;
     }
 
     function filtersApplied() {
@@ -460,9 +469,6 @@
     };
 
     function _getTransactions() {
-      // $rootScope.showSpinner = true;
-      // $rootScope.hideContent = true;
-
       vm.isLoading = true;
       return transaxns.getTransaxns()
         .success(function(data) {
@@ -472,10 +478,7 @@
           if (vm.trs.length < transaxns.batchSize) {
             vm.richedTheEnd = true;
           }
-          // $rootScope.showSpinner = false;
-          // $rootScope.hideContent = false;
           vm.isLoading = false;
-
         });
     }
 
@@ -496,17 +499,11 @@
       common.activateController(promises, controllerId)
         .then(function() {
           $(".nano").debounce("update", function(event, values) {
-            if (values.maximum - values.position < 300 && values.direction === "down") {
-              if (values.maximum = values.position) {
-                $(".nano").nanoScroller({
-                  scrollTo: $('[data-index="' + (vm.trs.length - 20) + '"]')
-                });
-              }
-              common.$timeout(function() {
-                vm.loadMoreTransactions();
-              }, 100);
+            if (values.maximum == values.position) {
+              scrollPosition = values.position;
+              vm.loadMoreTransactions();
             }
-          }, 100);
+          });
         });
     }
 

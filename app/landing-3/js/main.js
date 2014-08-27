@@ -83,6 +83,10 @@ $(function() {
       .done(function(data) {
         setAthenticated(data.token);
         location.href = '/';
+      })
+      .fail(function() {
+        $('#email-area').addClass('error');
+        setMessage(translations['INVALID_CODE_OR_EMAIL']);
       });
   });
 
