@@ -45,6 +45,7 @@
     "quick-ngrepeat": "*",
     "angular-nanoscroller": "~0.2.1",
     "momentjs": "~2.8.1",
-    "jquery-debounce": "~1.0.5"
+    "jquery-debounce": "~1.0.5",
+    "jscrollpane": "~2.0.14"
   }
 }

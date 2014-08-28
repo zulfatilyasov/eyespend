@@ -1,5 +1,5 @@
-<div class="page" ng-controller="stats as vm">
-  <div class="row">
+<div class="page stats" ng-controller="stats as vm">
+  <!-- <div class="row">
     <div class="col-md-12">
       <h2 class="page-title ng-scope" translate="">Статистика</h2>
     </div>
@@ -23,18 +23,6 @@
           <linechart data="vm.data" options="vm.options" mode="">
           </linechart>
         </div>
-        <!--                 <div class="date-range-slider">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="no-slider">
-                            </div>
-                            <br>
-                            <div id="start" class="date-tip" style="position:fixed;"></div>
-                            <div id="end" class="date-tip" style="position:fixed;"></div>
-                        </div>
-                    </div>
-                </div>
- -->
         <div class="date-slider">
           <div class="minichart">
             <linechart data="vm.miniData" options="vm.miniOptions" mode="">
@@ -44,6 +32,16 @@
           </div>
         </div>
       </section>
+    </div>
+  </div> -->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="stats-icons">
+        <p>
+          Активно записывайте свои расходы, и скоро увидите статистику!
+        </p>
+        <img src="../img/stats-icons.png" alt="">
+      </div>
     </div>
   </div>
 </div>

@@ -1944,6 +1944,9 @@ q:hover, a.nl-field-toggle:hover {
   background: linear-gradient(0deg, rgba(80, 166, 189, 0.06) 0, rgba(255, 255, 255, 0)72%, rgba(0, 0, 0, 0.06)99%, rgba(0, 0, 0, 0.06) 100%);
   background-color: rgba(255, 255, 255, 0.15);
 }
+.stats .widget {
+  height: 700px;
+}
 .link-code-container {
   height: 60px;
   margin-top: 10px;
@@ -2050,7 +2053,7 @@ table.dataTable {
 }
 .table-body {
   display: block;
-  overflow-y: auto;
+  /*overflow-y: auto;*/
 }
 #transactions-table thead {
   outline: 1px solid rgba(255, 255, 255, .24);
@@ -2080,7 +2083,7 @@ table.dataTable {
   width: 80px;
 }
 #transactions-table th:nth-child(7) {
-  width: 114px;
+  width: 113px;
 }
 .tags-header {
   padding-left: 25px;
@@ -2104,6 +2107,24 @@ table.dataTable {
 }
 .filter-icon.active path {
   fill: rgb(103, 188, 145);
+}
+.stats-icons {
+  margin: 0 auto;
+  width: 412px;
+  position: relative;
+  /*margin-top: 50px;*/
+}
+.stats-icons img {
+  height: 298;
+  width: 412;
+}
+.stats-icons p {
+  position: absolute;
+  bottom: 20px;
+  left: 59px;
+  text-align: center;
+  font-size: 16px;
+  width: 285px;
 }
 .transaction-tags {
   display: inline;

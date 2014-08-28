@@ -31,6 +31,7 @@
 
     $rootScope.closeImageOverlay = function() {
       $rootScope.showImage = false;
+      $rootScope.imgUrl = '';
     };
 
     vm.translate = function(lang) {

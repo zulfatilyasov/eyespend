@@ -322,10 +322,11 @@
     vm.downloadExcel = function() {
       transaxns.getExcelFile(fromUnixDate, toUnixDate, vm.tags, vm.onlyWithPhoto);
     }
-    vm.inView = function(inView, viewPart) {
-      console.log(viewPart);
-      alert(123);
-    }
+    // vm.inView = function(inView, viewPart) {
+    //   console.log(viewPart);
+    //   alert(123);
+    // }
+
     vm.loadMoreTransactions = function($inview, $inviewpart) {
       if (vm.isLoading || vm.richedTheEnd)
         return;
@@ -340,9 +341,10 @@
             vm.richedTheEnd = true;
           }
           common.$timeout(function() {
-            $(".nano").nanoScroller({
-              scrollTop: scrollPosition
-            });
+            // $(".nano").nanoScroller({
+            //   scrollTop: scrollPosition
+            // });
+            console.log('more trs attached');
             vm.isLoading = false;
           });
         })
@@ -498,12 +500,25 @@
       var promises = [_getTransactions(), vm.loadTags()];
       common.activateController(promises, controllerId)
         .then(function() {
+          // var element = $('.scroll-pane').bind('jsp-scroll-y', function(event, scrollPositionY, isAtTop, isAtBottom) {
+          //   if (isAtBottom) {
+          //     vm.loadMoreTransactions();
+          //     console.log('isAtBottom');
+          //   }
+          // }).jScrollPane({
+          //   mouseWheelSpeed: 30
+          // });
+
+          // var api = element.data('jsp');
+          // api.scrollBy(50);
+          // $(".table-body").nanoScroller();
           $(".nano").debounce("update", function(event, values) {
             if (values.maximum == values.position) {
               scrollPosition = values.position;
               vm.loadMoreTransactions();
             }
           });
+
         });
     }
 

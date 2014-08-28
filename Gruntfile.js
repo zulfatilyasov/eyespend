@@ -26,13 +26,16 @@
           'bower_components/d3/d3.js',
           'bower_components/n3-line-chart/dist/line-chart.js',
           'bower_components/nicescroll/jquery.nicescroll.js',
-          'bower_components/nanoscroller/bin/javascripts/jquery.nanoscroller.js',
-          'bower_components/angular-nanoscroller/scrollable.js',
+          // 'bower_components/nanoscroller/bin/javascripts/jquery.nanoscroller.js',
+          'app/lib/nanoscroller/jquery.nanoscroller.js',
+          'app/lib/angular-nanoscroller/scrollable.js',
           // 'bower_components/quick-ngrepeat/quick-ng-repeat.js',
           // 'bower_components/jquery-ui/ui/core.js',
           // 'bower_components/jquery-ui/ui/widget.js',
           'bower_components/jquery-ui/jquery-ui.js',
           'bower_components/jquery-debounce/jquery.debounce.js',
+          'bower_components/jscrollpane/script/jquery.mousewheel.js',
+          'bower_components/jscrollpane/script/jquery.jscrollpane.js',
 
           'app/lib/jQAllRangeSliders-min.js',
           'app/lib/select2.js',
@@ -43,6 +46,7 @@
           'app/lib/bootstrap-slider-3.0.1/bootstrap-slider.js',
           'app/lib/ng-tags-input/ng-tags-input.js',
           'app/lib/ng-bs-daterangepicker/src/ng-bs-daterangepicker.js',
+
 
           'app/app.js',
           'app/config.exceptionHandler.js',
@@ -82,7 +86,7 @@
           'bower_components/nouislider/jquery.nouislider.css',
           'bower_components/jqrangeslider/demo/lib/jquery-ui/css/jquery-ui-1.8.16.custom.css',
           'bower_components/nanoscroller/bin/css/nanoscroller.css',
-
+          'bower_components/jscrollpane/style/jquery.jscrollpane.css',
           'app/css/application.css',
           'app/css/overlay.css',
           'app/css/simptip.css',
