@@ -28,11 +28,8 @@
       <div ng-view></div>
     </div>
   </div>
-  <div ng-show="showSpinner" class="spinner">
-    <h4>&nbsp;</h4>
-    <span></span>
-    <span></span>
-    <span></span>
+  <div ng-show="showSpinner" class="spin">
+    <span us-spinner="{lines:15,color: '#fff', width:2, length:15, radius:15, hwaccel: true, speed:1.4}"></span>
   </div>
   <div style="display: none" class="overlay overlay-contentscale map-overlay" ng-class="{open:overlayIsOpen}" ng-cloak="ng-cloak">
     <a id="overlay-close" ng-click="closeMap();" href="javascript:void(0)">

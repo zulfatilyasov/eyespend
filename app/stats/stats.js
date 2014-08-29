@@ -114,7 +114,6 @@
       var promises = [getStats()];
       common.activateController(promises, controllerId)
         .then(function() {
-          // initDateRangeSlider();
           $("#slider").dateRangeSlider({
             defaultValues: {
               min: new Date(statsService.minDate()),
@@ -143,8 +142,14 @@
               vm.data = statsService.changeDateRange(data.values.min.getTime(), data.values.max.getTime());
             });
             console.log("Something moved. min: " + data.values.min + " max: " + data.values.max);
-          });;
+          });
         });
+    }
+
+    function activate() {
+      var promises = [];
+      common.activateController(promises, controllerId)
+        .then(function() {});
     }
 
     function initDateRangeSlider() {

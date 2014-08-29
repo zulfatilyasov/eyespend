@@ -11,14 +11,15 @@
     "AngularGM",
     "ngAnimate",
     "pascalprecht.translate",
-    "angular-inview",
+    // "angular-inview",
     "tmh.dynamicLocale",
     "ngBootstrap",
-    "NgSwitchery",
+    // "NgSwitchery",
     "geolocation",
     "LocalStorageModule",
     "n3-line-chart",
-    "sun.scrollable"
+    "sun.scrollable",
+    "angularSpinner"
   ]);
 
   app.run(['$rootScope', '$location', '$window', 'login',

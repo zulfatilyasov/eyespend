@@ -125,7 +125,7 @@ body.background-chocolate {
 .widget > header {
   padding: 10px 0;
 }
-.widget > header h4, .loader.theEnd {
+.widget > header h4 {
   font-size: 18px;
   font-style: normal;
   font-weight: normal;
@@ -149,12 +149,6 @@ body.background-chocolate {
   transform: rotate(180deg) translateX(80px);
   padding: 0 10px 10px 10px;
 }
-/*.action-add a:hover:after {*/
-
-/*-webkit-transform: rotate(180deg) translate(50%, 0px) !important;*/
-
-/*}*/
-
 .action-add {
   top: 10px;
 }
@@ -987,6 +981,21 @@ div.tags {
   -o-animation-duration: 0.5s;
   animation-duration: 0.5s;
 }
+.spin.ng-hide-remove {
+  -webkit-animation: fadeIn;
+  animation: fadeIn;
+  -webkit-animation-duration: 0.2s;
+  -o-animation-duration: 0.2s;
+  animation-duration: 0.2s;
+  display: block !important;
+}
+.spin.ng-hide-add {
+  -webkit-animation: fadeOut;
+  animation: fadeOut;
+  -webkit-animation-duration: 0.4s;
+  -o-animation-duration: 0.4s;
+  animation-duration: 0.4s;
+}
 #languages-menu.ng-hide-add {
   -webkit-animation: flipOutX 0.5s;
   animation: flipOutX 0.5s;
@@ -1116,6 +1125,12 @@ datepicker {
   padding: 0px 8px;
   line-height: 1;
 }
+#transactions-table td.empty-td {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  padding-top: 10px;
+}
 #transactions-table tr:hover td {
   background-color: rgba(255, 255, 255, 0.33) !important;
   cursor: pointer;
@@ -1166,8 +1181,8 @@ div[ng-view].ng-enter {
   animation: fadeInUp 0.5s;
 }
 div[ng-view].ng-leave {
-  -webkit-animation: fadeOutUp 0.3s;
-  animation: fadeOutUp 0.3s;
+  -webkit-animation: fadeOutUp 0.1s;
+  animation: fadeOutUp 0.2s;
 }
 /*div[ng-if].ng-enter {*/
 
@@ -1177,22 +1192,19 @@ div[ng-view].ng-leave {
 
 /*}*/
 
-/*tr[ng-repeat-start].ng-enter {*/
-
-/*-webkit-animation: fadeInRight 0.7s;*/
-
-/*animation: fadeInRight 0.7s;*/
-
-/*}*/
-
-/*tr[ng-repeat-start].ng-leave {*/
-
-/*-webkit-animation: fadeOutRight 0.5s;*/
-
-/*animation: fadeOutRight 0.5s;*/
-
-/*}*/
-
+tbody[ng-repeat].ng-enter {
+  -webkit-animation: fadeIn 0.7s;
+  animation: fadeIn 0.7s;
+}
+tbody[ng-repeat].ng-leave {
+  -webkit-animation: fadeOut 0.5s;
+  animation: fadeOut 0.5s;
+}
+.loaded {
+  -webkit-animation: fadeIn 0.7s;
+  -moz-animation: fadeIn 0.7s;
+  animation: fadeIn 0.7s;
+}
 #arrowUp {
   text-align: center;
 }
@@ -1312,94 +1324,6 @@ div[ng-view].ng-leave {
   width: 100%;
   background: rgba(0, 0, 0, 0.3);
   z-index: 100;
-}
-.loaderBox {
-  position: relative;
-  margin-top: 30px;
-  padding: 10px 0;
-}
-.loader {
-  height: 50px;
-  left: 50%;
-  margin: -25px 0 0 -75px;
-  position: absolute;
-  top: 50%;
-  width: 150px;
-  -moz-border-radius: 100%;
-  -webkit-border-radius: 100%;
-  border-radius: 100%;
-}
-.loader .bar {
-  background-color: #00bff3;
-  font-size: 0;
-  height: 3px;
-  opacity: 0;
-  width: 25px;
-  -webkit-animation-duration: 2s;
-  -webkit-animation-fill-mode: both;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-name: subtleIn;
-  -webkit-animation-timing-function: ease-in-out;
-  display: inline-block;
-  vertical-align: middle;
-}
-.loader .bar:nth-child(1) {
-  -webkit-animation-delay: 0s;
-}
-.loader .bar:nth-child(2) {
-  background-color: #82ca9c;
-  -webkit-animation-delay: .3s;
-}
-.loader .bar:nth-child(3) {
-  background-color: #f69679;
-  -webkit-animation-delay: .6s;
-}
-.loader .bar:nth-child(4) {
-  background-color: #acd373;
-  -webkit-animation-delay: .9s;
-}
-.loader .bar:nth-child(5) {
-  background-color: #959595;
-  -webkit-animation-delay: 1.2s;
-}
-.spinner {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  z-index: 1000;
-}
-.spinner h4 {
-  text-align: center;
-  color: #000000;
-  font-weight: bold;
-}
-.spinner span {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  display: inline-block;
-  position: absolute;
-  left: 50%;
-  margin-left: -10px;
-  -webkit-animation: 3s infinite linear;
-  -moz-animation: 3s infinite linear;
-  -o-animation: 3s infinite linear;
-}
-.spinner span:nth-child(2) {
-  background: #E84C3D;
-  -webkit-animation: kiri 1.2s infinite linear;
-  -moz-animation: kiri 1.2s infinite linear;
-  -o-animation: kiri 1.2s infinite linear;
-}
-.spinner span:nth-child(3) {
-  background: #F1C40F;
-  z-index: 100;
-}
-.spinner span:nth-child(4) {
-  background: #2FCC71;
-  -webkit-animation: kanan 1.2s infinite linear;
-  -moz-animation: kanan 1.2s infinite linear;
-  -o-animation: kanan 1.2s infinite linear;
 }
 .daterangepicker.opensright::after, .daterangepicker.opensright::before {
   left: 24px;
@@ -2047,10 +1971,6 @@ table.dataTable {
     margin: 0;
   }
 }
-.empty-td {
-  width: 1050px;
-  text-align: center;
-}
 .table-body {
   display: block;
   /*overflow-y: auto;*/
@@ -2248,7 +2168,7 @@ table.dataTable {
     -o-transform: translateY(-320px);
     transform: translateY(-0px);
   }
-  tr[ng-repeat-start].ng-enter, tr[ng-repeat-start].ng-leave {
+  tbody[ng-repeat].ng-enter, tbody[ng-repeat].ng-leave {
     -webkit-animation: none;
     animation: none;
   }

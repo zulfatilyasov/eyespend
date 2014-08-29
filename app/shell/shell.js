@@ -2,9 +2,9 @@
   'use strict';
 
   var controllerId = 'shell';
-  angular.module('app').controller(controllerId, ['common', '$rootScope', 'tmhDynamicLocale', 'config', 'login', '$translate', '$timeout', shell]);
+  angular.module('app').controller(controllerId, ['common', 'debounce', '$rootScope', 'tmhDynamicLocale', 'config', 'login', '$translate', '$timeout', shell]);
 
-  function shell(common, $rootScope, tmhDynamicLocale, config, login, $translate, $timeout) {
+  function shell(common, debounce, $rootScope, tmhDynamicLocale, config, login, $translate, $timeout) {
     var vm = this;
     var events = config.events;
     vm.logout = login.logout;
@@ -51,7 +51,8 @@
 
     $rootScope.$on('$routeChangeStart',
       function(event, next, current) {
-        toggleSpinner(true);
+        if (next.$$route.originalPath === "/")
+          toggleSpinner(true);
       }
     );
 

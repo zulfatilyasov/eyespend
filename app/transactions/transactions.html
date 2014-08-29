@@ -3,8 +3,9 @@
     <div class="col-md-12">
       <div class="widgetWrapper">
         <section ng-style="{'height':vm.widgetHeight}" class="widget transactions-widget">
-          <div ng-show="showSpinner" class="widgetOverlay">
-          </div>
+          <!-- <div ng-show="showSpinner" class="widgetOverlay">
+</div>
+ -->
           <header>
             <div class="row shortStats">
               <div style="float: left" class="col-md-4 hidden-phone-landscape widgeTitle">
@@ -158,7 +159,7 @@
 </table>
  -->
                   <div>
-                    <table ng-click="vm.tableClicked($event)" ng-style="{'height':vm.tableHeight}" class="table table-body table-striped dataTable" scrollable="{scrollTop: '45px'}">
+                    <table ng-click="vm.tableClicked($event)" ng-style="{'height':vm.tableHeight}" class="table table-body table-striped dataTable" scrollable="{scrollTop: '45px'}" ng-class="{loaded:vm.transactionsLoaded}">
                       <tbody ng-repeat="transaction in vm.trs track by $index">
                         <tr ng-class="{selected:vm.selectedTnx.id === transaction.id}" ng-if="!(vm.editing && vm.selectedTnx.id === transaction.id) && !transaction.new" ng-dblclick="vm.editTransaction($index)" data-index="{{$index}}">
                           <td class="date-td">
@@ -284,10 +285,18 @@
                           </td>
                         </tr>
                       </tbody>
+                      <tbody ng-show="vm.trs.length > 0 && !vm.richedTheEnd">
+                        <tr>
+                          <td colspan="10" style="text-align: center" class="empty-td">
+                            <span us-spinner="{lines:15,color: '#fff', width:2, length:7, radius:7, hwaccel: true, speed:1.4}"></span>
+                            <!-- <span>Загрузка...</span> -->
+                          </td>
+                        </tr>
+                      </tbody>
                       <tbody ng-show="vm.trs.length === 0 && !vm.isLoading">
                         <tr>
-                          <td colspan="10" class="empty-td">
-                            <span class="no-transactions">Пусто</span>
+                          <td colspan="10" style="text-align: center" class="empty-td">
+                            <span>Нет записей</span>
                           </td>
                         </tr>
                       </tbody>
