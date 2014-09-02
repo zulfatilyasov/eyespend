@@ -68,21 +68,33 @@ var ApiInjector = function apiInjector() {
     app.get('/api/secure/settings', function(req, res) {
       if (req.user.email === 'qwe@gmail.com') {
         res.json({
-          email: {
-            address: 'qew@gmail.com',
-            verified: true
+          mobileLink: {
+            code: 23143
           },
-          linkCode: 12312
+          emailLink: {
+            status: "linkPending",
+            address: "qwe@gmail.com"
+          },
+          emailChangeRequest: {
+            status: "",
+            address: ""
+          }
         });
       } else {
         res.json({
-          email: {
+          mobileLink: {
+            code: 23143
+          },
+          emailLink: {
+            status: "link",
             address: null
           },
-          linkCode: 23143
+          emailChangeRequest: {
+            status: "notChanging",
+            address: null
+          }
         });
       }
-
     });
 
     app.get('/api/secure/excelFileUrl', function(req, res) {

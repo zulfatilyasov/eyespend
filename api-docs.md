@@ -178,7 +178,7 @@
 
 ### Запрос
 
-**POST** /api/linkConfirmMobile
+**POST** /api/linkConfirmMobile 
 
 #### Параметры
 

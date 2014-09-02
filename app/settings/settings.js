@@ -9,6 +9,7 @@
     var vm = this;
     vm.link = {};
     vm.email = {};
+    vm.changeEmail = false;
 
     function validLinkEmailForm() {
       vm.link.invalidEmail = false;
@@ -120,8 +121,11 @@
       var def = common.defer();
       datacontext.getSettings()
         .success(function(data) {
-          vm.linkcode = data.linkCode;
-          vm.email = data.email;
+          vm.mobileLink = data.mobileLink;
+          vm.emailLink = data.emailLink;
+          vm.emailChangeRequest = data.emailChangeRequest;
+          // vm.linkcode = data.linkCode;
+          // vm.email = data.email;
           //                    vm.email.verified = data.verified;
           def.resolve();
         });

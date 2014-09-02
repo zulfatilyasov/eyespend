@@ -1001,6 +1001,9 @@ div.tags {
   animation: flipOutX 0.5s;
   display: block !important;
 }
+button.ng-hide-add {
+  display: none !important;
+}
 #languages-menu {
   display: block;
   border-radius: 5px;
@@ -1014,6 +1017,9 @@ div.tags {
   transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
   padding: 20px;
   opacity: 1;
+}
+.linked-email button {
+  margin-left: 20px;
 }
 .visible {
   opacity: 1 !important;
@@ -1177,12 +1183,12 @@ input.code-or-email {
   font-size: 13px !important;
 }
 div[ng-view].ng-enter {
-  -webkit-animation: fadeInUp 0.5s;
-  animation: fadeInUp 0.5s;
+  -webkit-animation: fadeInUp 1s;
+  animation: fadeInUp 1s;
 }
 div[ng-view].ng-leave {
-  -webkit-animation: fadeOutUp 0.1s;
-  animation: fadeOutUp 0.2s;
+  -webkit-animation: fadeOutUp 1s;
+  animation: fadeOutUp 1s;
 }
 /*div[ng-if].ng-enter {*/
 
@@ -1280,8 +1286,9 @@ tbody[ng-repeat].ng-leave {
   height: 50px;
   line-height: 70px;
 }
-.page-header .navbar .nav > li > a:hover, .sideActions a:hover, .widget a:hover {
-  color: #56BC76;
+.widget a:hover {
+  color: #fff;
+  text-decoration: underline;
 }
 .page-title {
   text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.6);
