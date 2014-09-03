@@ -1,0 +1,235 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <title>eyeSpend</title>
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <link rel="stylesheet" href="activation-page/activation.css">
+  <script>
+  function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+      results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  }
+
+  function setAthenticated(token) {
+    var now = new Date();
+    var yearAfterNow = new Date(new Date(now).setMonth(now.getMonth() + 12));
+    document.cookie = "isAuthenticated=" + true + "; path=/; expires=" + yearAfterNow.toUTCString();
+    localStorage.setItem('ls.token', token);
+  }
+
+  function errorIs(msg, resp) {
+    if (resp.responseJSON && resp.responseJSON.error && resp.responseJSON.error.code === msg) {
+      return true;
+    }
+    return false;
+  }
+
+  function confirmDesktop() {
+    var password = $('#password').val();
+    if (!password) {
+      $('#password').addClass('error');
+      $('.error-message').text('Введите пароль').show();
+      return;
+    }
+
+    $.post('/api/linkConfirm', {
+      code: code,
+      oneTimePassword: password
+    })
+      .done(function(resp) {
+        if (resp.token && resp.token.length) {
+          setAthenticated(resp.token);
+          location.href = "/";
+        }
+      })
+      .fail(function(resp) {
+        if (errorIs("invalid_one_time_password", resp)) {
+          var errorMessage = "Неверный пароль";
+          $('.error-message').text(errorMessage).show();
+          $('#password').addClass('error');
+        }
+      });
+  }
+
+  function confirmMobile() {
+    var password = $('#password').val();
+    if (!password) {
+      $('.password').addClass('error');
+      $('.error-password').text('Введите пароль').show();
+      return;
+    }
+
+    var passwordConfirmation = $('#password-confirmation').val();
+    if (!password) {
+      $('.password-confirmation').addClass('error');
+      $('.error-confirmation').text('Введите подтверждение пароль').show();
+      return;
+    }
+
+    if (passwordConfirmation !== password) {
+      $('.password-confirmation').addClass('error');
+      $('.error-confirmation').text('Пароли не совпадают').show();
+      return;
+    }
+
+    $.post('/api/linkConfirmMobile', {
+      code: code,
+      oneTimePassword: password
+    })
+      .done(function(resp) {
+        if (resp.token && resp.token.length) {
+          setAthenticated(resp.token);
+          location.href = "/";
+        }
+      })
+      .fail(function(resp) {
+        if (errorIs("invalid_one_time_password", resp)) {
+          var errorMessage = "Неверный пароль";
+          $('.error-message').text(errorMessage).show();
+          $('#password').addClass('error');
+        }
+      });
+  }
+
+  function confirmChange() {
+
+  }
+
+  var code;
+
+  function verifyCode() {
+    code = getParameterByName('code');
+    $.post('/api/linkVerify', {
+      code: code
+    })
+      .done(function(resp) {
+        $('.email').text(resp.email);
+        $('.success').show();
+      })
+      .fail(function(resp) {
+        if (errorIs("invalid_code", resp)) {
+          var errorMessage = "Неверный код активации";
+          $('.fail .error-message').text(errorMessage);
+          $('.fail').show();
+        }
+      });
+  }
+
+  function showForm() {
+    if (location.href.toLowerCase().indexOf('activatemobile') > 0) {
+      $('.confirm-mobile').show();
+    } else if (location.href.toLowerCase().indexOf('activatechange') > 0) {
+      $('.confirm-change').show();
+    } else {
+      $('.confirm-desktop').show();
+    }
+  }
+
+  $(function() {
+    verifyCode();
+    showForm();
+  });
+  </script>
+</head>
+
+<body class="green-blue">
+  <div id="all">
+    <div>
+      <div class="container">
+        <header class="page-header">
+          <div>
+            <div class="navbar">
+              <a href="/">
+                <div class="logo sidebar-icons">
+                  <h4 style="display:inline-block">
+                    eye<b>Spend</b>
+                  </h4>
+                </div>
+              </a>
+            </div>
+          </div>
+        </header>
+      </div>
+    </div>
+    <div class="content container">
+      <div class="confirm-desktop">
+        <div class="widget-wrapper">
+          <div class="widget">
+            <header>
+              <div class="widgeTitle">
+                <span class="ng-scope">Подтверждение email-a</span>
+              </div>
+            </header>
+            <div class="widget-content">
+              <section class="success">
+                <p class="opac">
+                  Чтобы привязать Ваш аккаунт к email-у <b class="email"></b>, получите одноразовый пароль в мобильном приложении <b>eyeSpend</b> и укажите его в поле ввода.
+                </p>
+                <div class="control-group">
+                  <label for="password">
+                    Одноразовый пароль
+                  </label>
+                  <input type="text" id="password" class="styledInput" placeholder="Введите одноразовый пароль">
+                  <div class="error-message"></div>
+                </div>
+                <button onclick="confirmDesktop()">Сохранить</button>
+              </section>
+              <section class="fail">
+                <div class="error-message"></div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="confirm-mobile">
+        <div class="widget-wrapper">
+          <div class="widget">
+            <header>
+              <div class="widgeTitle">
+                <span class="ng-scope">Подтверждение email-a</span>
+              </div>
+            </header>
+            <div class="widget-content">
+              <section class="success">
+                <p class="opac">
+                  Чтобы завершить привязку Вашего аккаунта к email-у <b class="email"></b>, установите пароль.
+                </p>
+                <div class="control-group">
+                  <label for="password">
+                    Пароль
+                  </label>
+                  <input type="password" class="password styledInput" placeholder="Введите пароль">
+                  <div class="error-password"></div>
+                </div>
+                <div class="control-group">
+                  <label for="password-confirmation">
+                    Подтверждение пароля
+                  </label>
+                  <input type="password-confirmation" class="password-confirmation styledInput" placeholder="Введите пароль еще раз">
+                  <div class="error-confirmation"></div>
+                </div>
+                <button onclick="confirmMobile()">Сохранить</button>
+              </section>
+              <section class="fail">
+                <div class="error-message"></div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="confirm-change">
+      content
+    </div>
+  </div>
+  <div class="spin">
+    <span us-spinner="{lines:15,color: '#fff', width:2, length:15, radius:15, hwaccel: true, speed:1.4}"></span>
+  </div>
+</body>
+
+</html>

@@ -80,7 +80,7 @@ var translationsRu = {
   CLEAR: "Сбросить",
   ENTER_LOCATION: "Введите местоположение",
   MUST_ACTIVATE_EMAIL: "Необхоимо активировать email. Ссылка для активации была отправлена на адрес",
-  ENTER_LOGIN_EMAIL: "Если Вы хотите входить на сайт использую привычный email и пароль, укажите их в поле ввода.",
+  ENTER_LOGIN_EMAIL: "Если Вы хотите входить на сайт используя привычный email и пароль, укажите их в поле ввода.",
   EMAIL_ACCOUNT_LINKED_TO_EMAIL: "Ваша учетная запись привязана к email'у ",
   PROVIDE_CURRENT_PASSWORD_TO_LINK_EMAIL: "Если Вы хотите привязать другой email, укажите его и Ваш текущий пароль.",
   CODE_FOR_APP: "Для привязки других устройств к своему аккаунту, введите этот номер в мобильном приложении <b>eyeSpend</b>",
@@ -150,7 +150,6 @@ var translationsEn = {
   CURRENT_PASSWORD: "Current password",
   TYPE_CURRENT_PASSWORD: "Enter current password",
   TYPE_PASSWORD: "Type password",
-
   LINK_EMAIL: "Link email",
   INVALID_EMAIL: "Invalid email",
   LINK_ACCOUNT: "Link device",

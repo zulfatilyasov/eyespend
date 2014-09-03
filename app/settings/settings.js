@@ -14,7 +14,8 @@
     function validLinkEmailForm() {
       vm.link.invalidEmail = false;
       vm.link.invalidPassword = false;
-      if (!vm.link.email) {
+      var email = vm.changeEmail ? vm.link.newEmail : vm.link.email;
+      if (!email) {
         $translate('TYPE_EMAIL')
           .then(function(msg) {
             vm.link.invalidEmail = true;
@@ -22,7 +23,7 @@
           });
         return false;
       }
-      if (!login.validEmail(vm.link.email)) {
+      if (!login.validEmail(email)) {
         $translate('INVALID_EMAIL')
           .then(function(msg) {
             vm.link.invalidEmail = true;
@@ -30,8 +31,8 @@
           });
         return false;
       }
-      if (vm.email.address && !vm.link.password) {
-        $translate('TYPE_CURRENT_PASSWORD')
+      if (!vm.link.password && vm.emailLink.status === "free") {
+        $translate('TYPE_PASSWORD')
           .then(function(msg) {
             vm.link.invalidPassword = true;
             logError(msg);
@@ -88,32 +89,54 @@
     vm.linkEmail = function() {
       if (validLinkEmailForm() == false)
         return;
-      if (!vm.email.address) {
-        datacontext.linkEmail(vm.link.email)
-          .success(emailChangeSuccess);
+      if (vm.changeEmail) {
+        datacontext.changeEmail(vm.link.newEmail)
+          .success(emailChanged);
       } else {
-        console.log(vm.link.password);
-        datacontext.changeEmail(vm.link.email, vm.link.password)
-          .success(emailChangeSuccess);
+        datacontext.linkInit(vm.link.email, vm.link.password)
+          .success(emailChanged);
       }
     };
 
-    function emailChangeSuccess(data, status) {
-      if (status !== 200 && status != 201) {
-        if (vm.email.address) {
-          $translate('INVALID_PASSWORD')
-            .then(function(msg) {
-              vm.link.invalidPassword = true;
-              logError(msg);
-            });
-        } else {
-          logError('Произошла ошибка');
-        }
-
+    function emailChangeSuccess() {
+      if (vm.emailLink.status === 'linked') {
+        vm.emailChangeRequest = {
+          status: 'inProgress',
+          address: vm.link.newEmail
+        };
+      } else if (vm.emailLink.status === 'free') {
+        vm.emailLink = {
+          address: vm.link.email,
+          status: "linkPending"
+        };
       } else {
-        logSuccess('Отправлено письмо.<br/>Активируйте e-mail');
-        vm.email.address = vm.link.email;
-        vm.email.verified = false;
+        vm.emailLink = {
+          address: vm.link.newEmail,
+          status: "linkPending"
+        };
+      }
+
+      logSuccess('Отправлено письмо.<br/>Активируйте e-mail');
+      vm.changeEmail = false;
+    }
+
+    function emailChangeFail(data) {
+      if (data.error && data.error.code === "invalid_email") {
+        $translate('INVALID_EMAIL')
+          .then(function(msg) {
+            vm.link.invalidEmail = true;
+            logError(msg);
+          });
+      } else {
+        logError('Произошла ошибка');
+      }
+    }
+
+    function emailChanged(data, status) {
+      if (status !== 200 && status != 201) {
+        emailChangeFail(data);
+      } else {
+        emailChangeSuccess();
       }
     }
 
@@ -124,9 +147,6 @@
           vm.mobileLink = data.mobileLink;
           vm.emailLink = data.emailLink;
           vm.emailChangeRequest = data.emailChangeRequest;
-          // vm.linkcode = data.linkCode;
-          // vm.email = data.email;
-          //                    vm.email.verified = data.verified;
           def.resolve();
         });
       return def.promise;

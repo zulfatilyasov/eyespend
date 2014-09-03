@@ -67,34 +67,14 @@ var ApiInjector = function apiInjector() {
 
     app.get('/api/secure/settings', function(req, res) {
       if (req.user.email === 'qwe@gmail.com') {
-        res.json({
-          mobileLink: {
-            code: 23143
-          },
-          emailLink: {
-            status: "linkPending",
-            address: "qwe@gmail.com"
-          },
-          emailChangeRequest: {
-            status: "",
-            address: ""
-          }
-        });
+        res.json(db.qweLinkStatus());
       } else {
-        res.json({
-          mobileLink: {
-            code: 23143
-          },
-          emailLink: {
-            status: "link",
-            address: null
-          },
-          emailChangeRequest: {
-            status: "notChanging",
-            address: null
-          }
-        });
+        res.json(db.fooLinkStatus());
       }
+    });
+
+    app.get(['/activate', '/activateMobile', '/activateChange'], function(req, res) {
+      res.sendfile(__dirname + '/app/activation-page/activation.html');
     });
 
     app.get('/api/secure/excelFileUrl', function(req, res) {
@@ -121,6 +101,21 @@ var ApiInjector = function apiInjector() {
       res.send(200);
     });
 
+    app.post('/api/linkConfirm', function(req, res) {
+      if (req.body.code && req.body.oneTimePassword && req.body.oneTimePassword.length > 5) {
+        res.json({
+          token: createTokenWithProfile('qwe@gmail.com')
+        });
+      } else {
+        res.status(400).send({
+          error: {
+            code: "invalid_one_time_password",
+            message: "Invalid one time password provided"
+          }
+        });
+      }
+    })
+
     app.post('/api/users/login', function(req, res) {
       console.log('/api/users/login');
       if (validCredentials(req.body.auth_code_or_email, req.body.password)) {
@@ -131,6 +126,21 @@ var ApiInjector = function apiInjector() {
       } else {
         console.log('Wrong user or password');
         res.send(401, 'Wrong user or password');
+      }
+    });
+
+    app.post('/api/linkVerify', function(req, res) {
+      if (req.body.code === '123') {
+        res.json({
+          email: "qwe@gmail.com"
+        });
+      } else {
+        res.status(400).send({
+          error: {
+            code: "invalid_code",
+            message: "Invalid code provided"
+          }
+        });
       }
     });
 
@@ -152,20 +162,25 @@ var ApiInjector = function apiInjector() {
     });
 
 
-    app.post('/api/secure/linkUser', function(req, res) {
-      console.log('called /api/secure/linkUser');
+    app.post('/api/secure/linkInit', function(req, res) {
+      console.log('called /api/secure/linkInit');
       console.log('email: ' + req.body.email);
-      res.send(200);
-    });
-    app.post('/api/secure/changeEmail', function(req, res) {
-      console.log('called /api/secure/changeEmail');
-      console.log('email: ' + req.body.email);
-      if (req.body.password !== 'bar' && !userHasLinkedEmail(req.user)) {
-        res.send(400, 'wrong password');
+      console.log('password: ' + req.body.password);
+      var linkStatus = null;
+      if (req.user.email === 'qwe@gmail.com') {
+        linkStatus = db.qweLinkStatus();
+      } else {
+        linkStatus = db.fooLinkStatus();
       }
-      res.send(200);
+      linkStatus.emailLink.address = req.body.email;
+      linkStatus.emailLink.status = "linkPending";
+      res.json(linkStatus);
     });
 
+    app.post('/api/secure/emailChangeInit', function(req, res) {
+      console.log('called /api/secure/changeEmailInit');
+      res.send(201);
+    });
 
     app.post('/api/secure/changePassword', function(req, res) {
       if (!req.body.psw || req.body.psw.length < 6) {
@@ -174,7 +189,7 @@ var ApiInjector = function apiInjector() {
         return;
       }
       console.log(req.body.psw);
-      res.send(200);
+      res.send(201);
     });
 
     app.get('/api/secure/transactionsForChart', function(req, res) {

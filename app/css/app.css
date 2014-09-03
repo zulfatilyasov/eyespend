@@ -404,14 +404,14 @@ input.ng-invalid-required, input.ng-invalid-number, input.invalid {
   width: 30px;
   display: inline-block;
 }
+.logo.sidebar-icons {
+  left: 0;
+  padding-left: 0;
+}
 #linkcode {
   padding: 5px 5%;
   text-align: center;
   font-size: 16px;
-}
-.logo.sidebar-icons {
-  left: 0;
-  padding-left: 0;
 }
 #linkcode span {
   font-weight: bold;
@@ -1018,8 +1018,8 @@ button.ng-hide-add {
   padding: 20px;
   opacity: 1;
 }
-.linked-email button {
-  margin-left: 20px;
+.change-button {
+  margin-top: 10px;
 }
 .visible {
   opacity: 1 !important;
@@ -1272,6 +1272,12 @@ tbody[ng-repeat].ng-leave {
   margin: 0 auto;
   height: 70px;
   line-height: 70px;
+}
+.change-email-link {
+  color: rgb(255, 251, 0);
+}
+.status {
+  font-size: 16px;
 }
 .landing .page-header {
   opacity: 1;
@@ -1894,6 +1900,8 @@ q:hover, a.nl-field-toggle:hover {
   border-left: 1px solid rgba(255, 255, 255, 0.08);
   border-right: 1px solid rgba(255, 255, 255, 0.08);
   padding-bottom: 20px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
 }
 .widget>header {
   background: -webkit-linear-gradient(90deg, rgba(82, 164, 187, 0.06) 0%, rgba(254, 254, 255, 0) 72%, rgba(255, 255, 255, 0) 73%, rgba(0, 0, 0, 0) 100%);
@@ -1940,7 +1948,7 @@ table.dataTable {
   outline: none;
 }
 .settings button:hover {
-  border: rgba(173, 107, 43, 0.7);
+  border: #67BC91;
   background: #67BC91;
 }
 @media (min-width: 992px) {

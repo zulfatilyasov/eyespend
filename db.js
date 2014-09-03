@@ -310,6 +310,38 @@ function getTransactionsForChart() {
   return result;
 }
 
+function qweLinkStatus() {
+  return {
+    mobileLink: {
+      code: 23143
+    },
+    emailLink: {
+      status: "linked",
+      address: "qwe@gmail.com"
+    },
+    emailChangeRequest: {
+      status: "",
+      address: ""
+    }
+  };
+}
+
+function fooLinkStatus() {
+  return {
+    mobileLink: {
+      code: 23143
+    },
+    emailLink: {
+      status: "free",
+      address: null
+    },
+    emailChangeRequest: {
+      status: "notChanging",
+      address: null
+    }
+  };
+}
+
 exports.getTransactions = getTransactions;
 exports.getTransactionsByDate = getTransactionsByDate;
 exports.getTransactionsByTags = getTransactionsByTags;
@@ -317,3 +349,5 @@ exports.createId = createId;
 exports.getUserTags = getUserTags;
 exports.getTotals = getTotals;
 exports.getTransactionsForChart = getTransactionsForChart;
+exports.qweLinkStatus = qweLinkStatus;
+exports.fooLinkStatus = fooLinkStatus;

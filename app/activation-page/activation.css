@@ -1,0 +1,207 @@
+html {
+  min-height: 100%;
+}
+.green-blue {
+  font: 16px/26px Helvetica Neue, Arial;
+  -webkit-font-smoothing: antialiased;
+  font-style: normal;
+  font-weight: 400;
+  padding-bottom: 0;
+  margin: 0;
+  background: url("../img/texture-light.png"), -webkit-linear-gradient(-145deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
+  background: url("../img/texture-light.png"), -moz-linear-gradient(-145deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
+  background: url("../img/texture-light.png"), -o-linear-gradient(-145deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
+  background: url("../img/texture-light.png"), -ms-linear-gradient(-145deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
+  background: url("../img/texture-light.png"), linear-gradient(235deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
+}
+.page-header {
+  margin: 0 auto;
+  height: 70px;
+  line-height: 70px;
+  border: none;
+  padding: 0;
+  position: relative;
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  -ms-border-radius: 1px;
+  -o-border-radius: 1px;
+  border-radius: 1px;
+}
+.success, .fail {
+  display: none;
+}
+.page-header .navbar {
+  min-height: 40px;
+  border: none;
+}
+.navbar {
+  margin: 0;
+}
+.logo.sidebar-icons {
+  left: 0;
+  padding-left: 0;
+}
+.container {
+  max-width: 1150px;
+  padding-left: 2.5641%;
+  padding-right: 2.5641%;
+  margin-right: auto;
+  margin-left: auto;
+  position: relative;
+}
+.container:after, .container:before {
+  content: " ";
+  display: table;
+}
+.logo h4 {
+  font-size: 20px;
+  font-weight: 300;
+  color: #fff;
+  padding: 0;
+  margin: 0;
+}
+.widget {
+  background: -webkit-linear-gradient(0deg, rgba(80, 166, 189, .06)0, rgba(255, 255, 255, 0)72%, rgba(0, 0, 0, .06)99%, rgba(0, 0, 0, .06)100%);
+  background: -moz-linear-gradient(0deg, rgba(80, 166, 189, .06)0, rgba(255, 255, 255, 0)72%, rgba(0, 0, 0, .06)99%, rgba(0, 0, 0, .06)100%);
+  background: -o-linear-gradient(0deg, rgba(80, 166, 189, .06)0, rgba(255, 255, 255, 0)72%, rgba(0, 0, 0, .06)99%, rgba(0, 0, 0, .06)100%);
+  background: -ms-linear-gradient(0deg, rgba(80, 166, 189, .06)0, rgba(255, 255, 255, 0)72%, rgba(0, 0, 0, .06)99%, rgba(0, 0, 0, .06)100%);
+  background: linear-gradient(0deg, rgba(80, 166, 189, .06)0, rgba(255, 255, 255, 0)72%, rgba(0, 0, 0, .06)99%, rgba(0, 0, 0, .06)100%);
+  background-color: rgba(255, 255, 255, .15);
+  padding: 0;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  box-shadow: 0 0 12px 0 rgba(0, 0, 0, .12);
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 0 0 12px 0 rgba(0, 0, 0, .12);
+  width: 410px;
+  margin: 0 auto;
+}
+.widget>header {
+  background: -webkit-linear-gradient(90deg, rgba(82, 164, 187, .06)0, rgba(254, 254, 255, 0)72%, rgba(255, 255, 255, 0)73%, rgba(0, 0, 0, 0)100%);
+  background: -moz-linear-gradient(90deg, rgba(82, 164, 187, .06)0, rgba(254, 254, 255, 0)72%, rgba(255, 255, 255, 0)73%, rgba(0, 0, 0, 0)100%);
+  background: -o-linear-gradient(90deg, rgba(82, 164, 187, .06)0, rgba(254, 254, 255, 0)72%, rgba(255, 255, 255, 0)73%, rgba(0, 0, 0, 0)100%);
+  background: -ms-linear-gradient(90deg, rgba(82, 164, 187, .06)0, rgba(254, 254, 255, 0)72%, rgba(255, 255, 255, 0)73%, rgba(0, 0, 0, 0)100%);
+  background: linear-gradient(0deg, rgba(82, 164, 187, .06)0, rgba(254, 254, 255, 0)72%, rgba(255, 255, 255, 0)73%, rgba(0, 0, 0, 0)100%);
+  background-color: rgba(255, 255, 255, .9);
+  border: 1px solid #fff;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  position: relative;
+  padding: 10px 0;
+}
+.widgeTitle {
+  color: #54747b;
+  font-size: 24px;
+  font-weight: 300;
+  height: 46px;
+  line-height: 46px;
+  margin-left: 24px;
+}
+.widget-content {
+  border-left: 1px solid rgba(255, 255, 255, .08);
+  border-right: 1px solid rgba(255, 255, 255, .08);
+  padding-bottom: 20px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+p.opac {
+  color: #fff;
+  font-size: 15px;
+  margin: 0 0 10px;
+  line-height: 16px;
+}
+.error-message, .error-confirmation, .error-password {
+  color: rgb(255, 251, 0);
+}
+section {
+  padding: 24px 24px 0;
+}
+.confirm-desktop, .confirm-mobile, .confirm-change {
+  display: none;
+}
+.control-group {
+  margin-top: 15px;
+}
+label {
+  display: block;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 400;
+}
+input.styledInput {
+  color: rgba(255, 255, 255, .7);
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  border: 1px solid rgba(134, 136, 134, .15);
+  background: -webkit-linear-gradient(0deg, rgba(0, 0, 0, .06)0, rgba(0, 0, 0, 0)50%, rgba(0, 0, 0, .06)100%);
+  background: -moz-linear-gradient(0deg, rgba(0, 0, 0, .06)0, rgba(0, 0, 0, 0)50%, rgba(0, 0, 0, .06)100%);
+  background: -o-linear-gradient(0deg, rgba(0, 0, 0, .06)0, rgba(0, 0, 0, 0)50%, rgba(0, 0, 0, .06)100%);
+  background: -ms-linear-gradient(0deg, rgba(0, 0, 0, .06)0, rgba(0, 0, 0, 0)50%, rgba(0, 0, 0, .06)100%);
+  background: linear-gradient(0deg, rgba(0, 0, 0, .06)0, rgba(0, 0, 0, 0)50%, rgba(0, 0, 0, .06)100%);
+  background-color: rgba(0, 0, 0, .15);
+  width: 300px;
+  font-size: 14px;
+  font-weight: 300;
+  min-height: 30px;
+  padding-left: 6px;
+  padding-right: 6px;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+input.styledInput:focus {
+  color: #fff;
+  border: 1px solid #fff;
+  outline: 0;
+}
+input.styledInput.error {
+  border: 1px solid rgb(255, 251, 0);
+}
+::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.8);
+  font: 14px Helvetica Neue, Arial;
+  font-weight: 100;
+  letter-spacing: 0.7px;
+}
+:-moz-placeholder {
+  color: rgba(255, 255, 255, 0.8);
+  font: 14px Helvetica Neue, Arial;
+  font-weight: 100;
+  opacity: 1;
+}
+::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.8);
+  font: 14px Helvetica Neue, Arial;
+  font-weight: 100;
+  letter-spacing: 0.7px;
+  opacity: 1;
+}
+:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 100;
+  letter-spacing: 0.7px;
+  font: 14px Helvetica Neue, Arial;
+}
+button {
+  border-radius: 6px;
+  width: 163px;
+  height: 35px;
+  border: 1px solid #fff;
+  background: 0 0;
+  -webkit-transition: all .5s;
+  -o-transition: all .5s;
+  transition: all .5s;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: 300;
+  color: #fff;
+  margin-top: 15px;
+}
+button:hover {
+  border: #67BC91;
+  cursor: pointer;
+  background: #67BC91;
+}
+button:focus {
+  outline: none;
+}

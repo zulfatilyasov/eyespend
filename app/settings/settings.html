@@ -29,49 +29,48 @@
                       <label for="passord" translate>
                         TYPE_PASSWORD
                       </label>
-                      <input type="text" id="password" ng-model="vm.link.password" class="styledInput" placeholder="{{'TYPE_PASSWORD' | translate}}" ng-class="{invalid:vm.link.invalidPassword}">
+                      <input type="password" id="password" ng-model="vm.link.password" class="styledInput" placeholder="{{'TYPE_PASSWORD' | translate}}" ng-class="{invalid:vm.link.invalidPassword}">
                     </div>
-                    <!-- <div class="control-group">
-  <label for="passord" translate>
-    TYPE_PASSWORD_AGAIN
-  </label>
-  <input type="text" id="password" ng-model="vm.link.passwordConfirmation" class="styledInput" placeholder="{{'TYPE_PASSWORD_AGAIN' | translate}}" ng-class="{invalid:vm.link.invalidPasswordConfirmation}">
-</div>
- -->
                   </div>
                   <div ng-show="vm.emailLink.status=='linked'">
                     <p class="opac">
-                      <span translate>EMAIL_ACCOUNT_LINKED_TO_EMAIL</span>:
-                      <div class="linked-email">
+                      <span class="status" translate>EMAIL_ACCOUNT_LINKED_TO_EMAIL</span>:
+                      <div>
                         <strong>{{vm.emailLink.address}}</strong>
-                        <button ng-hide="vm.changeEmail || vm.emailChangeRequest.status=='inProgress'" ng-click="vm.changeEmail=true">
+                        <br>
+                        <button class="change-button" ng-hide="vm.changeEmail || vm.emailChangeRequest.status === 'inProgress'" ng-click="vm.changeEmail=true">
                           Изменить
                         </button>
                       </div>
                       <!-- <a ng-show="vm.emailChangeRequest.status == 'notChanging' && !vm.changeEmail" href="javascript:void(0)" ng-click="vm.changeEmail = true">Изменить</a> -->
                     </p>
                   </div>
-                  <div ng-show="vm.emailLink.status == 'linkPending'">
+                  <div ng-show="vm.emailLink.status === 'linkPending'">
                     <p class="opac">
-                      <span translate>MUST_ACTIVATE_EMAIL</span>
+                      <span class="status" translate>MUST_ACTIVATE_EMAIL</span>
                       <strong>{{vm.emailLink.address}}</strong>
-                      <a href="javascript:void(0)" ng-click="vm.changeEmail = true">Изменить</a>
+                      <a class="change-email-link" href="javascript:void(0)" ng-click="vm.changeEmail = true">Изменить</a>
                     </p>
                   </div>
-                  <div ng-show="vm.emailChangeRequest.status == 'inProgress'">
+                  <div ng-show="vm.emailChangeRequest.status === 'inProgress' && !vm.changeEmail">
                     <p class="opac">
-                      <span translate>Email будет изменен на</span>
-                      <strong>{{vm.emailChangeRequest.address}}</strong> <a href="javascript:void(0)" ng-click="vm.changeEmail = true">(Изменить)</a>
-                      <span>после подтверждения</span>
+                      <span class="status" translate>После подтверждения email будет изменен на:</span>
+                      <div>
+                        <strong>{{vm.emailChangeRequest.address}}</strong>
+                        <br>
+                        <button class="change-button" ng-click="vm.changeEmail=true">
+                          Изменить
+                        </button>
+                      </div>
                     </p>
                   </div>
                   <div ng-show="vm.changeEmail" class="control-group">
                     <label for="email" translate>
                       NEW_EMAIL
                     </label>
-                    <input type="text" id="email" ng-model="vm.link.email" class="styledInput" placeholder="{{'TYPE_NEW_EMAIL' | translate}}" ng-class="{invalid:vm.link.invalidEmail}">
+                    <input type="text" id="email" ng-model="vm.link.newEmail" class="styledInput" placeholder="{{'TYPE_NEW_EMAIL' | translate}}" ng-class="{invalid:vm.link.invalidEmail}">
                   </div>
-                  <div ng-show="vm.changeEmail || vm.emailLink.status == 'free'" class="control-group ">
+                  <div ng-show="vm.changeEmail || vm.emailLink.status === 'free'" class="control-group ">
                     <button ng-click="vm.linkEmail() " translate>
                       SAVE
                     </button>
@@ -79,7 +78,7 @@
                 </div>
               </div>
               <div class="col-md-6">
-                <div ng-show="vm.emailLink.status=='linked' " class="settings-section ">
+                <div ng-show="vm.emailLink.status==='linked' " class="settings-section ">
                   <h4><i class="fa fa-lock "></i> 
                     <span translate>CHANGE_PASSWORD</span>
                   </h4>
