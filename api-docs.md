@@ -178,11 +178,12 @@
 
 ### Запрос
 
-**POST** /api/linkConfirmMobile 
+**POST** /api/linkConfirmMobile
 
 #### Параметры
 
 - code - string, код из ссылки
+- password - string, пароль для аккаунта
 
 ### Ответ
 
