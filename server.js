@@ -10,9 +10,11 @@ var request = require('request');
 var httpProxy = require('http-proxy');
 
 function beforeRequest(req, res, next) {
-  if (req.path == '/api/users/login' || req.cookies && req.cookies.isAuthenticated === "true")
+  if(req.path == '/activate' || req.path == '/activateMobile' || req.path == '/activateChange'){
+      res.sendfile(__dirname + '/app/activation-page/activation.html');
+  } else if (req.path == '/api/users/login' || req.cookies && req.cookies.isAuthenticated === "true"){
     next();
-  else {
+  } else {
     res.sendfile(__dirname + '/app/landing-3/index.html');
   }
 }
@@ -27,6 +29,11 @@ var ApiInjector = function apiInjector() {
     app.use('/api/secure', expressJwt({
       secret: secret
     }));
+
+    app.get(['/activate', '/activateMobile', '/activateChange'], function(req, res) {
+      res.sendfile(__dirname + '/app/activation-page/activation.html');
+    });
+
     app.get('/api/secure/transactions', function(req, res) {
       console.log('calling /api/transactions');
       var offset = parseInt(req.query.offset);
@@ -73,9 +80,7 @@ var ApiInjector = function apiInjector() {
       }
     });
 
-    app.get(['/activate', '/activateMobile', '/activateChange'], function(req, res) {
-      res.sendfile(__dirname + '/app/activation-page/activation.html');
-    });
+
 
     app.get('/api/secure/excelFileUrl', function(req, res) {
       console.log('/api/secure/excelFileUrl');

@@ -42,8 +42,8 @@
       oneTimePassword: password
     })
       .done(function(resp) {
-        if (resp.token && resp.token.length) {
-          setAthenticated(resp.token);
+        if (resp.authToken && resp.authToken.length) {
+          setAthenticated(resp.authToken);
           location.href = "/";
         }
       })
