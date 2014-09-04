@@ -114,7 +114,33 @@ var ApiInjector = function apiInjector() {
           }
         });
       }
-    })
+    });
+
+    app.post('/api/linkConfirmMobile', function(req, res) {
+      if (!req.body.code) {
+        res.status(400).send({
+          error: {
+            code: "invalid_code",
+            message: "Invalid code provided"
+          }
+        });
+        return;
+      }
+
+      if (!req.body.password || req.body.password.length < 5) {
+        res.status(400).send({
+          error: {
+            code: "invalid_password",
+            message: "Password is shorter than 5 symbols, or ..."
+          }
+        });
+        return;
+      }
+
+      res.json({
+        token: createTokenWithProfile('qwe@gmail.com')
+      });
+    });
 
     app.post('/api/users/login', function(req, res) {
       console.log('/api/users/login');
@@ -182,13 +208,52 @@ var ApiInjector = function apiInjector() {
       res.send(201);
     });
 
-    app.post('/api/secure/changePassword', function(req, res) {
-      if (!req.body.psw || req.body.psw.length < 6) {
-        console.log('new password is not valid');
-        res.send(400, 'Wrong password');
+    app.post('/api/emailChangeConfirm', function(req, res) {
+      console.log('called /api/emailChangeConfirm');
+      console.log(req.body);
+      if (!req.body.code) {
+        res.status(400).send({
+          error: {
+            code: "invalid_code",
+            message: "Invalid code provided"
+          }
+        });
         return;
       }
-      console.log(req.body.psw);
+      if (req.body.password !== 'bar') {
+        res.status(400).send({
+          error: {
+            code: "invalid_password",
+            message: "Password is invalid"
+          }
+        });
+        return;
+      }
+      res.send(201);
+    });
+
+    app.post('/api/secure/changePassword', function(req, res) {
+      console.log(req.body);
+      if (req.body.oldPassword !== 'bar') {
+        console.log('old password is not valid');
+        res.status(400).send({
+          error: {
+            code: "invalid_old_password",
+            message: "Invalid old password provided"
+          }
+        });
+        return;
+      }
+      if (req.body.newPassword.length < 5) {
+        console.log('new password is not valid');
+        res.status(400).send({
+          error: {
+            code: "invalid_new_password",
+            message: "New password is shorter than 5 symbols, or ..."
+          }
+        });
+        return;
+      }
       res.send(201);
     });
 

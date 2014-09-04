@@ -183,6 +183,7 @@
 #### Параметры
 
 - code - string, код из ссылки
+- password - string, пароль
 
 ### Ответ
 
@@ -201,6 +202,16 @@
 	error: {
 		code: "invalid_code",
 		message: "Invalid code provided"
+	}
+}
+```
+#### Пароль не отвечает требованиям безопасности, 400
+
+```
+{
+	error: {
+		code: "invalid_password",
+		message: "Password is shorter than 5 symbols, or ..."
 	}
 }
 ```
@@ -275,7 +286,7 @@
 
 ### Запрос
 
-**POST** /api/secure/emailChangeConfirm
+**POST** /api/emailChangeConfirm
 
 #### Параметры
 

@@ -380,9 +380,9 @@ g.content {
 .available, .daterangepicker .calendar th {
   color: #000;
 }
-input.ng-invalid-required, input.ng-invalid-number, input.invalid {
-  border-color: red !important;
-  color: red !important;
+input.invalid, input.ng-invalid-number, input.ng-invalid-required {
+  border-color: rgb(255, 207, 0)!important;
+  color: rgb(255, 207, 0)!important;
 }
 #placeInput {
   position: fixed;
@@ -725,24 +725,29 @@ tags-input .tags.focused {
   color: rgba(255, 255, 255, 0.6);
 }
 .styledInput::-webkit-input-placeholder {
-  font-size: 14px;
+  font: 16px/26px Helvetica Neue, Arial;
+  font-weight: 100;
+  letter-spacing: 0.7px;
   color: rgba(255, 255, 255, 0.5);
-  font-weight: 300;
 }
 .styledInput:-moz-placeholder {
-  font-size: 14px;
   color: rgba(255, 255, 255, 0.5);
-  font-weight: 300;
+  font: 16px/26px Helvetica Neue, Arial;
+  font-weight: 100;
+  letter-spacing: 0.7px;
 }
 .styledInput:-ms-input-placeholder {
-  font-size: 14px;
+  font: 16px/26px Helvetica Neue, Arial;
+  font-weight: 100;
+  letter-spacing: 0.7px;
   color: rgba(255, 255, 255, 0.5);
   font-weight: 300;
 }
 .styledInput::-moz-placeholder {
-  font-size: 14px;
+  font: 16px/26px Helvetica Neue, Arial;
+  font-weight: 100;
+  letter-spacing: 0.7px;
   color: rgba(255, 255, 255, 0.5);
-  font-weight: 300;
 }
 .searchBlock .host .tags {
   /*background: url(../img/search-white.png) no-repeat center right rgba(51, 51, 51, 0.4);*/

@@ -73,10 +73,30 @@
 
       var success = function(message) {
         vm.error = false;
-        logSuccess(message);
+        logSuccess("Пароль успешно изменен");
+        vm.passwordError = false;
+        vm.confirmationError = false;
+        vm.currentPswError = false;
+        vm.currentPsw = '';
+        vm.psw = '';
+        vm.confirmation = '';
       };
-      var error = function(message) {
-        setErrorMessage(message);
+
+      var error = function(data) {
+        vm.passwordError = false;
+        vm.confirmationError = false;
+        vm.currentPswError = false;
+
+        if (data.error && data.error.code === 'invalid_old_password') {
+          setErrorMessage("Неверный старый пароль");
+          vm.currentPswError = true;
+        }
+
+        if (data.error && data.error.code === 'invalid_new_password') {
+          setErrorMessage("Новый пароль не может быть короче 5 символов");
+          vm.confirmationError = true;
+          vm.passwordError = true;
+        }
       };
 
       login.changePassword({

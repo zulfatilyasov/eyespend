@@ -57,15 +57,20 @@
   }
 
   function confirmMobile() {
-    var password = $('#password').val();
+    $('.password-mobile').removeClass('error');
+    $('.password-confirmation').removeClass('error');
+    $('.error-password').hide();
+    $('.error-confirmation').hide();
+
+    var password = $('.password-mobile').val();
     if (!password) {
-      $('.password').addClass('error');
+      $('.password-mobile').addClass('error');
       $('.error-password').text('Введите пароль').show();
       return;
     }
 
-    var passwordConfirmation = $('#password-confirmation').val();
-    if (!password) {
+    var passwordConfirmation = $('.password-confirmation').val();
+    if (!passwordConfirmation) {
       $('.password-confirmation').addClass('error');
       $('.error-confirmation').text('Введите подтверждение пароль').show();
       return;
@@ -79,7 +84,7 @@
 
     $.post('/api/linkConfirmMobile', {
       code: code,
-      oneTimePassword: password
+      password: password
     })
       .done(function(resp) {
         if (resp.token && resp.token.length) {
@@ -88,16 +93,39 @@
         }
       })
       .fail(function(resp) {
-        if (errorIs("invalid_one_time_password", resp)) {
-          var errorMessage = "Неверный пароль";
-          $('.error-message').text(errorMessage).show();
-          $('#password').addClass('error');
+        if (errorIs("invalid_password", resp)) {
+          var errorMessage = "Некорректный пароль";
+          $('.password-mobile').addClass('error');
+          $('.error-password').text(errorMessage).show();
         }
       });
   }
 
-  function confirmChange() {
+  function confirmEmailChange() {
+    $('.password-change').removeClass('error');
+    $('.error-change').hide();
 
+    var password = $('.password-change').val();
+    if (!password) {
+      $('.password-change').addClass('error');
+      $('.error-change').text('Введите пароль').show();
+      return;
+    }
+
+    $.post('/api/emailChangeConfirm', {
+      code: code,
+      password: password
+    })
+      .done(function() {
+        location.href = "/";
+      })
+      .fail(function(resp) {
+        if (errorIs("invalid_password", resp)) {
+          var errorMessage = "Неверный пароль";
+          $('.password-change').addClass('error');
+          $('.error-change').text(errorMessage).show();
+        }
+      });
   }
 
   var code;
@@ -168,7 +196,7 @@
             <div class="widget-content">
               <section class="success">
                 <p class="opac">
-                  Чтобы привязать Ваш аккаунт к email-у <b class="email"></b>, получите одноразовый пароль в мобильном приложении <b>eyeSpend</b> и укажите его в поле ввода.
+                  Чтобы завершить привязку Вашего аккаунта к email-у <b class="email"></b>, получите одноразовый пароль в мобильном приложении <b>eyeSpend</b> и укажите его в поле ввода.
                 </p>
                 <div class="control-group">
                   <label for="password">
@@ -203,14 +231,14 @@
                   <label for="password">
                     Пароль
                   </label>
-                  <input type="password" class="password styledInput" placeholder="Введите пароль">
+                  <input type="password" class="password-mobile styledInput" placeholder="Введите пароль">
                   <div class="error-password"></div>
                 </div>
                 <div class="control-group">
                   <label for="password-confirmation">
                     Подтверждение пароля
                   </label>
-                  <input type="password-confirmation" class="password-confirmation styledInput" placeholder="Введите пароль еще раз">
+                  <input type="password" class="password-confirmation styledInput" placeholder="Введите пароль еще раз">
                   <div class="error-confirmation"></div>
                 </div>
                 <button onclick="confirmMobile()">Сохранить</button>
@@ -224,7 +252,33 @@
       </div>
     </div>
     <div class="confirm-change">
-      content
+      <div class="widget-wrapper">
+        <div class="widget">
+          <header>
+            <div class="widgeTitle">
+              <span class="ng-scope">Подтверждение смены email-a</span>
+            </div>
+          </header>
+          <div class="widget-content">
+            <section class="success">
+              <p class="opac">
+                Чтобы завершить смену email-а на <b class="email"></b>, введите Ваш текущий пароль.
+              </p>
+              <div class="control-group">
+                <label for="password">
+                  Пароль
+                </label>
+                <input type="password" class="password-change styledInput" placeholder="Введите пароль">
+                <div class="error-change"></div>
+              </div>
+              <button onclick="confirmEmailChange()">Сохранить</button>
+            </section>
+            <section class="fail">
+              <div class="error-message"></div>
+            </section>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="spin">

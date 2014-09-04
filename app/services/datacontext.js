@@ -86,10 +86,10 @@
       });
     }
 
-    function changePsw(psw, old) {
+    function changePsw(psw, oldPsw) {
       return $http.post('/api/secure/changePassword', {
-        password: psw,
-        old: old
+        oldPassword: oldPsw,
+        newPassword: psw
       });
     }
 
