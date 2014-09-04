@@ -94,7 +94,7 @@
       })
       .fail(function(resp) {
         if (errorIs("invalid_password", resp)) {
-          var errorMessage = "Некорректный пароль";
+          var errorMessage = "Пароль короче 5-ти символов";
           $('.password-mobile').addClass('error');
           $('.error-password').text(errorMessage).show();
         }
@@ -202,7 +202,7 @@
                   <label for="password">
                     Одноразовый пароль
                   </label>
-                  <input type="text" id="password" class="styledInput" placeholder="Введите одноразовый пароль">
+                  <input type="password" id="password" class="styledInput" placeholder="Введите одноразовый пароль">
                   <div class="error-message"></div>
                 </div>
                 <button onclick="confirmDesktop()">Сохранить</button>

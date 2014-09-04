@@ -86,6 +86,7 @@ $(function() {
       })
       .fail(function() {
         $('#email-area').addClass('error');
+        $('#password-area').addClass('error');
         setMessage(translations['INVALID_CODE_OR_EMAIL']);
       });
   });

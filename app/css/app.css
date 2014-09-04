@@ -636,7 +636,7 @@ table.dataTable thead th, header.tableLabel h4 {
   border: 0;
 }
 #transactions-table .inline-tags-input .tags {
-  padding-top: 2px;
+  padding-top: 5px;
 }
 .no-transactions {
   line-height: 30px;
@@ -1126,15 +1126,16 @@ datepicker {
   border-top: 8px solid;
 }
 #transactions-table tr td {
-  /*-webkit-transition:background-color 0.2s;
- -moz-transition:background-color 0.2s;
- -ms-transition:background-color 0.2s;
- -o-transition:background-color 0.2s;
- transition:background-color 0.2s;
-*/
   height: 40px;
   padding: 0px 8px;
   line-height: 1;
+  vertical-align: top;
+}
+.td-content {
+  padding-top: 12px;
+}
+.edited .td-content {
+  padding-top: 5px;
 }
 #transactions-table td.empty-td {
   position: absolute;
@@ -1300,6 +1301,9 @@ tbody[ng-repeat].ng-leave {
 .widget a:hover {
   color: #fff;
   text-decoration: underline;
+}
+.transaction-tags a:hover {
+  text-decoration: none;
 }
 .page-title {
   text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.6);
@@ -2029,7 +2033,7 @@ table.dataTable {
   padding-left: 25px;
 }
 .tags-container {
-  margin-top: 3px;
+  margin-top: 5px;
 }
 .filter-icon svg {
   width: 24px;
