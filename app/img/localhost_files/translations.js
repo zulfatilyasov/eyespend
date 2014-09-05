@@ -42,7 +42,7 @@ var translationsRu = {
   ENTER_CODE_OR_EMAIL: "Введите код активации или email",
   CODE_OR_EMAIL: "Код активации или email",
   CHECK_FORM_DATA: "Неверные данные. Проверьте выделенные поля.",
-  INVALID_CODE_OR_EMAIL: "Неверный email, код или пароль",
+  INVALID_CODE_OR_EMAIL: "Некорректный email или код активации",
   PASSORD_REQUIRED: "Введите пароль.",
   INVALID_EMAIL_OR_PASSWORD: "Неверный email или пароль",
   INVALID_PASSWORD: "Неверный пароль",

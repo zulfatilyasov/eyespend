@@ -736,10 +736,10 @@
       this.pane.show();
       this.isActive = true;
       if ((content.scrollHeight === content.clientHeight) || (this.pane.outerHeight(true) >= content.scrollHeight && contentStyleOverflowY !== SCROLL)) {
-        this.pane.hide();
+        this.slider.hide();
         this.isActive = false;
       } else if (this.el.clientHeight === content.scrollHeight && contentStyleOverflowY === SCROLL) {
-        this.slider.hide();
+        // this.slider.hide();
       } else {
         this.slider.show();
       }

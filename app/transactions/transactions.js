@@ -379,6 +379,8 @@
     };
 
     vm.saveTnx = function(transaction) {
+      if ($(document.activeElement).parent().is('.tags'))
+        return;
       if (transaction.new) {
         return transaxns.create(transaction)
           .then(function(createdTxn) {
