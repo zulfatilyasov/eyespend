@@ -46,6 +46,7 @@
     "angular-nanoscroller": "~0.2.1",
     "momentjs": "~2.8.1",
     "jquery-debounce": "~1.0.5",
-    "angular-spinner": "~0.5.1"
+    "angular-spinner": "~0.5.1",
+    "airbrake-js": "~0.3.8"
   }
 }

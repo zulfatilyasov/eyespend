@@ -53,8 +53,21 @@
       <img ng-src="{{imgUrl}}" alt="" />
     </div>
   </div>
-  <script src="../eyeSpend.min.js"></script>
-  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+  <script>
+  window.Airbrake = [];
+  </script>
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="../lib/airbrake/airbrake-shim.js" data-airbrake-project-id="104542" data-airbrake-project-environment-name="development" data-airbrake-project-key="500738a83b320988c4ce11e5c337096b"></script>
+  <script data-airbrake-onload="initAirbrake">
+  function initAirbrake() {
+    Airbrake.addFilter(function(notice) {
+      console.log(notice);
+      return true;
+    });
+  }
+  </script>
+  <script src="../eyeSpend.min.js "></script>
+  <script type="text/javascript " src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false "></script>
 </body>
 
 </html>
