@@ -64,6 +64,7 @@
         ],
         styles = [
           'app/lib/ng-tags-input/ng-tags-input.css',
+          'app/lib/nanoscroller/nanoscroller/bin/css/nanoscroller.css',
           'bower_components/animate.css/animate.css',
           'bower_components/toastr/toastr.css',
           'bower_components/datetimepicker/jquery.datetimepicker.css',
@@ -71,14 +72,12 @@
           'bower_components/jqrangeslider/css/iThing.css',
           'bower_components/nouislider/jquery.nouislider.css',
           'bower_components/jqrangeslider/demo/lib/jquery-ui/css/jquery-ui-1.8.16.custom.css',
-          'bower_components/nanoscroller/bin/css/nanoscroller.css',
           'bower_components/jscrollpane/style/jquery.jscrollpane.css',
           'app/css/application.css',
           'app/css/overlay.css',
           'app/css/simptip.css',
           'app/css/animations.css',
           'app/css/app.css'
-
         ],
         uglifyOptions = {
           mangle: false,

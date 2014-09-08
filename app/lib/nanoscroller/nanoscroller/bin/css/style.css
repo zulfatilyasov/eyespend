@@ -1,0 +1,36 @@
+/*.nano .nano-content {
+  padding: 0;
+  right: 0 !important;
+}
+.nano .nano-pane {
+  background: #555;
+  background: -webkit-linear-gradient(0deg, rgba(0, 0, 0, 0.06) 0%, rgba(255, 255, 255, 0.01) 49%, rgba(252, 252, 252, 0) 50%, rgba(0, 0, 0, 0.06) 98%, #fcfcfc 100%);
+  background: -moz-linear-gradient(0deg, rgba(0, 0, 0, 0.06) 0%, rgba(255, 255, 255, 0.01) 49%, rgba(252, 252, 252, 0) 50%, rgba(0, 0, 0, 0.06) 98%, #fcfcfc 100%);
+  background: -o-linear-gradient(0deg, rgba(0, 0, 0, 0.06) 0%, rgba(255, 255, 255, 0.01) 49%, rgba(252, 252, 252, 0) 50%, rgba(0, 0, 0, 0.06) 98%, #fcfcfc 100%);
+  background: -ms-linear-gradient(0deg, rgba(0, 0, 0, 0.06) 0%, rgba(255, 255, 255, 0.01) 49%, rgba(252, 252, 252, 0) 50%, rgba(0, 0, 0, 0.06) 98%, #fcfcfc 100%);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.06) 0%, rgba(255, 255, 255, 0.01) 49%, rgba(252, 252, 252, 0) 50%, rgba(0, 0, 0, 0.06) 98%, #fcfcfc 100%);
+  width: 11px;
+  margin: 48px 2px 0 0;
+  border: 2px solid rgba(255, 255, 255, 0.09);
+}
+.nano .nano-pane::before {
+  margin-right: 1px;
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  margin-right: 2px;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.08);
+}
+.nano>.nano-pane>.nano-slider {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+.nano > .nano-content:focus {
+  outline: none;
+}
+*/

@@ -2009,7 +2009,7 @@ table.dataTable {
 }
 .table-body {
   display: block;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 #transactions-table thead {
   outline: 1px solid rgba(255, 255, 255, .24);
