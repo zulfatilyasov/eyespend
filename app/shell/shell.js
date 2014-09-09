@@ -2,9 +2,9 @@
   'use strict';
 
   var controllerId = 'shell';
-  angular.module('app').controller(controllerId, ['common', 'debounce', '$rootScope', 'tmhDynamicLocale', 'config', 'login', '$translate', '$timeout', shell]);
+  angular.module('app').controller(controllerId, ['common', 'debounce', '$rootScope', 'tmhDynamicLocale', 'config', 'login', '$translate', 'cookie', shell]);
 
-  function shell(common, debounce, $rootScope, tmhDynamicLocale, config, login, $translate, $timeout) {
+  function shell(common, debounce, $rootScope, tmhDynamicLocale, config, login, $translate, cookie) {
     var vm = this;
     var events = config.events;
     vm.logout = login.logout;
@@ -12,6 +12,7 @@
     vm.activePage = 'expenses';
 
     $rootScope.showSpinner = false;
+
     $rootScope.lang = config.local;
     tmhDynamicLocale.set(config.local);
 
@@ -36,10 +37,15 @@
 
     vm.translate = function(lang) {
       config.local = lang;
-      var now = new Date();
-      var yearAfterNow = new Date(new Date(now).setMonth(now.getMonth() + 12));
-      document.cookie = "lang=" + lang + "; path=/; expires=" + yearAfterNow.toUTCString();
+
+      cookie.set('lang', lang);
       $translate.use(lang);
+
+      if (lang == 'ru')
+        moment.locale('ru');
+      else
+        moment.locale('en-gb');
+
       tmhDynamicLocale.set(lang);
       $rootScope.lang = lang;
       vm.togglePopover();

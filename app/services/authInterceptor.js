@@ -2,12 +2,15 @@
   'use strict';
 
   var serviceId = 'authInterceptor';
-  angular.module('app').factory(serviceId, function($rootScope, $q, $window, $location, localStorageService) {
+  angular.module('app').factory(serviceId, function($rootScope, $q, $window, $location, localStorageService, cookie) {
+
     function removeCookieAndReload() {
-      document.cookie = 'isAuthenticated' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      cookie.remove('isAuthenticated');
       location.reload();
     }
+
     var token = localStorageService.get('token');
+
     return {
       request: function(config) {
         config.headers = config.headers || {};
@@ -20,8 +23,7 @@
         return config;
       },
       responseError: function(response) {
-        if (response.status === 401 && response.config.url.indexOf('quickpass') < 0) {
-          $rootScope.hideHeader = true;
+        if (response.status === 401) {
           removeCookieAndReload();
         }
         return response || $q.when(response);

@@ -158,7 +158,7 @@ var translationsEn = {
   FILTER: "Filter",
   DOWNLOAD: "Download",
   MEET_EYESPEND: "Meet eyeSpend",
-  TOTAL_SUM: "Total",
+  TOTAL_SUM: "Total amount",
   DOWNLOAD_EXCEL_FILE: "Download excel file",
   MORE: "Load more",
   LOADING: "Loading",

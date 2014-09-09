@@ -19,7 +19,6 @@ $(function() {
     dataType: 'jsonp',
     success: function(headers) {
       language = headers['Accept-Language'];
-      console.log(language);
       translations = language.indexOf('ru-RU') >= 0 ? translationsRu : translationsEn;
     }
   });

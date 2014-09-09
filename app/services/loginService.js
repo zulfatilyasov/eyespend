@@ -2,23 +2,22 @@
   'use strict';
 
   var serviceId = 'login';
-  angular.module('app').factory(serviceId, ['common', '$rootScope', '$location', 'datacontext', 'localStorageService', login]);
+  angular.module('app').factory(serviceId, ['common', '$rootScope', '$location', 'datacontext', 'localStorageService', 'cookie', login]);
 
-  function login(common, $rootScope, $location, datacontext, localStorageService) {
+  function login(common, $rootScope, $location, datacontext, localStorageService, cookie) {
     function setAuthenticated(token) {
       localStorageService.set('token', token);
-      var now = new Date();
-      var yearAfterNow = new Date(new Date(now).setMonth(now.getMonth() + 12));
-      document.cookie = "isAuthenticated=" + true + "; path=/; expires=" + yearAfterNow.toUTCString();
+      cookie.set('isAuthenticated', 'true');
     }
 
     function removeAuthenticated() {
-      document.cookie = 'isAuthenticated' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      cookie.remove('isAuthenticated');
       localStorageService.remove('token');
     }
 
     var userTags = null;
     var totals = null;
+
     var success = function(def) {
       return function(data, status) {
         if (status == 401) {
@@ -27,7 +26,6 @@
           setAuthenticated(data.token);
           userTags = data.userTags;
           totals = data.totals
-          $rootScope.hideHeader = false;
           def.resolve();
         }
       };

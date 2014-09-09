@@ -4,7 +4,7 @@
   angular.module('app').controller(controllerId, ['common', '$window', 'config', '$rootScope', '$scope', 'date', 'transaxns', '$translate', 'login', 'debounce', 'map', transactions]);
 
   function transactions(common, $window, config, $rootScope, $scope, date, transaxns, $translate, login, debounce, map) {
-    moment.lang('ru');
+    // moment.lang('ru');
     var vm = this;
     var logInfo = common.logger.getLogFn(controllerId, 'log');
     var logError = common.logger.getLogFn(controllerId, 'logError');
@@ -204,35 +204,39 @@
 
     vm.tagFilterChange = debounce(applyfilters, 0, false);
 
+    moment.locale(config.local);
+
     if (config.local == 'ru') {
+      moment.locale('ru');
+
       vm.datePickerTexts = {
         cancelLabel: 'Отмена',
         applyLabel: 'ok',
         fromLabel: 'От',
         toLabel: 'До',
         customRangeLabel: 'Выбрать интервал',
-        firstDay: 1,
-        monthNames: 'янв_фев_мар_апр_май_июнь_июль_авг_сен_окт_ноя_дек'.split("_")
+        firstDay: 1
       };
+
       vm.dateRanges = {
-        'Последние 7 дней': [moment().subtract('days', 6), moment()],
-        'Последние 30 дней': [moment().subtract('days', 29), moment()]
+        'Последние 7 дней': [moment().subtract(6, 'days'), moment()],
+        'Последние 30 дней': [moment().subtract(29, 'days'), moment()]
       };
     } else {
+      moment.locale('en-gb');
+
       vm.datePickerTexts = {
         cancelLabel: 'Cancel',
         applyLabel: 'Ok',
         fromLabel: 'From',
         toLabel: 'To',
         firstDay: 0,
-        customRangeLabel: 'Select interval',
-        daysOfWeek: 'Su_Mo_Tu_We_Th_Fr_Sa'.split("_"),
-        monthNames: 'jan_feb_mar_apr_may_jun_jul_aug_sep_okt_nov_dec'.split("_")
+        customRangeLabel: 'Select interval'
       };
 
       vm.dateRanges = {
-        'Last 7 days': [moment().subtract('days', 6), moment()],
-        'Last 30 days': [moment().subtract('days', 29), moment()]
+        'Last 7 days': [moment().subtract(6, 'days'), moment()],
+        'Last 30 days': [moment().subtract(29, 'days'), moment()]
       };
     }
 
@@ -503,7 +507,7 @@
             if (values.maximum == values.position) {
               vm.loadMoreTransactions();
             }
-          });
+          }, 100);
 
         });
     }

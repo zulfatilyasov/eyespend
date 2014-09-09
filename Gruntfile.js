@@ -1,7 +1,6 @@
     module.exports = function(grunt) {
       var target = grunt.option('target') || 'dev';
       var scripts = [
-          // 'bower_components/jquery/dist/jquery.js',
           'bower_components/angular/angular.js',
           'bower_components/angular-route/angular-route.js',
           'bower_components/angular-sanitize/angular-sanitize.js',
@@ -15,7 +14,8 @@
           'bower_components/AngularGM/angular-gm.js',
           'bower_components/angular-translate/angular-translate.js',
           'bower_components/momentjs/moment.js',
-          'bower_components/momentjs/lang/ru.js',
+          'bower_components/momentjs/locale/ru.js',
+          'bower_components/momentjs/locale/en-gb.js',
           'bower_components/angularjs-geolocation/src/geolocation.js',
           'bower_components/bootstrap-daterangepicker/daterangepicker.js',
           'bower_components/d3/d3.js',
@@ -23,7 +23,7 @@
           'app/lib/nanoscroller/jquery.nanoscroller.js',
           'app/lib/angular-nanoscroller/scrollable.js',
           'bower_components/jquery-ui/jquery-ui.js',
-          'bower_components/jquery-debounce/jquery.debounce.js',
+          'app/lib/jquery-debounce/jquery.debounce.js',
           'bower_components/spin.js/spin.js',
           'bower_components/angular-spinner/angular-spinner.js',
 

@@ -1344,7 +1344,7 @@ tbody[ng-repeat].ng-leave {
   border-radius: 10px;
   box-shadow: 0 0 10px 0 #2E2E2E;
   margin-bottom: 0;
-  width: 1050px;
+  width: 1064px;
 }
 .widget .body {
   margin-top: 0;
@@ -1533,9 +1533,6 @@ tbody[ng-repeat].ng-leave {
 .inner {
   margin-left: auto;
   margin-right: auto;
-  width:
-  /*whatever width you want*/
-  ;
 }
 .main-menu a:hover, .main-menu a:hover span {
   text-decoration: none;
@@ -2016,7 +2013,7 @@ table.dataTable {
   margin-left: 1px;
 }
 #transactions-table td:nth-child(1), #transactions-table th:nth-child(1) {
-  min-width: 165px;
+  min-width: 180px;
 }
 #transactions-table td:nth-child(2), #transactions-table th:nth-child(2) {
   min-width: 85px;
@@ -2031,15 +2028,14 @@ table.dataTable {
   min-width: 65px;
 }
 #transactions-table td:nth-child(6), #transactions-table th:nth-child(6) {
-  min-width: 480px;
-  max-width: 480px;
+  width: 480px;
   overflow: hidden;
 }
 #transactions-table td:nth-child(7) {
   width: 80px;
 }
 #transactions-table th:nth-child(7) {
-  width: 113px;
+  width: 111px;
 }
 .tags-header {
   padding-left: 25px;
