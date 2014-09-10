@@ -31,14 +31,14 @@
       };
     })
     .directive('usDateTimePicker', function() {
-      return function(scope, element, attrs) {
+      return function(scope, element) {
         $(element).datetimepicker({
           mask: true,
           lang: 'ru',
           closeOnDateSelect: true,
           //                    format: 'd.m.Y H:i',
           format: 'd.m.Y',
-          onChangeDateTime: function(date, input) {
+          onChangeDateTime: function(date) {
             var d = new Date(date);
             var time = scope.$parent.transaction.time.replace(':', '');
             var hours = time.slice(0, 2);
@@ -70,7 +70,7 @@
 
       var transitionEnd = transitionEndEventName();
 
-      function link(scope, element, atts) {
+      function link(scope, element) {
         element.on(transitionEnd, function() {
           scope.transtionEnd();
         });
@@ -102,5 +102,24 @@
           });
         }
       };
+    })
+    .directive('validateAmount', function() {
+      return function(scope, element) {
+        element.keydown(function(e) {
+          // Allow: backspace, delete, tab, escape, enter and .
+          if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+            // Allow: Ctrl+A
+            (e.keyCode == 65 && e.ctrlKey === true) ||
+            // Allow: home, end, left, right
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+            // let it happen, don't do anything
+            return;
+          }
+          // Ensure that it is a number and stop the keypress
+          if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+          }
+        });
+      }
     });
 })();

@@ -1,9 +1,9 @@
 (function() {
   'use strict';
   var controllerId = 'settings';
-  angular.module('app').controller(controllerId, ['common', '$location', 'login', '$translate', 'datacontext', settings]);
+  angular.module('app').controller(controllerId, ['common', 'login', '$translate', 'datacontext', settings]);
 
-  function settings(common, $location, login, $translate, datacontext) {
+  function settings(common, login, $translate, datacontext) {
     var logSuccess = common.logger.getLogFn(controllerId, 'logSuccess');
     var logError = common.logger.getLogFn(controllerId, 'logError');
     var vm = this;
@@ -71,7 +71,7 @@
         return;
       }
 
-      var success = function(message) {
+      var success = function() {
         vm.error = false;
         logSuccess("Пароль успешно изменен");
         vm.passwordError = false;
@@ -138,6 +138,9 @@
 
       logSuccess('Отправлено письмо.<br/>Активируйте e-mail');
       vm.changeEmail = false;
+      vm.linkAgain = false;
+      vm.link.email = "";
+      vm.link.password = "";
     }
 
     function emailChangeFail(data) {
