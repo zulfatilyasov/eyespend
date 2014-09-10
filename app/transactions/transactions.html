@@ -1,421 +1,430 @@
 <div class="page" ng-controller="transactions as vm">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="widgetWrapper">
-        <section ng-style="{'height':vm.widgetHeight}" class="widget transactions-widget">
-          <!-- <div ng-show="showSpinner" class="widgetOverlay">
-</div>
- -->
-          <header>
-            <div class="row shortStats">
-              <div style="float: left" class="col-md-4 hidden-phone-landscape widgeTitle">
+<div class="row">
+<div class="col-md-12">
+<div class="widgetWrapper">
+<section ng-style="{'height':vm.widgetHeight}" class="widget transactions-widget">
+<header>
+    <div class="row shortStats">
+        <div style="float: left" class="col-md-4 hidden-phone-landscape widgeTitle">
                 <span>
                   <span translate>TOTAL_SUM</span>:</span>
-                <span>{{vm.total}}</span>
-              </div>
-              <div style="float: right" class="col-md-3 table-icons">
+            <span>{{vm.total}}</span>
+        </div>
+        <div style="float: right" class="col-md-3 table-icons">
                 <span class="tableAction hidden-phone-landscape">
-                  <a href="javascript:void(0)" ng-click="vm.downloadExcel()" class="download-excel-icon" title="{{'DOWNLOAD'|translate}}">
-                    <img src="../img/excel-icon-2.png" alt="">
+                  <a href="javascript:void(0)" ng-click="vm.downloadExcel()" class="download-excel-icon"
+                     title="{{'DOWNLOAD'|translate}}">
+                      <img src="../img/excel-icon-2.png" alt="">
                   </a>
                 </span>
                 <span class="tableAction">
-                  <a href="javascript:void(0)" class="filter-icon" ng-class="{active:vm.isFiltering}" ng-click="vm.toggleFiltering()">
-                    <img src="../img/filter-icon.png" height="25" width="23" alt="">
-                    <!-- <svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events" width="23px" height="25px">
-  <path fill="rgb(173,107,43)" fill-rule="evenodd" d="M14 17.9091 C14 17.9091 14 24 14 24 C14 24.5523 13.1046 25 12 25 C10.8954 25 10.0001 24.5523 10.0001 24 C10.0001 24 10.0001 18.1668 10.0001 18.1668 C10.0001 18.1668 1.14503e-005 4.00003 1.14503e-005 4.00003 C1.14503e-005 1.79086 4.0968 0.0686188 11 -1.1407e-008 C18.8011 -0.0774994 23.0001 1.79086 23.0001 4.00003 C23.0001 4.00003 14 17.9091 14 17.9091 Z M11.5 2.00002 C6.25329 2.00002 2.00004 2.6716 2.00004 3.50002 C2.00004 4.32843 6.25329 5.00002 11.5 5.00002 C16.7467 5.00002 21 4.32843 21 3.50002 C21 2.6716 16.7467 2.00002 11.5 2.00002 Z" />
-</svg>
- -->
-                    <!-- <img src="../img/filter-icon.svg" alt=""> -->
+                  <a href="javascript:void(0)" class="filter-icon" ng-class="{active:vm.isFiltering}"
+                     ng-click="vm.toggleFiltering()">
+                      <img src="../img/filter-icon.png" height="25" width="23" alt="">
                   </a>
                 </span>
                 <span class="tableAction hidden-xs">
                   <a ng-click="vm.addNewTxn(true)" href="javascript:void(0)">
-                    <img src="../img/plus-icon.png" alt="">
+                      <img src="../img/plus-icon.png" alt="">
                   </a>
                 </span>
                 <span class="tableAction hidden-md hidden-lg hidden-sm">
                   <a href="javascript:void(0)" ng-click="vm.addNewTxn(false)">
-                    <img src="../img/plus-icon.png" alt="">
-                    <!-- <object data="../img/plus-icon.png" type="image/svg+xml"></object> -->
+                      <img src="../img/plus-icon.png" alt="">
                   </a>
                 </span>
-              </div>
-              <div class="clearfix"></div>
-            </div>
-          </header>
-          <div class="filters" ng-show="vm.isFiltering">
-            <div class="arrow-up">
-              <img src="../img/green-pip.png" height="12" width="30" alt="">
-            </div>
-            <div class="row">
-              <div class="col-md-5">
-                <div class="searchByDate">
-                  <div style="padding: 6px 0">
-                    <datepicker type="daterange" locale="vm.datePickerTexts" format="DD.MM.YYYY" opens="right" ranges="vm.dateRanges" ng-model="vm.filterDateRange">
-                      <i class="fa fa-calendar fa-lg calendar-icon"></i>
-                      <span translate>SEARCH_BY_DATE</span>
-                      <b class="caret"></b>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</header>
+<div class="filters" ng-show="vm.isFiltering">
+    <div class="arrow-up">
+        <img src="../img/green-pip.png" height="12" width="30" alt="">
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="searchByDate">
+                <div style="padding: 6px 0">
+                    <datepicker type="daterange" locale="vm.datePickerTexts" format="DD.MM.YYYY" opens="right"
+                                ranges="vm.dateRanges" ng-model="vm.filterDateRange">
+                        <i class="fa fa-calendar fa-lg calendar-icon"></i>
+                        <span translate>SEARCH_BY_DATE</span>
+                        <b class="caret"></b>
                     </datepicker>
-                  </div>
                 </div>
-              </div>
-              <div class="col-md-7">
-                <div class="tags-filter" focus-me="vm.isFiltering">
-                  <tags-input ng-model="vm.tags" min-Length="1" add-from-autocomplete-only="false" replace-spaces-with-dashes="false" placeholder="{{'SEARCH_BY_TAGS'|translate}}" on-tag-added="vm.tagFilterChange()" on-tag-removed="vm.tagFilterChange()" class="bootstrap inline-tags-input">
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="tags-filter" focus-me="vm.isFiltering">
+                <tags-input ng-model="vm.tags" min-Length="1" add-from-autocomplete-only="false"
+                            replace-spaces-with-dashes="false" placeholder="{{'SEARCH_BY_TAGS'|translate}}"
+                            on-tag-added="vm.tagFilterChange()" on-tag-removed="vm.tagFilterChange()"
+                            class="bootstrap inline-tags-input">
                     <auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0" max-results-to-show="50">
                     </auto-complete>
-                  </tags-input>
-                </div>
-              </div>
+                </tags-input>
             </div>
-          </div>
-          <div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="body" id="transactions-table">
-                  <table class="table table-striped dataTable">
-                    <thead>
-                      <tr>
-                        <th ng-class="vm.getSortingForColumn('timestamp')" ng-click="vm.changeSorting('timestamp')" id="timestamp" class="date-th" translate>
-                          DATE
-                        </th>
-                        <th class="no-sort" translate>
-                          TIME
-                        </th>
-                        <th ng-class="vm.getSortingForColumn('amountInBaseCurrency')" ng-click="vm.changeSorting('amountInBaseCurrency')" id="amount">
-                          <span translate>AMOUNT</span>
-                        </th>
-                        <th class="no-sort map" translate>ADDRESS</th>
-                        <th ng-class="vm.getSortingForColumn('foto')" ng-click="vm.changeSorting('foto')" id="foto" translate>
-                          FOTO
-                        </th>
-                        <th class="tags-header">
-                          <span class="tags-header">Теги</span>
-                        </th>
-                        <th class="rowActions-th">
+        </div>
+    </div>
+</div>
+<div>
+<div class="row">
+<div class="col-md-12">
+    <div class="body" id="transactions-table">
+        <table class="table table-striped dataTable">
+            <thead>
+            <tr>
+                <th ng-class="vm.getSortingForColumn('timestamp')" ng-click="vm.changeSorting('timestamp')"
+                    id="timestamp" class="date-th" translate>
+                    DATE
+                </th>
+                <th class="no-sort" translate>
+                    TIME
+                </th>
+                <th ng-class="vm.getSortingForColumn('amountInBaseCurrency')"
+                    ng-click="vm.changeSorting('amountInBaseCurrency')" id="amount">
+                    <span translate>AMOUNT</span>
+                </th>
+                <th class="no-sort map" translate>ADDRESS</th>
+                <th ng-class="vm.getSortingForColumn('foto')" ng-click="vm.changeSorting('foto')" id="foto"
+                    translate>
+                    FOTO
+                </th>
+                <th class="tags-header">
+                    <span class="tags-header">Теги</span>
+                </th>
+                <th class="rowActions-th">
 
-                        </th>
-                      </tr>
-                    </thead>
-                  </table>
-                  <div>
-                    <table ng-click="vm.tableClicked($event)" ng-style="{'height':vm.tableHeight}" class="table table-body table-striped dataTable" scrollable="{scrollTop: '45px'}" ng-class="{loaded:vm.transactionsLoaded}">
-                      <tbody ng-repeat="transaction in vm.trs track by $index">
-                        <tr ng-class="{selected:vm.selectedTnx.id === transaction.id}" ng-if="!(vm.editing && vm.selectedTnx.id === transaction.id) && !transaction.new" ng-dblclick="vm.editTransaction($index)" data-index="{{$index}}">
-                          <td class="date-td">
-                            <div class="pointer">
-                              <img src="../img/pointer.svg" alt="">
-                            </div>
-                            <div class="td-content">
+                </th>
+            </tr>
+            </thead>
+        </table>
+        <div>
+            <table ng-click="vm.tableClicked($event)" ng-style="{'height':vm.tableHeight}"
+                   class="table table-body table-striped dataTable" scrollable="{scrollTop: '45px'}"
+                   ng-class="{loaded:vm.transactionsLoaded}">
+                <tbody ng-repeat="transaction in vm.trs track by $index">
+                <tr ng-class="{selected:vm.selectedTnx.id === transaction.id}"
+                    ng-if="!(vm.editing && vm.selectedTnx.id === transaction.id) && !transaction.new"
+                    ng-dblclick="vm.editTransaction($index)" data-index="{{$index}}">
+                    <td class="date-td">
+                        <div class="pointer">
+                            <img src="../img/pointer.svg" alt="">
+                        </div>
+                        <div class="td-content">
                               <span class="hidden-phone-landscape fullDate">
                                 {{transaction.timestamp | date:'dd MMMM yyyy'}}
                               </span>
                               <span class="visible-phone-landscape shortDate">
                                 {{transaction.timestamp | date:'dd.MM.yy'}}
                               </span>
-                            </div>
-                          </td>
-                          <td class="time-td">
-                            <div class="td-content">
-                              <div ng-show="lang === 'en'">
+                        </div>
+                    </td>
+                    <td class="time-td">
+                        <div class="td-content">
+                            <div ng-show="lang === 'en'">
                                 <span>
                                   {{transaction.timestamp | date:'hh:mm a'}}
                                 </span>
-                              </div>
-                              <div ng-show="lang === 'ru'">
+                            </div>
+                            <div ng-show="lang === 'ru'">
                                 <span>
                                   {{transaction.timestamp | date:'HH:mm'}}
                                 </span>
-                              </div>
                             </div>
-                          </td>
-                          <td class="transactionAmount">
-                            <div class="td-content">
+                        </div>
+                    </td>
+                    <td class="transactionAmount">
+                        <div class="td-content">
                               <span>
                                 {{transaction.amountInBaseCurrency}}
                               </span>
-                            </div>
-                          </td>
-                          <td class="map">
-                            <div ng-if="transaction.latitude && transaction.longitude">
-                              <a title="{{'SHOW_ON_MAP'|translate}}" href="javascript:void(0)">
+                        </div>
+                    </td>
+                    <td class="map">
+                        <div ng-if="transaction.latitude && transaction.longitude">
+                            <a title="{{'SHOW_ON_MAP'|translate}}" href="javascript:void(0)">
                                 <img src="../img/map-icon.svg" class="showMap" alt="">
-                              </a>
-                            </div>
-                          </td>
-                          <td class="foto-td">
-                            <a href="javascript:void(0)" ng-if="transaction.imgUrl">
-                              <img src="../img/camera.png" class="showPicture" alt="">
                             </a>
-                          </td>
-                          <td class="hidden-sm bootstrap tags-td">
-                            <div class="tags-container">
-                              <div class="transaction-tags">
-                                <div ng-repeat="tag in transaction.tags" ng-mouseenter="vm.hoveredTag = tag" ng-mouseleave="vm.hoveredTag = null" ng-class="{'tag-hovered':vm.hoveredTag.text === tag.text}">
-                                  <div style="display:inline-block">
+                        </div>
+                    </td>
+                    <td class="foto-td">
+                        <a href="javascript:void(0)" ng-if="transaction.imgUrl">
+                            <img src="../img/camera.png" class="showPicture" alt="">
+                        </a>
+                    </td>
+                    <td class="hidden-sm bootstrap tags-td">
+                        <div class="tags-container">
+                            <div class="transaction-tags">
+                                <div ng-repeat="tag in transaction.tags" ng-mouseenter="vm.hoveredTag = tag"
+                                     ng-mouseleave="vm.hoveredTag = null"
+                                     ng-class="{'tag-hovered':vm.hoveredTag.text === tag.text}">
+                                    <div style="display:inline-block">
                                     <span ng-style="{'border-color':vm.getTagColorStyle(tag.color)}" class="beforeTag">
-                                    </span><a class="transaction-tag" ng-style="{'background-color':tag.color}" href="javascript:void(0)">
-                                                                        {{tag.text}}
-                                                                    </a>
-                                  </div>
+                                    </span><a class="transaction-tag" ng-style="{'background-color':tag.color}"
+                                              href="javascript:void(0)">
+                                        {{tag.text}}
+                                    </a>
+                                    </div>
                                 </div>
-                              </div>
                             </div>
-                          </td>
-                          <td class="rowActions-td hidden-phone-landscape">
-                            <ul ng-class="{visible:vm.selectedTnx.id === transaction.id}" class="rowActions">
-                              <li>
+                        </div>
+                    </td>
+                    <td class="rowActions-td hidden-phone-landscape">
+                        <ul ng-class="{visible:vm.selectedTnx.id === transaction.id}" class="rowActions">
+                            <li>
                                 <a href="javascript:void(0)">
-                                  <img class="edit-transaction" src="../img/pencil.svg" alt="">
+                                    <img class="edit-transaction" src="../img/pencil.svg" alt="">
                                 </a>
-                              </li>
-                            </ul>
-                          </td>
-                        </tr>
-                        <tr class="edited" data-index="{{$index}}" ng-enter="vm.saveTnx(transaction)" ng-if="(vm.selectedTnx.id === transaction.id && vm.editing) || transaction.new">
-                          <td class="date-td">
-                            <div class="pointer">
-                              <img src="../img/pointer.svg" alt="">
-                            </div>
-                            <div class="td-content">
-                              <input type="text" us-date-time-picker class="inlineInput transparentInput" ng-model="transaction.date" />
-                            </div>
-                          </td>
-                          <td class="hidden-phone-landscape time-td">
-                            <div class="td-content">
-                              <input style="width:40px" type="text" ng-model="transaction.time" ui-mask="99:99" class="inlineInput transparentInput" />
-                            </div>
-                          </td>
-                          <td class="transactionAmount">
-                            <div class="td-content">
-                              <input type="text" ng-model="transaction.amountInBaseCurrency" validate-amount style="width: 50px" class="styledInput transparentInput amount inlineInput" />
-                            </div>
-                          </td>
-                          <td class="map">
-                            <div style="margin: 0 auto;">
-                              <a href="javascript:void(0)">
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="edited" data-index="{{$index}}" ng-enter="vm.saveTnx(transaction)"
+                    ng-if="(vm.selectedTnx.id === transaction.id && vm.editing) || transaction.new">
+                    <td class="date-td">
+                        <div class="pointer">
+                            <img src="../img/pointer.svg" alt="">
+                        </div>
+                        <div class="td-content">
+                            <input type="text" us-date-time-picker class="inlineInput transparentInput"
+                                   ng-model="transaction.date"/>
+                        </div>
+                    </td>
+                    <td class="hidden-phone-landscape time-td">
+                        <div class="td-content">
+                            <input style="width:40px" type="text" ng-model="transaction.time" ui-mask="99:99"
+                                   class="inlineInput transparentInput"/>
+                        </div>
+                    </td>
+                    <td class="transactionAmount">
+                        <div class="td-content">
+                            <input type="text" ng-model="transaction.amountInBaseCurrency" validate-amount
+                                   style="width: 50px" class="styledInput transparentInput amount inlineInput"/>
+                        </div>
+                    </td>
+                    <td class="map">
+                        <div style="margin: 0 auto;">
+                            <a href="javascript:void(0)">
                                 <img src="../img/question.png" height="19" width="11" class="pickAddress" alt="">
-                              </a>
-                            </div>
-                          </td>
-                          <td class="foto-td">
-                            <a href="javascript:void(0)" ng-if="transaction.imgUrl">
-                              <img src="../img/camera.png" class="showPicture" alt="">
                             </a>
-                          </td>
-                          <td class="hidden-sm bootstrap tags-td">
-                            <div>
-                              <tags-input ng-model="transaction.tags" min-Length="1" replace-spaces-with-dashes="false" placeholder="{{'ADD_TAG'|translate}}" class="bootstrap inline-tags-input">
-                                <auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0" max-results="5">
+                        </div>
+                    </td>
+                    <td class="foto-td">
+                        <a href="javascript:void(0)" ng-if="transaction.imgUrl">
+                            <img src="../img/camera.png" class="showPicture" alt="">
+                        </a>
+                    </td>
+                    <td class="hidden-sm bootstrap tags-td">
+                        <div>
+                            <tags-input ng-model="transaction.tags" min-Length="1"
+                                        replace-spaces-with-dashes="false"
+                                        placeholder="{{'ADD_TAG'|translate}}" class="bootstrap inline-tags-input">
+                                <auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0"
+                                               max-results="5">
                                 </auto-complete>
-                              </tags-input>
-                            </div>
-                          </td>
-                          <td class="rowActions-td hidden-phone-landscape">
-                            <ul class="rowActions">
-                              <li>
+                            </tags-input>
+                        </div>
+                    </td>
+                    <td class="rowActions-td hidden-phone-landscape">
+                        <ul class="rowActions">
+                            <li>
                                 <a href="javascript:void(0)">
-                                  <img src="../img/check-icon.png" class="save" height="18" width="22" alt="">
+                                    <img src="../img/check-icon.png" class="save" height="18" width="22" alt="">
                                 </a>
-                              </li>
-                              <li>
+                            </li>
+                            <li>
                                 <a href="javascript:void(0)">
-                                  <img src="../img/trash.png" class="remove-tr" height="22" width="20" alt="">
+                                    <img src="../img/trash.png" class="remove-tr" height="22" width="20" alt="">
                                 </a>
-                              </li>
-                            </ul>
-                          </td>
-                        </tr>
-                      </tbody>
-                      <tbody ng-show="vm.trs.length > 0 && !vm.richedTheEnd">
-                        <tr>
-                          <td colspan="10" style="text-align: center" class="empty-td">
-                            <span us-spinner="{lines:15,color: '#fff', width:2, length:7, radius:7, hwaccel: true, speed:1.4}"></span>
-                            <!-- <span>Загрузка...</span> -->
-                          </td>
-                        </tr>
-                      </tbody>
-                      <tbody ng-show="vm.trs.length === 0 && !vm.isLoading">
-                        <tr>
-                          <td colspan="10" style="text-align: center" class="empty-td">
-                            <div>
-                              <span>Нет записей</span>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-
-
-                  <!-- <div ng-show="vm.isLoading && !vm.richedTheEnd" class="loaderBox hidden-phone-landscape">
-  <div class="loader">
-    <div class='bar'></div>
-    <div class='bar'></div>
-    <div class='bar'></div>
-    <div class='bar'></div>
-    <div class='bar'></div>
-  </div>
-  <div ng-show="vm.richedTheEnd" class="loader theEnd">
-  </div>
-</div>
- -->
-                  <div class="hidden-lg hidden-md loadMore">
-                    <div ng-click="vm.loadMoreTransactions(true,'both')">
-                      <span ng-hide="vm.isLoading || vm.richedTheEnd" translate>MORE</span>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                </tbody>
+                <tbody class="hidden-phone-landscape" ng-show="vm.trs.length > 0 && !vm.richedTheEnd">
+                <tr>
+                    <td colspan="10" style="text-align: center" class="empty-td">
+                        <span us-spinner="{lines:15,color: '#fff', width:2, length:7, radius:7, hwaccel: true, speed:1.4}"></span>
+                    </td>
+                </tr>
+                </tbody>
+                <tbody ng-show="vm.trs.length === 0 && !vm.isLoading">
+                <tr>
+                    <td colspan="10" style="text-align: center" class="empty-td">
+                        <div>
+                            <span>Нет записей</span>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="hidden-lg hidden-md loadMore">
+            <div ng-click="vm.loadMoreTransactions()">
+                <span ng-hide="vm.isLoading || vm.richedTheEnd" translate>MORE</span>
                       <span ng-show="vm.isLoading">
                         <span translate>LOADING</span>...</span>
-                    </div>
-                  </div>
-                  <!-- <div ng-hide="vm.richedTheEnd" class="hidden-phone-landscape" in-view-offset="-500" in-view="vm.loadMoreTransactions($inview,$inviewpart)">
-</div>
- -->
-                </div>
-              </div>
             </div>
-          </div>
-          <div class="clearfix"></div>
-        </section>
-      </div>
+        </div>
     </div>
-  </div>
-  <div ng-show="vm.selectedTnx || vm.isAdding" class="transaction-menu" ng-class="{fullHeight : vm.editingMobile || vm.isAdding}">
+</div>
+</div>
+</div>
+<div class="clearfix"></div>
+</section>
+</div>
+</div>
+</div>
+<div ng-show="vm.selectedTnx || vm.isAdding" class="transaction-menu"
+     ng-class="{fullHeight : vm.editingMobile || vm.isAdding}">
     <div class="actions" ng-hide="vm.isAdding">
-      <a class="menu-action" href="javascript:void(0)" ng-click="vm.toggleEditingMobile()">
-        <i class="fa fa-pencil"></i>
-        <span translate>EDIT</span>
-      </a>
-      <a class="menu-action" href="javascript:void(0)" ng-click="vm.remove(vm.selectedTnx)">
-        <i class="fa fa-trash-o"></i>
-        <span translate>DELETE</span>
-      </a>
-      <a class="menu-action" href="javascript:void(0)" ng-click="vm.closeMobileInfo()">
-        <i class="fa fa-times"></i>
-        <span translate>CLOSE</span>
-      </a>
+        <a class="menu-action" href="javascript:void(0)" ng-click="vm.toggleEditingMobile()">
+            <i class="fa fa-pencil"></i>
+            <span translate>EDIT</span>
+        </a>
+        <a class="menu-action" href="javascript:void(0)" ng-click="vm.remove(vm.selectedTnx)">
+            <i class="fa fa-trash-o"></i>
+            <span translate>DELETE</span>
+        </a>
+        <a class="menu-action" href="javascript:void(0)" ng-click="vm.closeMobileInfo()">
+            <i class="fa fa-times"></i>
+            <span translate>CLOSE</span>
+        </a>
     </div>
     <div class="menu-tags" ng-hide="vm.editingMobile || vm.isAdding">
-      <ul class="transaction-tags">
-        <li ng-repeat="tag in vm.selectedTnx.tags">
-          <div style="display:inline-block">
-            <span ng-style="{'border-color':vm.getTagColorStyle(tag.color)}" class="beforeTag"></span><a ng-style="{'background':tag.color}" ng-click="vm.addTag(tag.text)" href="javascript:void(0)">{{tag.text}}</a>
-          </div>
-        </li>
-      </ul>
+        <ul class="transaction-tags">
+            <li ng-repeat="tag in vm.selectedTnx.tags">
+                <div style="display:inline-block">
+                    <span ng-style="{'border-color':vm.getTagColorStyle(tag.color)}" class="beforeTag"></span><a
+                        ng-style="{'background':tag.color}" ng-click="vm.addTag(tag.text)" href="javascript:void(0)">{{tag.text}}</a>
+                </div>
+            </li>
+        </ul>
     </div>
     <div ng-if="vm.editingMobile" class="mobileform">
-      <div class="row">
-        <div class="col-md-12">
-          <div>
-            <label for="dateAndTimeEditor" translate>DATE_AND_TIME</label>
-            <br/>
-            <input type="text" style="width: 100%" class="styledInput" ui-mask="99.99.9999 99:99" ng-model="vm.editedTnx.dateTime">
-          </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <label for="dateAndTimeEditor" translate>DATE_AND_TIME</label>
+                    <br/>
+                    <input type="text" id="dateAndTimeEditor" style="width: 100%" class="styledInput" ui-mask="99.99.9999 99:99"
+                           ng-model="vm.editedTnx.dateTime">
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div>
-            <label for="editedAmount" translate>AMOUNT</label>
-            <br/>
-            <input type="text" value="" style="width: 100%" class="styledInput" ng-model="vm.editedTnx.amountInBaseCurrency">
-          </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <label for="editedAmount" translate>AMOUNT</label>
+                    <br/>
+                    <input type="text" id="editedAmount" value="" style="width: 100%" class="styledInput"
+                           ng-model="vm.editedTnx.amountInBaseCurrency">
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div style="width:100%" class="inputHost tags-filter">
-            <label translate>TAGS</label>
-            <br/>
-            <tags-input ng-model="vm.editedTnx.tags" min-Length="1" replace-spaces-with-dashes="false" style="width: 250px" placeholder="{{'ADD_TAG'|translate}}" class="bootstrap">
-              <auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0" max-results="5">
-              </auto-complete>
-            </tags-input>
-          </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div style="width:100%" class="inputHost tags-filter">
+                    <label translate>TAGS</label>
+                    <br/>
+                    <tags-input ng-model="vm.editedTnx.tags" min-Length="1" replace-spaces-with-dashes="false"
+                                style="width: 250px" placeholder="{{'ADD_TAG'|translate}}" class="bootstrap">
+                        <auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0" max-results="5">
+                        </auto-complete>
+                    </tags-input>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="inputHost" style="width: 100%">
-            <label translate>PLACE</label>
-            <br/>
-            <button style="display:inline-block" type="button" ng-click="vm.pickAddress(vm.editedTnx)" class="btn btn-success">
-              <i style="font-size:15px;" class="fa fa-map-marker fa-1x"></i>
-              <span translate>SHOW_ON_MAP</span>
-            </button>
-          </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="inputHost" style="width: 100%">
+                    <label translate>PLACE</label>
+                    <br/>
+                    <button style="display:inline-block" type="button" ng-click="vm.pickAddress(vm.editedTnx)"
+                            class="btn btn-success">
+                        <i style="font-size:15px;" class="fa fa-map-marker fa-1x"></i>
+                        <span translate>SHOW_ON_MAP</span>
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="inputHost">
-            <button type="button" class="btn btn-primary" ng-click="vm.saveTnx(vm.editedTnx);" data-placement="right">
-              <span translate>SAVE</span>
-            </button>
-            <button type="button" class="btn btn-danger" ng-click="vm.remove(vm.selectedTnx)" data-placement="right">
-              <span translate>DELETE</span>
-            </button>
-          </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="inputHost">
+                    <button type="button" class="btn btn-primary" ng-click="vm.saveTnx(vm.editedTnx);"
+                            data-placement="right">
+                        <span translate>SAVE</span>
+                    </button>
+                    <button type="button" class="btn btn-danger" ng-click="vm.remove(vm.selectedTnx)"
+                            data-placement="right">
+                        <span translate>DELETE</span>
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
     <div ng-if="vm.isAdding" class="mobileform">
-      <div class="row">
-        <div class="col-md-12">
-          <div>
-            <label for="dateAndTimeEditor" translate>DATE_AND_TIME</label>
-            <br/>
-            <input type="text" ui-mask="99.99.9999 99:99" style="width: 100%" class="styledInput" ng-model="vm.newTnx.dateTime">
-          </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <label for="dateAndTimeEditor" translate>DATE_AND_TIME</label>
+                    <br/>
+                    <input type="text" ui-mask="99.99.9999 99:99" style="width: 100%" class="styledInput"
+                           ng-model="vm.newTnx.dateTime">
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div>
-            <label for="editedAmount" translate>AMOUNT</label>
-            <br/>
-            <input type="text" value="" style="width: 100%" class="styledInput" ng-model="vm.newTnx.amountInBaseCurrency">
-          </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <label for="editedAmount" translate>AMOUNT</label>
+                    <br/>
+                    <input type="text" value="" style="width: 100%" class="styledInput"
+                           ng-model="vm.newTnx.amountInBaseCurrency">
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div style="width:100%" class="inputHost">
-            <label translate>TAGS</label>
-            <br/>
-            <tags-input ng-model="vm.newTnx.tags" min-Length="1" replace-spaces-with-dashes="false" style="width: 250px" placeholder="{{'ADD_TAG'|translate}}" class="bootstrap">
-              <auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0" max-results="5">
-              </auto-complete>
-            </tags-input>
-          </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div style="width:100%" class="inputHost">
+                    <label translate>TAGS</label>
+                    <br/>
+                    <tags-input ng-model="vm.newTnx.tags" min-Length="1" replace-spaces-with-dashes="false"
+                                style="width: 250px" placeholder="{{'ADD_TAG'|translate}}" class="bootstrap">
+                        <auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0" max-results="5">
+                        </auto-complete>
+                    </tags-input>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="inputHost" style="width: 100%">
-            <label translate>PLACE</label>
-            <br/>
-            <button style="display:inline-block" type="button" ng-click="vm.pickAddress(vm.newTnx)" class="btn btn-success">
-              <i style="font-size:15px;" class="fa fa-map-marker fa-1x"></i>
-              <span translate>SHOW_ON_MAP</span>
-            </button>
-          </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="inputHost" style="width: 100%">
+                    <label translate>PLACE</label>
+                    <br/>
+                    <button style="display:inline-block" type="button" ng-click="vm.pickAddress(vm.newTnx)"
+                            class="btn btn-success">
+                        <i style="font-size:15px;" class="fa fa-map-marker fa-1x"></i>
+                        <span translate>SHOW_ON_MAP</span>
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="inputHost">
-            <button type="button" class="btn btn-primary" ng-click="vm.addTnx();vm.closeMobileInfo();" data-placement="right">
-              <span translate>ADD_NEW</span>
-            </button>
-            <button type="button" class="btn btn-default" data-placement="right">
-              <span translate>CANCEL</span>
-            </button>
-          </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="inputHost">
+                    <button type="button" class="btn btn-primary" ng-click="vm.addTnx();vm.closeMobileInfo();"
+                            data-placement="right">
+                        <span translate>ADD_NEW</span>
+                    </button>
+                    <button type="button" class="btn btn-default" data-placement="right">
+                        <span translate>CANCEL</span>
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
 
 </div>
