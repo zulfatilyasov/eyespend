@@ -1,0 +1,26 @@
+#!/bin/sh
+# postinst script for omg-cashier
+set -e
+case "$1" in
+    configure)
+    if ! getent passwd eyespend-web-2 > /dev/null 2>&1 ; then
+        useradd -U -M -d /opt/apps/eyespend-web-2 eyespend-web-2 > /dev/null 2>&1 
+    fi
+    if ! getent group eyespend-web-2 > /dev/null 2>&1 ; then
+        addgroup --system --quiet eyespend-web-2
+    fi
+
+    chown -R eyespend-web-2:eyespend-web-2 /opt/apps/eyespend-web-2
+    touch /opt/apps/eyespend-web-2/tmp/restart.txt
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+exit 0

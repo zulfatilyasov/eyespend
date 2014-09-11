@@ -1,0 +1,10 @@
+/opt/apps/eyespend-web-2/log/*.log {
+       daily
+       rotate 30
+       copytruncate
+       delaycompress
+       compress
+       notifempty
+       missingok
+}
+

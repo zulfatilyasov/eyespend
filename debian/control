@@ -1,0 +1,12 @@
+Source: eyespend-web-2
+Section: misc
+Priority: optional
+Maintainer: UNIQ systems <info@uniqsystems.ru>
+Build-Depends: debhelper (>= 7.0.50~), nodejs
+Standards-Version: 3.8.4
+
+Package: eyespend-web-2
+Homepage: http://uniqsys.ru
+Architecture: amd64
+Depends: ruby2.1.2
+Description: eyespend-web-2 application, designed by uniqsystems.
