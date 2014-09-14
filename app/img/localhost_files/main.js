@@ -7,7 +7,7 @@ $(function() {
       .done(function(data) {
         if (data.token) {
           setAthenticated(data.token);
-          location.href = '/';
+          location.reload(true);
         }
       });
   }
@@ -82,7 +82,7 @@ $(function() {
     $.post(url, data)
       .done(function(data) {
         setAthenticated(data.token);
-        location.href = '/';
+        location.reload(true);
       })
       .fail(function() {
         $('#email-area').addClass('error');
