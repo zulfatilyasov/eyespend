@@ -333,9 +333,13 @@ header a:hover {
 .loadMore {
     text-align: center;
     color: #333;
-    padding: 10px;
     background: #eee;
     cursor: pointer;
+}
+
+.loadMore span {
+    display: inline-block;
+    padding: 10px;
 }
 
 input.styledInput {
@@ -2324,7 +2328,8 @@ table.dataTable {
         box-shadow: none;
         width: auto;
     }
-    .widget>header{
+
+    .widget > header {
         padding: 0;
     }
 
@@ -2528,18 +2533,22 @@ table.dataTable {
     .transaction-tags a:after {
         background: #fff;
     }
-    tags-input .tags .input{
+
+    tags-input .tags .input {
         padding-left: 0px;
         line-height: 24px;
         height: 30px;
     }
-    .bootstrap .tags .tag-item, tags-input .bootstrap .tags .tag-item{
+
+    .bootstrap .tags .tag-item, tags-input .bootstrap .tags .tag-item {
         background: rgba(72, 72, 72, 0.2);
     }
-    .tags-header{
+
+    .tags-header {
         display: none;
     }
-    .tags-filter{
+
+    .tags-filter {
         margin: 0;
     }
 }

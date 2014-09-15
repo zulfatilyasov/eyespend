@@ -425,7 +425,7 @@
         }
 
         vm.remove = function (transaction) {
-            if (confirm("Удалить за пись?")) {
+            if (confirm("Удалить запись?")) {
                 removeTransaction(transaction);
             }
         };

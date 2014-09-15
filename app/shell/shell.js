@@ -1,81 +1,81 @@
-(function() {
-  'use strict';
+(function () {
+    'use strict';
 
-  var controllerId = 'shell';
-  angular.module('app').controller(controllerId, ['common', 'debounce', '$rootScope', 'tmhDynamicLocale', 'config', 'login', '$translate', 'cookie', shell]);
+    var controllerId = 'shell';
+    angular.module('app').controller(controllerId, ['common', 'debounce', '$rootScope', 'tmhDynamicLocale', 'config', 'login', '$translate', 'cookie', shell]);
 
-  function shell(common, debounce, $rootScope, tmhDynamicLocale, config, login, $translate, cookie) {
-    var vm = this;
-    var events = config.events;
-    vm.logout = login.logout;
-    vm.langsOpen = false;
-    vm.activePage = 'expenses';
+    function shell(common, debounce, $rootScope, tmhDynamicLocale, config, login, $translate, cookie) {
+        var vm = this;
+        var events = config.events;
+        vm.logout = login.logout;
+        vm.langsOpen = false;
+        vm.activePage = 'expenses';
 
-    $rootScope.showSpinner = false;
+        $rootScope.showSpinner = false;
 
-    $rootScope.lang = config.local;
-    tmhDynamicLocale.set(config.local);
+        $rootScope.lang = config.local;
+        tmhDynamicLocale.set(config.local);
+        function activate() {
+            var promises = [];
+            common.activateController(promises, controllerId)
+                .then(function () {
+                    $rootScope.lang = config.local;
+                    //@todo: Переместить в директивы.
+                    $('div.overlay').css('display', 'block');
+                });
+        }
 
-    function activate() {
-      var promises = [];
-      common.activateController(promises, controllerId)
-        .then(function() {
-          $rootScope.lang = config.local;
-          //@todo: Переместить в директивы.
-          $('div.overlay').css('display', 'block');
-        });
+        vm.togglePopover = function () {
+            vm.langsOpen = !vm.langsOpen;
+        };
+
+        $rootScope.closeImageOverlay = function () {
+            $rootScope.showImage = false;
+            $rootScope.imgUrl = '';
+        };
+
+        vm.translate = function (lang) {
+            config.local = lang;
+
+            cookie.set('lang', lang);
+            $translate.use(lang);
+
+            if (lang == 'ru')
+                moment.locale('ru');
+            else
+                moment.locale('en-gb');
+
+            tmhDynamicLocale.set(lang);
+            $rootScope.lang = lang;
+            vm.togglePopover();
+            translateMenu(lang);
+        };
+
+        function toggleSpinner(on) {
+            $rootScope.showSpinner = on;
+        }
+
+        $rootScope.$on('$routeChangeStart',
+            function (event, next, current) {
+                if (next.$$route.originalPath === "/")
+                    toggleSpinner(true);
+            }
+        );
+
+        $rootScope.$on(events.controllerActivateSuccess,
+            function (event, data) {
+                toggleSpinner(false);
+            }
+        );
+
+        $rootScope.$on(events.spinnerToggle,
+            function (event, data) {
+                toggleSpinner(data.show);
+            }
+        );
+
+        activate();
     }
-
-    vm.togglePopover = function() {
-      vm.langsOpen = !vm.langsOpen;
-    };
-
-    $rootScope.closeImageOverlay = function() {
-      $rootScope.showImage = false;
-      $rootScope.imgUrl = '';
-    };
-
-    vm.translate = function(lang) {
-      config.local = lang;
-
-      cookie.set('lang', lang);
-      $translate.use(lang);
-
-      if (lang == 'ru')
-        moment.locale('ru');
-      else
-        moment.locale('en-gb');
-
-      tmhDynamicLocale.set(lang);
-      $rootScope.lang = lang;
-      vm.togglePopover();
-    };
-
-    function toggleSpinner(on) {
-      $rootScope.showSpinner = on;
-    }
-
-    $rootScope.$on('$routeChangeStart',
-      function(event, next, current) {
-        if (next.$$route.originalPath === "/")
-          toggleSpinner(true);
-      }
-    );
-
-    $rootScope.$on(events.controllerActivateSuccess,
-      function(event, data) {
-        toggleSpinner(false);
-      }
-    );
-
-    $rootScope.$on(events.spinnerToggle,
-      function(event, data) {
-        toggleSpinner(data.show);
-      }
-    );
-
-    activate();
-  }
 
 })
 ();
