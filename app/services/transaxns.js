@@ -85,8 +85,8 @@
                 sortOptions.descending,
                 offset,
                 count,
-                    fromDate || '',
-                    toDate || '',
+                fromDate || '',
+                toDate || '',
                 tagsArray,
                 withPhoto)
                 .success(function (data) {
@@ -203,7 +203,6 @@
                 .then(function (resp) {
                     var trs = resp.data.transactions;
                     var total = resp.data.total;
-                    // $rootScope.hideContent = false;
                     if (trs && trs instanceof Array) {
                         if (offset > 0) {
                             transactions = transactions.concat(trs);
@@ -349,6 +348,10 @@
             return def.promise;
         }
 
+        function destroy() {
+            transactions = [];
+            offset = 0;
+        }
         return {
             getLocalTransaxns: getLocalTransaxns,
             getTransaxns: getTransaxns,
@@ -367,7 +370,8 @@
             copy: copy,
             getExcelFile: getExcelFile,
             getTransactionsAndTotals: getTransactionsAndTotals,
-            batchSize: count
+            batchSize: count,
+            destroy: destroy
         };
     }
 })();

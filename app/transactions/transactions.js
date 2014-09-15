@@ -494,6 +494,11 @@
                 });
         }
 
+        $scope.$on('$destroy', function () {
+            vm.trs = [];
+            transaxns.destroy();
+        });
+
         activate();
     }
 })
