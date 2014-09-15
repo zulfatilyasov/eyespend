@@ -2,9 +2,9 @@
   'use strict';
 
   var serviceId = 'login';
-  angular.module('app').factory(serviceId, ['common', '$rootScope', '$location', 'datacontext', 'localStorageService', 'cookie', login]);
+  angular.module('app').factory(serviceId, ['common', 'datacontext', 'localStorageService', 'cookie', login]);
 
-  function login(common, $rootScope, $location, datacontext, localStorageService, cookie) {
+  function login(common, datacontext, localStorageService, cookie) {
     function setAuthenticated(token) {
       localStorageService.set('token', token);
       cookie.set('isAuthenticated', 'true');
@@ -25,7 +25,7 @@
         } else {
           setAuthenticated(data.token);
           userTags = data.userTags;
-          totals = data.totals
+          totals = data.totals;
           def.resolve();
         }
       };
@@ -65,7 +65,7 @@
     };
 
     var changeSuccess = function(def) {
-      return function(data, status, headers, config) {
+      return function(data, status) {
         if (status !== 200 && status !== 201) {
           def.reject(data);
           return;
@@ -75,7 +75,7 @@
     };
 
     var changeError = function(def) {
-      return function(data, status, headers, config) {
+      return function(data)  {
         def.reject(data);
       };
     };

@@ -29,8 +29,8 @@ $(function () {
             $('#password-area').hide();
     });
 
-    $('.md-modal').keypress(function(e) {
-        if(e.which == 13) {
+    $('.md-modal').keypress(function (e) {
+        if (e.which == 13) {
             authenticate();
         }
     });
@@ -57,7 +57,7 @@ $(function () {
         authenticate();
     });
 
-    function authenticate(){
+    function authenticate() {
         var email = $('#email').val();
         isEmail = !isNumeric(email);
 

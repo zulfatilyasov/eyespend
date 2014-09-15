@@ -106,7 +106,6 @@
             }
             vm.selectedTnx = transaction;
         };
-
         vm.addNewTxn = function (isDesktop) {
             var timestamp = date.now();
             if (isDesktop)
