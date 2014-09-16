@@ -1,5 +1,7 @@
 //run with "real" option (node server.js real) to run app with production backend;
-var useRealServer = process.argv[2] === "real";
+var useRealServer = process.argv.indexOf('real') != -1 ;
+var assets = process.argv.indexOf('dist') != -1 ? '/dist' : '/app';
+console.log('serving folder: ' + assets);
 
 var express = require('express');
 var expressJwt = require('express-jwt');
@@ -11,11 +13,11 @@ var httpProxy = require('http-proxy');
 
 function beforeRequest(req, res, next) {
   if(req.path == '/activate' || req.path == '/activateMobile' || req.path == '/activateChange'){
-      res.sendfile(__dirname + '/app/activation-page/activation.html');
+      res.sendfile(__dirname + assets + '/activation-page/activation.html');
   } else if (req.path == '/api/users/login' || req.cookies && req.cookies.isAuthenticated === "true"){
     next();
   } else {
-    res.sendfile(__dirname + '/app/landing-3/index.html');
+    res.sendfile(__dirname + assets + '/landing-3/index.html');
   }
 }
 
@@ -29,10 +31,6 @@ var ApiInjector = function apiInjector() {
     app.use('/api/secure', expressJwt({
       secret: secret
     }));
-
-    app.get(['/activate', '/activateMobile', '/activateChange'], function(req, res) {
-      res.sendfile(__dirname + '/app/activation-page/activation.html');
-    });
 
     app.get('/api/secure/transactions', function(req, res) {
       console.log('calling /api/transactions');
@@ -336,10 +334,10 @@ if (useRealServer) {
 }
 
 app.use(cookieParser());
-app.use(express.static(__dirname + '/app'));
+app.use(express.static(__dirname + assets));
 app.use(beforeRequest);
 app.get('/', function(req, res) {
-  res.sendfile(__dirname + '/app/index/index.html');
+  res.sendfile(__dirname + assets +  '/index/index.html');
 });
 
 var port = process.env.PORT || 3000;
