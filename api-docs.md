@@ -72,6 +72,18 @@
 }
 ```
 
+#### E-mail уже занят, 400
+
+```
+{
+	error: {
+		code: "duplicate_email",
+		message: "Email has already been taken"
+	}
+}
+```
+
+
 ## Проверка кода из ссылки для привязки e-mail'a
 
 ### Запрос
@@ -278,6 +290,17 @@
 	error: {
 		code: "invalid_email",
 		message: "Invalid email address provided"
+	}
+}
+```
+
+#### E-mail уже занят, 400
+
+```
+{
+	error: {
+		code: "duplicate_email",
+		message: "Email has already been taken"
 	}
 }
 ```
