@@ -113,17 +113,17 @@ module.exports = function (grunt) {
             }
         },
         watch: {
-            A: {
+            app: {
                 files: [
                     'app/**/*',
-                    '!app/bower_components'
+                    '!app/bower_components/**/*'
                 ],
                 options: {
                     interrupt: true,
                     livereload: true
                 }
             },
-            B: {
+            landing: {
                 files: [
                     'app/landing-2/**/*'
                 ],
@@ -155,8 +155,6 @@ module.exports = function (grunt) {
     grunt.registerTask('start:dist', ['run:stub-dist', 'open:localhost', 'wait:stub-dist']);
     grunt.registerTask('start:service', ['run:service', 'open:localhost', 'wait:service']);
     grunt.registerTask('start:service-dist', ['run:service-dist', 'open:localhost', 'wait:service-dist']);
-    grunt.registerTask('landing', ["watch:B"]);
-    grunt.registerTask('app', ["watch:A"]);
 
     grunt.registerTask('default', ['build']);
     grunt.registerTask('stub', ['start']);
