@@ -1,93 +1,5 @@
 module.exports = function (grunt) {
     var target = grunt.option('target') || 'dev';
-    var scripts = [
-            'bower_components/angular/angular.js',
-            'bower_components/angular-route/angular-route.js',
-            'bower_components/angular-sanitize/angular-sanitize.js',
-            'bower_components/angular-animate/angular-animate.js',
-            'bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js',
-            'bower_components/toastr/toastr.js',
-            'bower_components/datetimepicker/jquery.datetimepicker.js',
-            'bower_components/ngAutocomplete/src/ngAutocomplete.js',
-            'bower_components/angular-local-storage/angular-local-storage.js',
-            'bower_components/angular-i18n/angular-locale_ru.js',
-            'bower_components/AngularGM/angular-gm.js',
-            'bower_components/angular-translate/angular-translate.js',
-            'bower_components/momentjs/moment.js',
-            'bower_components/momentjs/locale/ru.js',
-            'bower_components/momentjs/locale/en-gb.js',
-            'bower_components/angularjs-geolocation/src/geolocation.js',
-            'bower_components/bootstrap-daterangepicker/daterangepicker.js',
-            'bower_components/d3/d3.js',
-            'bower_components/n3-line-chart/dist/line-chart.js',
-            'app/lib/nanoscroller/jquery.nanoscroller.js',
-            'app/lib/angular-nanoscroller/scrollable.js',
-            'bower_components/jquery-ui/jquery-ui.js',
-            'app/lib/jquery-debounce/jquery.debounce.js',
-            'bower_components/spin.js/spin.js',
-            'bower_components/angular-spinner/angular-spinner.js',
-
-            'app/lib/jQAllRangeSliders-min.js',
-            'app/lib/angular-ui-mask/ng-mask.js',
-            'app/lib/modernizr-custom.js',
-            'app/lib/bootstrap/tooltip.js',
-            'app/lib/bootstrap/popover.js',
-            'app/lib/bootstrap-slider-3.0.1/bootstrap-slider.js',
-            'app/lib/ng-tags-input/ng-tags-input.js',
-            'app/lib/ng-bs-daterangepicker/src/ng-bs-daterangepicker.js',
-
-
-            'app/app.js',
-            'app/config.exceptionHandler.js',
-            'app/config.js',
-            'app/config.route.js',
-            'app/translations.js',
-            'app/services/datacontext.js',
-            'app/services/statsService.js',
-            'app/services/authInterceptor.js',
-            'app/services/directives.js',
-            'app/services/constants.js',
-            'app/services/date.js',
-            'app/services/transaxns.js',
-            'app/services/loginService.js',
-            'app/services/debounce.js',
-            'app/services/map.js',
-            'app/services/rcolor.js',
-
-            'app/common/common.js',
-            'app/common/logger.js',
-            'app/transactions/transactions.js',
-            'app/shell/shell.js',
-            'app/login/login.js',
-            'app/settings/settings.js',
-            'app/stats/stats.js'
-        ],
-        styles = [
-            'app/lib/ng-tags-input/ng-tags-input.css',
-            'app/lib/nanoscroller/nanoscroller/bin/css/nanoscroller.css',
-            'bower_components/animate.css/animate.css',
-            'bower_components/toastr/toastr.css',
-            'bower_components/datetimepicker/jquery.datetimepicker.css',
-            'bower_components/bootstrap-daterangepicker/daterangepicker-bs3.css',
-            'bower_components/jqrangeslider/css/iThing.css',
-            'bower_components/nouislider/jquery.nouislider.css',
-            'bower_components/jqrangeslider/demo/lib/jquery-ui/css/jquery-ui-1.8.16.custom.css',
-            'bower_components/jscrollpane/style/jquery.jscrollpane.css',
-            'app/css/application.css',
-            'app/css/overlay.css',
-            'app/css/simptip.css',
-            'app/css/animations.css',
-            'app/css/app.css'
-        ],
-        uglifyOptions = {
-            mangle: false,
-            compress: false
-        },
-        uglifyDevOptions = {
-            mangle: false,
-            compress: false,
-            sourceMap: true
-        };
 
     //    if (target === 'dev') {
     //        scripts.push('app/services/modelStub.js');
@@ -95,30 +7,19 @@ module.exports = function (grunt) {
     //    }
 
     grunt.initConfig({
-        express: {
-            server: {
-                options: {
-                    server: 'server.js',
-                    //bases: './app',
-                    //livereload: true,
-                    //serverreload: true,
-                    open: true
-                }
-            }
-        },
         useminPrepare: {
-            html: './app/app.html',
+            html: './dist/app.html',
             options: {
                 flow: {
                     steps: {
-                        js: ['uglifyjs']
+                        js: ['concat', 'uglifyjs']
                     },
                     post: {}
                 }
             }
         },
         usemin: {
-            html: 'app/app.html'
+            html: './dist/app.html'
         },
         run: {
             service: {
@@ -168,24 +69,9 @@ module.exports = function (grunt) {
             }
         },
         uglify: {
-            dev: {
-                options: uglifyDevOptions,
-                files: {
-                    'app/eyeSpend.min.js': scripts
-                }
-            },
-            prod: {
-                options: uglifyOptions,
-                files: {
-                    'app/eyeSpend.min.js': scripts
-                }
-            }
-        },
-        cssmin: {
-            combine: {
-                files: {
-                    'app/eyeSpend.min.css': styles
-                }
+            options: {
+                mangle: false,
+                compress: false
             }
         },
         clean: ["dist"],
@@ -228,13 +114,10 @@ module.exports = function (grunt) {
         },
         watch: {
             A: {
-                files: ['Gruntfile.js',
+                files: [
                     'app/**/*',
-                    '!app/eyeSpend.min.css',
-                    '!app/eyeSpend.min.js',
-                    '!app/eyeSpend.min.map'
+                    '!app/bower_components'
                 ],
-                tasks: ['uglify:' + target, 'cssmin'],
                 options: {
                     interrupt: true,
                     livereload: true
@@ -265,15 +148,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-usemin');
 
     grunt.registerTask('bust', ['cacheBust:app', 'cacheBust:landing']);
-    grunt.registerTask('minify', ['uglify:' + target, 'cssmin']);
-    grunt.registerTask('build', ['minify', 'clean', 'copy', 'bust']);
-    grunt.registerTask('build', [
-        'useminPrepare',
-        'concat:generated',
-        'uglify:generated',
-        'usemin'
-    ]);
-
+    grunt.registerTask('minify', ['useminPrepare', 'concat:generated', 'uglify:generated', 'usemin']);
+    grunt.registerTask('build', ['clean', 'copy', 'minify', 'bust']);
 
     grunt.registerTask('start', ['run:stub', 'open:localhost', 'wait:stub']);
     grunt.registerTask('start:dist', ['run:stub-dist', 'open:localhost', 'wait:stub-dist']);
@@ -283,8 +159,8 @@ module.exports = function (grunt) {
     grunt.registerTask('app', ["watch:A"]);
 
     grunt.registerTask('default', ['build']);
-    grunt.registerTask('stub', ['minify', 'start']);
+    grunt.registerTask('stub', ['start']);
     grunt.registerTask('stub:dist', ['build', 'start:dist']);
-    grunt.registerTask('service', ['build', 'start:service']);
+    grunt.registerTask('service', ['start:service']);
     grunt.registerTask('service:dist', ['build', 'start:service-dist']);
 };

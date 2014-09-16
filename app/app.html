@@ -2,136 +2,156 @@
 <html lang="en" ng-app="app">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no">
-  <title>eyeSpend</title>
-  <link rel="stylesheet" type="text/css" href="eyeSpend.min.css" />
-  <style type="text/css">
-  @-moz-document url-prefix() {
-    .slider {
-      overflow: hidden;
-    }
-  }
-  [ng-cloak] {
-    display: none;
-  }
-  </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>eyeSpend</title>
+
+    <!-- build:css eyespend.min.css -->
+    <link rel="stylesheet" type="text/css" href="lib/ng-tags-input/ng-tags-input.css">
+    <link rel="stylesheet" type="text/css" href="lib/nanoscroller/nanoscroller/bin/css/nanoscroller.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/animate.css/animate.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/toastr/toastr.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/datetimepicker/jquery.datetimepicker.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap-daterangepicker/daterangepicker-bs3.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/jqrangeslider/css/iThing.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/nouislider/jquery.nouislider.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/jqrangeslider/demo/lib/jquery-ui/css/jquery-ui-1.8.16.custom.css">
+    <link rel="stylesheet" type="text/css" href="css/application.css">
+    <link rel="stylesheet" type="text/css" href="css/overlay.css">
+    <link rel="stylesheet" type="text/css" href="css/simptip.css">
+    <link rel="stylesheet" type="text/css" href="css/animations.css">
+    <link rel="stylesheet" type="text/css" href="css/app.css">
+    <!-- endbuild -->
+
+    <style type="text/css">
+        @-moz-document url-prefix() {
+            .slider {
+                overflow: hidden;
+            }
+        }
+
+        [ng-cloak] {
+            display: none;
+        }
+    </style>
 </head>
 
 <body class="green-blue">
-  <div ng-class="{'overlay-open':overlayIsOpen}" id="all">
+<div ng-class="{'overlay-open':overlayIsOpen}" id="all">
     <div ng-include="'shell/shell.html'"></div>
     <div class="content container">
-      <div ng-view></div>
+        <div ng-view></div>
     </div>
-  </div>
-  <div ng-show="showSpinner" class="spin">
+</div>
+<div ng-show="showSpinner" class="spin">
     <span us-spinner="{lines:15,color: '#fff', width:2, length:15, radius:15, hwaccel: true, speed:1.4}"></span>
-  </div>
-  <div style="display: none" class="overlay overlay-contentscale map-overlay" ng-class="{open:overlayIsOpen}" ng-cloak="ng-cloak">
+</div>
+<div style="display: none" class="overlay overlay-contentscale map-overlay" ng-class="{open:overlayIsOpen}" ng-cloak="ng-cloak">
     <a class="overlay-close" ng-click="closeMap();" href="javascript:void(0)">
-      <i class="fa fa-times fa-4x"></i>
+        <i class="fa fa-times fa-4x"></i>
     </a>
     <a id="overlay-save" ng-show="showPlacesInput" ng-click="saveLocation()" href="javascript:void(0)">
-      <i class="fa fa-check fa-4x"></i>
+        <i class="fa fa-check fa-4x"></i>
     </a>
+
     <div ng-show="showPlacesInput" id="placeInput">
-      <input id="pac-input" class="controls" ng-autocomplete ng-enter="refreshMap()" ng-model="placePicker.place" details="placePicker.details" type="text" placeholder="{{'ENTER_LOCATION'|translate}}" />
+        <input id="pac-input" class="controls" ng-autocomplete ng-enter="refreshMap()" ng-model="placePicker.place" details="placePicker.details" type="text" placeholder="{{'ENTER_LOCATION'|translate}}"/>
       <span class="input-group-btn">
       </span>
     </div>
     <gm-map gm-map-id="'myMap'" gm-center="mapCenter" gm-zoom="zoom" style="height:100%;width:100%;">
-      <gm-markers gm-marker-options="object.options()" gm-objects="markers" gm-id="object.id" gm-on-dragend="setMarkerLocation(marker)" gm-position="{lat: object.location.lat, lng: object.location.lng}">
-      </gm-markers>
+        <gm-markers gm-marker-options="object.options()" gm-objects="markers" gm-id="object.id" gm-on-dragend="setMarkerLocation(marker)" gm-position="{lat: object.location.lat, lng: object.location.lng}">
+        </gm-markers>
     </gm-map>
-  </div>
-  <div style="display: none" class="overlay overlay-contentscale imageOverlay" ng-class="{open:showImage}">
+</div>
+<div style="display: none" class="overlay overlay-contentscale imageOverlay" ng-class="{open:showImage}">
     <a class="overlay-close" ng-click="closeImageOverlay();" href="javascript:void(0)">
-      <i class="fa fa-times fa-4x"></i>
+        <i class="fa fa-times fa-4x"></i>
     </a>
+
     <div class="imageContainer">
-      <img ng-src="{{imgUrl}}" alt="" />
+        <img ng-src="{{imgUrl}}" alt=""/>
     </div>
-  </div>
-  <script>
-  window.Airbrake = [];
-  </script>
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="lib/airbrake/airbrake-shim.js" data-airbrake-project-id="104542" data-airbrake-project-key="500738a83b320988c4ce11e5c337096b" data-airbrake-environment-name="production"></script>
-  <script data-airbrake-onload="initAirbrake">
-  function initAirbrake() {
-    Airbrake.addFilter(function(notice) {
-      console.log(notice);
-      return true;
-    });
-  }
-  </script>
+</div>
+<script>
+    window.Airbrake = [];
+</script>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<!--<script src="lib/airbrake/airbrake-shim.js" data-airbrake-project-id="104542" data-airbrake-project-key="500738a83b320988c4ce11e5c337096b" data-airbrake-environment-name="production"></script>-->
+<!--<script data-airbrake-onload="initAirbrake">-->
+<!--function initAirbrake() {-->
+<!--Airbrake.addFilter(function(notice) {-->
+<!--console.log(notice);-->
+<!--return true;-->
+<!--});-->
+<!--}-->
+<!--</script>-->
 
-  <!-- build:js eyespend.min.js -->
- <script src="bower_components/angular/angular.js"></script>
- <script src="bower_components/angular-route/angular-route.js"></script>
- <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
- <script src="bower_components/angular-animate/angular-animate.js"></script>
- <script src="bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js"></script>
- <script src="bower_components/toastr/toastr.js"></script>
- <script src="bower_components/datetimepicker/jquery.datetimepicker.js"></script>
- <script src="bower_components/ngAutocomplete/src/ngAutocomplete.js"></script>
- <script src="bower_components/angular-local-storage/angular-local-storage.js"></script>
- <script src="bower_components/angular-i18n/angular-locale_ru.js"></script>
- <script src="bower_components/AngularGM/angular-gm.js"></script>
- <script src="bower_components/angular-translate/angular-translate.js"></script>
- <script src="bower_components/momentjs/moment.js"></script>
- <script src="bower_components/momentjs/locale/ru.js"></script>
- <script src="bower_components/momentjs/locale/en-gb.js"></script>
- <script src="bower_components/angularjs-geolocation/src/geolocation.js"></script>
- <script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
- <script src="bower_components/d3/d3.js"></script>
- <script src="bower_components/n3-line-chart/dist/line-chart.js"></script>
- <script src="lib/nanoscroller/jquery.nanoscroller.js"></script>
- <script src="lib/angular-nanoscroller/scrollable.js"></script>
- <script src="bower_components/jquery-ui/jquery-ui.js"></script>
- <script src="lib/jquery-debounce/jquery.debounce.js"></script>
- <script src="bower_components/spin.js/spin.js"></script>
- <script src="bower_components/angular-spinner/angular-spinner.js"></script>
+<!-- build:js eyespend.min.js -->
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js"></script>
+<script src="bower_components/toastr/toastr.js"></script>
+<script src="bower_components/datetimepicker/jquery.datetimepicker.js"></script>
+<script src="bower_components/ngAutocomplete/src/ngAutocomplete.js"></script>
+<script src="bower_components/angular-local-storage/angular-local-storage.js"></script>
+<script src="bower_components/angular-i18n/angular-locale_ru.js"></script>
+<script src="bower_components/AngularGM/angular-gm.js"></script>
+<script src="bower_components/angular-translate/angular-translate.js"></script>
+<script src="bower_components/momentjs/moment.js"></script>
+<script src="bower_components/momentjs/locale/ru.js"></script>
+<script src="bower_components/momentjs/locale/en-gb.js"></script>
+<script src="bower_components/angularjs-geolocation/src/geolocation.js"></script>
+<script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="bower_components/d3/d3.js"></script>
+<script src="bower_components/n3-line-chart/dist/line-chart.js"></script>
+<script src="lib/nanoscroller/jquery.nanoscroller.js"></script>
+<script src="lib/angular-nanoscroller/scrollable.js"></script>
+<script src="bower_components/jquery-ui/jquery-ui.js"></script>
+<script src="lib/jquery-debounce/jquery.debounce.js"></script>
+<script src="bower_components/spin.js/spin.js"></script>
+<script src="bower_components/angular-spinner/angular-spinner.js"></script>
 
- <script src="lib/jQAllRangeSliders-min.js"></script>
- <script src="lib/angular-ui-mask/ng-mask.js"></script>
- <script src="lib/modernizr-custom.js"></script>
- <script src="lib/bootstrap/tooltip.js"></script>
- <script src="lib/bootstrap/popover.js"></script>
- <script src="lib/bootstrap-slider-3.0.1/bootstrap-slider.js"></script>
- <script src="lib/ng-tags-input/ng-tags-input.js"></script>
- <script src="lib/ng-bs-daterangepicker/src/ng-bs-daterangepicker.js"></script>
+<script src="lib/jQAllRangeSliders-min.js"></script>
+<script src="lib/angular-ui-mask/ng-mask.js"></script>
+<script src="lib/modernizr-custom.js"></script>
+<script src="lib/bootstrap/tooltip.js"></script>
+<script src="lib/bootstrap/popover.js"></script>
+<script src="lib/bootstrap-slider-3.0.1/bootstrap-slider.js"></script>
+<script src="lib/ng-tags-input/ng-tags-input.js"></script>
+<script src="lib/ng-bs-daterangepicker/src/ng-bs-daterangepicker.js"></script>
 
 
- <script src="app.js"></script>
- <script src="config.exceptionHandler.js"></script>
- <script src="config.js"></script>
- <script src="config.route.js"></script>
- <script src="translations.js"></script>
- <script src="services/datacontext.js"></script>
- <script src="services/statsService.js"></script>
- <script src="services/authInterceptor.js"></script>
- <script src="services/directives.js"></script>
- <script src="services/constants.js"></script>
- <script src="services/date.js"></script>
- <script src="services/transaxns.js"></script>
- <script src="services/loginService.js"></script>
- <script src="services/debounce.js"></script>
- <script src="services/map.js"></script>
- <script src="services/rcolor.js"></script>
+<script src="app.js"></script>
+<script src="config.exceptionHandler.js"></script>
+<script src="config.js"></script>
+<script src="config.route.js"></script>
+<script src="translations.js"></script>
+<script src="services/datacontext.js"></script>
+<script src="services/statsService.js"></script>
+<script src="services/authInterceptor.js"></script>
+<script src="services/directives.js"></script>
+<script src="services/constants.js"></script>
+<script src="services/date.js"></script>
+<script src="services/transaxns.js"></script>
+<script src="services/loginService.js"></script>
+<script src="services/debounce.js"></script>
+<script src="services/map.js"></script>
+<script src="services/rcolor.js"></script>
 
- <script src="common/common.js"></script>
- <script src="common/logger.js"></script>
- <script src="transactions/transactions.js"></script>
- <script src="shell/shell.js"></script>
- <script src="login/login.js"></script>
- <script src="settings/settings.js"></script>
- <script src="stats/stats.js"></script>
-  <!-- endbuild -->
+<script src="common/common.js"></script>
+<script src="common/logger.js"></script>
+<script src="transactions/transactions.js"></script>
+<script src="shell/shell.js"></script>
+<script src="login/login.js"></script>
+<script src="settings/settings.js"></script>
+<script src="stats/stats.js"></script>
+<!-- endbuild -->
 
-  <script src="eyeSpend.min.js"></script>
-  <script type="text/javascript " src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false "></script>
+<!--<script src="eyeSpend.min.js"></script>-->
+<script type="text/javascript " src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
 </body>
 
 </html>

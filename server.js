@@ -12,7 +12,6 @@ var request = require('request');
 var httpProxy = require('http-proxy');
 
 function beforeRequest(req, res, next) {
-    console.log(req.path);
     if (req.path == '/activate' || req.path == '/activateMobile' || req.path == '/activateChange') {
         res.sendfile(__dirname + assets + '/activation-page/activation.html');
     } else if (req.path == '/api/users/login' || req.cookies && req.cookies.isAuthenticated === "true") {
