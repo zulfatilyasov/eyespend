@@ -9,14 +9,14 @@
   background: rgba(0, 0, 0, 0.6);
   /*margin-top: -15px;*/
 }
-#overlay-close {
+.overlay-cose {
   position: fixed;
   top: 30px;
   color: #fff;
   right: 30px;
   z-index: 100;
 }
-.map-overlay #overlay-close {
+.map-overlay .overlay-cose {
   color: #000;
 }
 #overlay-save {
@@ -29,7 +29,7 @@
 #overlay-save:hover {
   color: rgb(0, 145, 0);
 }
-#overlay-close:hover {
+.overlay-cose:hover {
   color: rgb(51, 51, 51);
 }
 /*#all {*/

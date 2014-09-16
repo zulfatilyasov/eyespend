@@ -106,6 +106,20 @@ module.exports = function (grunt) {
                 }
             }
         },
+        useminPrepare: {
+            html: './app/app.html',
+            options: {
+                flow: {
+                    steps: {
+                        js: ['uglifyjs']
+                    },
+                    post: {}
+                }
+            }
+        },
+        usemin: {
+            html: 'app/app.html'
+        },
         run: {
             service: {
                 cmd: 'node',
@@ -174,6 +188,7 @@ module.exports = function (grunt) {
                 }
             }
         },
+        clean: ["dist"],
         copy: {
             main: {
                 cwd: 'app/',
@@ -238,6 +253,7 @@ module.exports = function (grunt) {
     });
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-copy');
@@ -246,9 +262,19 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-express');
     grunt.loadNpmTasks('grunt-run');
     grunt.loadNpmTasks('grunt-open');
+    grunt.loadNpmTasks('grunt-usemin');
 
     grunt.registerTask('bust', ['cacheBust:app', 'cacheBust:landing']);
-    grunt.registerTask('build', ['uglify:' + target, 'cssmin', 'copy', 'bust']);
+    grunt.registerTask('minify', ['uglify:' + target, 'cssmin']);
+    grunt.registerTask('build', ['minify', 'clean', 'copy', 'bust']);
+    grunt.registerTask('build', [
+        'useminPrepare',
+        'concat:generated',
+        'uglify:generated',
+        'usemin'
+    ]);
+
+
     grunt.registerTask('start', ['run:stub', 'open:localhost', 'wait:stub']);
     grunt.registerTask('start:dist', ['run:stub-dist', 'open:localhost', 'wait:stub-dist']);
     grunt.registerTask('start:service', ['run:service', 'open:localhost', 'wait:service']);
@@ -257,7 +283,7 @@ module.exports = function (grunt) {
     grunt.registerTask('app', ["watch:A"]);
 
     grunt.registerTask('default', ['build']);
-    grunt.registerTask('stub', ['build', 'start']);
+    grunt.registerTask('stub', ['minify', 'start']);
     grunt.registerTask('stub:dist', ['build', 'start:dist']);
     grunt.registerTask('service', ['build', 'start:service']);
     grunt.registerTask('service:dist', ['build', 'start:service-dist']);
