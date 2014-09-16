@@ -336,9 +336,7 @@ if (useRealServer) {
 }
 
 app.use(cookieParser());
-app.use(express.static(__dirname + '/app', {
-  maxAge: 86400000
-}));
+app.use(express.static(__dirname + '/app'));
 app.use(beforeRequest);
 app.get('/', function(req, res) {
   res.sendfile(__dirname + '/app/index/index.html');
@@ -346,5 +344,5 @@ app.get('/', function(req, res) {
 
 var port = process.env.PORT || 3000;
 app.listen(port);
-
+module.exports = app;
 console.log('Express server started on port ' + port);
