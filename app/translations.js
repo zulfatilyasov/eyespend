@@ -106,7 +106,7 @@ var translationsEn = {
     DATE: "Date",
     TIME: "Time",
     AMOUNT: "Amount",
-    ADDRESS: "Address",
+    ADDRESS: "Spot",
     TAGS: "Tags",
     SEARCH_BY_TAGS: "Search by tags",
     SEARCH_BY_DATE: "Search by date",

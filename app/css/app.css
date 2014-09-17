@@ -10,7 +10,7 @@ body {
   font-style: normal;
   font-weight: normal;
   padding-bottom: 0;
-  /*height: 100%;*/
+  height: 100%;
 }
 
 @-moz-document url-prefix() {
@@ -28,7 +28,7 @@ a {
 
 body.background-dark, .background {
   background: url(https://mac.github.com/images/bg.jpg) repeat-x center top #333;
-  background-size: 100% 100%;
+  background-size: cover;
   background-attachment: fixed;
 }
 
@@ -331,6 +331,7 @@ header a:hover {
 }
 
 .loadMore {
+  display: none;
   text-align: center;
   color: #333;
   background: #eee;
@@ -740,6 +741,7 @@ div.tags {
   left: -130px;
   top: 70px;
   color: #eee;
+  z-index: 100;
 }
 
 .side-bar li {
@@ -921,6 +923,10 @@ div.tags {
   animation-duration: 0.5s;
 }
 
+.spin span {
+  z-index: 200;
+}
+
 .spin.ng-hide-remove {
   -webkit-animation: fadeIn;
   animation: fadeIn;
@@ -944,7 +950,7 @@ div.tags {
   display: block !important;
 }
 
-button.ng-hide-add {
+a.ng-hide-add, button.ng-hide-add {
   display: none !important;
 }
 
@@ -1137,6 +1143,11 @@ tr.selected.edited td {
 
 input.code-or-email {
   font-size: 13px !important;
+}
+
+.page {
+  -webkit-animation: fadeInUp 1s;
+  animation: fadeInUp 1s;
 }
 
 div[ng-view].ng-enter {
@@ -2018,12 +2029,6 @@ table.dataTable {
   }
 }
 
-@media (min-width: 768px) {
-  .container {
-    width: auto;
-  }
-}
-
 @media (max-width: 1460px) {
   .side-bar {
     left: -20px;
@@ -2215,6 +2220,10 @@ table.dataTable {
   margin: 0;
 }
 
+.shortDate {
+  display: none;
+}
+
 @media (max-width: 1280px) {
   .container {
     padding-left: 60px;
@@ -2249,6 +2258,18 @@ table.dataTable {
     transform: translateY(-0px);
   }
 
+  .side-bar {
+    left: 8px;
+  }
+
+  #transactions-table td:nth-child(7) {
+    width: 62px;
+  }
+
+  #transactions-table th:nth-child(7) {
+    width: 94px;
+  }
+
   tbody[ng-repeat].ng-enter, tbody[ng-repeat].ng-leave {
     -webkit-animation: none;
     animation: none;
@@ -2281,6 +2302,31 @@ table.dataTable {
   .widget {
     width: 826px;
   }
+
+  .container {
+    max-width: 915px;
+  }
+}
+
+@media (max-width: 768px) {
+  /*.container {*/
+  /*width: auto;*/
+  /*}*/
+  .widget {
+    width: 680px;
+  }
+
+  #transactions-table td:nth-child(6), #transactions-table th:nth-child(6) {
+    width: 140px;
+  }
+
+  #transactions-table th:nth-child(7) {
+    width: 70px;
+  }
+
+  .nano > .nano-pane {
+    right: -6px;
+  }
 }
 
 @media (max-width: 990px) {
@@ -2309,9 +2355,126 @@ table.dataTable {
   #totalAmount {
     display: none;
   }
+
+  .stats-icons {
+    margin-left: 85px;
+  }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 586px) {
+  .container {
+    max-width: 485px;
+  }
+
+  .logo.sidebar-icons {
+    left: 10px;
+  }
+
+  body.green-blue {
+    background: #5A787D;
+  }
+
+  table.dataTable thead {
+    background: #5A787D;;
+  }
+  .loadMore{
+    display: block;
+  }
+
+  #transactions-table thead::before {
+    background: none;
+  }
+  .overlay-close{
+    font-size: 12px;
+    position: absolute;
+    top: 0px;
+    left: 40px;
+    z-index: 100;
+    color: #000;
+  }
+
+  .filters .arrow-up {
+    display: none;
+  }
+
+  .widget {
+    height: auto !important;
+  }
+
+  .table-icons img {
+    opacity: 1;
+  }
+
+  #transactions-table td:nth-child(1), #transactions-table th:nth-child(1) {
+    width: 100px;
+    min-width: 100px;
+  }
+  tags-input.inline-tags-input .tags .input, tags-input.inline-tags-input .tags .input:focus{
+    margin-left: 20px;
+  }
+  .fullDate {
+    display: none;
+  }
+
+  .shortDate {
+    display: block;
+  }
+
+  .rowActions-td {
+    display: none;
+  }
+
+  .table-wrap {
+    padding-top: 40px;
+  }
+
+  .widgeTitle {
+    font-size: 18px;
+    margin-left: 14px;
+  }
+
+  #transactions-table thead, #transactions-table .table-body {
+    display: table;
+    max-height: inherit;
+    overflow: auto;
+  }
+
+  .widget {
+    width: 400px;
+  }
+
+  .tags-header, .tags-td {
+    display: none;
+  }
+
+  #transactions-table th:nth-child(7) {
+    width: 93px;
+  }
+
+  #transactions-table td:nth-child(5), #transactions-table th:nth-child(5),
+  #transactions-table td:nth-child(4), #transactions-table th:nth-child(4),
+  #transactions-table td:nth-child(3), #transactions-table th:nth-child(3) {
+    min-width: 71px;
+  }
+
+  .download-excel-icon {
+    display: none;
+  }
+
+  .rowActions-th {
+    display: none;
+  }
+
+  input.styledInput {
+    color: #000;
+  }
+
+  input.styledInput:focus {
+    color: #000;
+  }
+}
+
+@media (max-width: 320px) {
   .container {
     padding-right: 0;
     padding-left: 0;
@@ -2330,6 +2493,10 @@ table.dataTable {
 
   .widget > header {
     padding: 0;
+  }
+
+  .widgeTitle {
+    display: none;
   }
 
   h2 {
@@ -2510,7 +2677,11 @@ table.dataTable {
   }
 
   #transactions-table tr td.date-td, #transactions-table tr th.date-th {
-    padding-left: 15px;
+    padding-left: 10px;
+  }
+
+  #transactions-table tr td.date-td, #transactions-table tr th.date-th {
+    width: 70px;
   }
 
   .time-td {

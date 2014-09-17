@@ -26,7 +26,7 @@
     vm.showFilterForm = false;
     vm.curDateTime = date.withoutTime(date.now());
     vm.isLoading = false;
-    if ($(window).width() > 480) {
+    if ($(window).width() > 587) {
       setWidgetAndTableHeight();
     }
 
