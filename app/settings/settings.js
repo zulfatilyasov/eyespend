@@ -1,4 +1,4 @@
-(function () {
+(function() {
     'use strict';
     var controllerId = 'settings';
     angular.module('app').controller(controllerId, ['common', 'login', '$translate', 'datacontext', settings]);
@@ -21,7 +21,7 @@
             var email = vm.changeEmail ? vm.link.newEmail : vm.link.email;
             if (!email) {
                 $translate('TYPE_EMAIL')
-                    .then(function (msg) {
+                    .then(function(msg) {
                         vm.link.invalidEmail = true;
                         logError(msg);
                     });
@@ -29,15 +29,15 @@
             }
             if (!login.validEmail(email)) {
                 $translate('INVALID_EMAIL')
-                    .then(function (msg) {
+                    .then(function(msg) {
                         vm.link.invalidEmail = true;
                         logError(msg);
                     });
                 return false;
             }
-            if (!vm.link.password && vm.emailLink.status === "free") {
+            if (!vm.link.password && vm.emailLink.status === 'free') {
                 $translate('TYPE_PASSWORD')
-                    .then(function (msg) {
+                    .then(function(msg) {
                         vm.link.invalidPassword = true;
                         logError(msg);
                     });
@@ -46,38 +46,38 @@
             return true;
         }
 
-        vm.changePassword = function () {
+        vm.changePassword = function() {
             vm.passwordError = false;
             vm.confirmationError = false;
-            var setErrorMessage = function (message) {
+            var setErrorMessage = function(message) {
                 vm.error = true;
                 logError(message);
             };
             if (!vm.currentPsw) {
-                setErrorMessage("Введите текущий пароль");
+                setErrorMessage('Введите текущий пароль');
                 vm.currentPswError = true;
                 return;
             }
             if (!vm.psw) {
-                setErrorMessage("Введите пароль");
+                setErrorMessage('Введите пароль');
                 vm.passwordError = true;
                 return;
             }
             if (!vm.confirmation) {
                 vm.confirmationError = true;
-                setErrorMessage("Введите подтверждение пароля");
+                setErrorMessage('Введите подтверждение пароля');
                 return;
             }
             if (vm.psw !== vm.confirmation) {
                 vm.passwordError = true;
                 vm.confirmationError = true;
-                setErrorMessage("Пароли не совпадают");
+                setErrorMessage('Пароли не совпадают');
                 return;
             }
 
-            var success = function () {
+            var success = function() {
                 vm.error = false;
-                logSuccess("Пароль успешно изменен");
+                logSuccess('Пароль успешно изменен');
                 vm.passwordError = false;
                 vm.confirmationError = false;
                 vm.currentPswError = false;
@@ -86,18 +86,18 @@
                 vm.confirmation = '';
             };
 
-            var error = function (data) {
+            var error = function(data) {
                 vm.passwordError = false;
                 vm.confirmationError = false;
                 vm.currentPswError = false;
 
                 if (data.error && data.error.code === 'invalid_old_password') {
-                    setErrorMessage("Неверный старый пароль");
+                    setErrorMessage('Неверный старый пароль');
                     vm.currentPswError = true;
                 }
 
                 if (data.error && data.error.code === 'invalid_new_password') {
-                    setErrorMessage("Новый пароль не может быть короче 5 символов");
+                    setErrorMessage('Новый пароль не может быть короче 5 символов');
                     vm.confirmationError = true;
                     vm.passwordError = true;
                 }
@@ -110,8 +110,8 @@
                 .then(success, error);
         };
 
-        vm.linkEmail = function () {
-            if (validLinkEmailForm() == false)
+        vm.linkEmail = function() {
+            if (validLinkEmailForm() === false)
                 return;
             if (vm.changeEmail) {
                 datacontext.changeEmail(vm.link.newEmail)
@@ -131,26 +131,26 @@
             } else if (vm.emailLink.status === 'free') {
                 vm.emailLink = {
                     address: vm.link.email,
-                    status: "linkPending"
+                    status: 'linkPending'
                 };
             } else {
                 vm.emailLink = {
                     address: vm.link.newEmail,
-                    status: "linkPending"
+                    status: 'linkPending'
                 };
             }
 
             logSuccess('Отправлено письмо.<br/>Активируйте e-mail');
             vm.changeEmail = false;
             vm.linkAgain = false;
-            vm.link.email = "";
-            vm.link.password = "";
+            vm.link.email = '';
+            vm.link.password = '';
         }
 
         function emailChangeFail(data) {
-            if (data.error && data.error.code === "invalid_email") {
+            if (data.error && data.error.code === 'invalid_email') {
                 $translate('INVALID_EMAIL')
-                    .then(function (msg) {
+                    .then(function(msg) {
                         vm.link.invalidEmail = true;
                         logError(msg);
                     });
@@ -170,7 +170,7 @@
         function getSettings() {
             var def = common.defer();
             datacontext.getSettings()
-                .success(function (data) {
+                .success(function(data) {
                     vm.mobileLink = data.mobileLink;
                     vm.emailLink = data.emailLink;
                     vm.emailChangeRequest = data.emailChangeRequest;
@@ -182,7 +182,7 @@
         function activate() {
             var promises = [getSettings()];
             common.activateController(promises, controllerId)
-                .then(function () {
+                .then(function() {
 
                 });
         }

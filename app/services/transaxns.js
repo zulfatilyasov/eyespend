@@ -1,8 +1,8 @@
-(function () {
+(function() {
 
     'use strict';
 
-    var serviceId = "transaxns";
+    var serviceId = 'transaxns';
     angular.module('app').factory(serviceId, ['datacontext', 'common', 'rcolor', 'date', '$rootScope', 'map', transaxns]);
 
     function transaxns(datacontext, common, rcolor, date, $rootScope, map) {
@@ -43,7 +43,7 @@
             offset = 0;
             var tagsArray = _convertTagsToArray(tags);
             datacontext.getTransaxns(sortOptions.column, sortOptions.descending, offset, count, fromDate || '', toDate || '', tagsArray, onlyWithPhoto)
-                .success(function (data) {
+                .success(function(data) {
                     var sortedTransactions = data.transactions;
                     extendTransactions(sortedTransactions);
                     offset = sortedTransactions.length;
@@ -58,7 +58,7 @@
         }
 
         function extendTransactions(transactions) {
-            angular.forEach(transactions, function (t) {
+            angular.forEach(transactions, function(t) {
                 t.date = date.withoutTimeShort(t.timestamp);
                 t.time = date.onlyTime(t.timestamp);
                 _colorAndSaveTags(t.tags);
@@ -89,7 +89,7 @@
                 toDate || '',
                 tagsArray,
                 withPhoto)
-                .success(function (data) {
+                .success(function(data) {
                     location.href = data;
                 });
         }
@@ -143,13 +143,13 @@
         }
 
         function _userTagsContains(tag) {
-            return _userTags.some(function (t) {
+            return _userTags.some(function(t) {
                 return t.text === tag.text;
             });
         }
 
         function _getTagColor(tagText) {
-            var tag = _userTags.filter(function (t) {
+            var tag = _userTags.filter(function(t) {
                 return t.text === tagText;
             });
             if (tag.length && tag[0].color) {
@@ -159,19 +159,10 @@
             }
         }
 
-
-        function getTotalAmout(txns) {
-            var sum = 0;
-            for (var i = 0; txns && i < txns.length; i++) {
-                sum += parseInt(txns[i].amountInBaseCurrency);
-            }
-            return sum;
-        }
-
         function getTransactionsAndTotals() {
             var def = common.defer();
             datacontext.getTransactionsAndTotals(count)
-                .then(function (resp) {
+                .then(function(resp) {
                     var trs = resp.data.transactions;
                     var totals = resp.data.totals;
                     $rootScope.hideContent = false;
@@ -188,8 +179,8 @@
                     } else {
                         def.reject();
                     }
-                }, function (resp) {
-                    console.log(resp)
+                }, function(resp) {
+                    console.log(resp);
                 });
 
             return def.promise;
@@ -200,7 +191,7 @@
 
             var tagsArray = _convertTagsToArray(tags);
             datacontext.getTransaxns(sortOptions.column, sortOptions.descending, offset, count, fromDate || '', toDate || '', tagsArray, withPhoto)
-                .then(function (resp) {
+                .then(function(resp) {
                     var trs = resp.data.transactions;
                     var total = resp.data.total;
                     if (trs && trs instanceof Array) {
@@ -221,8 +212,8 @@
                     } else {
                         def.reject();
                     }
-                }, function (resp) {
-                    console.log(resp)
+                }, function(resp) {
+                    console.log(resp);
                 });
 
             return def.promise;
@@ -296,12 +287,12 @@
             extendTransactions([tnx]);
             txnCopy.tags = _convertTagsToArray(txnCopy.tags);
             datacontext.createTransaction(txnCopy)
-                .then(function (response) {
+                .then(function(response) {
                     var createdTnx = response.data;
                     tnx.id = createdTnx.id;
                     transactions.push(tnx);
                     def.resolve(tnx);
-                }, function () {
+                }, function() {
                     def.reject();
                 });
             return def.promise;
@@ -313,22 +304,22 @@
             map.setTxnCoords(tnx);
             _colorAndSaveTags(tnx.tags);
             datacontext.updateTransaction(_serverFormatTnx(tnx))
-                .then(function () {
-                    var transaction = transactions.filter(function (t) {
-                        return t.id === tnx.id;
-                    });
+                .then(function() {
+                        var transaction = transactions.filter(function(t) {
+                            return t.id === tnx.id;
+                        });
 
-                    if (!transaction.length) {
-                        console.log("transaction not found");
-                        def.reject("Не удалось найти транзкцию");
-                        return;
+                        if (!transaction.length) {
+                            console.log("transaction not found");
+                            def.reject("Не удалось найти транзкцию");
+                            return;
+                        }
+                        copy(tnx, transaction[0]);
+                        def.resolve();
+                    },
+                    function() {
+                        def.reject("При сохранении проихошла ошибка.")
                     }
-                    copy(tnx, transaction[0]);
-                    def.resolve();
-                },
-                function () {
-                    def.reject("При сохранении проихошла ошибка.")
-                }
             );
             return def.promise;
         }
@@ -336,14 +327,14 @@
         function remove(transactionGuid) {
             var def = common.$q.defer();
             datacontext.deleteTransaction(transactionGuid)
-                .then(function () {
-                    var index = getTransactionIndex(transactionGuid, transactions);
-                    transactions.splice(index, 1);
-                    def.resolve();
-                },
-                function () {
-                    def.reject("При удалении произошла ошибка.")
-                }
+                .then(function() {
+                        var index = getTransactionIndex(transactionGuid, transactions);
+                        transactions.splice(index, 1);
+                        def.resolve();
+                    },
+                    function() {
+                        def.reject("При удалении произошла ошибка.")
+                    }
             );
             return def.promise;
         }

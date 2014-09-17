@@ -96,7 +96,7 @@
         thickness: '2px',
         color: '#3FB8AF',
         type: 'area',
-        striped: true,
+        striped: true
       }],
       tooltip: {
         mode: 'none'

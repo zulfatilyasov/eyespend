@@ -2377,8 +2377,13 @@ table.dataTable {
   table.dataTable thead {
     background: #5A787D;;
   }
+
   .loadMore{
     display: block;
+  }
+
+  input.styledInput {
+    background: rgba(0, 0, 0, 0.15);
   }
 
   #transactions-table thead::before {
@@ -2495,7 +2500,7 @@ table.dataTable {
     padding: 0;
   }
 
-  .widgeTitle {
+  .transactions-widget .widgeTitle {
     display: none;
   }
 

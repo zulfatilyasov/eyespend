@@ -1,0 +1,4 @@
+{
+  "predef": ["angular","$", "moment","console","confirm"],
+  "validthis": true
+}
