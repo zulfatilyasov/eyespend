@@ -310,7 +310,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="inputHost" style="width: 100%">
+                    <div class="inputHost">
                         <label translate>PLACE</label>
                         <br/>
                         <button style="display:inline-block" type="button" ng-click="vm.pickAddress(vm.editedTnx)" class="btn btn-success">
@@ -318,11 +318,8 @@
                             <span translate>SHOW_ON_MAP</span>
                         </button>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
                     <div class="inputHost">
+                        <label class="emptyLabel">&nbsp;</label>
                         <button type="button" class="btn btn-primary" ng-click="vm.saveTnx(vm.editedTnx);" data-placement="right">
                             <span translate>SAVE</span>
                         </button>
@@ -331,6 +328,7 @@
                         </button>
                     </div>
                 </div>
+
             </div>
         </div>
         <div ng-if="vm.isAdding" class="mobileform">

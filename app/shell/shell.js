@@ -21,8 +21,6 @@
             common.activateController(promises, controllerId)
                 .then(function() {
                     $rootScope.lang = config.local;
-                    //@todo: Переместить в директивы.
-                    $('div.overlay').css('display', 'block');
                 });
         }
 
@@ -56,14 +54,14 @@
         }
 
         $rootScope.$on('$routeChangeStart',
-            function(event, next, current) {
+            function(event, next) {
                 if (next.$$route.originalPath === '/')
                     toggleSpinner(true);
             }
         );
 
         $rootScope.$on(events.controllerActivateSuccess,
-            function(event, data) {
+            function() {
                 toggleSpinner(false);
             }
         );
@@ -77,5 +75,4 @@
         activate();
     }
 
-})
-();
+})();

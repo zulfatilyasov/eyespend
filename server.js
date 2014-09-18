@@ -32,7 +32,7 @@ var ApiInjector = function apiInjector() {
             secret: secret
         }));
 
-        app.get('/api/secure/transactions', function (req, res) {
+        app.get('/api/secure/transactions', function(req, res) {
             console.log('calling /api/transactions');
             var offset = parseInt(req.query.offset);
             var count = parseInt(req.query.count);
@@ -66,11 +66,11 @@ var ApiInjector = function apiInjector() {
         //            res.json({transactions: result, totals: db.getTotals()});
         //        });
 
-        app.get('/api/secure/getUserTags', function (req, res) {
+        app.get('/api/secure/getUserTags', function(req, res) {
             res.json(db.getUserTags());
         });
 
-        app.get('/api/secure/settings', function (req, res) {
+        app.get('/api/secure/settings', function(req, res) {
             if (req.user.email === 'qwe@gmail.com') {
                 res.json(db.qweLinkStatus());
             } else {
@@ -79,18 +79,18 @@ var ApiInjector = function apiInjector() {
         });
 
 
-        app.get('/api/secure/excelFileUrl', function (req, res) {
+        app.get('/api/secure/excelFileUrl', function(req, res) {
             console.log('/api/secure/excelFileUrl');
             console.log(req.query);
             res.send('files/transactions.xls');
         });
 
-        app.put('/api/secure/transactions/:id', function (req, res) {
+        app.put('/api/secure/transactions/:id', function(req, res) {
             console.log('user updated transaction' + JSON.stringify(req.body));
             res.json(req.body);
         });
 
-        app.post('/api/secure/transactions', function (req, res) {
+        app.post('/api/secure/transactions', function(req, res) {
             console.log('user created transaction' + JSON.stringify(req.body));
             var newId = db.createId();
             var response = req.body;
@@ -98,12 +98,12 @@ var ApiInjector = function apiInjector() {
             res.send(response);
         });
 
-        app.delete('/api/secure/transactions/:id', function (req, res) {
+        app.delete('/api/secure/transactions/:id', function(req, res) {
             console.log('user deleted transaction' + JSON.stringify(req.params));
             res.send(200);
         });
 
-        app.post('/api/linkConfirm', function (req, res) {
+        app.post('/api/linkConfirm', function(req, res) {
             if (req.body.code && req.body.oneTimePassword && req.body.oneTimePassword.length > 5) {
                 res.json({
                     token: createTokenWithProfile('qwe@gmail.com')
@@ -118,7 +118,7 @@ var ApiInjector = function apiInjector() {
             }
         });
 
-        app.post('/api/linkConfirmMobile', function (req, res) {
+        app.post('/api/linkConfirmMobile', function(req, res) {
             if (!req.body.code) {
                 res.status(400).send({
                     error: {
@@ -144,7 +144,7 @@ var ApiInjector = function apiInjector() {
             });
         });
 
-        app.post('/api/users/login', function (req, res) {
+        app.post('/api/users/login', function(req, res) {
             console.log('/api/users/login');
             if (validCredentials(req.body.auth_code_or_email, req.body.password)) {
                 res.json({
@@ -157,7 +157,7 @@ var ApiInjector = function apiInjector() {
             }
         });
 
-        app.post('/api/linkVerify', function (req, res) {
+        app.post('/api/linkVerify', function(req, res) {
             if (req.body.code === '123') {
                 res.json({
                     email: "qwe@gmail.com"
@@ -172,7 +172,7 @@ var ApiInjector = function apiInjector() {
             }
         });
 
-        app.get('/api/getTokenFromCode', function (req, res) {
+        app.get('/api/getTokenFromCode', function(req, res) {
             console.log('called /api/getTokenFromCode');
             console.log('code ' + req.query.code);
             var code = parseInt(req.query.code);
@@ -190,7 +190,7 @@ var ApiInjector = function apiInjector() {
         });
 
 
-        app.post('/api/secure/linkInit', function (req, res) {
+        app.post('/api/secure/linkInit', function(req, res) {
             console.log('called /api/secure/linkInit');
             console.log('email: ' + req.body.email);
             console.log('password: ' + req.body.password);
@@ -205,12 +205,12 @@ var ApiInjector = function apiInjector() {
             res.json(linkStatus);
         });
 
-        app.post('/api/secure/emailChangeInit', function (req, res) {
+        app.post('/api/secure/emailChangeInit', function(req, res) {
             console.log('called /api/secure/changeEmailInit');
             res.send(201);
         });
 
-        app.post('/api/emailChangeConfirm', function (req, res) {
+        app.post('/api/emailChangeConfirm', function(req, res) {
             console.log('called /api/emailChangeConfirm');
             console.log(req.body);
             if (!req.body.code) {
@@ -234,7 +234,7 @@ var ApiInjector = function apiInjector() {
             res.send(201);
         });
 
-        app.post('/api/secure/changePassword', function (req, res) {
+        app.post('/api/secure/changePassword', function(req, res) {
             console.log(req.body);
             if (req.body.oldPassword !== 'bar') {
                 console.log('old password is not valid');
@@ -259,7 +259,7 @@ var ApiInjector = function apiInjector() {
             res.send(201);
         });
 
-        app.get('/api/secure/transactionsForChart', function (req, res) {
+        app.get('/api/secure/transactionsForChart', function(req, res) {
             var data = db.getTransactionsForChart();
             res.json(
                 data
@@ -335,7 +335,7 @@ if (useRealServer) {
 app.use(cookieParser());
 app.use(express.static(__dirname + assets));
 app.use(beforeRequest);
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
     res.sendfile(__dirname + assets + '/app.html');
 });
 

@@ -1,7 +1,12 @@
 (function() {
+
     'use strict';
+
     var controllerId = 'transactions';
-    angular.module('app').controller(controllerId, ['common', '$window', 'config', '$rootScope', '$scope', 'date', 'transaxns', '$translate', 'login', 'debounce', 'map', transactions]);
+
+    angular
+        .module('app')
+        .controller(controllerId, ['common', '$window', 'config', '$rootScope', '$scope', 'date', 'transaxns', '$translate', 'login', 'debounce', 'map', transactions]);
 
     function transactions(common, $window, config, $rootScope, $scope, date, transaxns, $translate, login, debounce, map) {
         var vm = this;
