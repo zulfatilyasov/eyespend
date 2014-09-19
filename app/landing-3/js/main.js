@@ -1,10 +1,10 @@
-$(function () {
+$(function() {
     var code = parseInt(getParameterByName('code'));
     if (code) {
         $.get('/api/getTokenFromCode', {
             code: code
         })
-            .done(function (data) {
+            .done(function(data) {
                 if (data.token) {
                     setAthenticated(data.token);
                     location.reload(true);
@@ -15,27 +15,27 @@ $(function () {
 
 
     var translations = translationsRu;
-    $.ajax({
-        url: "http://ajaxhttpheaders.appspot.com",
-        dataType: 'jsonp',
-        success: function (headers) {
-            language = headers['Accept-Language'];
-            translations = language.indexOf('ru-RU') >= 0 ? translationsRu : translationsEn;
-        }
-    });
+    // $.ajax({
+    //     url: "http://ajaxhttpheaders.appspot.com",
+    //     dataType: 'jsonp',
+    //     success: function (headers) {
+    //         language = headers['Accept-Language'];
+    //         translations = language.indexOf('ru-RU') >= 0 ? translationsRu : translationsEn;
+    //     }
+    // });
 
-    $("#login").click(function () {
+    $("#login").click(function() {
         if (!$("#email").val())
             $('#password-area').hide();
     });
 
-    $('.md-modal').keypress(function (e) {
+    $('.md-modal').keypress(function(e) {
         if (e.which == 13) {
             authenticate();
         }
     });
 
-    $('#email').keyup(function (e) {
+    $('#email').keyup(function(e) {
         var code = e.keyCode || e.which;
         if (code === 9)
             return;
@@ -53,7 +53,7 @@ $(function () {
         }
     });
 
-    $('#loginButton').click(function () {
+    $('#loginButton').click(function() {
         authenticate();
     });
 
@@ -89,18 +89,18 @@ $(function () {
         };
 
         $.post(url, data)
-            .done(function (data) {
+            .done(function(data) {
                 setAthenticated(data.token);
                 location.reload(true);
             })
-            .fail(function () {
+            .fail(function() {
                 $('#email-area').addClass('error');
                 $('#password-area').addClass('error');
                 setMessage(translations['INVALID_CODE_OR_EMAIL']);
             });
     }
 
-    setTimeout(function () {
+    setTimeout(function() {
         $('.carousel-control').fadeTo("slow", 1);
     }, 800);
 

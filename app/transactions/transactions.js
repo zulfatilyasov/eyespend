@@ -55,7 +55,6 @@
             });
         });
 
-
         $scope.$watch('vm.filterDateRange', function(newVal) {
             if (!newVal || !newVal.startDate || !newVal.endDate)
                 return;
@@ -159,7 +158,7 @@
         vm.editTransaction = function(index) {
             vm.editing = true;
             common.$timeout(function() {
-                $("[data-index='" + index + "']").find('.amount').focus();
+                $('[data-index="' + index + '"]').find('.amount').focus();
             });
         };
 

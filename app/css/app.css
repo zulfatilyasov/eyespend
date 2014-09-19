@@ -1787,11 +1787,11 @@ table.dataTable {
 }
 .stats-icons p {
     position: absolute;
-    bottom: 20px;
-    left: 59px;
+    bottom: 17px;
+    left: 15px;
     text-align: center;
     font-size: 16px;
-    width: 285px;
+    width: 387px;
 }
 .transaction-tags {
     display: inline;
