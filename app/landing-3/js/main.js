@@ -1,8 +1,9 @@
+'use strict';
 $(function() {
-    var code = parseInt(getParameterByName('code'));
+    var code = parseInt(getParameterByName('auth_code'));
     if (code) {
-        $.get('/api/getTokenFromCode', {
-            code: code
+        $.post('/api/users/login', {
+            auth_code: code
         })
             .done(function(data) {
                 if (data.token) {
