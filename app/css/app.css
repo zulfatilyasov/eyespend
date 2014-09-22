@@ -121,15 +121,12 @@ body.background-chocolate {
     font-weight: normal;
 }
 #slider {
-    height: 50px;
-    margin-left: 44px;
-    margin-right: 40px;
+    height: 30px;
 }
 .date-slider {
     position: relative;
-    height: 110px;
+    height: 80px;
     width: 100%;
-    margin-top: 30px;
 }
 .minichart {
     position: absolute;
@@ -789,8 +786,8 @@ div.tags {
     animation-duration: 0.4s;
 }
 #languages-menu.ng-hide-add {
-    -webkit-animation: flipOutX 0.5s;
-    animation: flipOutX 0.5s;
+    -webkit-animation: bounceOut 0.3s;
+    animation: bounceOut 0.3s;
     display: block !important;
 }
 a.ng-hide-add, button.ng-hide-add {
@@ -1781,6 +1778,16 @@ table.dataTable {
     position: relative;
     /*margin-top: 50px;*/
 }
+.stats-content {
+    padding: 10px 24px;
+}
+.calendar-icon {
+    background: url(../img/calendar-icon.png);
+    width: 16px;
+    height: 18px;
+    line-height: 0px;
+    display: inline-block;
+}
 .stats-icons img {
     height: 298;
     width: 412;
@@ -1792,6 +1799,12 @@ table.dataTable {
     text-align: center;
     font-size: 16px;
     width: 387px;
+}
+.stats datepicker span {
+    margin-left: 5px;
+}
+.stats .ui-rangeSlider-label {
+    display: none !important;
 }
 .transaction-tags {
     display: inline;
