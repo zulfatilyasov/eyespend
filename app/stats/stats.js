@@ -94,8 +94,8 @@
             series: [{
                 y: 'value',
                 thickness: '2px',
-                color: '#3FB8AF',
-                type: 'area',
+                color: 'rgb(231, 224, 117)',
+                // type: 'area',
                 striped: true
             }],
             tooltip: {
@@ -154,38 +154,38 @@
 
 
         // function initDateRangeSlider() {
-    //     $('.no-slider').noUiSlider({
-    //         connect: true,
-    //         range: {
-    //             'min': statsService.minDate(),
-    //             'max': statsService.maxDate()
-    //         },
-    //         // step: vm.interval * 24 * 60 * 60 * 1000,
-    //         start: [statsService.minDate(), statsService.maxDate()],
-    //         serialization: {
-    //             lower: [
-    //                 $.Link({
-    //                     target: $('#start'),
-    //                     method: lowerChange
-    //                 })
-    //             ],
-    //             upper: [
-    //                 $.Link({
-    //                     target: $('#end'),
-    //                     method: upperChange
-    //                 })
-    //             ],
-    //             format: {
-    //                 decimals: 0
-    //             }
-    //         }
-    //     });
-    //     common.$timeout(function() {
-    //         setLeftDateTipPosition();
-    //         setRightDateTipPosition();
-    //         $('.date-tip').show(200);
-    //     }, 800);
-    // }
+        //     $('.no-slider').noUiSlider({
+        //         connect: true,
+        //         range: {
+        //             'min': statsService.minDate(),
+        //             'max': statsService.maxDate()
+        //         },
+        //         // step: vm.interval * 24 * 60 * 60 * 1000,
+        //         start: [statsService.minDate(), statsService.maxDate()],
+        //         serialization: {
+        //             lower: [
+        //                 $.Link({
+        //                     target: $('#start'),
+        //                     method: lowerChange
+        //                 })
+        //             ],
+        //             upper: [
+        //                 $.Link({
+        //                     target: $('#end'),
+        //                     method: upperChange
+        //                 })
+        //             ],
+        //             format: {
+        //                 decimals: 0
+        //             }
+        //         }
+        //     });
+        //     common.$timeout(function() {
+        //         setLeftDateTipPosition();
+        //         setRightDateTipPosition();
+        //         $('.date-tip').show(200);
+        //     }, 800);
+        // }
 
 
         function setLeftDateTipPosition() {
@@ -243,6 +243,10 @@
                 .success(function(data) {
                     vm.data = data;
                     vm.miniData = data;
+                    vm.interval = 7;
+                    common.$timeout(function() {
+                        vm.interval = 1;
+                    });
                 });
         }
         activate();

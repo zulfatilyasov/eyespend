@@ -122,26 +122,54 @@ body.background-chocolate {
 }
 #slider {
     height: 30px;
+    max-width: 610px;
+    /*margin-right: 95px;*/
+}
+.ui-rangeSlider-noArrow .ui-rangeSlider-container {
+    background: -webkit-linear-gradient(90deg, rgba(0, 0, 0, 0.04) 0%, rgba(0, 0, 0, 0.0004) 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.04) 100%);
+    background: -moz-linear-gradient(90deg, rgba(0, 0, 0, 0.04) 0%, rgba(0, 0, 0, 0.0004) 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.04) 100%);
+    background: -o-linear-gradient(90deg, rgba(0, 0, 0, 0.04) 0%, rgba(0, 0, 0, 0.0004) 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.04) 100%);
+    background: -ms-linear-gradient(90deg, rgba(0, 0, 0, 0.04) 0%, rgba(0, 0, 0, 0.0004) 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.04) 100%);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.04) 0%, rgba(0, 0, 0, 0.0004) 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.04) 100%);
+    background-color: rgba(0, 0, 0, 0.15);
+    border-radius: 3px;
+    border-width: 2px;
+    border-color: rgba(255, 255, 255, 0.5);
+    border-style: solid;
+    box-shadow: none;
 }
 .date-slider {
     position: relative;
-    height: 80px;
+    height: 30px;
     width: 100%;
 }
 .minichart {
     position: absolute;
-    height: 100%;
+    height: 110px;
+    top: 3px;
     width: 100%;
+}
+.minichart g {
+    transform: translate(0, 0);
+    max-width: 500px;
 }
 .date-slider .axis {
     display: none;
 }
 .ui-rangeSlider-bar {
-    background: #3FB8AF;
+    background-color: rgba(103, 188, 145, 0.4);
     height: 100%;
-    opacity: 0.5;
-    border-left: 2px dashed #555;
-    border-right: 2px dashed #555;
+    box-shadow: none;
+}
+.ui-rangeSlider-handle {
+    background: #fff;
+    width: 4px;
+}
+.ui-rangeSlider-leftHandle {
+    border-radius: 4px 0 0 4px;
+}
+.ui-rangeSlider-rightHandle {
+    border-radius: 0 4px 4px 0;
 }
 .ui-rangeSlider-label {
     bottom: 60px;

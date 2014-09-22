@@ -7,11 +7,12 @@
                         <div class="widgeTitle">
                             <span translate="">Статистика</span>
                         </div>
-                        <select name="interval" ng-model="vm.interval">
-                            <option value="1">День</option>
-                            <option value="7">Неделя</option>
-                            <option value="30">Месяц</option>
-                        </select>
+                        <!-- <select name="interval" ng-model="vm.interval">
+    <option value="1">День</option>
+    <option value="7">Неделя</option>
+    <option value="30">Месяц</option>
+</select>
+ -->
                     </header>
                     <div class="stats-content">
                         <div class="stat-controls">
@@ -23,7 +24,7 @@
                                         <b class="caret"></b>
                                     </datepicker>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-8">
                                     <div class="date-slider">
                                         <div class="minichart">
                                             <linechart data="vm.miniData" options="vm.miniOptions" mode="">
@@ -32,6 +33,12 @@
                                         <div id="slider">
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <a href="javascript:void(0)">
+                                        <span translate="">День</span>
+                                        <b class="caret"></b>
+                                    </a>
                                 </div>
                             </div>
                         </div>
