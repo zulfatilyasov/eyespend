@@ -8,13 +8,15 @@
         vm.data = null;
         var fromDate = null;
         var toDate = null;
+        var logInfo = common.logger.getLogFn(controllerId, 'log');
         $scope.$watch('vm.chartDateRange', function(newVal) {
             if (!newVal || !newVal.startDate || !newVal.endDate)
                 return;
             fromDate = newVal.startDate.unix() * 1000;
             toDate = newVal.endDate.unix() * 1000;
-            if (vm.data)
+            if (vm.data) {
                 vm.data = statsService.changeDateRange(fromDate, toDate);
+            }
         });
         $scope.$watch('vm.interval', function(newVal, oldVal) {
             if (newVal === oldVal)
@@ -70,14 +72,14 @@
             series: [{
                 y: 'value',
                 thickness: '3px',
-                color: '#3FB8AF',
+                color: 'rgb(233, 188, 6)',
                 type: 'area',
                 striped: true,
                 label: 'График расходов'
             }],
             tension: 0.7,
             tooltip: {
-                mode: 'scrubber',
+                mode: 'none',
                 formatter: function(x, y) {
                     return date.extraSmall(x) + ': ' + y;
                 }
@@ -95,7 +97,6 @@
                 y: 'value',
                 thickness: '2px',
                 color: 'rgb(231, 224, 117)',
-                // type: 'area',
                 striped: true
             }],
             tooltip: {
@@ -140,6 +141,9 @@
                     }).bind('valuesChanging', function(e, data) {
                         $rootScope.$apply(function() {
                             vm.data = statsService.changeDateRange(data.values.min.getTime(), data.values.max.getTime());
+                            common.$timeout(function() {
+                                bindPopoverToCircles();
+                            });
                         });
                         console.log('Something moved. min: ' + data.values.min + '  max: ' + data.values.max);
                     });
@@ -238,6 +242,25 @@
             $(el).html(date.withoutTime(value));
         }
 
+        function bindPopoverToCircles() {
+            var $tip = $('.stat-tip');
+            $('circle').mouseenter(function() {
+                var d3circle = d3.select(this);
+                if (!d3circle)
+                    return;
+                var circleData = d3circle.datum();
+                var unixDate = date.toUnix(circleData.x);
+                $('.tip-amount').text(circleData.y);
+                $('.tip-date').text(date.withoutTimeShort(unixDate));
+                $tip.css('top', $(this).offset().top - $tip.height() - 15);
+                $tip.css('left', $(this).offset().left - $tip.width() / 2);
+                $tip.addClass('active');
+            });
+            $('circle').mouseleave(function() {
+                $tip.removeClass('active');
+            });
+        }
+
         function getStats() {
             return statsService.transactionsForChart()
                 .success(function(data) {
@@ -246,6 +269,9 @@
                     vm.interval = 7;
                     common.$timeout(function() {
                         vm.interval = 1;
+                        common.$timeout(function() {
+                            bindPopoverToCircles();
+                        });
                     });
                 });
         }

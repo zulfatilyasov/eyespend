@@ -1,0 +1,9 @@
+<svg>
+    <g style="fill: rgba(255, 229, 128, 0.56); fill-opacity: 0.3;">
+        <rect width="60" height="60" style="fill-opacity: 0.3;"></rect>
+        <path d="M 10 0 l10 0 l -20 20 l 0 -10 z"></path>
+        <path d="M40 0 l10 0 l-50 50 l0 -10 z"></path>
+        <path d="M60 10 l0 10 l-40 40 l-10 0 z"></path>
+        <path d="M60 40 l0 10 l-10 10 l -10 0 z"></path>
+    </g>
+</svg>

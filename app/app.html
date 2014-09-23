@@ -69,17 +69,16 @@
     <script>
     window.Airbrake = [];
     </script>
-
-    <script src="lib/airbrake/airbrake-shim.js" data-airbrake-project-id="104542" data-airbrake-project-key="500738a83b320988c4ce11e5c337096b" data-airbrake-environment-name="production"></script>
-    <script data-airbrake-onload="initAirbrake">
-    function initAirbrake() {
-        Airbrake.addFilter(function(notice) {
-            console.log(notice);
-            return true;
-        });
-    }
-    </script>
-
+    <!-- <script src="lib/airbrake/airbrake-shim.js" data-airbrake-project-id="104542" data-airbrake-project-key="500738a83b320988c4ce11e5c337096b" data-airbrake-environment-name="production"></script>
+<script data-airbrake-onload="initAirbrake">
+function initAirbrake() {
+    Airbrake.addFilter(function(notice) {
+        console.log(notice);
+        return true;
+    });
+}
+</script>
+ -->
     <!-- build:js eyespend.min.js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
@@ -100,7 +99,7 @@
     <script src="bower_components/angularjs-geolocation/src/geolocation.js"></script>
     <script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
     <script src="bower_components/d3/d3.js"></script>
-    <script src="bower_components/n3-line-chart/dist/line-chart.js"></script>
+    <script src="lib/n3-line-chart/n3-line-chart.js"></script>
     <script src="lib/nanoscroller/jquery.nanoscroller.js"></script>
     <script src="lib/angular-nanoscroller/scrollable.js"></script>
     <script src="bower_components/jquery-ui/jquery-ui.js"></script>

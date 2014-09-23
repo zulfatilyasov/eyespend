@@ -156,6 +156,48 @@ body.background-chocolate {
 .date-slider .axis {
     display: none;
 }
+.stat-tip {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    background: rgba(103, 188, 144, 0.5);
+    padding: 5px 10px;
+    border-radius: 3px;
+    opacity: 0;
+    transition: visibility 0s linear 0.15s, opacity 0.15s linear, transform 0.15s linear;
+    webkit-transform: translateY(0px);
+    -moz-transform: translateY(0px);
+    -ms-transform: translateY(0px);
+    -o-transform: translateY(0px);
+    transform: translateY(0px);
+    visibility: hidden;
+}
+.stat-tip.active {
+    visibility: visible;
+    transition-delay: 0s;
+    opacity: 1;
+    webkit-transform: translateY(-10px);
+    -moz-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    -o-transform: translateY(-10px);
+    transform: translateY(-10px);
+}
+.tip-content {
+    position: relative;
+}
+.tip-content:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    bottom: -10px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 7px 7px 0 7px;
+    border-color: rgba(103, 188, 144, 0.5) transparent transparent transparent;
+    left: 35px;
+}
 .ui-rangeSlider-bar {
     background-color: rgba(103, 188, 145, 0.4);
     height: 100%;
@@ -728,6 +770,9 @@ div.tags {
 }
 .stats-header select, .stats-header datepicker {
     float: right;
+}
+.minichart {
+    z-index: -10;
 }
 .newTransactionForm.form-slider {
     max-height: 160px;

@@ -1,5 +1,5 @@
 {
-    "predef": ["angular", "$", "jQuery", "Airbrake", "moment", "translationsRu", "alert",
+    "predef": ["angular", "$", "jQuery", "Airbrake", "moment", "translationsRu", "alert", "d3",
         "console", "confirm"
     ],
     "validthis": true
