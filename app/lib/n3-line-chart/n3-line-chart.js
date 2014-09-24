@@ -349,21 +349,22 @@ mod.factory('n3utils', [
                     }
                 }).selectAll('.dot').data(function(d) {
                     return d.values;
-                }).enter().append('circle').attr({
-                    'class': 'dot',
-                    'tip': 'tip',
-                    'r': 4,
-                    'cx': function(d) {
-                        return axes.xScale(d.x);
-                    },
-                    'cy': function(d) {
-                        return axes[d.axis + 'Scale'](d.y + d.y0);
-                    }
-                }).style({
-                    'stroke': 'white',
-                    'stroke-width': '4px',
-                    'fill': 'white'
-                });
+                }).enter()
+                    .append('circle').attr({
+                        'class': 'dot',
+                        'tip': 'tip',
+                        'r': 3,
+                        'cx': function(d) {
+                            return axes.xScale(d.x);
+                        },
+                        'cy': function(d) {
+                            return axes[d.axis + 'Scale'](d.y + d.y0);
+                        }
+                    }).style({
+                        'stroke': 'white',
+                        'stroke-width': '4px',
+                        'fill': 'white'
+                    });
                 if (options.tooltip.mode !== 'none') {
                     dotGroup.on('mouseover', function(series) {
                         var target;
@@ -1116,7 +1117,7 @@ mod.factory('n3utils', [
                 }
                 y.clamp(true);
                 y2.clamp(true);
-                xAxis = d3.svg.axis().scale(x).orient('bottom').tickFormat(axesOptions.x.labelFunction);
+                xAxis = d3.svg.axis().scale(x).orient('bottom').ticks(7).tickFormat(axesOptions.x.labelFunction);
                 yAxis = d3.svg.axis().scale(y).orient('left').tickFormat(axesOptions.y.labelFunction);
                 y2Axis = d3.svg.axis().scale(y2).orient('right').tickFormat((_ref = axesOptions.y2) != null ? _ref.labelFunction : void 0);
                 style = function(group) {

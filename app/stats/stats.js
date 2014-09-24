@@ -62,7 +62,7 @@
                     labelFunction: function(value) {
                         return date.extraSmall(value);
                     },
-                    type: 'date'
+                    type: 'linear'
                 },
                 y: {
                     key: 'value',
@@ -96,7 +96,7 @@
             series: [{
                 y: 'value',
                 thickness: '2px',
-                color: 'rgb(231, 224, 117)',
+                color: 'rgb(255, 248, 140)',
                 striped: true
             }],
             tooltip: {
@@ -145,7 +145,7 @@
                                 bindPopoverToCircles();
                             });
                         });
-                        console.log('Something moved. min: ' + data.values.min + '  max: ' + data.values.max);
+                        // console.log('Something moved. min: ' + data.values.min + '  max: ' + data.values.max);
                     });
                 });
         }

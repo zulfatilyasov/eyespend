@@ -18,7 +18,7 @@
                     for (var i = 0; i < data.length; i++) {
                         transactions.push({
                             value: data[i].amountInBaseCurrency,
-                            x: new Date(data[i].timestamp)
+                            x: new Date(data[i].date)
                         });
                     }
                     def.resolve(transactions);

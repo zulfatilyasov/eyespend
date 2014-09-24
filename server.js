@@ -1,4 +1,5 @@
 //run with "real" option (node server.js real) to run app with production backend;
+'use strinct';
 var useRealServer = process.argv.indexOf('real') != -1;
 var assets = process.argv.indexOf('dist') != -1 ? '/dist' : '/app';
 console.log('serving folder: ' + assets);
