@@ -35,29 +35,23 @@
                                 </div>
                                 <div class="stats-range">
                                     <a href="javascript:void(0)" ng-click="vm.showRanges = !vm.showRanges">
-                                        <span translate="">День</span>
+                                        <span ng-if="vm.interval === 1" translate="">День</span>
+                                        <span ng-if="vm.interval === 7" translate="">Неделя</span>
+                                        <span ng-if="vm.interval === 30" translate="">Месяц</span>
                                         <b class="caret"></b>
                                     </a>
                                     <ul ng-show="vm.showRanges" data-toggle="popover" data-placement="bottom" class="pop-menu dropdown-menu messages" role="menu">
                                         <li role="presentation">
-                                            <a href="javascript:void(0)" class="message">Неделя</a>
+                                            <a ng-class="{current: vm.interval === 1}" href="javascript:void(0)" ng-click="vm.setInterval(1)" class="message">День</a>
                                         </li>
                                         <li role="presentation">
-                                            <a href="javascript:void(0)" class="message">Месяц</a>
+                                            <a ng-class="{current: vm.interval === 7}" href="javascript:void(0)" ng-click="vm.setInterval(7)" class="message">Неделя</a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a ng-class="{current: vm.interval === 30}" href="javascript:void(0)" ng-click="vm.setInterval(30)" class="message">Месяц</a>
                                         </li>
                                     </ul>
                                 </div>
-                                <!-- <div class="col-md-3">
-
-</div>
-<div class="col-md-8">
-
-</div>
-<div class="col-md-1">
-
-</div>
- -->
-
                             </div>
                             <div class="clearfix"></div>
                             <div class="big-chart">

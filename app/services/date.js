@@ -1,3 +1,4 @@
+'use strict';
 (function() {
     angular.module('app').factory('date', ['$filter', date]);
 

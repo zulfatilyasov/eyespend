@@ -352,7 +352,6 @@ mod.factory('n3utils', [
                 }).enter()
                     .append('circle').attr({
                         'class': 'dot',
-                        'tip': 'tip',
                         'r': 3,
                         'cx': function(d) {
                             return axes.xScale(d.x);

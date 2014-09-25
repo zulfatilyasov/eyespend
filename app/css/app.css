@@ -174,7 +174,7 @@ body.background-chocolate {
 .date-slider {
     position: relative;
     height: 30px;
-    width: 62%;
+    width: 67%;
 }
 .big-chart {
     margin-top: 30px;
@@ -195,8 +195,7 @@ body.background-chocolate {
     padding-top: 3px;
 }
 .stats-range {
-    width: 13%;
-    padding-left: 43px;
+    width: 8%;
     position: relative;
 }
 .stats-range span {
@@ -205,18 +204,6 @@ body.background-chocolate {
 .stats-datepicker {
     width: 25%;
 }
-/*.big-chart circle {
-    transition: all 0.2s;
-    transform: translate(0, 0, 0);
-    transform: scale(1, 1);
-}
-.big-chart circle:hover {
-    transform: scale(2, 2);
-    transform: translate(0, 0, 0);
-    fill: "#green";
-}
-*/
-
 .minichart {
     position: absolute;
     height: 108px;
@@ -570,7 +557,7 @@ table.dataTable thead th, header.tableLabel h4 {
 }
 .container {
     /*width: 83.333333% !important;*/
-    max-width: 1150px;
+    max-width: 1170px;
     padding-left: 2.5641%;
     padding-right: 2.5641%;
 }
@@ -895,8 +882,8 @@ div.tags {
     border-bottom: 1px #ccc dashed;
 }
 .pop-menu.ng-hide-remove {
-    -webkit-animation: bounceIn 0.5s;
-    animation: bounceIn 0.5s;
+    -webkit-animation: fadeInUp 0.3s;
+    animation: fadeInUp 0.3s;
 }
 .widgetOverlay.ng-hide-remove {
     -webkit-animation: fadeIn;
@@ -932,8 +919,8 @@ div.tags {
     animation-duration: 0.4s;
 }
 .pop-menu.ng-hide-add {
-    -webkit-animation: bounceOut 0.3s;
-    animation: bounceOut 0.3s;
+    -webkit-animation: fadeOutDown 0.3s;
+    animation: fadeOutDown 0.3s;
     display: block !important;
 }
 a.ng-hide-add, button.ng-hide-add {
@@ -1251,7 +1238,10 @@ div[ng-view].ng-leave {
     background-color: rgba(103, 188, 145, 1);
 }
 .dropdown-menu, .daterangepicker .calendar-date {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.9);
+}
+.daterangepicker td {
+    border-radius: 0px !important;
 }
 .daterangepicker .ranges .input-mini {
     background-color: rgba(238, 238, 238, 0.52);
@@ -2472,15 +2462,17 @@ table.dataTable {
     width: 130px;
     height: 26px;
 }
-.pop-menu li > a:focus, .pop-menu li:hover {
+.pop-menu li > a:focus, .pop-menu li a:hover {
     background-color: rgba(0, 0, 0, 0.3);
 }
 .page-header .navbar .nav > li > .pop-menu .pull-right:after, .page-header .navbar .pull-right > li > .pop-menu:after {
     right: 56px;
 }
-.pop-menu li > a:focus, .pop-menu li > a:hover {
+/*.pop-menu li > a:focus, .pop-menu li > a:hover {
     background-color: inherit;
 }
+*/
+
 .dropdown-menu:after {
     content: '';
     display: inline-block;
@@ -2491,17 +2483,29 @@ table.dataTable {
     top: -6px;
     left: 60px;
 }
+.dropdown-menu {
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.15);
+}
 .stats-range .pop-menu {
-    left: 4px;
+    left: -50px;
     background: rgba(255, 255, 255, 0.9);
     top: 40px;
 }
-.stats-range .pop-menu li:hover {
-    background: rgba(103, 188, 145, 0.45);
+.stats-range .pop-menu a {
+    transition: none;
+}
+.stats-range .pop-menu a:hover {
+    background: rgba(103, 188, 145, 0.6);
+}
+.stats-range .pop-menu a.current {
+    background: rgba(103, 188, 145, 0.85);
 }
 .stats-range .pop-menu:after {
     border-bottom-color: rgba(255, 255, 255, 0.9);
 }
 .dropdown-menu > li > a {
     text-align: center;
+}
+.dropdown-menu > li > a.current {
+    color: #fff;
 }

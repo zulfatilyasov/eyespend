@@ -8,7 +8,6 @@
         vm.data = null;
         var fromDate = null;
         var toDate = null;
-        var logInfo = common.logger.getLogFn(controllerId, 'log');
         $scope.$watch('vm.chartDateRange', function(newVal) {
             if (!newVal || !newVal.startDate || !newVal.endDate)
                 return;
@@ -17,13 +16,29 @@
             if (vm.data) {
                 vm.data = statsService.changeDateRange(fromDate, toDate);
             }
+            // common.$timeout(function() {
+            //     $('#slider').rangeSlider(
+            //         'option',
+            //         'bounds', {
+            //             min: fromDate,
+            //             max: toDate
+            //         });
+            // });
+
         });
         $scope.$watch('vm.interval', function(newVal, oldVal) {
             if (newVal === oldVal)
                 return;
             vm.data = statsService.reducePoints(newVal);
             vm.miniData = vm.data;
+            common.$timeout(function() {
+                bindPopoverToCircles();
+            });
         });
+        vm.setInterval = function(interval) {
+            vm.interval = interval;
+            vm.showRanges = false;
+        };
         if (config.local == 'ru') {
             vm.datePickerTexts = {
                 cancelLabel: 'Отмена',
@@ -111,6 +126,10 @@
         };
         vm.interval = 1;
 
+        function _updateDateInterval(mindate, maxdate) {
+            $('datepicker span').text(mindate + ' - ' + maxdate);
+        }
+
         function activate() {
             var promises = [getStats()];
             common.activateController(promises, controllerId)
@@ -140,7 +159,11 @@
                         }
                     }).bind('valuesChanging', function(e, data) {
                         $rootScope.$apply(function() {
-                            vm.data = statsService.changeDateRange(data.values.min.getTime(), data.values.max.getTime());
+                            console.log('slider changed');
+                            var minDate = data.values.min.getTime();
+                            var maxDate = data.values.max.getTime();
+                            vm.data = statsService.changeDateRange(minDate, maxDate);
+                            _updateDateInterval(date.withoutTimeShort(minDate), date.withoutTimeShort(maxDate));
                             common.$timeout(function() {
                                 bindPopoverToCircles();
                             });
@@ -253,7 +276,7 @@
                 $('.tip-amount').text(circleData.y);
                 $('.tip-date').text(date.withoutTimeShort(unixDate));
                 $tip.css('top', $(this).offset().top - $tip.height() - 15);
-                $tip.css('left', $(this).offset().left - $tip.width() / 2);
+                $tip.css('left', $(this).offset().left - $tip.width() / 2 - 5);
                 $tip.addClass('active');
             });
             $('circle').mouseleave(function() {
