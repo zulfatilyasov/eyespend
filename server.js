@@ -260,7 +260,7 @@ var ApiInjector = function apiInjector() {
             res.send(201);
         });
 
-        app.get('/api/secure/transactionsForChart', function(req, res) {
+        app.get('/api/secure/stats/dailyExpenses', function(req, res) {
             var data = db.getTransactionsForChart();
             res.json(
                 data

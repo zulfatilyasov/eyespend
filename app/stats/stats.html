@@ -34,10 +34,18 @@
                                     </div>
                                 </div>
                                 <div class="stats-range">
-                                    <a href="javascript:void(0)">
+                                    <a href="javascript:void(0)" ng-click="vm.showRanges = !vm.showRanges">
                                         <span translate="">День</span>
                                         <b class="caret"></b>
                                     </a>
+                                    <ul ng-show="vm.showRanges" data-toggle="popover" data-placement="bottom" class="pop-menu dropdown-menu messages" role="menu">
+                                        <li role="presentation">
+                                            <a href="javascript:void(0)" class="message">Неделя</a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a href="javascript:void(0)" class="message">Месяц</a>
+                                        </li>
+                                    </ul>
                                 </div>
                                 <!-- <div class="col-md-3">
 
