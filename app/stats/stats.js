@@ -16,15 +16,14 @@
             if (vm.data) {
                 vm.data = statsService.changeDateRange(fromDate, toDate);
             }
-            // common.$timeout(function() {
-            //     $('#slider').rangeSlider(
-            //         'option',
-            //         'bounds', {
-            //             min: fromDate,
-            //             max: toDate
-            //         });
-            // });
-
+            common.$timeout(function() {
+                $('#slider').rangeSlider(
+                    'option',
+                    'bounds', {
+                        min: fromDate,
+                        max: toDate
+                    });
+            });
         });
         $scope.$watch('vm.interval', function(newVal, oldVal) {
             if (newVal === oldVal)
@@ -81,7 +80,10 @@
                 },
                 y: {
                     key: 'value',
-                    type: 'linear'
+                    type: 'linear',
+                    labelFunction: function(value) {
+                        return value;
+                    }
                 }
             },
             series: [{

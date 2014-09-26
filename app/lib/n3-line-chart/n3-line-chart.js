@@ -352,7 +352,11 @@ mod.factory('n3utils', [
                 }).enter()
                     .append('circle').attr({
                         'class': 'dot',
-                        'r': 3,
+                        'r': function(d) {
+                            if (d.y > 0)
+                                return 3;
+                            return 0;
+                        },
                         'cx': function(d) {
                             return axes.xScale(d.x);
                         },
@@ -1118,6 +1122,12 @@ mod.factory('n3utils', [
                 y2.clamp(true);
                 xAxis = d3.svg.axis().scale(x).orient('bottom').ticks(7).tickFormat(axesOptions.x.labelFunction);
                 yAxis = d3.svg.axis().scale(y).orient('left').tickFormat(axesOptions.y.labelFunction);
+
+                function make_y_axis() {
+                    return d3.svg.axis()
+                        .scale(y)
+                        .orient("left")
+                }
                 y2Axis = d3.svg.axis().scale(y2).orient('right').tickFormat((_ref = axesOptions.y2) != null ? _ref.labelFunction : void 0);
                 style = function(group) {
                     group.style({
@@ -1141,10 +1151,17 @@ mod.factory('n3utils', [
                         if (!condition) {
                             style(svg.append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + height + ')').call(xAxis));
                             style(svg.append('g').attr('class', 'y axis').call(yAxis));
+
                             if (drawY2Axis) {
                                 style(svg.append('g').attr('class', 'y2 axis').attr('transform', 'translate(' + width + ', 0)').call(y2Axis));
                             }
                         }
+                        console.log('drawing grind');
+                        svg.append("g")
+                            .attr("class", "grid")
+                            .call(make_y_axis()
+                                .tickSize(-width, 0, 0)
+                                .tickFormat(""));
                         return {
                             xScale: x,
                             yScale: y,

@@ -185,7 +185,13 @@ body.background-chocolate {
     font-size: 18px;
 }
 .big-chart path.domain {
-    stroke: #fff !important;
+    stroke: rgba(255, 255, 255, 0.2) !important;
+}
+.big-chart .grid .tick {
+    stroke: rgba(255, 255, 255, 0.2);
+}
+.y.axis path.domain, .grid path.domain {
+    display: none;
 }
 .stats-datepicker, .date-slider, .stats-range {
     display: inline-block;
@@ -2485,6 +2491,9 @@ table.dataTable {
 }
 .dropdown-menu {
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.15);
+}
+.stats .daterangepicker.dropdown-menu {
+    /*margin-left: -25px;*/
 }
 .stats-range .pop-menu {
     left: -50px;
