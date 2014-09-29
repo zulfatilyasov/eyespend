@@ -1156,7 +1156,6 @@ mod.factory('n3utils', [
                                 style(svg.append('g').attr('class', 'y2 axis').attr('transform', 'translate(' + width + ', 0)').call(y2Axis));
                             }
                         }
-                        console.log('drawing grind');
                         svg.append("g")
                             .attr("class", "grid")
                             .call(make_y_axis()

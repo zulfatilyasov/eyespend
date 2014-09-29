@@ -48,31 +48,65 @@
             return last.x.getTime();
         }
 
+        Date.prototype.addDays = function(days) {
+            var dat = new Date(this.valueOf());
+            dat.setDate(dat.getDate() + days);
+            return dat;
+        };
+
+        function sumOnInterval(fromDate, toDate) {
+            var intervalSum = 0;
+            for (var i = 0; i < transactions.length; i++) {
+                if (transactions[i].x <= toDate && transactions[i].x >= fromDate) {
+                    intervalSum += transactions[i].value;
+                }
+            }
+            return intervalSum;
+        }
+
         function reducePoints(days) {
-            reducedTransactions = [];
             if (!days || days === 1) {
                 return transactions;
             }
+            reducedTransactions = [];
+            var minDateUnix = minDate();
+            var maxDateUnix = maxDate();
+            var curDateUnix = minDateUnix;
+            var curDate = new Date(curDateUnix);
 
-            var sum = 0;
-            for (var i = 0; i < transactions.length; i++) {
-                sum += transactions[i].value;
-                if (i > 0 && i % days === 0) {
-                    reducedTransactions.push({
-                        value: Math.floor(sum / days),
-                        x: transactions[i - days].x
-                    });
-                    sum = 0;
-                }
-            }
-            var leftDays = transactions.length % days;
-            if (leftDays > 0) {
+            for (var i = 0; curDateUnix < maxDateUnix; i++) {
+                var nextDate = curDate.addDays(days);
+                var intervalSum = sumOnInterval(curDateUnix, nextDate.getTime());
                 reducedTransactions.push({
-                    value: Math.floor(sum / leftDays),
-                    x: transactions[transactions.length - 1].x
+                    value: Math.floor(intervalSum / days),
+                    x: new Date(curDateUnix)
                 });
+                curDate = nextDate;
+                curDateUnix = nextDate.getTime();
             }
             return reducedTransactions;
+
+
+
+            // var sum = 0;
+            // for (var i = 0; i < transactions.length; i++) {
+            //     sum += transactions[i].value;
+            //     if (i > 0 && i % days === 0) {
+            //         reducedTransactions.push({
+            //             value: Math.floor(sum / days),
+            //             x: transactions[i - days].x
+            //         });
+            //         sum = 0;
+            //     }
+            // }
+            // var leftDays = transactions.length % days;
+            // if (leftDays > 0) {
+            //     reducedTransactions.push({
+            //         value: Math.floor(sum / leftDays),
+            //         x: transactions[transactions.length - 1].x
+            //     });
+            // }
+            // return reducedTransactions;
         }
 
         return {

@@ -16,14 +16,14 @@
             if (vm.data) {
                 vm.data = statsService.changeDateRange(fromDate, toDate);
             }
-            common.$timeout(function() {
-                $('#slider').rangeSlider(
-                    'option',
-                    'bounds', {
-                        min: fromDate,
-                        max: toDate
-                    });
-            });
+            // common.$timeout(function() {
+            //     $('#slider').rangeSlider(
+            //         'option',
+            //         'bounds', {
+            //             min: fromDate,
+            //             max: toDate
+            //         });
+            // });
         });
         $scope.$watch('vm.interval', function(newVal, oldVal) {
             if (newVal === oldVal)
@@ -151,6 +151,7 @@
                         arrows: false,
                         formatter: function(val) {
                             var days = val.getDate(),
+
                                 month = val.getMonth() + 1,
                                 year = val.getFullYear();
                             if (days.toString().length < 2)
@@ -160,16 +161,16 @@
                             return days + '.' + month + '.' + year;
                         }
                     }).bind('valuesChanging', function(e, data) {
-                        $rootScope.$apply(function() {
-                            console.log('slider changed');
-                            var minDate = data.values.min.getTime();
-                            var maxDate = data.values.max.getTime();
-                            vm.data = statsService.changeDateRange(minDate, maxDate);
-                            _updateDateInterval(date.withoutTimeShort(minDate), date.withoutTimeShort(maxDate));
-                            common.$timeout(function() {
-                                bindPopoverToCircles();
-                            });
+                        // $rootScope.$apply(function() {
+                        var minDate = data.values.min.getTime();
+                        var maxDate = data.values.max.getTime();
+                        vm.data = statsService.changeDateRange(minDate, maxDate);
+                        _updateDateInterval(date.withoutTimeShort(minDate), date.withoutTimeShort(maxDate));
+                        common.$timeout(function() {
+                            bindPopoverToCircles();
                         });
+                        // });
+                        safeDigest();
                         // console.log('Something moved. min: ' + data.values.min + '  max: ' + data.values.max);
                     });
                 });

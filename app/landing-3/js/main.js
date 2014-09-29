@@ -1,6 +1,6 @@
 'use strict';
 $(function() {
-    var code = parseInt(getParameterByName('auth_code'));
+    var code = parseInt(getParameterByName('code'));
     if (code) {
         $.post('/api/users/login', {
             auth_code: code

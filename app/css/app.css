@@ -122,8 +122,6 @@ body.background-chocolate {
 }
 #slider {
     height: 30px;
-    /*max-width: 610px;*/
-    margin-right: 55px;
 }
 .ui-rangeSlider-rightHandle:after {
     position: absolute;
@@ -174,7 +172,7 @@ body.background-chocolate {
 .date-slider {
     position: relative;
     height: 30px;
-    width: 67%;
+    width: 62%;
 }
 .big-chart {
     margin-top: 30px;
@@ -185,7 +183,7 @@ body.background-chocolate {
     font-size: 18px;
 }
 .big-chart path.domain {
-    stroke: rgba(255, 255, 255, 0.2) !important;
+    stroke: rgba(255, 255, 255, 1) !important;
 }
 .big-chart .grid .tick {
     stroke: rgba(255, 255, 255, 0.2);
@@ -201,7 +199,8 @@ body.background-chocolate {
     padding-top: 3px;
 }
 .stats-range {
-    width: 8%;
+    width: 12%;
+    text-align: center;
     position: relative;
 }
 .stats-range span {
@@ -212,11 +211,15 @@ body.background-chocolate {
 }
 .minichart {
     position: absolute;
-    height: 108px;
-    top: 3px;
+    height: 30px;
+    top: 4px;
     width: 100%;
 }
 .minichart g {
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
     transform: translate(0, 0);
     max-width: 500px;
 }
@@ -2496,7 +2499,7 @@ table.dataTable {
     /*margin-left: -25px;*/
 }
 .stats-range .pop-menu {
-    left: -50px;
+    left: 0px;
     background: rgba(255, 255, 255, 0.9);
     top: 40px;
 }
