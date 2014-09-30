@@ -35,20 +35,20 @@
                                 </div>
                                 <div class="stats-range">
                                     <a href="javascript:void(0)" ng-click="vm.showRanges = !vm.showRanges">
-                                        <span ng-if="vm.interval === 1" translate="">День</span>
-                                        <span ng-if="vm.interval === 7" translate="">Неделя</span>
-                                        <span ng-if="vm.interval === 30" translate="">Месяц</span>
+                                        <span ng-if="vm.interval === 'day'" translate="">День</span>
+                                        <span ng-if="vm.interval === 'week'" translate="">Неделя</span>
+                                        <span ng-if="vm.interval === 'month'" translate="">Месяц</span>
                                         <b class="caret"></b>
                                     </a>
                                     <ul ng-show="vm.showRanges" data-toggle="popover" data-placement="bottom" class="pop-menu dropdown-menu messages" role="menu">
                                         <li role="presentation">
-                                            <a ng-class="{current: vm.interval === 1}" href="javascript:void(0)" ng-click="vm.setInterval(1)" class="message">День</a>
+                                            <a ng-class="{current: vm.interval === 'day'}" href="javascript:void(0)" ng-click="vm.interval = 'day'" class="message">День</a>
                                         </li>
                                         <li role="presentation">
-                                            <a ng-class="{current: vm.interval === 7}" href="javascript:void(0)" ng-click="vm.setInterval(7)" class="message">Неделя</a>
+                                            <a ng-class="{current: vm.interval === 'week'}" href="javascript:void(0)" ng-click="vm.interval = 'week'" class="message">Неделя</a>
                                         </li>
                                         <li role="presentation">
-                                            <a ng-class="{current: vm.interval === 30}" href="javascript:void(0)" ng-click="vm.setInterval(30)" class="message">Месяц</a>
+                                            <a ng-class="{current: vm.interval === 'month'}" href="javascript:void(0)" ng-click="vm.interval = 'month'" class="message">Месяц</a>
                                         </li>
                                     </ul>
                                 </div>

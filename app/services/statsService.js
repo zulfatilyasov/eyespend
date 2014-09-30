@@ -54,6 +54,35 @@
             return dat;
         };
 
+        Date.prototype.getMonday = function() {
+            var d = new Date(this.valueOf());
+            var day = d.getDay(),
+                diff = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
+            return new Date(d.setDate(diff));
+        };
+
+        Date.prototype.getFirstDayOfMonth = function() {
+            var date = new Date(this.valueOf()),
+                y = date.getFullYear(),
+                m = date.getMonth();
+            return new Date(y, m, 1);
+        }
+
+        Date.prototype.getLastDayOfMonth = function() {
+            var date = new Date(this.valueOf()),
+                y = date.getFullYear(),
+                m = date.getMonth();
+            return new Date(y, m + 1, 0);
+        }
+
+        Date.prototype.getNextDate = function(interval) {
+            var curDate = new Date(this.valueOf());
+            if (interval === 'week')
+                return curDate.addDays(6);
+            if (interval === 'month')
+                return curDate.getLastDayOfMonth();
+        }
+
         function sumOnInterval(fromDate, toDate) {
             var intervalSum = 0;
             for (var i = 0; i < transactions.length; i++) {
@@ -64,49 +93,38 @@
             return intervalSum;
         }
 
-        function reducePoints(days) {
-            if (!days || days === 1) {
+        function getIntervalDaysCount(interval) {
+            if (interval === 'day')
+                return 1;
+            if (interval === 'week')
+                return 7;
+            if (interval === 'month')
+                return 31;
+        }
+
+        function reducePoints(interval) {
+            if (!interval || interval === 'day') {
                 return transactions;
             }
             reducedTransactions = [];
             var minDateUnix = minDate();
             var maxDateUnix = maxDate();
-            var curDateUnix = minDateUnix;
-            var curDate = new Date(curDateUnix);
+            var minD = new Date(minDateUnix);
+            var curDate = interval === 'week' ? minD.getMonday() : minD.getFirstDayOfMonth();
+            var curDateUnix = curDate.getTime();
+            var intervalDaysCount = getIntervalDaysCount(interval);
 
             for (var i = 0; curDateUnix < maxDateUnix; i++) {
-                var nextDate = curDate.addDays(days);
+                var nextDate = curDate.getNextDate(interval);
                 var intervalSum = sumOnInterval(curDateUnix, nextDate.getTime());
                 reducedTransactions.push({
-                    value: Math.floor(intervalSum / days),
+                    value: Math.floor(intervalSum / intervalDaysCount),
                     x: new Date(curDateUnix)
                 });
-                curDate = nextDate;
-                curDateUnix = nextDate.getTime();
+                curDate = nextDate.addDays(1);
+                curDateUnix = curDate.getTime();
             }
             return reducedTransactions;
-
-
-
-            // var sum = 0;
-            // for (var i = 0; i < transactions.length; i++) {
-            //     sum += transactions[i].value;
-            //     if (i > 0 && i % days === 0) {
-            //         reducedTransactions.push({
-            //             value: Math.floor(sum / days),
-            //             x: transactions[i - days].x
-            //         });
-            //         sum = 0;
-            //     }
-            // }
-            // var leftDays = transactions.length % days;
-            // if (leftDays > 0) {
-            //     reducedTransactions.push({
-            //         value: Math.floor(sum / leftDays),
-            //         x: transactions[transactions.length - 1].x
-            //     });
-            // }
-            // return reducedTransactions;
         }
 
         return {

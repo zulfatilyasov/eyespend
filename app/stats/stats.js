@@ -16,28 +16,27 @@
             if (vm.data) {
                 vm.data = statsService.changeDateRange(fromDate, toDate);
             }
-            // common.$timeout(function() {
-            //     $('#slider').rangeSlider(
-            //         'option',
-            //         'bounds', {
-            //             min: fromDate,
-            //             max: toDate
-            //         });
-            // });
+            console.log(new Date(fromDate));
+            console.log(new Date(toDate));
+            common.$timeout(function() {
+                $('#slider').dateRangeSlider("bounds", new Date(fromDate), new Date(toDate));
+            }, 200);
         });
+
         $scope.$watch('vm.interval', function(newVal, oldVal) {
+            vm.showRanges = false;
+
             if (newVal === oldVal)
                 return;
+
             vm.data = statsService.reducePoints(newVal);
             vm.miniData = vm.data;
+
             common.$timeout(function() {
                 bindPopoverToCircles();
             });
         });
-        vm.setInterval = function(interval) {
-            vm.interval = interval;
-            vm.showRanges = false;
-        };
+
         if (config.local == 'ru') {
             vm.datePickerTexts = {
                 cancelLabel: 'Отмена',
@@ -126,7 +125,7 @@
             mode: 'thumbnail',
             columnsHGap: 5
         };
-        vm.interval = 1;
+        vm.interval = 'day';
 
         function _updateDateInterval(mindate, maxdate) {
             $('datepicker span').text(mindate + ' - ' + maxdate);
@@ -175,48 +174,6 @@
                     });
                 });
         }
-
-        // function activate() {
-        //     var promises = [];
-        //     common.activateController(promises, controllerId)
-        //         .then(function() {});
-        // }
-
-
-        // function initDateRangeSlider() {
-        //     $('.no-slider').noUiSlider({
-        //         connect: true,
-        //         range: {
-        //             'min': statsService.minDate(),
-        //             'max': statsService.maxDate()
-        //         },
-        //         // step: vm.interval * 24 * 60 * 60 * 1000,
-        //         start: [statsService.minDate(), statsService.maxDate()],
-        //         serialization: {
-        //             lower: [
-        //                 $.Link({
-        //                     target: $('#start'),
-        //                     method: lowerChange
-        //                 })
-        //             ],
-        //             upper: [
-        //                 $.Link({
-        //                     target: $('#end'),
-        //                     method: upperChange
-        //                 })
-        //             ],
-        //             format: {
-        //                 decimals: 0
-        //             }
-        //         }
-        //     });
-        //     common.$timeout(function() {
-        //         setLeftDateTipPosition();
-        //         setRightDateTipPosition();
-        //         $('.date-tip').show(200);
-        //     }, 800);
-        // }
-
 
         function setLeftDateTipPosition() {
             var left = getLeftPostion('.noUi-handle-lower');
@@ -275,9 +232,20 @@
                 if (!d3circle)
                     return;
                 var circleData = d3circle.datum();
-                var unixDate = date.toUnix(circleData.x);
+                var startDate = circleData.x;
+                var endDate = startDate.getNextDate(vm.interval);
+                var unixStartDate = date.toUnix(startDate);
+                var unixEndDate = date.toUnix(endDate);
+                var intervalLabel = date.withoutTimeShort(unixStartDate);
+
+                if (vm.interval === 'week') {
+                    intervalLabel = date.withoutTimeShort(unixStartDate) + ' - ' + date.withoutTimeShort(unixEndDate);
+                } else if (vm.interval === 'month') {
+                    intervalLabel = moment(startDate).format('MMMM YYYY');
+                }
+
                 $('.tip-amount').text(circleData.y);
-                $('.tip-date').text(date.withoutTimeShort(unixDate));
+                $('.tip-date').text(intervalLabel);
                 $tip.css('top', $(this).offset().top - $tip.height() - 15);
                 $tip.css('left', $(this).offset().left - $tip.width() / 2 - 5);
                 $tip.addClass('active');
@@ -292,12 +260,8 @@
                 .success(function(data) {
                     vm.data = data;
                     vm.miniData = data;
-                    vm.interval = 7;
                     common.$timeout(function() {
-                        vm.interval = 1;
-                        common.$timeout(function() {
-                            bindPopoverToCircles();
-                        });
+                        bindPopoverToCircles();
                     });
                 });
         }
