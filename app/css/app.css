@@ -1666,6 +1666,9 @@ div[ng-view].ng-leave {
 .slider-handle.triangle {
     background: transparent none;
 }
+.ui-rangeSlider-rightHandle {
+    margin-left: 5px;
+}
 .transaction-menu {
     display: none;
 }

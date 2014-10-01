@@ -112,13 +112,13 @@
             var minD = new Date(minDateUnix);
             var curDate = interval === 'week' ? minD.getMonday() : minD.getFirstDayOfMonth();
             var curDateUnix = curDate.getTime();
-            var intervalDaysCount = getIntervalDaysCount(interval);
+            // var intervalDaysCount = getIntervalDaysCount(interval);
 
             for (var i = 0; curDateUnix < maxDateUnix; i++) {
                 var nextDate = curDate.getNextDate(interval);
                 var intervalSum = sumOnInterval(curDateUnix, nextDate.getTime());
                 reducedTransactions.push({
-                    value: Math.floor(intervalSum / intervalDaysCount),
+                    value: Math.floor(intervalSum),
                     x: new Date(curDateUnix)
                 });
                 curDate = nextDate.addDays(1);

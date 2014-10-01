@@ -62,8 +62,8 @@ LTEyVDA4OjI0OjU3KzAwOjAw2OF96gAAAABJRU5ErkJggg==" />
     </header>
     <nav class="side-bar">
         <ul>
-            <li ng-class="{active:vm.activePage == 'expenses'}">
-                <a href="#/" ng-click="vm.activePage = 'expenses'">
+            <li ng-class="{active:location.path() == '/'}">
+                <a href="#/">
                     <span translate>EXPENSES</span>
                     <div class="icon-container">
                         <img src="../img/expenses-icon.png" alt="">
@@ -74,8 +74,8 @@ LTEyVDA4OjI0OjU3KzAwOjAw2OF96gAAAABJRU5ErkJggg==" />
                     <div class="clearfix"></div>
                 </a>
             </li>
-            <li ng-class="{active:vm.activePage == 'stats'}">
-                <a href="#/stats" ng-click="vm.activePage = 'stats'">
+            <li ng-class="{active:location.path() == '/stats'}">
+                <a href="#/stats">
                     <span translate>STATISTICS</span>
                     <div class="icon-container">
                         <img src="../img/stats-icon.png" alt="">
@@ -86,8 +86,8 @@ LTEyVDA4OjI0OjU3KzAwOjAw2OF96gAAAABJRU5ErkJggg==" />
                     <div class="clearfix"></div>
                 </a>
             </li>
-            <li ng-class="{active:vm.activePage == 'settings'}">
-                <a href="#/settings" ng-click="vm.activePage = 'settings'">
+            <li ng-class="{active:location.path() == '/settings'}">
+                <a href="#/settings">
                     <span translate>ACCOUNT</span>
                     <div class="icon-container">
                         <img src="../img/gear-icon.svg" alt="">

@@ -13,14 +13,13 @@
                 return;
             fromDate = newVal.startDate.unix() * 1000;
             toDate = newVal.endDate.unix() * 1000;
+
+            if (fromDate === toDate)
+                return;
             if (vm.data) {
                 vm.data = statsService.changeDateRange(fromDate, toDate);
             }
-            console.log(new Date(fromDate));
-            console.log(new Date(toDate));
-            common.$timeout(function() {
-                $('#slider').dateRangeSlider("bounds", new Date(fromDate), new Date(toDate));
-            }, 200);
+            $('#slider').dateRangeSlider('values', new Date(fromDate), new Date(toDate));
         });
 
         $scope.$watch('vm.interval', function(newVal, oldVal) {
@@ -131,6 +130,57 @@
             $('datepicker span').text(mindate + ' - ' + maxdate);
         }
 
+        function safeDigest() {
+            if (!$scope.$$phase) {
+                $rootScope.$apply();
+            }
+        }
+
+        function bindPopoverToCircles() {
+            var $tip = $('.stat-tip');
+            $('circle').mouseenter(function() {
+                var d3circle = d3.select(this);
+                if (!d3circle)
+                    return;
+                var circleData = d3circle.datum();
+                var startDate = circleData.x;
+                var endDate = startDate.getNextDate(vm.interval);
+                var unixStartDate = date.toUnix(startDate);
+                var unixEndDate = date.toUnix(endDate);
+                var intervalLabel = date.withoutTimeShort(unixStartDate);
+
+                if (vm.interval === 'week') {
+                    intervalLabel = date.extraSmall(unixStartDate) + ' - ' + date.extraSmall(unixEndDate);
+                } else if (vm.interval === 'month') {
+                    intervalLabel = moment(startDate).format('MMMM YYYY');
+                }
+
+                $('.tip-amount').text(circleData.y);
+                $('.tip-date').text(intervalLabel);
+                $tip.css('top', $(this).offset().top - $tip.height() - 15);
+                $tip.css('left', $(this).offset().left - $tip.width() / 2 - 5);
+                $tip.addClass('active');
+            });
+            $('circle').mouseleave(function() {
+                $tip.removeClass('active');
+            });
+        }
+
+        function getStats() {
+            return statsService.transactionsForChart()
+                .success(function(data) {
+                    vm.chartDateRange = {
+                        startDate: moment(statsService.minDate()),
+                        endDate: moment(statsService.maxDate())
+                    };
+                    vm.data = data;
+                    vm.miniData = data;
+                    common.$timeout(function() {
+                        bindPopoverToCircles();
+                    });
+                });
+        }
+
         function activate() {
             var promises = [getStats()];
             common.activateController(promises, controllerId)
@@ -160,7 +210,6 @@
                             return days + '.' + month + '.' + year;
                         }
                     }).bind('valuesChanging', function(e, data) {
-                        // $rootScope.$apply(function() {
                         var minDate = data.values.min.getTime();
                         var maxDate = data.values.max.getTime();
                         vm.data = statsService.changeDateRange(minDate, maxDate);
@@ -168,103 +217,12 @@
                         common.$timeout(function() {
                             bindPopoverToCircles();
                         });
-                        // });
                         safeDigest();
                         // console.log('Something moved. min: ' + data.values.min + '  max: ' + data.values.max);
                     });
                 });
         }
 
-        function setLeftDateTipPosition() {
-            var left = getLeftPostion('.noUi-handle-lower');
-            setLeftPosition('#start', left);
-        }
-
-        function setRightDateTipPosition() {
-            var left = getLeftPostion('.noUi-handle-upper');
-            setLeftPosition('#end', left);
-        }
-
-        function safeDigest() {
-            if (!$scope.$$phase) {
-                $rootScope.$apply();
-            }
-        }
-
-        function upperChange(value) {
-            value = parseInt(value);
-            if (!value)
-                return;
-            setDate('#end', value);
-            setRightDateTipPosition();
-            toDate = value;
-            vm.data = statsService.changeDateRange(fromDate, toDate);
-            safeDigest();
-        }
-
-        function lowerChange(value) {
-            value = parseInt(value);
-            if (!value)
-                return;
-            setDate('#start', value);
-            setLeftDateTipPosition();
-            fromDate = value;
-            vm.data = statsService.changeDateRange(fromDate, toDate);
-            safeDigest();
-        }
-
-        function getLeftPostion(el) {
-            return $(el).offset().left;
-        }
-
-        function setLeftPosition(el, l) {
-            $(el).css('left', l + 'px');
-        }
-
-        function setDate(el, value) {
-            $(el).html(date.withoutTime(value));
-        }
-
-        function bindPopoverToCircles() {
-            var $tip = $('.stat-tip');
-            $('circle').mouseenter(function() {
-                var d3circle = d3.select(this);
-                if (!d3circle)
-                    return;
-                var circleData = d3circle.datum();
-                var startDate = circleData.x;
-                var endDate = startDate.getNextDate(vm.interval);
-                var unixStartDate = date.toUnix(startDate);
-                var unixEndDate = date.toUnix(endDate);
-                var intervalLabel = date.withoutTimeShort(unixStartDate);
-
-                if (vm.interval === 'week') {
-                    intervalLabel = date.withoutTimeShort(unixStartDate) + ' - ' + date.withoutTimeShort(unixEndDate);
-                } else if (vm.interval === 'month') {
-                    intervalLabel = moment(startDate).format('MMMM YYYY');
-                }
-
-                $('.tip-amount').text(circleData.y);
-                $('.tip-date').text(intervalLabel);
-                $tip.css('top', $(this).offset().top - $tip.height() - 15);
-                $tip.css('left', $(this).offset().left - $tip.width() / 2 - 5);
-                $tip.addClass('active');
-            });
-            $('circle').mouseleave(function() {
-                $tip.removeClass('active');
-            });
-        }
-
-        function getStats() {
-            return statsService.transactionsForChart()
-                .success(function(data) {
-                    vm.data = data;
-                    vm.miniData = data;
-                    common.$timeout(function() {
-                        bindPopoverToCircles();
-                    });
-                });
-        }
         activate();
     }
 })();
