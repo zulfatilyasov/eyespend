@@ -30,8 +30,10 @@
             return def.promise;
         }
 
-        function changeDateRange(fromDate, toDate) {
-            var source = reducedTransactions.length ? reducedTransactions : transactions;
+        function changeDateRange(fromDate, toDate, interval) {
+            var source = interval === 'day' ? transactions : reducedTransactions;
+            if (!fromDate && !toDate)
+                return source;
             return source.filter(function(t) {
                 var timestamp = t.x.getTime();
                 return timestamp <= toDate && timestamp >= fromDate;
@@ -57,7 +59,7 @@
         Date.prototype.getMonday = function() {
             var d = new Date(this.valueOf());
             var day = d.getDay(),
-                diff = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
+                diff = d.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is sunday
             return new Date(d.setDate(diff));
         };
 
@@ -66,14 +68,14 @@
                 y = date.getFullYear(),
                 m = date.getMonth();
             return new Date(y, m, 1);
-        }
+        };
 
         Date.prototype.getLastDayOfMonth = function() {
             var date = new Date(this.valueOf()),
                 y = date.getFullYear(),
                 m = date.getMonth();
             return new Date(y, m + 1, 0);
-        }
+        };
 
         Date.prototype.getNextDate = function(interval) {
             var curDate = new Date(this.valueOf());
@@ -81,7 +83,7 @@
                 return curDate.addDays(6);
             if (interval === 'month')
                 return curDate.getLastDayOfMonth();
-        }
+        };
 
         function sumOnInterval(fromDate, toDate) {
             var intervalSum = 0;
@@ -91,15 +93,6 @@
                 }
             }
             return intervalSum;
-        }
-
-        function getIntervalDaysCount(interval) {
-            if (interval === 'day')
-                return 1;
-            if (interval === 'week')
-                return 7;
-            if (interval === 'month')
-                return 31;
         }
 
         function reducePoints(interval) {
@@ -112,7 +105,6 @@
             var minD = new Date(minDateUnix);
             var curDate = interval === 'week' ? minD.getMonday() : minD.getFirstDayOfMonth();
             var curDateUnix = curDate.getTime();
-            // var intervalDaysCount = getIntervalDaysCount(interval);
 
             for (var i = 0; curDateUnix < maxDateUnix; i++) {
                 var nextDate = curDate.getNextDate(interval);

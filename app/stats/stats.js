@@ -6,8 +6,11 @@
     function stats(common, $rootScope, statsService, date, config, $scope) {
         var vm = this;
         vm.data = null;
+        vm.interval = 'day';
+
         var fromDate = null;
         var toDate = null;
+
         $scope.$watch('vm.chartDateRange', function(newVal) {
             if (!newVal || !newVal.startDate || !newVal.endDate)
                 return;
@@ -17,9 +20,12 @@
             if (fromDate === toDate)
                 return;
             if (vm.data) {
-                vm.data = statsService.changeDateRange(fromDate, toDate);
+                vm.data = statsService.changeDateRange(fromDate, toDate, vm.interval);
             }
             $('#slider').dateRangeSlider('values', new Date(fromDate), new Date(toDate));
+            common.$timeout(function() {
+                bindPopoverToCircles();
+            });
         });
 
         $scope.$watch('vm.interval', function(newVal, oldVal) {
@@ -28,8 +34,19 @@
             if (newVal === oldVal)
                 return;
 
-            vm.data = statsService.reducePoints(newVal);
-            vm.miniData = vm.data;
+            vm.miniData = statsService.reducePoints(newVal);
+            vm.data = statsService.changeDateRange(fromDate, toDate, newVal);
+            // var step = 1;
+            // if (newVal === 'week')
+            //     step = 7;
+            // else if (newVal === 'month')
+            //     step = 30;
+
+            // $('#slider').dateRangeSlider({
+            //     step: {
+            //         days: step
+            //     }
+            // });
 
             common.$timeout(function() {
                 bindPopoverToCircles();
@@ -124,7 +141,6 @@
             mode: 'thumbnail',
             columnsHGap: 5
         };
-        vm.interval = 'day';
 
         function _updateDateInterval(mindate, maxdate) {
             $('datepicker span').text(mindate + ' - ' + maxdate);
@@ -197,23 +213,12 @@
                         step: {
                             days: 1
                         },
-                        arrows: false,
-                        formatter: function(val) {
-                            var days = val.getDate(),
-
-                                month = val.getMonth() + 1,
-                                year = val.getFullYear();
-                            if (days.toString().length < 2)
-                                days = '0' + days;
-                            if (month.toString().length < 2)
-                                month = '0' + month;
-                            return days + '.' + month + '.' + year;
-                        }
+                        arrows: false
                     }).bind('valuesChanging', function(e, data) {
-                        var minDate = data.values.min.getTime();
-                        var maxDate = data.values.max.getTime();
-                        vm.data = statsService.changeDateRange(minDate, maxDate);
-                        _updateDateInterval(date.withoutTimeShort(minDate), date.withoutTimeShort(maxDate));
+                        fromDate = data.values.min.getTime();
+                        toDate = data.values.max.getTime();
+                        vm.data = statsService.changeDateRange(fromDate, toDate, vm.interval);
+                        _updateDateInterval(date.withoutTimeShort(fromDate), date.withoutTimeShort(toDate));
                         common.$timeout(function() {
                             bindPopoverToCircles();
                         });
