@@ -1,6 +1,6 @@
 'use strict';
 $(function() {
-    var code = parseInt(getParameterByName('auth_code'));
+    var code = parseInt(getParameterByName('code'));
     if (code) {
         $.post('/api/users/login', {
             auth_code: code
@@ -17,7 +17,7 @@ $(function() {
 
     var translations = translationsRu;
     // $.ajax({
-    //     url: "http://ajaxhttpheaders.appspot.com",
+    //     url: 'http://ajaxhttpheaders.appspot.com',
     //     dataType: 'jsonp',
     //     success: function (headers) {
     //         language = headers['Accept-Language'];
@@ -25,8 +25,8 @@ $(function() {
     //     }
     // });
 
-    $("#login").click(function() {
-        if (!$("#email").val())
+    $('#login').click(function() {
+        if (!$('#email').val())
             $('#password-area').hide();
     });
 
@@ -63,21 +63,21 @@ $(function() {
         isEmail = !isNumeric(email);
 
         if (!email) {
-            setMessage(translations['ENTER_CODE_OR_EMAIL']);
+            setMessage(translations.ENTER_CODE_OR_EMAIL);
             $('#email-area').addClass('error');
             return;
         }
 
         if (email && isEmail && !validEmail(email)) {
             $('#email-area').addClass('error');
-            setMessage(translations['INVALID_CODE_OR_EMAIL']);
+            setMessage(translations.INVALID_CODE_OR_EMAIL);
             return;
         }
 
         var password = $('#password').val();
 
         if (email && isEmail && !password) {
-            setMessage(translations['PASSORD_REQUIRED']);
+            setMessage(translations.PASSORD_REQUIRED);
             $('#password-area').addClass('error');
             return;
         }
@@ -97,12 +97,12 @@ $(function() {
             .fail(function() {
                 $('#email-area').addClass('error');
                 $('#password-area').addClass('error');
-                setMessage(translations['INVALID_CODE_OR_EMAIL']);
+                setMessage(translations.INVALID_CODE_OR_EMAIL);
             });
     }
 
     setTimeout(function() {
-        $('.carousel-control').fadeTo("slow", 1);
+        $('.carousel-control').fadeTo('slow', 1);
     }, 800);
 
 });
@@ -133,15 +133,15 @@ function shareTwitter() {
 }
 
 function getParameterByName(name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)'),
         results = regex.exec(location.search);
-    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 }
 
 function setAthenticated(token) {
     var now = new Date();
     var yearAfterNow = new Date(new Date(now).setMonth(now.getMonth() + 12));
-    document.cookie = "isAuthenticated=" + true + "; path=/; expires=" + yearAfterNow.toUTCString();
+    document.cookie = 'isAuthenticated=' + true + '; path=/; expires=' + yearAfterNow.toUTCString();
     localStorage.setItem('ls.token', token);
 }

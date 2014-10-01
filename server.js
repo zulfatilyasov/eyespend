@@ -1,4 +1,5 @@
 //run with "real" option (node server.js real) to run app with production backend;
+'use strinct';
 var useRealServer = process.argv.indexOf('real') != -1;
 var assets = process.argv.indexOf('dist') != -1 ? '/dist' : '/app';
 console.log('serving folder: ' + assets);
@@ -259,7 +260,7 @@ var ApiInjector = function apiInjector() {
             res.send(201);
         });
 
-        app.get('/api/secure/transactionsForChart', function(req, res) {
+        app.get('/api/secure/stats/dailyExpenses', function(req, res) {
             var data = db.getTransactionsForChart();
             res.json(
                 data

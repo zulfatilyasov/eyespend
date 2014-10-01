@@ -126,5 +126,13 @@
                     }
                 });
             };
+        })
+        .directive('tip', function() {
+            return function(scope, element) {
+                element.hover(function() {
+                    var c = d3.select(this);
+                    console.log(c.datum());
+                });
+            };
         });
 })();

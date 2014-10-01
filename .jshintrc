@@ -1,4 +1,6 @@
 {
-    "predef": ["angular", "$", "jQuery", "Airbrake", "moment", "console", "confirm"],
+    "predef": ["angular", "$", "jQuery", "Airbrake", "moment", "translationsRu", "alert", "d3",
+        "console", "confirm"
+    ],
     "validthis": true
 }
