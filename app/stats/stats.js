@@ -38,12 +38,15 @@
 
             var l = vm.miniData.length;
             $('#slider').dateRangeSlider('bounds', vm.miniData[0].x, vm.miniData[l - 1].x);
-            $('#slider').dateRangeSlider('values', vm.miniData[0].x, vm.miniData[l - 1].x);
 
-            if (vm.miniData[0].x < fromDate)
-                fromDate = vm.miniData[0].x;
-            if (vm.miniData[l - 1].x > toDate)
-                toDate = vm.miniData[l - 1].x;
+            if (fromDate <= statsService.minDate() || toDate >= statsService.maxDate()) {
+                $('#slider').dateRangeSlider('values', vm.miniData[0].x, vm.miniData[l - 1].x);
+
+                if (vm.miniData[0].x < fromDate)
+                    fromDate = vm.miniData[0].x;
+                if (vm.miniData[l - 1].x > toDate)
+                    toDate = vm.miniData[l - 1].x;
+            }
 
             vm.data = statsService.changeDateRange(fromDate, toDate, newVal);
 
