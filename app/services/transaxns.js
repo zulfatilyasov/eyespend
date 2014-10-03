@@ -90,7 +90,7 @@
                 tagsArray,
                 withPhoto)
                 .success(function(data) {
-                    location.href = data;
+                    location.href = data.url;
                 });
         }
 
