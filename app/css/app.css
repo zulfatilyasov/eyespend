@@ -2472,6 +2472,7 @@ table.dataTable {
     margin: 0;
     font-size: 14px;
     left: -48px;
+    top: 52px;
     width: 130px;
 }
 .pop-menu li {

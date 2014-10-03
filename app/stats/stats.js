@@ -39,7 +39,7 @@
             var l = vm.miniData.length;
             $('#slider').dateRangeSlider('bounds', vm.miniData[0].x, vm.miniData[l - 1].x);
 
-            if (fromDate <= statsService.minDate() || toDate >= statsService.maxDate()) {
+            if (fromDate <= statsService.minDate() && toDate >= statsService.maxDate()) {
                 $('#slider').dateRangeSlider('values', vm.miniData[0].x, vm.miniData[l - 1].x);
 
                 if (vm.miniData[0].x < fromDate)
