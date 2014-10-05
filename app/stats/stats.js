@@ -35,18 +35,17 @@
                 return;
 
             vm.miniData = statsService.reducePoints(newVal);
-            vm.data = statsService.changeDateRange(fromDate, toDate, newVal);
-            // var step = 1;
-            // if (newVal === 'week')
-            //     step = 7;
-            // else if (newVal === 'month')
-            //     step = 30;
 
-            // $('#slider').dateRangeSlider({
-            //     step: {
-            //         days: step
-            //     }
-            // });
+            var l = vm.miniData.length;
+            $('#slider').dateRangeSlider('bounds', vm.miniData[0].x, vm.miniData[l - 1].x);
+            $('#slider').dateRangeSlider('values', vm.miniData[0].x, vm.miniData[l - 1].x);
+
+            if (vm.miniData[0].x < fromDate)
+                fromDate = vm.miniData[0].x;
+            if (vm.miniData[l - 1].x > toDate)
+                toDate = vm.miniData[l - 1].x;
+
+            vm.data = statsService.changeDateRange(fromDate, toDate, newVal);
 
             common.$timeout(function() {
                 bindPopoverToCircles();
@@ -180,6 +179,10 @@
             $('circle').mouseleave(function() {
                 $tip.removeClass('active');
             });
+
+            if (vm.data.length < 2) {
+                $('.x.axis .tick text').hide();
+            }
         }
 
         function getStats() {
