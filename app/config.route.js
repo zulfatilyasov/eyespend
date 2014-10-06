@@ -43,6 +43,12 @@
                 title: 'settings'
             }
         }, {
+            url: '/tagstats',
+            config: {
+                templateUrl: 'tagstats/tagstats.html',
+                title: 'tagstats'
+            }
+        }, {
             url: '/stats',
             config: {
                 templateUrl: 'stats/stats.html',

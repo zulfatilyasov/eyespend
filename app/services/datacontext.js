@@ -105,6 +105,15 @@
             return $http.get('/api/secure/stats/dailyExpenses');
         }
 
+        function getTagsExpenses(dateFrom, dateTo, excludeTags) {
+            var params = {
+                dateFrom: dateFrom,
+                dateTo: dateTo,
+                'excludeTags[]': excludeTags
+            };
+            return $http.get('/api/secure/stats/tagsExpenses', { params: params });
+        }
+
         return {
             getTransaxns: getTransaxns,
             updateTransaction: updateTransaction,
@@ -119,7 +128,8 @@
             getExcelFileUrl: getExcelFileUrl,
             getSettings: getSettings,
             getTransactionsAndTotals: getTransactionsAndTotals,
-            getTransactionsForChart: getTransactionsForChart
+            getTransactionsForChart: getTransactionsForChart,
+            getTagsExpenses: getTagsExpenses
         };
     }
 })();

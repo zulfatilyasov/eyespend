@@ -2529,3 +2529,7 @@ table.dataTable {
 .dropdown-menu > li > a.current {
     color: #fff;
 }
+
+.tagstats-slider {
+    padding: 85px 30px 30px;
+}
