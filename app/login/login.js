@@ -1,9 +1,9 @@
 (function () {
     'use strict';
     var controllerId = 'login';
-    angular.module('app').controller(controllerId, ['common', '$location', 'login', '$translate', login]);
+    angular.module('app').controller(controllerId, ['common', '$location', 'login.service', '$translate', login]);
 
-    function login(common, $location, login, $translate) {
+    function login(common, $location, loginService, $translate) {
         var vm = this;
         vm.isEmail = false;
         vm.user = {
@@ -20,7 +20,7 @@
                 setMessage('ENTER_CODE_OR_EMAIL');
                 return;
             }
-            if (vm.isEmail && !login.validEmail(vm.user.codeOrEmail)) {
+            if (vm.isEmail && !loginService.validEmail(vm.user.codeOrEmail)) {
                 setMessage('INVALID_CODE_OR_EMAIL');
                 return;
             }
@@ -30,7 +30,7 @@
             }
 
             var success = function () {
-                $location.path("/");
+                $location.path('/');
             };
             var error = function () {
                 if (vm.isEmail) {
@@ -42,12 +42,12 @@
             };
 
             if (vm.isEmail) {
-                login.authenticate({
+                loginService.authenticate({
                     email: vm.user.codeOrEmail,
                     password: vm.user.password
                 }).then(success, error);
             } else {
-                login.quickPass(vm.user.codeOrEmail)
+                loginService.quickPass(vm.user.codeOrEmail)
                     .then(success, error);
             }
         };

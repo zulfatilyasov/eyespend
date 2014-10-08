@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  var serviceId = 'login';
+  var serviceId = 'login.service';
   angular.module('app').factory(serviceId, ['common', 'datacontext', 'localStorageService', 'cookie', login]);
 
   function login(common, datacontext, localStorageService, cookie) {
@@ -32,7 +32,7 @@
     };
 
     var error = function(def) {
-      return function(data, status, headers, config) {
+      return function() {
         removeAuthenticated();
         def.reject();
       };

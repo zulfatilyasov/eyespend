@@ -30,8 +30,11 @@
                                         <linechart data="vm.miniData" options="vm.miniOptions" mode="thumbnail">
                                         </linechart>
                                     </div>
-                                    <div id="slider">
+                                    <us-slider changing="vm.sliderValuesChanging" options="vm.sliderOptions">
+                                    </us-slider>
+                                    <!--                                     <div id="slider">
                                     </div>
+ -->
                                 </div>
                                 <div class="stats-range">
                                     <a href="javascript:void(0)" ng-click="vm.showRanges = !vm.showRanges">

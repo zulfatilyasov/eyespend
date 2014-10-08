@@ -2,7 +2,7 @@
 
     'use strict';
 
-    var serviceId = 'transaxns';
+    var serviceId = 'transaction.service';
     angular.module('app').factory(serviceId, ['datacontext', 'common', 'rcolor', 'date', '$rootScope', 'map', transaxns]);
 
     function transaxns(datacontext, common, rcolor, date, $rootScope, map) {

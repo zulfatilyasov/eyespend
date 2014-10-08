@@ -1,9 +1,8 @@
 (function() {
     'use strict';
 
-    var app = angular.module('app');
-
-    app
+    angular
+        .module('app')
         .directive('ngEnter', function() {
             return function(scope, element, attrs) {
                 element.bind('keydown keypress', function(event) {
@@ -133,6 +132,162 @@
                     var c = d3.select(this);
                     console.log(c.datum());
                 });
+            };
+        })
+        .directive('usSlider', function() {
+            return {
+                restrict: 'E',
+                scope: {
+                    options: '=options',
+                    rangeStart: '=start',
+                    rangeEnd: '=end',
+                    onChanged: '=changed',
+                    onChanging: '=changing'
+                },
+                link: function(scope, element) {
+
+                    var slider;
+
+                    function initialize(options) {
+                        slider = element.html('<div id="slider"></div>')
+                            .find('#slider')
+                            .dateRangeSlider(options);
+                        if (scope.onChanged)
+                            slider.bind('valuesChanged', scope.onChanged);
+
+                        if (scope.onChanging)
+                            slider.bind('valuesChanging', scope.onChanging);
+
+                    }
+
+                    scope.$parent.vm.initializeSlider = initialize;
+
+                    scope.$parent.vm.setSliderBounds = function(left, right) {
+                        slider.dateRangeSlider('bounds', left, right);
+                    };
+
+                    scope.$parent.vm.setSliderValues = function(left, right) {
+                        slider.dateRangeSlider('values', left, right);
+                    };
+
+                    function updateSlider(start, end) {
+                        if (!slider)
+                            return;
+                        slider.dateRangeSlider('values', end, start);
+                    }
+
+                    scope.$watch('rangeStart', function(newValue) {
+                        updateSlider(newValue, scope.rangeEnd);
+                    });
+
+                    scope.$watch('rangeEnd', function(newValue) {
+                        updateSlider(scope.rangeStart, newValue);
+                    });
+                }
+            };
+        })
+        .directive('usTagstats', function() {
+            return {
+                restrict: 'E',
+                scope: {
+                    stats: '='
+                },
+                link: function(scope, element) {
+                    var vis = d3.select(element[0])
+                        .append('svg')
+                        .attr('viewBox', '0 0 1000 1200')
+                        .attr('width', '100%');
+
+                    function dataIdentity(d) {
+                        return d.tags;
+                    }
+
+                    scope.$watchCollection('stats', function(newVal) {
+                        //vis.selectAll('*').remove();
+                        if (!newVal || newVal.length < 1) {
+                            return;
+                        }
+
+                        var x = d3.scale.linear()
+                            .domain([0, newVal[0].percent])
+                            .range([0, 700]);
+
+                        var op = d3.scale.linear()
+                            .domain([0, newVal[0].percent])
+                            .range([0.25, 1]);
+
+                        vis.attr('height', 40 * newVal.length);
+                        vis.attr('viewBox', '0 0 1000 ' + (40 * newVal.length).toString());
+
+                        var join = vis.selectAll('rect').data(newVal, dataIdentity);
+
+                        join.enter().append('rect')
+                            .attr('x', 0)
+                            .attr('y', function(d, i) {
+                                return i * 40;
+                            })
+                            .attr('height', 40)
+                            .attr('width', 0)
+                            .style('fill', 'rgb(233, 188, 6)')
+                            .style('opacity', 0.25);
+
+                        join.transition()
+                            .delay(500)
+                            .duration(500)
+                            .attr('y', function(d, i) {
+                                return i * 40;
+                            })
+                            .attr('width', function(d) {
+                                console.log(d.percent);
+                                return x(d.percent);
+                            })
+                            .style('opacity', function(d) {
+                                return op(d.percent);
+                            })
+                            .ease('easein');
+
+                        join.exit()
+                            .transition()
+                            .delay(500)
+                            .duration(500)
+                            .attr('height', 0)
+                            .attr('width', 0)
+                            .style('opacity', 0)
+                            .remove();
+
+                        join = vis.selectAll('text').data(newVal, dataIdentity);
+
+                        join.enter().append('text')
+                            .attr('x', 0)
+                            .attr('y', function(d, i) {
+                                return i * 40 + 23;
+                            })
+                            .text(function(d) {
+                                return d.tags + ' ' + d.percent.toString() + '%';
+                            })
+                            .style('opacity', 0);
+
+                        join.transition()
+                            .delay(500)
+                            .duration(500)
+                            .attr('x', function(d) {
+                                return x(d.percent) + 10;
+                            })
+                            .attr('y', function(d, i) {
+                                return i * 40 + 23;
+                            })
+                            .style('opacity', 1)
+                            .ease('easein');
+
+                        join.exit()
+                            .transition()
+                            .delay(500)
+                            .duration(500)
+                            .attr('x', 0)
+                            .style('opacity', 0)
+                            .remove();
+                    });
+                }
             };
         });
 })();

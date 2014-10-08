@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    var serviceId = 'statsService';
+    var serviceId = 'stats.service';
     angular.module('app').factory(serviceId, ['datacontext', 'common', statsService]);
 
     function statsService(datacontext, common) {

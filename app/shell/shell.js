@@ -2,7 +2,7 @@
     'use strict';
 
     var controllerId = 'shell';
-    angular.module('app').controller(controllerId, ['common', 'debounce', '$rootScope', 'tmhDynamicLocale', 'config', 'login', '$translate', 'cookie', shell]);
+    angular.module('app').controller(controllerId, ['common', 'debounce', '$rootScope', 'tmhDynamicLocale', 'config', 'login.service', '$translate', 'cookie', shell]);
 
     function shell(common, debounce, $rootScope, tmhDynamicLocale, config, login, $translate, cookie) {
         var vm = this;

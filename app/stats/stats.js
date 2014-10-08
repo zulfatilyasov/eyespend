@@ -1,7 +1,7 @@
 (function() {
     'use strict';
     var controllerId = 'stats';
-    angular.module('app').controller(controllerId, ['common', '$rootScope', 'statsService', 'date', 'config', '$scope', stats]);
+    angular.module('app').controller(controllerId, ['common', '$rootScope', 'stats.service', 'date', 'config', '$scope', stats]);
 
     function stats(common, $rootScope, statsService, date, config, $scope) {
         var vm = this;
@@ -22,7 +22,7 @@
             if (vm.data) {
                 vm.data = statsService.changeDateRange(fromDate, toDate, vm.interval);
             }
-            $('#slider').dateRangeSlider('values', new Date(fromDate), new Date(toDate));
+            vm.setSliderValues(new Date(fromDate), new Date(toDate));
             common.$timeout(function() {
                 bindPopoverToCircles();
             });
@@ -37,10 +37,11 @@
             vm.miniData = statsService.reducePoints(newVal);
 
             var l = vm.miniData.length;
-            $('#slider').dateRangeSlider('bounds', vm.miniData[0].x, vm.miniData[l - 1].x);
+
+            vm.setSliderBounds(vm.miniData[0].x, vm.miniData[l - 1].x);
 
             if (fromDate <= statsService.minDate() || toDate >= statsService.maxDate()) {
-                $('#slider').dateRangeSlider('values', vm.miniData[0].x, vm.miniData[l - 1].x);
+                vm.setSliderValues(vm.miniData[0].x, vm.miniData[l - 1].x);
 
                 if (vm.miniData[0].x < fromDate)
                     fromDate = vm.miniData[0].x;
@@ -188,6 +189,19 @@
             }
         }
 
+
+
+        vm.sliderValuesChanging = function(e, data) {
+            fromDate = data.values.min.getTime();
+            toDate = data.values.max.getTime();
+            vm.data = statsService.changeDateRange(fromDate, toDate, vm.interval);
+            _updateDateInterval(date.withoutTimeShort(fromDate), date.withoutTimeShort(toDate));
+            common.$timeout(function() {
+                bindPopoverToCircles();
+            });
+            safeDigest();
+        };
+
         function getStats() {
             return statsService.transactionsForChart()
                 .success(function(data) {
@@ -195,19 +209,11 @@
                         startDate: moment(statsService.minDate()),
                         endDate: moment(statsService.maxDate())
                     };
+
                     vm.data = data;
                     vm.miniData = data;
-                    common.$timeout(function() {
-                        bindPopoverToCircles();
-                    });
-                });
-        }
 
-        function activate() {
-            var promises = [getStats()];
-            common.activateController(promises, controllerId)
-                .then(function() {
-                    $('#slider').dateRangeSlider({
+                    vm.initializeSlider({
                         defaultValues: {
                             min: new Date(statsService.minDate()),
                             max: new Date(statsService.maxDate())
@@ -220,17 +226,19 @@
                             days: 1
                         },
                         arrows: false
-                    }).bind('valuesChanging', function(e, data) {
-                        fromDate = data.values.min.getTime();
-                        toDate = data.values.max.getTime();
-                        vm.data = statsService.changeDateRange(fromDate, toDate, vm.interval);
-                        _updateDateInterval(date.withoutTimeShort(fromDate), date.withoutTimeShort(toDate));
-                        common.$timeout(function() {
-                            bindPopoverToCircles();
-                        });
-                        safeDigest();
-                        // console.log('Something moved. min: ' + data.values.min + '  max: ' + data.values.max);
                     });
+
+                    common.$timeout(function() {
+                        bindPopoverToCircles();
+                    });
+                });
+        }
+
+        function activate() {
+            var promises = [getStats()];
+            common.activateController(promises, controllerId)
+                .then(function() {
+
                 });
         }
 

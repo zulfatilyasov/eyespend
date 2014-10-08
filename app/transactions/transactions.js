@@ -6,9 +6,9 @@
 
     angular
         .module('app')
-        .controller(controllerId, ['common', '$window', 'config', '$rootScope', '$scope', 'date', 'transaxns', '$translate', 'login', 'debounce', 'map', transactions]);
+        .controller(controllerId, ['common', '$window', 'config', '$rootScope', '$scope', 'date', 'transaction.service', '$translate', 'login.service', 'debounce', 'map', transactions]);
 
-    function transactions(common, $window, config, $rootScope, $scope, date, transaxns, $translate, login, debounce, map) {
+    function transactions(common, $window, config, $rootScope, $scope, date, transactionService, $translate, login, debounce, map) {
         var vm = this;
         var logError = common.logger.getLogFn(controllerId, 'logError');
         var fromUnixDate = null;
@@ -74,7 +74,7 @@
                 return;
             $rootScope.showSpinner = true;
             vm.onlyWithPhoto = newVal;
-            transaxns.getFirstPageWithFilters(fromUnixDate, toUnixDate, vm.tags, newVal)
+            transactionService.getFirstPageWithFilters(fromUnixDate, toUnixDate, vm.tags, newVal)
                 .success(function(data) {
                     $rootScope.showSpinner = false;
                     vm.trs = data.transactions;
@@ -105,8 +105,8 @@
         var selectTransaction = function(transaction) {
             if (vm.editing) {
                 vm.editing = false;
-                var original = transaxns.getTransasctionById(vm.selectedTnx.id);
-                transaxns.copy(original, vm.selectedTnx);
+                var original = transactionService.getTransasctionById(vm.selectedTnx.id);
+                transactionService.copy(original, vm.selectedTnx);
             }
             vm.selectedTnx = transaction;
         };
@@ -175,13 +175,13 @@
         };
 
         vm.changeSorting = function(column) {
-            vm.sort = transaxns.updateSorting(column);
+            vm.sort = transactionService.updateSorting(column);
             $rootScope.showSpinner = true;
-            transaxns.sort(fromUnixDate, toUnixDate, vm.tags, vm.onlyWithPhoto)
+            transactionService.sort(fromUnixDate, toUnixDate, vm.tags, vm.onlyWithPhoto)
                 .success(function(data) {
                     vm.trs = data.transactions;
                     vm.total = data.total;
-                    vm.richedTheEnd = vm.trs.length < transaxns.batchSize;
+                    vm.richedTheEnd = vm.trs.length < transactionService.batchSize;
                     $rootScope.showSpinner = false;
                 });
         };
@@ -201,7 +201,7 @@
             return def.promise;
         };
 
-        vm.getSortingForColumn = transaxns.getSortingForColumn;
+        vm.getSortingForColumn = transactionService.getSortingForColumn;
 
         vm.tagFilterChange = debounce(applyfilters, 0, false);
 
@@ -244,12 +244,12 @@
 
         function applyfilters() {
             $rootScope.showSpinner = true;
-            transaxns.getFirstPageWithFilters(fromUnixDate, toUnixDate, vm.tags, vm.onlyWithPhoto)
+            transactionService.getFirstPageWithFilters(fromUnixDate, toUnixDate, vm.tags, vm.onlyWithPhoto)
                 .success(function(data) {
                     $rootScope.showSpinner = false;
                     vm.trs = data.transactions;
                     vm.total = data.total;
-                    vm.richedTheEnd = vm.trs.length < transaxns.batchSize;
+                    vm.richedTheEnd = vm.trs.length < transactionService.batchSize;
                 })
                 .error(function(msg) {
                     $rootScope.showSpinner = false;
@@ -315,14 +315,14 @@
         };
 
         vm.downloadExcel = function() {
-            transaxns.getExcelFile(fromUnixDate, toUnixDate, vm.tags, vm.onlyWithPhoto);
+            transactionService.getExcelFile(fromUnixDate, toUnixDate, vm.tags, vm.onlyWithPhoto);
         };
 
         vm.loadMoreTransactions = function() {
             if (vm.isLoading || vm.richedTheEnd)
                 return;
             vm.isLoading = true;
-            transaxns.getTransaxns(fromUnixDate, toUnixDate, vm.tags, vm.onlyWithPhoto)
+            transactionService.getTransaxns(fromUnixDate, toUnixDate, vm.tags, vm.onlyWithPhoto)
                 .success(function(result) {
                     var loadedTransactions = result.transactions;
                     vm.total = result.total;
@@ -370,7 +370,7 @@
         };
 
         vm.toggleEditingMobile = function() {
-            vm.editedTnx = transaxns.copy(vm.selectedTnx);
+            vm.editedTnx = transactionService.copy(vm.selectedTnx);
             vm.editedTnx.dateTime = date.format(vm.selectedTnx.timestamp);
             vm.editingMobile = true;
         };
@@ -379,20 +379,20 @@
             if ($(document.activeElement).parent().is('.tags'))
                 return;
             if (transaction.new) {
-                return transaxns.create(transaction)
+                return transactionService.create(transaction)
                     .then(function(createdTxn) {
                         transaction.latitude = createdTxn.latitude;
                         transaction.longitude = createdTxn.longitude;
                         transaction.new = false;
                     });
             } else {
-                return transaxns.update(transaction)
+                return transactionService.update(transaction)
                     .then(function() {
                             if (vm.editing)
                                 vm.editing = false;
                             if (vm.editingMobile) {
                                 vm.editingMobile = false;
-                                transaxns.copy(transaction, vm.selectedTnx);
+                                transactionService.copy(transaction, vm.selectedTnx);
                             }
                         },
                         function(msg) {
@@ -411,7 +411,7 @@
             if (!vm.selectedTnx || !transaction || vm.selectedTnx.id !== transaction.id)
                 return;
 
-            transaxns.remove(vm.selectedTnx.id)
+            transactionService.remove(vm.selectedTnx.id)
                 .then(function() {
                         if (vm.editing) {
                             vm.editing = false;
@@ -425,7 +425,7 @@
                     function(msg) {
                         logError(msg);
                     }
-            );
+                );
         }
 
         vm.remove = function(transaction) {
@@ -435,7 +435,7 @@
         };
 
         function removeTransactionById(id) {
-            var index = transaxns.getTransactionIndex(id, vm.trs);
+            var index = transactionService.getTransactionIndex(id, vm.trs);
             vm.trs.splice(index, 1);
         }
 
@@ -444,7 +444,7 @@
             if (!newTransactionIsValid)
                 return;
 
-            transaxns.create(vm.newTnx)
+            transactionService.create(vm.newTnx)
                 .then(function(tnx) {
                         vm.trs.unshift(tnx);
                         vm.newTnx = {};
@@ -452,7 +452,7 @@
                     function(msg) {
                         vm.createError = msg;
                     }
-            );
+                );
         };
 
         vm.addTag = function(tagText) {
@@ -469,12 +469,12 @@
 
         function _getTransactions() {
             vm.isLoading = true;
-            return transaxns.getTransaxns()
+            return transactionService.getTransaxns()
                 .success(function(data) {
                     vm.trs = data.transactions;
                     vm.total = data.total;
-                    vm.sort = transaxns.sortOptions;
-                    if (vm.trs.length < transaxns.batchSize) {
+                    vm.sort = transactionService.sortOptions;
+                    if (vm.trs.length < transactionService.batchSize) {
                         vm.richedTheEnd = true;
                     }
                     common.$timeout(function() {
@@ -500,7 +500,7 @@
 
         $scope.$on('$destroy', function() {
             vm.trs = [];
-            transaxns.destroy();
+            transactionService.destroy();
         });
 
         activate();

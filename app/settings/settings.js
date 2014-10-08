@@ -1,7 +1,7 @@
 (function() {
     'use strict';
     var controllerId = 'settings';
-    angular.module('app').controller(controllerId, ['common', 'login', '$translate', 'datacontext', settings]);
+    angular.module('app').controller(controllerId, ['common', 'login.service', '$translate', 'datacontext', settings]);
 
     function settings(common, login, $translate, datacontext) {
         var logSuccess = common.logger.getLogFn(controllerId, 'logSuccess');
