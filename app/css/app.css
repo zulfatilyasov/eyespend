@@ -57,6 +57,7 @@ body.coffee:before {
     background: #000;
     background: url(https://s3.amazonaws.com/ooomf-com-files/fN6hZMWqRHuFET5YoApH_StBalmainCoffee.jpg);
     /*background-image: url(https://s3.amazonaws.com/ooomf-com-files/L3APwvISQ7i8XcFsQYwQ_IMG_1820.jpg);*/
+    
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center top;
@@ -229,6 +230,13 @@ body.background-chocolate {
 }
 .date-slider .axis {
     display: none;
+}
+.need-more {
+    width: 320px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 200px 0;
+    font-size: 18px;
 }
 .stat-tip {
     position: fixed;
@@ -571,6 +579,7 @@ table.dataTable thead th, header.tableLabel h4 {
 }
 .container {
     /*width: 83.333333% !important;*/
+    
     max-width: 1170px;
     padding-left: 2.5641%;
     padding-right: 2.5641%;
@@ -695,6 +704,7 @@ tags-input .tags.focused {
 }
 .searchBlock .host .tags {
     /*background: url(../img/search-white.png) no-repeat center right rgba(51, 51, 51, 0.4);*/
+    
     background: rgba(51, 51, 51, 0.4);
 }
 .host .tags {
@@ -1511,6 +1521,7 @@ div[ng-view].ng-leave {
 }
 #transactions-table tr td.date-td, #transactions-table tr th.date-th {
     /*width: auto;*/
+    
     padding-left: 24px;
 }
 #transactions-table tr td.date-td {
@@ -2101,6 +2112,7 @@ table.dataTable {
     /*.container {*/
     /*width: auto;*/
     /*}*/
+    
     .widget {
         width: 680px;
     }

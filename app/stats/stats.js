@@ -7,6 +7,7 @@
         var vm = this;
         vm.data = null;
         vm.interval = 'day';
+        vm.needMoreTransactions = false;
 
         var fromDate = null;
         var toDate = null;
@@ -191,15 +192,42 @@
         function getStats() {
             return statsService.transactionsForChart()
                 .success(function(data) {
-                    vm.chartDateRange = {
-                        startDate: moment(statsService.minDate()),
-                        endDate: moment(statsService.maxDate())
-                    };
-                    vm.data = data;
-                    vm.miniData = data;
-                    common.$timeout(function() {
-                        bindPopoverToCircles();
-                    });
+                    if (data.length > 1) {
+                        vm.chartDateRange = {
+                            startDate: moment(statsService.minDate()),
+                            endDate: moment(statsService.maxDate())
+                        };
+                        vm.data = data;
+                        vm.miniData = data;
+                        $('#slider').dateRangeSlider({
+                            defaultValues: {
+                                min: new Date(statsService.minDate()),
+                                max: new Date(statsService.maxDate())
+                            },
+                            bounds: {
+                                min: new Date(statsService.minDate()),
+                                max: new Date(statsService.maxDate())
+                            },
+                            step: {
+                                days: 1
+                            },
+                            arrows: false
+                        }).bind('valuesChanging', function(e, data) {
+                            fromDate = data.values.min.getTime();
+                            toDate = data.values.max.getTime();
+                            vm.data = statsService.changeDateRange(fromDate, toDate, vm.interval);
+                            _updateDateInterval(date.withoutTimeShort(fromDate), date.withoutTimeShort(toDate));
+                            common.$timeout(function() {
+                                bindPopoverToCircles();
+                            });
+                            safeDigest();
+                        });
+                        common.$timeout(function() {
+                            bindPopoverToCircles();
+                        });
+                    } else {
+                        vm.needMoreTransactions = true;
+                    }
                 });
         }
 
@@ -207,30 +235,7 @@
             var promises = [getStats()];
             common.activateController(promises, controllerId)
                 .then(function() {
-                    $('#slider').dateRangeSlider({
-                        defaultValues: {
-                            min: new Date(statsService.minDate()),
-                            max: new Date(statsService.maxDate())
-                        },
-                        bounds: {
-                            min: new Date(statsService.minDate()),
-                            max: new Date(statsService.maxDate())
-                        },
-                        step: {
-                            days: 1
-                        },
-                        arrows: false
-                    }).bind('valuesChanging', function(e, data) {
-                        fromDate = data.values.min.getTime();
-                        toDate = data.values.max.getTime();
-                        vm.data = statsService.changeDateRange(fromDate, toDate, vm.interval);
-                        _updateDateInterval(date.withoutTimeShort(fromDate), date.withoutTimeShort(toDate));
-                        common.$timeout(function() {
-                            bindPopoverToCircles();
-                        });
-                        safeDigest();
-                        // console.log('Something moved. min: ' + data.values.min + '  max: ' + data.values.max);
-                    });
+
                 });
         }
 
