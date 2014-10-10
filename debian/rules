@@ -13,6 +13,7 @@ build:
 	npm install
 	npm install grunt
 	npm install grunt-cli
+	./node_modules/.bin/bower install --allow-root
 	./node_modules/.bin/grunt
 %:
 	dh $@
