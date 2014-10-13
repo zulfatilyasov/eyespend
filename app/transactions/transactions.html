@@ -14,22 +14,22 @@
                                 <div style="float: right" class="col-md-3 table-icons">
                                     <span class="tableAction hidden-phone-landscape">
                                         <a href="javascript:void(0)" ng-click="vm.downloadExcel()" class="download-excel-icon" title="{{'DOWNLOAD'|translate}}">
-                                            <img src="../img/excel-icon-2.png" alt="">
+                                            <img src="../img/icon_excel.png" alt="">
                                         </a>
                                     </span>
                                     <span class="tableAction">
                                         <a href="javascript:void(0)" class="filter-icon" ng-class="{active:vm.isFiltering}" ng-click="vm.toggleFiltering()">
-                                            <img src="../img/filter-icon.png" height="25" width="23" alt="">
+                                            <img src="../img/filter-brown.png" height="25" width="23" alt="">
                                         </a>
                                     </span>
                                     <span class="tableAction hidden-xs">
                                         <a ng-click="vm.addNewTxn(true)" href="javascript:void(0)">
-                                            <img src="../img/plus-icon.png" alt="">
+                                            <img src="../img/icon_add.png" alt="">
                                         </a>
                                     </span>
                                     <span class="tableAction hidden-md hidden-lg hidden-sm">
                                         <a href="javascript:void(0)" ng-click="vm.addNewTxn(false)">
-                                            <img src="../img/plus-icon.png" alt="">
+                                            <img src="../img/icon_add.png" alt="">
                                         </a>
                                     </span>
                                 </div>
@@ -38,7 +38,7 @@
                         </header>
                         <div class="filters" ng-show="vm.isFiltering">
                             <div class="arrow-up">
-                                <img src="../img/green-pip.png" height="12" width="30" alt="">
+                                <img src="../img/shishka-brown.png" height="12" width="30" alt="">
                             </div>
                             <div class="row">
                                 <div class="col-md-5">
@@ -96,7 +96,7 @@
                                                 <tr ng-class="{selected:vm.selectedTnx.id === transaction.id}" ng-if="!(vm.editing && vm.selectedTnx.id === transaction.id) && !transaction.new" ng-dblclick="vm.editTransaction($index)" data-index="{{$index}}">
                                                     <td class="date-td">
                                                         <div class="pointer">
-                                                            <img src="../img/pointer.svg" alt="">
+                                                            <img src="../img/edited-expense-pointer.png"  alt="">
                                                         </div>
                                                         <div class="td-content">
                                                             <span class="fullDate">
@@ -131,7 +131,8 @@
                                                     <td class="map">
                                                         <div ng-if="transaction.latitude && transaction.longitude">
                                                             <a title="{{'SHOW_ON_MAP'|translate}}" href="javascript:void(0)">
-                                                                <img src="../img/map-icon.svg" class="showMap" alt="">
+                                                               <div class="chekin-icon showMap">
+                                                               </div>
                                                             </a>
                                                         </div>
                                                     </td>
@@ -167,7 +168,7 @@
                                                 <tr class="edited" data-index="{{$index}}" ng-enter="vm.saveTnx(transaction)" ng-if="(vm.selectedTnx.id === transaction.id && vm.editing) || transaction.new">
                                                     <td class="date-td">
                                                         <div class="pointer">
-                                                            <img src="../img/pointer.svg" alt="">
+                                                            <img src="../img/edited-expense-pointer.png" alt="">
                                                         </div>
                                                         <div class="td-content">
                                                             <input type="text" us-date-time-picker class="inlineInput transparentInput" ng-model="transaction.date" />
