@@ -7,6 +7,15 @@ module.exports = function(grunt) {
     //    }
 
     grunt.initConfig({
+        coffee: {
+            compile: {
+                expand: true,
+                flatten: true,
+                src: ['app/**/*.coffee', '!app/bower_components/**/*', '!app/lib/**/*'],
+                dest: 'app/js/',
+                ext: '.js'
+            }
+        },
         useminPrepare: {
             html: './dist/app.html',
             options: {
@@ -126,8 +135,10 @@ module.exports = function(grunt) {
             app: {
                 files: [
                     'app/**/*',
-                    '!app/bower_components/**/*'
+                    '!app/bower_components/**/*',
+                    '!app/js/*'
                 ],
+                tasks: ['coffee'],
                 options: {
                     interrupt: true,
                     livereload: true
@@ -145,6 +156,7 @@ module.exports = function(grunt) {
         }
     });
 
+    grunt.loadNpmTasks('grunt-contrib-coffee');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
@@ -159,7 +171,8 @@ module.exports = function(grunt) {
 
     grunt.registerTask('bust', ['cacheBust:app', 'cacheBust:landing']);
     grunt.registerTask('minify', ['useminPrepare', 'concat:generated', 'cssmin:generated', 'uglify:generated', 'usemin']);
-    grunt.registerTask('build', ['clean:dist', 'copy', 'minify', 'bust', 'clean:bower']);
+    grunt.registerTask('build', ['clean:dist', 'coffee', 'copy', 'minify', 'bust', 'clean:bower']);
+    // grunt.registerTask('coffee', ['coffee']);
 
     grunt.registerTask('start', ['run:stub', 'open:localhost', 'wait:stub']);
     grunt.registerTask('start:dist', ['run:stub-dist', 'open:localhost', 'wait:stub-dist']);

@@ -68,18 +68,22 @@
                                     <table class="table table-striped dataTable">
                                         <thead>
                                             <tr>
-                                                <th ng-class="vm.getSortingForColumn('timestamp')" ng-click="vm.changeSorting('timestamp')" id="timestamp" class="date-th" translate>
-                                                    DATE
+                                                <th ng-class="vm.getSortingForColumn('timestamp')" ng-click="vm.changeSorting('timestamp')" id="timestamp" class="date-th">
+                                                    <div class="th-title" translate>DATE
+                                                    </div>
+                                                    <div class="sort-icon"></div>
                                                 </th>
                                                 <th class="no-sort time-td" translate>
                                                     TIME
                                                 </th>
                                                 <th ng-class="vm.getSortingForColumn('amountInBaseCurrency')" ng-click="vm.changeSorting('amountInBaseCurrency')" id="amount">
-                                                    <span translate>AMOUNT</span>
+                                                    <div class="th-title" translate>AMOUNT</div>
+                                                    <div class="sort-icon"></div>
                                                 </th>
                                                 <th class="no-sort map" translate>ADDRESS</th>
-                                                <th ng-class="vm.getSortingForColumn('foto')" ng-click="vm.changeSorting('foto')" id="foto" translate>
-                                                    FOTO
+                                                <th ng-class="vm.getSortingForColumn('foto')" ng-click="vm.changeSorting('foto')" id="foto">
+                                                    <div class="th-title" translate>FOTO</div>
+                                                    <div class="sort-icon"></div>
                                                 </th>
                                                 <th class="tags-header">
                                                     <span class="tags-header">Теги</span>
@@ -96,7 +100,7 @@
                                                 <tr ng-class="{selected:vm.selectedTnx.id === transaction.id}" ng-if="!(vm.editing && vm.selectedTnx.id === transaction.id) && !transaction.new" ng-dblclick="vm.editTransaction($index)" data-index="{{$index}}">
                                                     <td class="date-td">
                                                         <div class="pointer">
-                                                            <img src="../img/edited-expense-pointer.png"  alt="">
+                                                            <img src="../img/edited-expense-pointer.png" alt="">
                                                         </div>
                                                         <div class="td-content">
                                                             <span class="fullDate">
@@ -131,14 +135,15 @@
                                                     <td class="map">
                                                         <div ng-if="transaction.latitude && transaction.longitude">
                                                             <a title="{{'SHOW_ON_MAP'|translate}}" href="javascript:void(0)">
-                                                               <div class="chekin-icon showMap">
-                                                               </div>
+                                                                <div class="chekin-icon showMap">
+                                                                </div>
                                                             </a>
                                                         </div>
                                                     </td>
                                                     <td class="foto-td">
                                                         <a href="javascript:void(0)" ng-if="transaction.imgUrl">
-                                                            <img src="../img/camera.png" class="showPicture" alt="">
+                                                            <div class="camera-icon showPicture">
+                                                            </div>
                                                         </a>
                                                     </td>
                                                     <td class="hidden-phone-landscape bootstrap tags-td">
@@ -193,7 +198,8 @@
                                                     </td>
                                                     <td class="foto-td">
                                                         <a href="javascript:void(0)" ng-if="transaction.imgUrl">
-                                                            <img src="../img/camera.png" class="showPicture" alt="">
+                                                            <div class="camera-icon showPicture">
+                                                            </div>
                                                         </a>
                                                     </td>
                                                     <td class="hidden-phone-landscape bootstrap tags-td">
@@ -223,7 +229,7 @@
                                             <tbody class="hidden-phone-landscape" ng-show="vm.trs.length > 0 && !vm.richedTheEnd">
                                                 <tr>
                                                     <td colspan="10" style="text-align: center" class="empty-td">
-                                                        <span us-spinner="{lines:15,color: '#fff', width:2, length:7, radius:7, hwaccel: true, speed:1.4}"></span>
+                                                        <span us-spinner="{lines:15,color: '#5a5a5a', width:2, length:7, radius:7, hwaccel: true, speed:1.4}"></span>
                                                     </td>
                                                 </tr>
                                             </tbody>

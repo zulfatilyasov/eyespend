@@ -22,8 +22,7 @@ body {
 a {
     color: #f8f8f8;
 }
-body.background-dark,
-.background {
+body.background-dark, .background {
     background: url(https://mac.github.com/images/bg.jpg) repeat-x center top #333;
     background-size: cover;
     background-attachment: fixed;
@@ -58,6 +57,7 @@ body.coffee:before {
     background: #000;
     background: url(https://s3.amazonaws.com/ooomf-com-files/fN6hZMWqRHuFET5YoApH_StBalmainCoffee.jpg);
     /*background-image: url(https://s3.amazonaws.com/ooomf-com-files/L3APwvISQ7i8XcFsQYwQ_IMG_1820.jpg);*/
+    
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center top;
@@ -205,18 +205,14 @@ body.background-chocolate {
 .big-chart .grid .tick {
     stroke: rgba(255, 255, 255, 0.2);
 }
-.y.axis path.domain,
-.grid path.domain {
+.y.axis path.domain, .grid path.domain {
     display: none;
 }
-.stats-datepicker,
-.date-slider,
-.stats-range {
+.stats-datepicker, .date-slider, .stats-range {
     display: inline-block;
     float: left;
 }
-.stats-range,
-.stats-datepicker {
+.stats-range, .stats-datepicker {
     padding-top: 3px;
 }
 .stats-range {
@@ -311,9 +307,7 @@ body.background-chocolate {
 .ui-rangeSlider {
     padding-top: 0;
 }
-.ui-rangeSlider-arrow,
-.ui-rangeSlider-noArrow .ui-rangeSlider-container,
-.ui-rangeSlider-withArrows .ui-rangeSlider-container {
+.ui-rangeSlider-arrow, .ui-rangeSlider-noArrow .ui-rangeSlider-container, .ui-rangeSlider-withArrows .ui-rangeSlider-container {
     height: 100%;
 }
 g.content {
@@ -328,10 +322,23 @@ g.content {
     background-color: inherit;
 }
 .settings-section h4 {
-    border-bottom: 1px solid;
     padding-bottom: 8px;
     font-size: 18px;
     font-weight: 400;
+    color: #5a5a5a;
+}
+.settings-section h4:after {
+    content: '';
+    display: block;
+    background: -webkit-linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 1) 49%, rgba(0, 0, 0, 0) 100%);
+    background: -moz-linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 1) 49%, rgba(0, 0, 0, 0) 100%);
+    background: -o-linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 1) 49%, rgba(0, 0, 0, 0) 100%);
+    background: -ms-linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 1) 49%, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 1) 49%, rgba(0, 0, 0, 0) 100%);
+    box-shadow: 0px 5px 10px 1px rgba(0, 0, 0, 0.07);
+    width: 100;
+    margin-top: 8px;
+    height: 1px;
 }
 .control-group {
     margin-top: 15px;
@@ -351,13 +358,10 @@ g.content {
 .formsWrapper {
     height: 180px;
 }
-.available,
-.daterangepicker .calendar th {
+.available, .daterangepicker .calendar th {
     color: #000;
 }
-input.invalid,
-input.ng-invalid-number,
-input.ng-invalid-required {
+input.invalid, input.ng-invalid-number, input.ng-invalid-required {
     border-color: rgb(255, 207, 0) !important;
     color: rgb(255, 207, 0) !important;
 }
@@ -384,6 +388,10 @@ input.ng-invalid-required {
 .logo.sidebar-icons {
     left: 0;
     padding-left: 0;
+    height: 37px;
+    width: 153px;
+    margin-top: 15px;
+    background: url(../img/logo.png);
 }
 #linkcode {
     padding: 5px 5%;
@@ -400,7 +408,7 @@ input.ng-invalid-required {
     line-height: 16px;
 }
 .settings-section p.opac {
-    color: #fff;
+    color: #5a5a5a;
 }
 h2 {
     font-style: normal;
@@ -457,12 +465,12 @@ input.styledInput {
     color: rgba(255, 255, 255, 0.7);
     -webkit-transition: all .2s;
     transition: all .2s;
-    border: 1px solid rgba(134, 136, 134, 0.15);
-    background: -webkit-linear-gradient(0deg, rgba(0, 0, 0, 0.06) 0, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.06) 100%);
-    background: -moz-linear-gradient(0deg, rgba(0, 0, 0, 0.06) 0, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.06) 100%);
-    background: -o-linear-gradient(0deg, rgba(0, 0, 0, 0.06) 0, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.06) 100%);
-    background: -ms-linear-gradient(0deg, rgba(0, 0, 0, 0.06) 0, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.06) 100%);
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.06) 0, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.06) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    background: -webkit-linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.001) 49%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.026500000000000003) 76%, rgba(0, 0, 0, 0.05) 100%);
+    background: -moz-linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.001) 49%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.026500000000000003) 76%, rgba(0, 0, 0, 0.05) 100%);
+    background: -o-linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.001) 49%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.026500000000000003) 76%, rgba(0, 0, 0, 0.05) 100%);
+    background: -ms-linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.001) 49%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.026500000000000003) 76%, rgba(0, 0, 0, 0.05) 100%);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.001) 49%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.026500000000000003) 76%, rgba(0, 0, 0, 0.05) 100%);
     background-color: rgba(0, 0, 0, 0.15);
     width: 300px;
     font-size: 14px;
@@ -504,6 +512,21 @@ input.transparentInput:focus {
 .bootstrap .tags {
     border: 1px solid #888;
 }
+.right-menu {
+    background: url(../img/menu-back.png);
+    padding-left: 17px;
+    position: relative;
+}
+.right-menu:after {
+    content: '';
+    display: block;
+    width: 108px;
+    height: 32px;
+    background: url(../img/menu-back-border.png);
+    z-index: -1;
+    position: absolute;
+    left: 0;
+}
 .menu:before {
     content: "[";
 }
@@ -524,8 +547,7 @@ input.transparentInput:focus {
 .map {
     text-align: center;
 }
-.map a,
-.foto-td a {
+.map a, .foto-td a {
     height: 40px;
     line-height: 40px;
 }
@@ -541,17 +563,7 @@ table.dataTable thead {
 table.dataTable thead th {
     color: #5a5a5a;
 }
-table.table thead .sorting_desc {
-    background: url(../img/arrow-down-black.png) no-repeat center right;
-}
-table.table thead .sorting_asc {
-    background: url(../img/arrow-down-black.png) no-repeat center right;
-}
-table.table thead .sorting {
-    background: url(../img/sortable-icon-black.png) no-repeat center right;
-}
-table.dataTable thead th,
-header.tableLabel h4 {
+table.dataTable thead th, header.tableLabel h4 {
     font-style: normal;
     font-weight: normal;
     height: 38px;
@@ -572,7 +584,6 @@ header.tableLabel h4 {
 }
 .logo.sidebar-icons {
     top: 0;
-    width: auto;
 }
 .searchByTags {
     display: inline-block;
@@ -596,12 +607,12 @@ header.tableLabel h4 {
 }
 .container {
     /*width: 83.333333% !important;*/
+    
     max-width: 1170px;
     padding-left: 2.5641%;
     padding-right: 2.5641%;
 }
-.host .tags,
-.searchBlock .host .tags {
+.host .tags, .searchBlock .host .tags {
     background: rgb(224, 224, 224) !important;
 }
 .inline-tags-input .tags {
@@ -615,8 +626,7 @@ header.tableLabel h4 {
     line-height: 30px;
     height: 30px;
 }
-tags-input.inline-tags-input .tags .input,
-tags-input.inline-tags-input .tags .input:focus {
+tags-input.inline-tags-input .tags .input, tags-input.inline-tags-input .tags .input:focus {
     height: 24px;
     color: #fff;
     line-height: 24px;
@@ -630,8 +640,7 @@ tags-input.inline-tags-input .tags .input:focus {
 tags-input .host {
     margin: 0;
 }
-tags-input .bootstrap .tags .tag-item,
-.bootstrap .tags .tag-item {
+tags-input .bootstrap .tags .tag-item, .bootstrap .tags .tag-item {
     display: inline-block;
     background: rgba(255, 255, 255, 0.2);
     border-color: rgba(255, 255, 255, 0.2);
@@ -701,28 +710,29 @@ tags-input .tags.focused {
     color: rgba(255, 255, 255, 0.6);
 }
 .styledInput::-webkit-input-placeholder {
-    font: 16px/26px Helvetica Neue, Arial;
+    font: 14px/26px Helvetica Neue, Arial;
     letter-spacing: 0.7px;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.7);
 }
 .styledInput:-moz-placeholder {
-    color: rgba(255, 255, 255, 0.5);
-    font: 16px/26px Helvetica Neue, Arial;
+    color: rgba(255, 255, 255, 0.7);
+    font: 14px/26px Helvetica Neue, Arial;
     letter-spacing: 0.7px;
 }
 .styledInput:-ms-input-placeholder {
-    font: 16px/26px Helvetica Neue, Arial;
+    font: 14px/26px Helvetica Neue, Arial;
     letter-spacing: 0.7px;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.7);
     font-weight: 300;
 }
 .styledInput::-moz-placeholder {
-    font: 16px/26px Helvetica Neue, Arial;
+    font: 14px/26px Helvetica Neue, Arial;
     letter-spacing: 0.7px;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.7);
 }
 .searchBlock .host .tags {
     /*background: url(../img/search-white.png) no-repeat center right rgba(51, 51, 51, 0.4);*/
+    
     background: rgba(51, 51, 51, 0.4);
 }
 .host .tags {
@@ -737,8 +747,7 @@ label {
     font-style: normal;
     font-size: 16px;
 }
-.inputHost input,
-textarea {
+.inputHost input, textarea {
     min-height: 0;
     padding: 4px 14px;
     -webkit-transition: width 0.2s;
@@ -750,8 +759,7 @@ ul.rowActions {
     opacity: 0;
     float: right;
 }
-.newTransactionRow ul.rowActions,
-.edited .rowActions {
+.newTransactionRow ul.rowActions, .edited .rowActions {
     opacity: 1;
 }
 .rowActions a {
@@ -900,8 +908,7 @@ div.tags {
     margin-left: -20px;
     display: none;
 }
-.stats-header select,
-.stats-header datepicker {
+.stats-header select, .stats-header datepicker {
     float: right;
 }
 .minichart {
@@ -999,17 +1006,14 @@ div.tags {
     animation: fadeOutDown 0.3s;
     display: block !important;
 }
-a.ng-hide-add,
-button.ng-hide-add {
+a.ng-hide-add, button.ng-hide-add {
     display: none !important;
 }
-.pop-menu,
-#ranges-menu {
+.pop-menu, #ranges-menu {
     display: block;
     border-radius: 5px;
 }
-.transactionForm,
-.filterForm {
+.transactionForm, .filterForm {
     -webkit-transition-property: opacity;
     transition-property: opacity;
     -webkit-transition-duration: 0.3s;
@@ -1055,16 +1059,14 @@ tags-input .tags .input {
 .dark-grey {
     background-color: #797676;
 }
-.table-striped tbody td,
-.table-hover tbody tr:hover > td,
-.table-hover tbody tr:hover > th,
-.table-striped tbody > tr:nth-child(odd) > td {
+.table-striped tbody td, .table-hover tbody tr:hover > td, .table-hover tbody tr:hover > th, .table-striped tbody > tr:nth-child(odd) > td {
     background: -webkit-linear-gradient(0deg, rgba(0, 0, 0, 0.06) 0, rgba(79, 79, 79, 0.06) 21%, rgba(79, 79, 79, 0) 70%, rgba(255, 255, 255, .02) 70%, rgba(79, 79, 79, 0.06) 99%, rgba(0, 0, 0, 0.06) 100%);
     background: -moz-linear-gradient(0deg, rgba(0, 0, 0, 0.06) 0, rgba(79, 79, 79, 0.06) 21%, rgba(79, 79, 79, 0) 70%, rgba(255, 255, 255, .02) 70%, rgba(79, 79, 79, 0.06) 99%, rgba(0, 0, 0, 0.06) 100%);
     background: -o-linear-gradient(0deg, rgba(0, 0, 0, 0.06) 0, rgba(79, 79, 79, 0.06) 21%, rgba(79, 79, 79, 0) 70%, rgba(255, 255, 255, .02) 70%, rgba(79, 79, 79, 0.06) 99%, rgba(0, 0, 0, 0.06) 100%);
     background: -ms-linear-gradient(0deg, rgba(0, 0, 0, 0.06) 0, rgba(79, 79, 79, 0.06) 21%, rgba(79, 79, 79, 0) 70%, rgba(255, 255, 255, .02) 70%, rgba(79, 79, 79, 0.06) 99%, rgba(0, 0, 0, 0.06) 100%);
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.06) 0, rgba(79, 79, 79, 0.06) 21%, rgba(79, 79, 79, 0) 70%, rgba(255, 255, 255, .02) 70%, rgba(79, 79, 79, 0.06) 99%, rgba(0, 0, 0, 0.06) 100%);
     /*    background-color: rgba(255, 255, 255, 0.15);*/
+    
     background-color: rgba(255, 255, 255, 0.7);
     box-shadow: 0px 4px 0px 0px rgba(0, 0, 0, 0.05);
     border-top: 1px solid #fff;
@@ -1076,17 +1078,14 @@ tags-input .tags .input {
 .table-striped tbody td:first-child {
     border-left: 1px solid #fff;
 }
-.table-striped tbody tr.edited td,
-.table-striped tbody tr.selected td {
+.table-striped tbody tr.edited td, .table-striped tbody tr.selected td {
     border-top: 1px solid rgba(255, 255, 255, 0.25);
     border-bottom: 1px solid rgba(255, 255, 255, 0.25);
 }
-.table-striped tbody tr.edited td:last-child,
-.table-striped tbody tr.selected td:last-child {
+.table-striped tbody tr.edited td:last-child, .table-striped tbody tr.selected td:last-child {
     border-right: 1px solid rgba(255, 255, 255, 0.25);
 }
-.table-striped tbody tr.edited td:first-child,
-.table-striped tbody tr.selected td:first-child {
+.table-striped tbody tr.edited td:first-child, .table-striped tbody tr.selected td:first-child {
     border-left: 0px solid rgba(255, 255, 255, 0.25);
 }
 #transactions-table td span {
@@ -1100,11 +1099,7 @@ tags-input .tags .input {
 td.transactionAmount {
     min-width: 85px;
 }
-.daterangepicker,
-.daterangepicker .ranges li,
-.daterangepicker td,
-.daterangepicker .calendar-date,
-.daterangepicker .ranges .input-mini {
+.daterangepicker, .daterangepicker .ranges li, .daterangepicker td, .daterangepicker .calendar-date, .daterangepicker .ranges .input-mini {
     -webkit-border-radius: 0px;
     border-radius: 0px;
 }
@@ -1154,12 +1149,10 @@ datepicker {
     background-color: rgba(255, 255, 255, 0.85) !important;
     cursor: pointer;
 }
-tr.selected.edited td,
-tr.edited:hover td {
+tr.selected.edited td, tr.edited:hover td {
     background-color: inherit !important;
 }
-.newTransactionRow span.dashed-bottom,
-.edited span.dashed-bottom {
+.newTransactionRow span.dashed-bottom, .edited span.dashed-bottom {
     height: 38px;
     line-height: 38px;
 }
@@ -1187,6 +1180,7 @@ tr.edited .pointer {
 }
 #transactions-table tr.edited td {
     background-color: rgba(219, 124, 61, 0.7) !important;
+    height: 43px;
 }
 #transactions-table tr.edited td {
     overflow: initial;
@@ -1255,8 +1249,7 @@ div[ng-view].ng-leave {
     height: 28px;
     margin-bottom: 5px;
 }
-.earth-icon,
-.sign-out-icon {
+.earth-icon, .sign-out-icon {
     margin-top: 25px;
 }
 .content {
@@ -1331,8 +1324,7 @@ div[ng-view].ng-leave {
 .widgetWrapper {
     position: relative;
 }
-.widget,
-.widgetOverlay {
+.widget, .widgetOverlay {
     box-shadow: 0 0 10px 0 #2E2E2E;
     margin-bottom: 0;
     width: 1064px;
@@ -1350,8 +1342,7 @@ div[ng-view].ng-leave {
     background: rgba(0, 0, 0, 0.3);
     z-index: 100;
 }
-.daterangepicker.opensright::after,
-.daterangepicker.opensright::before {
+.daterangepicker.opensright::after, .daterangepicker.opensright::before {
     left: 24px;
 }
 .btn-success {
@@ -1360,8 +1351,7 @@ div[ng-view].ng-leave {
 .btn-success:hover {
     background-color: rgba(103, 188, 145, 1);
 }
-.dropdown-menu,
-.daterangepicker .calendar-date {
+.dropdown-menu, .daterangepicker .calendar-date {
     background-color: rgba(255, 255, 255, 0.9);
 }
 .daterangepicker td {
@@ -1375,8 +1365,7 @@ div[ng-view].ng-leave {
     margin-top: 8px;
     margin-left: -25px;
 }
-.xdsoft_datetimepicker .xdsoft_calendar td,
-.xdsoft_datetimepicker .xdsoft_calendar th {
+.xdsoft_datetimepicker .xdsoft_calendar td, .xdsoft_datetimepicker .xdsoft_calendar th {
     background: rgba(245, 245, 245, 0.8);
 }
 .xdsoft_datetimepicker .xdsoft_label {
@@ -1385,13 +1374,11 @@ div[ng-view].ng-leave {
 .daterangepicker .ranges li {
     font-size: 14px;
 }
-.daterangepicker .ranges li.active,
-.daterangepicker .ranges li:hover {
+.daterangepicker .ranges li.active, .daterangepicker .ranges li:hover {
     background: #54747b;
     border: 1px solid #54747b;
 }
-.daterangepicker td.active,
-.daterangepicker td.active:hover {
+.daterangepicker td.active, .daterangepicker td.active:hover {
     background: #54747b;
     border: 1px solid #54747b;
 }
@@ -1406,31 +1393,17 @@ div[ng-view].ng-leave {
 .range_inputs .cancelBtn:hover {
     background: rgba(84, 116, 123, 1);
 }
-.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box > div > div,
-.xdsoft_datetimepicker .xdsoft_calendar td,
-.xdsoft_datetimepicker .xdsoft_calendar th,
-.xdsoft_datetimepicker,
-.daterangepicker .ranges li,
-.available,
-.daterangepicker .calendar th,
-.daterangepicker .daterangepicker_end_input label,
-.daterangepicker .daterangepicker_start_input label {
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box > div > div, .xdsoft_datetimepicker .xdsoft_calendar td, .xdsoft_datetimepicker .xdsoft_calendar th, .xdsoft_datetimepicker, .daterangepicker .ranges li, .available, .daterangepicker .calendar th, .daterangepicker .daterangepicker_end_input label, .daterangepicker .daterangepicker_start_input label {
     color: #54747b;
 }
-.daterangepicker td.available:hover,
-.daterangepicker th.available:hover {
+.daterangepicker td.available:hover, .daterangepicker th.available:hover {
     background: rgba(84, 116, 123, 0.2);
 }
-.xdsoft_datetimepicker .xdsoft_label > .xdsoft_select > div > .xdsoft_option.xdsoft_current,
-.xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_current,
-.xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_default,
-.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box > div > div.xdsoft_current {
+.xdsoft_datetimepicker .xdsoft_label > .xdsoft_select > div > .xdsoft_option.xdsoft_current, .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_current, .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_default, .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box > div > div.xdsoft_current {
     background: #54747b;
     box-shadow: none;
 }
-.xdsoft_datetimepicker .xdsoft_label > .xdsoft_select > div > .xdsoft_option:hover,
-.xdsoft_datetimepicker .xdsoft_calendar td:hover,
-.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box > div > div:hover {
+.xdsoft_datetimepicker .xdsoft_label > .xdsoft_select > div > .xdsoft_option:hover, .xdsoft_datetimepicker .xdsoft_calendar td:hover, .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box > div > div:hover {
     background: rgba(84, 116, 123, .2) !important;
     color: #54747b !important;
 }
@@ -1549,8 +1522,7 @@ div[ng-view].ng-leave {
     margin-left: auto;
     margin-right: auto;
 }
-.main-menu a:hover,
-.main-menu a:hover span {
+.main-menu a:hover, .main-menu a:hover span {
     text-decoration: none;
 }
 .transaction-tags {
@@ -1561,8 +1533,7 @@ div[ng-view].ng-leave {
     list-style: none;
     margin-top: 5px;
 }
-.transaction-tags li,
-.transaction-tags a {
+.transaction-tags li, .transaction-tags a {
     float: left;
     height: 30px;
     line-height: 30px;
@@ -1594,8 +1565,7 @@ div[ng-view].ng-leave {
     border-style: solid;
     border-width: 15px 13px 15px 0;
 }
-.transaction-tags a,
-.beforeTag {
+.transaction-tags a, .beforeTag {
     -webkit-transition: all 0.5s;
     -o-transition: all 0.5s;
     transition: all 0.5s;
@@ -1641,9 +1611,9 @@ div[ng-view].ng-leave {
 .pointer img {
     height: 40px;
 }
-#transactions-table tr td.date-td,
-#transactions-table tr th.date-th {
+#transactions-table tr td.date-td, #transactions-table tr th.date-th {
     /*width: auto;*/
+    
     padding-left: 24px;
 }
 #transactions-table tr td.date-td {
@@ -1745,8 +1715,7 @@ div[ng-view].ng-leave {
 .slider .tooltip-inner {
     white-space: nowrap;
 }
-.rangemin,
-.rangemax {
+.rangemin, .rangemax {
     width: 50px;
     display: inline-block;
     text-align: center;
@@ -1830,8 +1799,7 @@ div[ng-view].ng-leave {
     transition: background-color 0.2s, border-color 0.2s, color 0.2s;
     quotes: "\00ab""\00bb";
 }
-q:hover,
-a.nl-field-toggle:hover {
+q:hover, a.nl-field-toggle:hover {
     color: #56BC76;
     border-color: #56BC76;
 }
@@ -1895,19 +1863,21 @@ a.nl-field-toggle:hover {
     position: relative;
     color: #5a5a5a;
 }
-.settings .widget:before {
+/*.settings .widget:before {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(255, 255, 255, 0.7);
 }
+*/
+
 .settings .widget {
-    background: -webkit-linear-gradient(0deg, rgba(80, 166, 189, 0.06) 0, rgba(255, 255, 255, 0) 72%, rgba(0, 0, 0, 0.06) 99%, rgba(0, 0, 0, 0.06) 100%);
-    background: -moz-linear-gradient(0deg, rgba(80, 166, 189, 0.06) 0, rgba(255, 255, 255, 0) 72%, rgba(0, 0, 0, 0.06) 99%, rgba(0, 0, 0, 0.06) 100%);
-    background: -o-linear-gradient(0deg, rgba(80, 166, 189, 0.06) 0, rgba(255, 255, 255, 0) 72%, rgba(0, 0, 0, 0.06) 99%, rgba(0, 0, 0, 0.06) 100%);
-    background: -ms-linear-gradient(0deg, rgba(80, 166, 189, 0.06) 0, rgba(255, 255, 255, 0) 72%, rgba(0, 0, 0, 0.06) 99%, rgba(0, 0, 0, 0.06) 100%);
-    background: linear-gradient(0deg, rgba(80, 166, 189, 0.06) 0, rgba(255, 255, 255, 0) 72%, rgba(0, 0, 0, 0.06) 99%, rgba(0, 0, 0, 0.06) 100%);
-    background-color: rgba(255, 255, 255, 0.15);
+    background: -webkit-linear-gradient(90deg, rgba(80, 166, 189, 0.06) 0%, rgba(255, 255, 255, 0) 72%, rgba(0, 0, 0, 0.058199999999999995) 99%, rgba(0, 0, 0, 0.06) 100%);
+    background: -moz-linear-gradient(90deg, rgba(80, 166, 189, 0.06) 0%, rgba(255, 255, 255, 0) 72%, rgba(0, 0, 0, 0.058199999999999995) 99%, rgba(0, 0, 0, 0.06) 100%);
+    background: -o-linear-gradient(90deg, rgba(80, 166, 189, 0.06) 0%, rgba(255, 255, 255, 0) 72%, rgba(0, 0, 0, 0.058199999999999995) 99%, rgba(0, 0, 0, 0.06) 100%);
+    background: -ms-linear-gradient(90deg, rgba(80, 166, 189, 0.06) 0%, rgba(255, 255, 255, 0) 72%, rgba(0, 0, 0, 0.058199999999999995) 99%, rgba(0, 0, 0, 0.06) 100%);
+    background: linear-gradient(0deg, rgba(80, 166, 189, 0.06) 0%, rgba(255, 255, 255, 0) 72%, rgba(0, 0, 0, 0.058199999999999995) 99%, rgba(0, 0, 0, 0.06) 100%);
+    background-color: rgba(255, 255, 255, 0.7);
 }
 .stats .widget {
     background: -webkit-linear-gradient(90deg, rgba(80, 166, 189, 0.06) 0%, rgba(255, 255, 255, 0) 72%, rgba(0, 0, 0, 0.058199999999999995) 99%, rgba(0, 0, 0, 0.06) 100%);
@@ -1921,11 +1891,13 @@ a.nl-field-toggle:hover {
     height: 60px;
     margin-top: 10px;
     position: relative;
+    color: #fff;
+    max-width: 152px;
 }
 .link-code {
     position: absolute;
     top: 11px;
-    left: 38px;
+    left: 41px;
 }
 .widget-content {
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -1958,7 +1930,7 @@ table.dataTable {
 }
 .settings-section label {
     display: block;
-    color: #fff;
+    color: #5a5a5a;
     font-size: 16px;
     font-weight: normal;
 }
@@ -1966,11 +1938,12 @@ table.dataTable {
     border-radius: 6px;
     width: 163px;
     height: 35px;
-    border: 1px solid #fff;
-    background: transparent;
-    -webkit-transition: all 0.5s;
-    -o-transition: all 0.5s;
-    transition: all 0.5s;
+    border: none;
+    background: #5a5a5a;
+    -webkit-transition: all 0.25s;
+    -o-transition: all 0.25s;
+    transition: all 0.25s;
+    color: #fff;
 }
 .settings button:focus {
     outline: none;
@@ -1979,7 +1952,7 @@ table.dataTable {
     border: #67BC91;
     background: #67BC91;
 }
-td.map div{
+td.map div, td.foto-td {
     position: relative;
 }
 .chekin-icon {
@@ -1991,8 +1964,8 @@ td.map div{
     position: absolute;
     top: 6px;
 }
-tr.selected .chekin-icon{
-     background: url("../img/icon_chekin_white.png");
+tr.selected .chekin-icon {
+    background: url("../img/icon_chekin_white.png");
 }
 @media (min-width: 992px) {
     .container {
@@ -2029,28 +2002,22 @@ tr.selected .chekin-icon{
     outline: 1px solid #fff;
     margin-left: 1px;
 }
-#transactions-table td:nth-child(1),
-#transactions-table th:nth-child(1) {
+#transactions-table td:nth-child(1), #transactions-table th:nth-child(1) {
     min-width: 180px;
 }
-#transactions-table td:nth-child(2),
-#transactions-table th:nth-child(2) {
+#transactions-table td:nth-child(2), #transactions-table th:nth-child(2) {
     min-width: 85px;
 }
-#transactions-table td:nth-child(3),
-#transactions-table th:nth-child(3) {
+#transactions-table td:nth-child(3), #transactions-table th:nth-child(3) {
     min-width: 75px;
 }
-#transactions-table td:nth-child(4),
-#transactions-table th:nth-child(4) {
+#transactions-table td:nth-child(4), #transactions-table th:nth-child(4) {
     min-width: 65px;
 }
-#transactions-table td:nth-child(5),
-#transactions-table th:nth-child(5) {
+#transactions-table td:nth-child(5), #transactions-table th:nth-child(5) {
     min-width: 65px;
 }
-#transactions-table td:nth-child(6),
-#transactions-table th:nth-child(6) {
+#transactions-table td:nth-child(6), #transactions-table th:nth-child(6) {
     width: 480px;
     overflow: hidden;
 }
@@ -2058,7 +2025,12 @@ tr.selected .chekin-icon{
     width: 80px;
 }
 #transactions-table th:nth-child(7) {
-    width: 111px;
+    width: 84px;
+}
+@-moz-document url-prefix() {
+    #transactions-table th: nth-child(7) {
+        width: 100px
+    }
 }
 .tags-header {
     padding-left: 25px;
@@ -2077,8 +2049,7 @@ tr.selected .chekin-icon{
     -o-transition: opacity 0.3s;
     transition: opacity 0.3s;
 }
-.filter-icon:hover path,
-.filter-icon.active path {
+.filter-icon:hover path, .filter-icon.active path {
     opacity: 1;
 }
 .filter-icon.active path {
@@ -2185,8 +2156,7 @@ tr.selected .chekin-icon{
     }
 }
 @media (max-width: 1120px) {
-    #transactions-table td:nth-child(6),
-    #transactions-table th:nth-child(6) {
+    #transactions-table td:nth-child(6), #transactions-table th:nth-child(6) {
         max-width: 360px;
     }
     .widget {
@@ -2215,21 +2185,17 @@ tr.selected .chekin-icon{
     #transactions-table th:nth-child(7) {
         width: 94px;
     }
-    tbody[ng-repeat].ng-enter,
-    tbody[ng-repeat].ng-leave {
+    tbody[ng-repeat].ng-enter, tbody[ng-repeat].ng-leave {
         -webkit-animation: none;
         animation: none;
     }
-    body.background-dark,
-    body.background-ocean {
+    body.background-dark, body.background-ocean {
         background: #8BA7C2;
     }
-    [data-tooltip]:after,
-    [data-tooltip]:before {
+    [data-tooltip]:after, [data-tooltip]:before {
         display: none;
     }
-    .background,
-    body.background-blue {
+    .background, body.background-blue {
         background: rgb(38, 109, 175);
     }
     #transactions-table tr.striped:hover td {
@@ -2238,8 +2204,7 @@ tr.selected .chekin-icon{
     #transactions-table tr.striped.selected:hover td {
         background-color: inherit !important;
     }
-    #transactions-table td:nth-child(6),
-    #transactions-table th:nth-child(6) {
+    #transactions-table td:nth-child(6), #transactions-table th:nth-child(6) {
         max-width: 260px;
     }
     .widget {
@@ -2253,11 +2218,11 @@ tr.selected .chekin-icon{
     /*.container {*/
     /*width: auto;*/
     /*}*/
+    
     .widget {
         width: 680px;
     }
-    #transactions-table td:nth-child(6),
-    #transactions-table th:nth-child(6) {
+    #transactions-table td:nth-child(6), #transactions-table th:nth-child(6) {
         width: 140px;
     }
     #transactions-table th:nth-child(7) {
@@ -2332,13 +2297,11 @@ tr.selected .chekin-icon{
     .table-icons img {
         opacity: 1;
     }
-    #transactions-table td:nth-child(1),
-    #transactions-table th:nth-child(1) {
+    #transactions-table td:nth-child(1), #transactions-table th:nth-child(1) {
         width: 100px;
         min-width: 100px;
     }
-    tags-input.inline-tags-input .tags .input,
-    tags-input.inline-tags-input .tags .input:focus {
+    tags-input.inline-tags-input .tags .input, tags-input.inline-tags-input .tags .input:focus {
         margin-left: 20px;
     }
     .fullDate {
@@ -2357,8 +2320,7 @@ tr.selected .chekin-icon{
         font-size: 18px;
         margin-left: 14px;
     }
-    #transactions-table thead,
-    #transactions-table .table-body {
+    #transactions-table thead, #transactions-table .table-body {
         display: table;
         max-height: inherit;
         overflow: auto;
@@ -2366,19 +2328,13 @@ tr.selected .chekin-icon{
     .widget {
         width: 400px;
     }
-    .tags-header,
-    .tags-td {
+    .tags-header, .tags-td {
         display: none;
     }
     #transactions-table th:nth-child(7) {
         width: 93px;
     }
-    #transactions-table td:nth-child(5),
-    #transactions-table th:nth-child(5),
-    #transactions-table td:nth-child(4),
-    #transactions-table th:nth-child(4),
-    #transactions-table td:nth-child(3),
-    #transactions-table th:nth-child(3) {
+    #transactions-table td:nth-child(5), #transactions-table th:nth-child(5), #transactions-table td:nth-child(4), #transactions-table th:nth-child(4), #transactions-table td:nth-child(3), #transactions-table th:nth-child(3) {
         min-width: 71px;
     }
     .download-excel-icon {
@@ -2491,15 +2447,13 @@ tr.selected .chekin-icon{
     .page {
         position: static;
     }
-    .rangemax,
-    .rangemin {
+    .rangemax, .rangemin {
         width: 30px;
     }
     #totalAmount {
         display: none;
     }
-    .tags-td,
-    .tags-th {
+    .tags-td, .tags-th {
         display: none;
     }
     .widget.transactions-widget {
@@ -2542,42 +2496,33 @@ tr.selected .chekin-icon{
         padding-right: 0;
         width: 100%;
     }
-    #transactions-table thead,
-    #transactions-table .table-body {
+    #transactions-table thead, #transactions-table .table-body {
         display: table;
         max-height: inherit;
         overflow: auto;
     }
-    #transactions-table td:nth-child(1),
-    #transactions-table th:nth-child(1) {
+    #transactions-table td:nth-child(1), #transactions-table th:nth-child(1) {
         min-width: initial;
     }
-    #transactions-table td:nth-child(2),
-    #transactions-table th:nth-child(2) {
+    #transactions-table td:nth-child(2), #transactions-table th:nth-child(2) {
         min-width: initial;
     }
-    #transactions-table td:nth-child(3),
-    #transactions-table th:nth-child(3) {
+    #transactions-table td:nth-child(3), #transactions-table th:nth-child(3) {
         min-width: initial;
     }
-    #transactions-table td:nth-child(4),
-    #transactions-table th:nth-child(4) {
+    #transactions-table td:nth-child(4), #transactions-table th:nth-child(4) {
         min-width: initial;
     }
-    #transactions-table td:nth-child(5),
-    #transactions-table th:nth-child(5) {
+    #transactions-table td:nth-child(5), #transactions-table th:nth-child(5) {
         min-width: initial;
     }
-    #transactions-table td:nth-child(6),
-    #transactions-table th:nth-child(6) {
+    #transactions-table td:nth-child(6), #transactions-table th:nth-child(6) {
         min-width: initial;
     }
-    #transactions-table tr td.date-td,
-    #transactions-table tr th.date-th {
+    #transactions-table tr td.date-td, #transactions-table tr th.date-th {
         padding-left: 10px;
     }
-    #transactions-table tr td.date-td,
-    #transactions-table tr th.date-th {
+    #transactions-table tr td.date-td, #transactions-table tr th.date-th {
         width: 70px;
     }
     .time-td {
@@ -2595,8 +2540,7 @@ tr.selected .chekin-icon{
     .transaction-tags a:after {
         background: #fff;
     }
-    .bootstrap .tags .tag-item,
-    tags-input .bootstrap .tags .tag-item {
+    .bootstrap .tags .tag-item, tags-input .bootstrap .tags .tag-item {
         background: rgba(72, 72, 72, 0.2);
     }
     .tags-header {
@@ -2640,8 +2584,7 @@ tr.selected .chekin-icon{
 .messages {
     background-color: rgba(0, 0, 0, 0.4);
 }
-.pop-menu,
-.page-header .navbar .pull-right > li > .dropdown-menu {
+.pop-menu, .page-header .navbar .pull-right > li > .dropdown-menu {
     min-width: inherit;
     padding: 0;
     margin: 0;
@@ -2655,12 +2598,10 @@ tr.selected .chekin-icon{
     width: 130px;
     height: 26px;
 }
-.pop-menu li > a:focus,
-.pop-menu li a:hover {
+.pop-menu li > a:focus, .pop-menu li a:hover {
     background-color: rgba(0, 0, 0, 0.3);
 }
-.page-header .navbar .nav > li > .pop-menu .pull-right:after,
-.page-header .navbar .pull-right > li > .pop-menu:after {
+.page-header .navbar .nav > li > .pop-menu .pull-right:after, .page-header .navbar .pull-right > li > .pop-menu:after {
     right: 56px;
 }
 /*.pop-menu li > a:focus, .pop-menu li > a:hover {
@@ -2706,4 +2647,51 @@ tr.selected .chekin-icon{
 }
 .dropdown-menu > li > a.current {
     color: #fff;
+}
+.camera-icon {
+    background: url(../img/camera.png);
+    height: 21px;
+    width: 27px;
+    position: absolute;
+    top: 10px;
+}
+tr.selected .camera-icon, tr.edited .camera-icon {
+    background: url(../img/icon_fotki_white.png);
+}
+.th-title {
+    display: inline-block;
+}
+.sort-icon {
+    height: 20px;
+    width: 8px;
+    display: inline-block;
+    margin-left: 10px;
+    line-height: 17px;
+    position: relative;
+    top: 5px;
+}
+.data-table th {
+    position: relative;
+}
+table.table thead .sorting_desc {
+    background: none;
+}
+table.table thead .sorting_asc {
+    background: none;
+}
+table.table thead .sorting {
+    background: none;
+}
+table.table thead .sorting_desc .sort-icon {
+    background: url(../img/arrow-down-black.png) no-repeat center;
+}
+table.table thead .sorting_asc .sort-icon {
+    background: url(../img/icon_up_grey.png) no-repeat center;
+}
+table.table thead .sorting .sort-icon {
+    background: url(../img/sortable-icon-black.png) no-repeat center;
+}
+.navbar-nav {
+    width: 108px;
+    height: 31px;
 }
