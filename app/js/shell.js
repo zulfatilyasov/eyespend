@@ -33,6 +33,7 @@
         config.local = lang;
         cookie.set('lang', lang);
         $translate.use(lang);
+        wer.rui();
         if (lang === 'ru') {
           moment.locale(lang);
         } else {
