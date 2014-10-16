@@ -1,9 +1,18 @@
+class @BaseCtrl
+    constructor: (@common)->
+    
+    activate: (promises, controllerId)->
+        return common.activateController promises, controllerId
+    
+    
+
 controllerId = 'shell'
 angular
     .module 'app'
     .controller(controllerId, ['common', 'debounce', '$rootScope', 'tmhDynamicLocale', 'config', 'login', '$translate', 'cookie',
-        class ShellCtrl
+        class ShellCtrl extends BaseCtrl
             constructor: (common, debounce, $rootScope, tmhDynamicLocale, config, login, $translate, @cookie) ->
+                super common
                 @logout = login.logout
                 @langsOpen = false
                 @activePage = 'expenses'
@@ -13,12 +22,12 @@ angular
                 $rootScope.lang = config.local
                 tmhDynamicLocale.set config.local
 
-                activate = ->
-                    promises = []
-                    common
-                        .activateController promises, controllerId
-                        .then ->
-                            $rootScope.lang = config.local
+                # activate = ->
+                #     promises = []
+                #     common
+                #         .activateController promises, controllerId
+                #         .then ->
+                #             $rootScope.lang = config.local
 
                 $rootScope.closeImageOverlay = ->
                     $rootScope.showImage = false
@@ -36,7 +45,7 @@ angular
                 $rootScope.$on events.spinnerToggle, (event, data) ->
                     toggleSpinner on 
          
-                activate()
+                @activate()
 
                 @togglePopover = ->
                     @langsOpen = !@langsOpen

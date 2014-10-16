@@ -217,9 +217,14 @@ body.background-chocolate {
 .x.axis text {
     font-size: 14px;
 }
-.dotGroup circle {
+.dotGroup circle.dot {
     fill: #67bc91 !important;
-    stroke: #67bc91 !important;
+    stroke: #fff !important;
+}
+.dotGroup circle.dot-wrap {
+    fill: transparent;
+    stroke: rgba(103, 188, 145, 0.4);
+    stroke-width: 3px;
 }
 .stats-datepicker, .date-slider, .stats-range {
     display: inline-block;
@@ -261,27 +266,36 @@ body.background-chocolate {
     position: fixed;
     top: 50%;
     left: 50%;
-    background: rgba(103, 188, 144, 0.5);
+    background: -webkit-linear-gradient(90deg, #f8f0e5 0%, #f4f4f4 100%);
+    background: -moz-linear-gradient(90deg, #f8f0e5 0%, #f4f4f4 100%);
+    background: -o-linear-gradient(90deg, #f8f0e5 0%, #f4f4f4 100%);
+    background: -ms-linear-gradient(90deg, #f8f0e5 0%, #f4f4f4 100%);
+    background: linear-gradient(0deg, #f8f0e5 0%, #f4f4f4 100%);
+    color: #5a5a5a;
+    box-shadow: 0px 0px 7px 0.00px rgba(0, 0, 0, 0.06);
     padding: 5px 10px;
     border-radius: 3px;
+    border: 1px solid #fff;
+    font-size: 14px;
+    line-height: 20px;
     opacity: 0;
-    transition: visibility 0s linear 0.15s, opacity 0.15s linear, transform 0.15s linear;
-    webkit-transform: translateY(0px);
-    -moz-transform: translateY(0px);
-    -ms-transform: translateY(0px);
-    -o-transform: translateY(0px);
-    transform: translateY(0px);
+    transition: visibility 0s linear 0.15s, opacity 0.15s linear, transform 0.15s cubic-bezier(0.215, 0.61, 0.355, 1);
+    -webkit-transform: scale(0.5) translateY(0px);
+    -moz-transform: scale(0.5) translateY(0px);
+    -ms-transform: scale(0.5) translateY(0px);
+    -o-transform: scale(0.5) translateY(0px);
+    transform: scale(0.5) translateY(0px);
     visibility: hidden;
 }
 .stat-tip.active {
     visibility: visible;
     transition-delay: 0s;
     opacity: 1;
-    webkit-transform: translateY(-10px);
-    -moz-transform: translateY(-10px);
-    -ms-transform: translateY(-10px);
-    -o-transform: translateY(-10px);
-    transform: translateY(-10px);
+    -webkit-transform: scale(1) translateY(-10px);
+    -moz-transform: scale(1) translateY(-10px);
+    -ms-transform: scale(1) translateY(-10px);
+    -o-transform: scale(1) translateY(-10px);
+    transform: scale(1) translateY(-10px);
 }
 .tip-content {
     position: relative;
@@ -291,12 +305,12 @@ body.background-chocolate {
     position: absolute;
     width: 0;
     height: 0;
-    bottom: -10px;
+    bottom: -12px;
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: 7px 7px 0 7px;
-    border-color: rgba(103, 188, 144, 0.5) transparent transparent transparent;
+    border-width: 9px 9px 0 9px;
+    border-color: #F6EEE4 transparent transparent transparent;
     margin-left: -12px;
     left: 50%;
 }
@@ -2082,12 +2096,25 @@ tr.selected .chekin-icon {
 .stats-content {
     padding: 10px 24px;
 }
+.stats svg {
+    transform: translateZ(0);
+}
 .calendar-icon {
-    background: url(../img/calendar-black.png);
+    background: url(../img/calendar-icon.png);
     width: 16px;
     height: 18px;
     line-height: 0px;
     display: inline-block;
+}
+.stats .calendar-icon {
+    background: url(../img/calendar-black.png);
+}
+.areaGroup path {
+    background: -webkit-linear-gradient(90deg, rgba(136, 205, 231, 0.16) 0%, rgba(255, 255, 255, 0) 100%);
+    background: -moz-linear-gradient(90deg, rgba(136, 205, 231, 0.16) 0%, rgba(255, 255, 255, 0) 100%);
+    background: -o-linear-gradient(90deg, rgba(136, 205, 231, 0.16) 0%, rgba(255, 255, 255, 0) 100%);
+    background: -ms-linear-gradient(90deg, rgba(136, 205, 231, 0.16) 0%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(0deg, rgba(136, 205, 231, 0.16) 0%, rgba(255, 255, 255, 0) 100%);
 }
 .stats-icons img {
     height: 298;

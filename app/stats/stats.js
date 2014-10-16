@@ -176,7 +176,7 @@
                 $('.tip-amount').text(circleData.y);
                 $('.tip-date').text(intervalLabel);
                 $tip.css('top', $(this).offset().top - $tip.height() - 15);
-                $tip.css('left', $(this).offset().left - $tip.width() / 2 - 5);
+                $tip.css('left', $(this).offset().left - $tip.width() / 2);
                 $tip.addClass('active');
             });
             $('circle').mouseleave(function() {
