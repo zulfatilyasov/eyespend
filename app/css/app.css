@@ -198,15 +198,28 @@ body.background-chocolate {
 }
 .big-chart svg text {
     font-size: 18px;
+    fill: #5a5a5a;
 }
 .big-chart path.domain {
     stroke: rgba(255, 255, 255, 1) !important;
 }
 .big-chart .grid .tick {
-    stroke: rgba(255, 255, 255, 0.2);
+    stroke: rgba(0, 0, 0, 0.1);
+    stroke-width: 1px;
 }
 .y.axis path.domain, .grid path.domain {
     display: none;
+}
+.lineGroup path {
+    stroke: #fff !important;
+    stroke-width: 2px !important;
+}
+.x.axis text {
+    font-size: 14px;
+}
+.dotGroup circle {
+    fill: #67bc91 !important;
+    stroke: #67bc91 !important;
 }
 .stats-datepicker, .date-slider, .stats-range {
     display: inline-block;
@@ -222,6 +235,7 @@ body.background-chocolate {
 }
 .stats-range span {
     padding-right: 3px;
+    color: #5a5a5a;
 }
 .stats-datepicker {
     width: 25%;
@@ -800,6 +814,7 @@ div.tags {
     top: 70px;
     color: #eee;
     z-index: 100;
+    transform: translateZ(0);
 }
 .side-bar li {
     width: 150px;
@@ -1124,6 +1139,9 @@ datepicker {
     font-size: 16px;
     line-height: 25px;
     vertical-align: 7%;
+}
+.stats .caret {
+    color: #5a5a5a;
 }
 .caret {
     border-top: 8px solid;
@@ -1885,7 +1903,7 @@ q:hover, a.nl-field-toggle:hover {
     background: -o-linear-gradient(90deg, rgba(80, 166, 189, 0.06) 0%, rgba(255, 255, 255, 0) 72%, rgba(0, 0, 0, 0.058199999999999995) 99%, rgba(0, 0, 0, 0.06) 100%);
     background: -ms-linear-gradient(90deg, rgba(80, 166, 189, 0.06) 0%, rgba(255, 255, 255, 0) 72%, rgba(0, 0, 0, 0.058199999999999995) 99%, rgba(0, 0, 0, 0.06) 100%);
     background: linear-gradient(0deg, rgba(80, 166, 189, 0.06) 0%, rgba(255, 255, 255, 0) 72%, rgba(0, 0, 0, 0.058199999999999995) 99%, rgba(0, 0, 0, 0.06) 100%);
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(255, 255, 255, 0.7);
 }
 .link-code-container {
     height: 60px;
@@ -2065,7 +2083,7 @@ tr.selected .chekin-icon {
     padding: 10px 24px;
 }
 .calendar-icon {
-    background: url(../img/calendar-icon.png);
+    background: url(../img/calendar-black.png);
     width: 16px;
     height: 18px;
     line-height: 0px;
@@ -2085,6 +2103,7 @@ tr.selected .chekin-icon {
 }
 .stats datepicker span {
     margin-left: 5px;
+    color: #5a5a5a;
 }
 .stats .ui-rangeSlider-label {
     display: none !important;
@@ -2507,10 +2526,8 @@ tr.selected .chekin-icon {
     #transactions-table td:nth-child(2), #transactions-table th:nth-child(2) {
         min-width: initial;
     }
-    #transactions-table td:nth-child(3), #transactions-table th:nth-child(3) {
-        min-width: initial;
-    }
-    #transactions-table td:nth-child(4), #transactions-table th:nth-child(4) {
+    #transactions-table td:nth-child(3), #transactions-table th:nth-child(3) min-width: initial;
+    {} #transactions-table td:nth-child(4), #transactions-table th:nth-child(4) {
         min-width: initial;
     }
     #transactions-table td:nth-child(5), #transactions-table th:nth-child(5) {
