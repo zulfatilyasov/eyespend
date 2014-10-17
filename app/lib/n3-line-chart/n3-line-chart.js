@@ -142,7 +142,7 @@ mod.factory('n3utils', [
                 //     },
                 //     'fill-opacity': 0.3
                 // });
-                pattern.append('rect').style('fill-opacity', 0.3).attr('fill', '#EFE4A5').attr('width', 16).attr('height', 16);
+                pattern.append('rect').style('fill-opacity', 0.3).attr('fill', '#ecdf96').attr('width', 16).attr('height', 16);
                 pattern
                     .append('polygon')
                     .attr('fill', "#67BC91")
@@ -171,6 +171,33 @@ mod.factory('n3utils', [
                     y: this.createLeftAreaDrawer(scales, options.lineMode, options.tension),
                     y2: this.createRightAreaDrawer(scales, options.lineMode, options.tension)
                 };
+
+                svg.append("linearGradient")
+                    .attr("id", "temperature-gradient")
+                    .attr("gradientUnits", "userSpaceOnUse")
+                    .attr("x1", 0).attr("y1", '0%')
+                    .attr("x2", 0).attr("y2", '100%')
+                    .selectAll("stop")
+                    .data([{
+                        offset: "0%",
+                        opacity: '1',
+                        color: "green"
+                    }, {
+                        offset: "8%",
+                        opacity: '0',
+                        color: "white"
+                    }])
+                    .enter().append("stop")
+                    .attr("offset", function(d) {
+                        return d.offset;
+                    })
+                    .attr('stop-opacity', function(d) {
+                        return d.opacity;
+                    })
+                    .attr("stop-color", function(d) {
+                        return d.color;
+                    });
+
                 svg.select('.content').selectAll('.areaGroup').data(areaSeries).enter().append('g').attr('class', function(s) {
                     return 'areaGroup ' + 'series_' + s.index;
                 }).append('path').attr('class', 'area').style('fill', function(s) {
@@ -351,7 +378,10 @@ mod.factory('n3utils', [
                 }).selectAll('.dot').data(function(d) {
                     return d.values;
                 }).enter();
-                dgroup.append('circle')
+
+                var circleGroups = dgroup.append('g');
+
+                circleGroups.append('circle')
                     .attr({
                         'class': 'dot',
                         'r': function(d) {
@@ -366,12 +396,13 @@ mod.factory('n3utils', [
                             return axes[d.axis + 'Scale'](d.y + d.y0);
                         }
                     })
-                    .style({
-                        'stroke': 'white',
+                    .attr({
+                        'stroke': '#fff',
                         'stroke-width': '2px',
-                        'fill': 'white'
+                        'fill': '#67bc91'
                     });
-                dgroup.append('circle')
+
+                circleGroups.append('circle')
                     .attr({
                         'class': 'dot-wrap',
                         'r': function(d) {
@@ -385,7 +416,50 @@ mod.factory('n3utils', [
                         'cy': function(d) {
                             return axes[d.axis + 'Scale'](d.y + d.y0);
                         }
+                    })
+                    .attr({
+                        'fill': 'transparent',
+                        'stroke': 'rgba(103, 188, 145, 0.4)',
+                        'stroke-width': '3px'
                     });
+
+                circleGroups
+                    .on("mouseover", function() {
+                        var g = d3.select(this);
+                        g.selectAll('.dot')
+                            .attr({
+                                'fill': '#e09c25',
+                                'r': '7',
+                                'stroke-width': '3px'
+                            });
+                        g.selectAll('.dot-wrap')
+                            .attr({
+                                'r': '12',
+                                'stroke': 'rgba(224, 156, 37, 0.4)',
+                                'stroke-width': '5px',
+                            });
+                        // Un-sets the "explicit" fill (might need to be null instead of '')
+                        // should then accept fill from CSS
+                    })
+                    .on("mouseout", function() {
+                        var g = d3.select(this);
+                        g.selectAll('.dot')
+                            .attr({
+                                'stroke-width': '2px',
+                                'fill': '#67bc91',
+                                'r': '4'
+                            });
+                        g.selectAll('.dot-wrap')
+                            .attr({
+                                'stroke': 'rgba(103, 188, 145, 0.4)',
+                                'stroke-width': '3px',
+                                'r': '7'
+                            });
+                    });;
+
+                // .attr('onmouseover', "evt.target.setAttribute('r', '11')")
+                // .attr('onmouseout', "evt.target.setAttribute('r', '7')");
+
                 if (options.tooltip.mode !== 'none') {
                     dotGroup.on('mouseover', function(series) {
                         var target;
@@ -1182,7 +1256,7 @@ mod.factory('n3utils', [
                             .attr('id', 'grid-bg').attr('x1', '0%').attr('x2', '0%').attr('y1', '0%').attr('y2', '100%');
 
                         gradient.append('stop').attr('offset', '0%').attr('style', 'stop-color:rgb(255, 255, 255);stop-opacity:0');
-                        gradient.append('stop').attr('offset', '100%').attr('style', 'stop-color:rgb(136, 205, 231);stop-opacity:0.16')
+                        gradient.append('stop').attr('offset', '100%').attr('style', 'stop-color:rgb(136, 205, 231);stop-opacity:0.08')
 
                         grid.append('rect').attr('class', 'grid-bg').attr('fill', 'url(#grid-bg)').attr('width', width).attr('height', '420');
                         // grid.append('div').attr('class', 'grid-bg').attr('fill', '#EFE4A5').attr('width', '100%').attr('height', '100%');

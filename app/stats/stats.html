@@ -12,12 +12,11 @@
     <option value="1">День</option>
     <option value="7">Неделя</option>
     <option value="30">Месяц</option>
-</select>
+</select>f
  -->
                         </header>
                         <div class="stats-content">
-                            <div class="stat-controls">
-
+                            <div class="stat-controls clearfix">
                                 <div class="stats-datepicker">
                                     <datepicker type="daterange" locale="vm.datePickerTexts" format="DD.MM.YYYY" interval-format="DD.MM.YYYY" opens="right" ranges="vm.dateRanges" ng-model="vm.chartDateRange">
                                         <i class="calendar-icon"></i>
@@ -42,18 +41,17 @@
                                     </a>
                                     <ul ng-show="vm.showRanges" data-toggle="popover" data-placement="bottom" class="pop-menu dropdown-menu messages" role="menu">
                                         <li role="presentation">
-                                            <a ng-class="{current: vm.interval === 'day'}" href="javascript:void(0)" ng-click="vm.interval = 'day'" class="message">День</a>
+                                            <a ng-class="{current: vm.interval === 'day'}" href="javascript:void(0)" ng-click="vm.interval = 'day'" class="first message">День</a>
                                         </li>
                                         <li role="presentation">
                                             <a ng-class="{current: vm.interval === 'week'}" href="javascript:void(0)" ng-click="vm.interval = 'week'" class="message">Неделя</a>
                                         </li>
                                         <li role="presentation">
-                                            <a ng-class="{current: vm.interval === 'month'}" href="javascript:void(0)" ng-click="vm.interval = 'month'" class="message">Месяц</a>
+                                            <a ng-class="{current: vm.interval === 'month'}" href="javascript:void(0)" ng-click="vm.interval = 'month'" class="last message">Месяц</a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
-                            <div class="clearfix"></div>
                             <div class="big-chart">
                                 <linechart data="vm.data" options="vm.options" mode="">
                                 </linechart>
