@@ -1,7 +1,7 @@
 class Shell extends BaseCtrl
     @register()
     @inject 'common', 'debounce', '$rootScope', 'tmhDynamicLocale', 'config', 'login', '$translate', 'cookie'
-    constructor: (@common, debounce, $rootScope, tmhDynamicLocale, config, login, $translate, cookie) -> 
+    constructor: (@common, debounce, $rootScope, tmhDynamicLocale, config, login, $translate, cookie) ->
         @logout = login.logout
         @langsOpen = false
         @activePage = 'expenses'
@@ -37,9 +37,8 @@ class Shell extends BaseCtrl
 
         $rootScope.$on events.spinnerToggle, (event, data) ->
             toggleSpinner on
- 
+
         @activate([])
             .then ->
                 $rootScope.lang = config.local
 
-            

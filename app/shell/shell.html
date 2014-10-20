@@ -9,28 +9,22 @@
                         </h4>-->
                     </div>
                 </a>
-                <ul class="nav right-menu navbar-nav navbar-right pull-right">
-                    <li>
-                        <a href="javascript:void(0)" ng-click="vm.togglePopover()" id="globe" data-toggle="popover" data-placement="bottom" class="top-icon" data-original-title="Settings">
-                            <img src="../img/earth-icon.png" alt="">
-                        </a>
-                        <ul ng-show="vm.langsOpen" class="pop-menu dropdown-menu messages" role="menu">
-                            <li role="presentation">
-                                <a href="#" id="ru" ng-click="vm.translate('ru')" class="message">
-                                    Русский
-                                </a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#" id="en" ng-click="vm.translate('en')" class="message">
-                                    English
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                <ul ng-class="{open:vm.langsOpen}" class="nav right-menu navbar-nav navbar-right pull-right">
                     <li>
                         <a href="javascript:void(0)" id="logoutButton" class="top-icon simptip-position-right simptip-movable simptip-smooth" data-tooltip="{{'EXIT'|translate}}" ng-click="vm.logout()">
                             <img src="../img/sign-in-icon.png" alt="">
                         </a>
+                    </li>
+                    <li class="lang-change-icon" ng-show="!vm.langsOpen">
+                        <a href="javascript:void(0)" ng-click="vm.togglePopover()" id="globe" data-toggle="popover" data-placement="bottom" class="top-icon" data-original-title="Settings">
+                            <img src="../img/earth-icon.png" alt="">
+                        </a>
+                    </li>
+                    <li class="lang-option">
+                        <a ng-click="vm.translate('en')" style="width:auto; font-size:14px" href="javascript:void(0)">English</a>
+                    </li>
+                    <li class="lang-option">
+                        <a ng-click="vm.translate('ru')" style="width:auto;font-size: 14px" href="javascript:void(0)">Русский</a>
                     </li>
                 </ul>
             </div>
