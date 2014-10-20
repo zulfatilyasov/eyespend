@@ -8,7 +8,7 @@ case "$1" in
     remove)
     ;;
     purge)
-        rm -rf /opt/apps/eyespend-web-2
+        rm -rf /opt/apps/eyespend/web-2
     ;;
 
     *)

@@ -13,13 +13,14 @@ build:
 	npm install
 	npm install grunt
 	npm install grunt-cli
+	./node_modules/.bin/bower install --allow-root
 	./node_modules/.bin/grunt
 %:
 	dh $@
 override_dh_auto_install:
 	
-	mkdir -p $(DESTDIR)debian/eyespend-web-2/opt/apps/eyespend-web-2/app
-	rsync -a --exclude=log --exclude=debian --exclude=.git --exclude=vagrant*  . $(DESTDIR)debian/eyespend-web-2/opt/apps/eyespend-web-2/app
+	mkdir -p $(DESTDIR)debian/eyespend-web-2/opt/apps/eyespend/web-2/app
+	rsync -a dist/ $(DESTDIR)debian/eyespend-web-2/opt/apps/eyespend/web-2/app
 
 install:
 	dh_installlogrotate
