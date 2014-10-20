@@ -28,20 +28,6 @@
       toggleSpinner = function(enable) {
         return $rootScope.showSpinner = enable;
       };
-      $rootScope.$on('$routeChangeStart', function(event, next) {
-        if (next.$$route.originalPath === '/') {
-          return toggleSpinner(true);
-        }
-      });
-      $rootScope.$on(events.controllerActivateSuccess, function() {
-        return toggleSpinner(false);
-      });
-      $rootScope.$on(events.spinnerToggle, function(event, data) {
-        return toggleSpinner(true);
-      });
-      this.activate([]).then(function() {
-        return $rootScope.lang = config.local;
-      });
       this.togglePopover = function() {
         return this.langsOpen = !this.langsOpen;
       };
@@ -58,6 +44,20 @@
         $rootScope.lang = lang;
         return this.togglePopover();
       };
+      $rootScope.$on('$routeChangeStart', function(event, next) {
+        if (next.$$route.originalPath === '/') {
+          return toggleSpinner(true);
+        }
+      });
+      $rootScope.$on(events.controllerActivateSuccess, function() {
+        return toggleSpinner(false);
+      });
+      $rootScope.$on(events.spinnerToggle, function(event, data) {
+        return toggleSpinner(true);
+      });
+      this.activate([]).then(function() {
+        return $rootScope.lang = config.local;
+      });
     }
 
     return Shell;

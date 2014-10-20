@@ -173,10 +173,13 @@ body.background-chocolate {
     background-color: rgba(0, 0, 0, 0.09);*/
     
     background: none;
-    border-radius: 3px;
+    border: none;
+    /*    border-radius: 3px;
     border-width: 2px;
     border-color: rgba(255, 255, 255, 0.4);
     border-style: solid;
+*/
+    
     box-shadow: none;
 }
 .date-slider {
@@ -243,7 +246,7 @@ body.background-chocolate {
     float: left;
 }
 .stats-range, .stats-datepicker {
-    padding-top: 3px;
+    padding-top: 5px;
 }
 .stats-range {
     width: 12%;
@@ -307,7 +310,7 @@ body.background-chocolate {
     font-size: 14px;
     line-height: 20px;
     opacity: 0;
-    transition: visibility 0s linear 0.15s, opacity 0.15s linear, transform 0.15s cubic-bezier(0.64, 0.57, 0.67, 1.53);
+    transition: visibility 0s linear 0.15s, opacity 0.15s linear, transform 0.15s ease-out;
     -webkit-transform: scale(0.5) translateY(0px);
     -moz-transform: scale(0.5) translateY(0px);
     -ms-transform: scale(0.5) translateY(0px);
@@ -337,19 +340,21 @@ body.background-chocolate {
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: 9px 9px 0 9px;
-    border-color: #F6EEE4 transparent transparent transparent;
-    margin-left: -12px;
+    border-width: 7px 7px 0 7px;
+    border-color: #fff transparent transparent transparent;
+    margin-left: -8px;
     left: 50%;
 }
 .ui-rangeSlider-bar {
     background-color: rgba(103, 188, 145, 0.3);
     height: 100%;
     box-shadow: none;
+    margin-top: 4px;
 }
 .ui-rangeSlider-handle {
     background: #fff;
     width: 4px;
+    margin-top: 4px;
 }
 .ui-rangeSlider-leftHandle {
     border-radius: 4px 0 0 4px;
@@ -574,20 +579,75 @@ input.transparentInput:focus {
 .bootstrap .tags {
     border: 1px solid #888;
 }
+.navbar-nav {
+    -webkit-transition: max-width 0.2s ease-out;
+    -o-transition: max-width 0.2s ease-out;
+    transition: max-width 0.2s ease-out;
+    width: auto;
+    max-width: 78px;
+    height: 31px;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+}
+.navbar-nav.open {
+    max-width: 185px;
+}
+.lang-change-icon {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transition: visibility 0s linear 0.2s;
+    -o-transition: visibility 0s linear 0.2s;
+    transition: visibility 0s linear 0.2s;
+}
+.right-menu.open .lang-change-icon {
+    visibility: hidden;
+    opacity: 0;
+    transition-delay: 0s;
+    -webkit-transition: opacity 0.3s ease-out;
+    -o-transition: opacity 0.3s ease-out;
+    transition: opacity 0.3s ease-out;
+}
+.lang-option, .right-menu.open .lang-change-icon {
+    visibility: hidden;
+    opacity: 0;
+    transition-delay: 0s;
+    -webkit-transition: opacity 0.3s ease-out;
+    -o-transition: opacity 0.3s ease-out;
+    transition: opacity 0.3s ease-out;
+}
+.right-menu.open .lang-option {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transition: visibility 0s linear 0.3s;
+    -o-transition: visibility 0s linear 0.3s;
+    transition: visibility 0s linear 0.3s;
+}
+.lang-option a:hover, .page-header .navbar .nav > li > a:hover {
+    color: #000;
+}
 .right-menu {
-    background: url(../img/menu-back.png);
-    padding-left: 17px;
+    background: url(../img/language-menu-center.png);
     position: relative;
 }
-.right-menu:after {
+.right-menu:after, .right-menu:before {
     content: '';
-    display: block;
-    width: 108px;
-    height: 32px;
-    background: url(../img/menu-back-border.png);
+    display: inline-block;
+    width: 27px;
+    height: 31px;
+    background: url(../img/language-menu-right.png);
     z-index: -1;
     position: absolute;
-    left: 0;
+    right: -18px;
+}
+.right-menu:before {
+    background: url(../img/language-menu-left.png);
+    left: -18px;
+}
+.right-menu a {
+    color: #5a5a5a;
+    text-shadow: none;
 }
 .menu:before {
     content: "[";
@@ -976,6 +1036,7 @@ div.tags {
 }
 .minichart {
     z-index: -10;
+    outline: 1px solid #fff;
 }
 .newTransactionForm.form-slider {
     max-height: 160px;
@@ -1353,8 +1414,6 @@ div[ng-view].ng-leave {
 }
 .page-header .nav > li > a {
     width: 45px;
-    text-shadow: 0 2px 1px #333;
-    color: #fff;
     height: 50px;
     line-height: 70px;
 }
@@ -1841,6 +1900,7 @@ div[ng-view].ng-leave {
 }
 .ui-rangeSlider-rightHandle {
     margin-left: 5px;
+    margin-top: 4px;
 }
 .transaction-menu {
     display: none;
@@ -2641,14 +2701,17 @@ tr.selected .chekin-icon {
     max-height: 0;
     overflow: hidden;
 }
+.page-header .nav > li {
+    float: right;
+}
 .page-header .nav > li > a {
     height: 25px;
-    line-height: 25px;
-    padding: 0 10px;
+    line-height: 26px;
+    padding: 2px 10px 0px 10px;
     width: 39px;
 }
 .navbar-nav.navbar-right:last-child {
-    margin-right: 0;
+    margin-right: 13px;
 }
 .navbar .nav > li > .messages > li > a {
     padding: 0;
@@ -2790,10 +2853,9 @@ table.table thead .sorting_asc .sort-icon {
 table.table thead .sorting .sort-icon {
     background: url(../img/sortable-icon-black.png) no-repeat center;
 }
-.navbar-nav {
-    width: 108px;
-    height: 31px;
-}
 .stat-controls .area {
     fill: url(#temperature-gradient) !important;
+}
+.minichart .grid {
+    display: none;
 }

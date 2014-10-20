@@ -18,6 +18,18 @@ class Shell extends BaseCtrl
         toggleSpinner = (enable) ->
             $rootScope.showSpinner = enable
 
+        @togglePopover = ->
+            @langsOpen = !@langsOpen
+
+        @translate = (lang) ->
+            config.local = lang
+            cookie.set 'lang', lang
+            $translate.use lang
+            if lang == 'ru' then moment.locale lang else moment.locale 'en-gb'
+            tmhDynamicLocale.set lang
+            $rootScope.lang = lang
+            @togglePopover()
+
         $rootScope.$on '$routeChangeStart' , (event, next) ->
             toggleSpinner on if next.$$route.originalPath == '/'
 
@@ -30,15 +42,3 @@ class Shell extends BaseCtrl
         @activate([])
             .then ->
                 $rootScope.lang = config.local
-
-        @togglePopover = ->
-            @langsOpen = !@langsOpen
-
-        @translate = (lang) ->
-            config.local = lang
-            cookie.set 'lang', lang
-            $translate.use lang
-            if lang == 'ru' then moment.locale lang else moment.locale 'en-gb'
-            tmhDynamicLocale.set lang
-            $rootScope.lang = lang
-            @togglePopover()
