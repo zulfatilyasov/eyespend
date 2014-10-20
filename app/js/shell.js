@@ -28,6 +28,21 @@
       toggleSpinner = function(enable) {
         return $rootScope.showSpinner = enable;
       };
+      this.togglePopover = function() {
+        return this.langsOpen = !this.langsOpen;
+      };
+      this.translate = function(lang) {
+        $rootScope.lang = config.local = lang;
+        cookie.set('lang', lang);
+        $translate.use(lang);
+        if (lang === 'ru') {
+          moment.locale(lang);
+        } else {
+          moment.locale('en-gb');
+        }
+        tmhDynamicLocale.set(lang);
+        return this.togglePopover();
+      };
       $rootScope.$on('$routeChangeStart', function(event, next) {
         if (next.$$route.originalPath === '/') {
           return toggleSpinner(true);
@@ -42,22 +57,6 @@
       this.activate([]).then(function() {
         return $rootScope.lang = config.local;
       });
-      this.togglePopover = function() {
-        return this.langsOpen = !this.langsOpen;
-      };
-      this.translate = function(lang) {
-        config.local = lang;
-        cookie.set('lang', lang);
-        $translate.use(lang);
-        if (lang === 'ru') {
-          moment.locale(lang);
-        } else {
-          moment.locale('en-gb');
-        }
-        tmhDynamicLocale.set(lang);
-        $rootScope.lang = lang;
-        return this.togglePopover();
-      };
     }
 
     return Shell;
