@@ -8,7 +8,7 @@
 
     Shell.register();
 
-    Shell.inject('common', 'debounce', '$rootScope', 'tmhDynamicLocale', 'config', 'login', '$translate', 'cookie');
+    Shell.inject('common', 'debounce', '$rootScope', 'tmhDynamicLocale', 'config', 'login.service', '$translate', 'cookie');
 
     function Shell(common, debounce, $rootScope, tmhDynamicLocale, config, login, $translate, cookie) {
       var events, toggleSpinner;

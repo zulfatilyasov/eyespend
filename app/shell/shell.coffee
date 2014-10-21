@@ -1,6 +1,6 @@
 class Shell extends BaseCtrl
     @register()
-    @inject 'common', 'debounce', '$rootScope', 'tmhDynamicLocale', 'config', 'login', '$translate', 'cookie'
+    @inject 'common', 'debounce', '$rootScope', 'tmhDynamicLocale', 'config', 'login.service', '$translate', 'cookie'
     constructor: (@common, debounce, $rootScope, tmhDynamicLocale, config, login, $translate, cookie) ->
         @logout = login.logout
         @langsOpen = false
