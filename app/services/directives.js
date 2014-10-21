@@ -217,43 +217,47 @@
                             .range([0.25, 1]);
 
                         vis.attr('height', 40 * newVal.length);
-                        vis.attr('viewBox', '0 0 1000 ' + (40 * newVal.length).toString());
+                        vis.attr('viewBox', '0 0 1000 ' + (30 * newVal.length).toString());
 
                         var join = vis.selectAll('rect').data(newVal, dataIdentity);
 
-                        join.enter().append('rect')
+                        var j = join.enter();
+                        var g = j.append('g');
+
+                        g.append('rect')
                             .attr('x', 0)
                             .attr('y', function(d, i) {
                                 return i * 40;
                             })
                             .attr('height', 40)
-                            .attr('width', 0)
-                            .style('fill', 'rgb(233, 188, 6)')
-                            .style('opacity', 0.25);
+                            .attr('width', "100%")
+                            .style('fill', '#f4a755');
 
-                        join.transition()
-                            .delay(500)
-                            .duration(500)
+                        g.append('rect')
+                            .attr('x', 0)
                             .attr('y', function(d, i) {
                                 return i * 40;
                             })
-                            .attr('width', function(d) {
-                                console.log(d.percent);
-                                return x(d.percent);
-                            })
-                            .style('opacity', function(d) {
-                                return op(d.percent);
-                            })
-                            .ease('easein');
-
-                        join.exit()
+                            .attr('height', 30)
+                            .attr('width', 0)
+                            .style('fill', 'rgb(233, 188, 6)')
+                            .style('opacity', 1)
                             .transition()
                             .delay(500)
                             .duration(500)
-                            .attr('height', 0)
-                            .attr('width', 0)
-                            .style('opacity', 0)
-                            .remove();
+                            .attr('width', function(d) {
+                                return x(d.percent);
+                            })
+                            .ease('easein');
+
+                        // join.exit()
+                        //     .transition()
+                        //     .delay(500)
+                        //     .duration(500)
+                        //     .attr('height', 0)
+                        //     .attr('width', 0)
+                        //     .style('opacity', 0)
+                        //     .remove();
 
                         join = vis.selectAll('text').data(newVal, dataIdentity);
 
@@ -263,7 +267,7 @@
                                 return i * 40 + 23;
                             })
                             .text(function(d) {
-                                return d.tags + ' ' + d.percent.toString() + '%';
+                                return d.percent.toString() + '%';
                             })
                             .style('opacity', 0);
 
@@ -278,14 +282,14 @@
                             })
                             .style('opacity', 1)
                             .ease('easein');
+// join.exit()
+//     .transition()
+//     .delay(500)
+//     .duration(500)
+//     .attr('x', 0)
+//     .style('opacity', 0)
+//     .remove();
 
-                        join.exit()
-                            .transition()
-                            .delay(500)
-                            .duration(500)
-                            .attr('x', 0)
-                            .style('opacity', 0)
-                            .remove();
                     });
                 }
             };

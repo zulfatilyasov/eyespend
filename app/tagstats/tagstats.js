@@ -5,9 +5,9 @@
 
     angular
         .module('app')
-        .controller(controllerId, ['common', '$rootScope', '$scope', '$interval', 'datacontext', tagstats]);
+        .controller(controllerId, ['common', '$rootScope', '$scope', '$interval', 'datacontext', 'stats.service', tagstats]);
 
-    function tagstats(common, $rootScope, $scope, $interval, datacontext) {
+    function tagstats(common, $rootScope, $scope, $interval, datacontext, statsService) {
         var vm = this;
 
         vm.sliderValuesChanged = function(event, data) {
@@ -17,16 +17,13 @@
             });
         };
 
-        vm.sliderRangeStart = new Date(1349538476000);
-        vm.sliderRangeEnd = new Date(1412593875000);
-
-
         function updateStats() {
             vm.tagStats = [];
             datacontext
-                .getTagsExpenses(vm.sliderRangeStart.getTime() / 1000, vm.sliderRangeEnd.getTime() / 1000, [])
+                .getTagsExpenses(new Date(1349538476000).getTime() / 1000, new Date(1412593875000).getTime() / 1000, [])
                 .success(
                     function(data) {
+                        console.log(data);
                         vm.tagStats = data.slice(0, 30);
                     });
         }
@@ -34,15 +31,62 @@
         $scope.$watch('vm.sliderRangeStart', updateStats);
         $scope.$watch('vm.sliderRangeEnd', updateStats);
 
-        function activate() {
-            common.activateController([], controllerId).then(function() {
-                vm.initializeSlider({
-                    bounds: {
-                        min: new Date(1333772441000),
-                        max: new Date()
-                    }
+        vm.sliderValuesChanging = function(e, data) {
+            var fromDate = data.values.min.getTime();
+            var toDate = data.values.max.getTime();
+        };
+
+        vm.miniOptions = {
+            lineMode: 'linear',
+            series: [{
+                y: 'value',
+                thickness: '2px',
+                color: 'rgb(255, 248, 140)',
+                striped: true,
+                type: 'area',
+            }],
+            tooltip: {
+                mode: 'none'
+            },
+            tension: 0.7,
+            stacks: [],
+            drawLegend: false,
+            drawDots: false,
+            mode: 'thumbnail',
+            columnsHGap: 5
+        };
+
+        function getStats() {
+            return statsService.transactionsForChart()
+                .success(function(data) {
+                    vm.chartDateRange = {
+                        startDate: moment(statsService.minDate()),
+                        endDate: moment(statsService.maxDate())
+                    };
+
+                    vm.miniData = data;
+
+                    vm.initializeSlider({
+                        defaultValues: {
+                            min: new Date(statsService.minDate()),
+                            max: new Date(statsService.maxDate())
+                        },
+                        bounds: {
+                            min: new Date(statsService.minDate()),
+                            max: new Date(statsService.maxDate())
+                        },
+                        step: {
+                            days: 1
+                        },
+                        arrows: false
+                    });
                 });
-            });
+        }
+
+        function activate() {
+            common
+                .activateController([getStats()], controllerId)
+                .then(function() {});
         }
 
         activate();

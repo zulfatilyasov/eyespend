@@ -1,4 +1,4 @@
-<div class="page tagstats" ng-controller="tagstats as vm">
+<div class="page stats tag-stats" ng-controller="TagStats as vm">
     <div class="row">
         <div class="col-md-12">
             <div class="container">
@@ -9,15 +9,33 @@
                                 <span translate="">Статистика по тегам</span>
                             </div>
                         </header>
-
-                        <div class="tagstats-slider">
+                        <!--                         <div class="tagstats-slider">
                             <us-slider changed="vm.sliderValuesChanged" options="vm.sliderOptions" start="vm.sliderRangeStart" end="vm.sliderRangeEnd">
                             </us-slider>
                         </div>
-
+ -->
                         <div class="tagstats-content">
-                            <us-tagstats stats="vm.tagStats">
-                            </us-tagstats>
+                            <div class="stat-controls">
+                                <div class="stats-datepicker">
+                                    <datepicker type="daterange" locale="vm.datePickerTexts" format="DD.MM.YYYY" interval-format="DD.MM.YYYY" opens="right" ranges="vm.dateRanges" ng-model="vm.chartDateRange">
+                                        <i class="calendar-icon"></i>
+                                        <span translate>Уточнить интервал</span>
+                                        <b class="caret"></b>
+                                    </datepicker>
+                                </div>
+                                <div class="date-slider">
+                                    <div class="minichart">
+                                        <linechart data="vm.miniData" options="vm.miniOptions" mode="thumbnail">
+                                        </linechart>
+                                    </div>
+                                    <us-slider changing="vm.sliderValuesChanging" options="vm.sliderOptions">
+                                    </us-slider>
+                                </div>
+                            </div>
+                            <div class="tag-stats-main">
+                                <us-tagstats stats="vm.tagStats">
+                                </us-tagstats>
+                            </div>
                         </div>
                     </div>
 

@@ -88,7 +88,8 @@ var translationsRu = {
     EMPTY: "Пусто",
     EXPENSES: 'Расходы',
     ACCOUNT: "Настройки",
-    STATISTICS: "Статистика"
+    STATISTICS: "Статистика",
+    TAGSTATS: "По тегам"
 };
 
 var translationsEn = {
@@ -180,7 +181,8 @@ var translationsEn = {
     EMPTY: "Empty",
     EXPENSES: 'Expenses',
     ACCOUNT: "Account",
-    STATISTICS: "Statistics"
+    STATISTICS: "Statistics",
+    TAGSTATS: "By tags"
 };
 try {
     exports.ru = translationsRu;

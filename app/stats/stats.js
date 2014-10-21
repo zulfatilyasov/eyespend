@@ -1,9 +1,9 @@
 (function() {
     'use strict';
     var controllerId = 'stats';
-    angular.module('app').controller(controllerId, ['common', '$rootScope', 'stats.service', 'date', 'config', '$scope', stats]);
+    angular.module('app').controller(controllerId, ['common', '$rootScope', 'stats.service', 'date', 'config', '$scope', 'miniChartOption', stats]);
 
-    function stats(common, $rootScope, statsService, date, config, $scope) {
+    function stats(common, $rootScope, statsService, date, config, $scope, miniChartOption) {
         var vm = this;
         vm.data = null;
         vm.interval = 'day';
@@ -127,25 +127,7 @@
             columnsHGap: 5
         };
 
-        vm.miniOptions = {
-            lineMode: 'linear',
-            series: [{
-                y: 'value',
-                thickness: '2px',
-                color: 'rgb(255, 248, 140)',
-                striped: true,
-                type: 'area',
-            }],
-            tooltip: {
-                mode: 'none'
-            },
-            tension: 0.7,
-            stacks: [],
-            drawLegend: false,
-            drawDots: false,
-            mode: 'thumbnail',
-            columnsHGap: 5
-        };
+        vm.miniOptions = miniChartOption;
 
         function _updateDateInterval(mindate, maxdate) {
             $('datepicker span').text(mindate + ' - ' + maxdate);
