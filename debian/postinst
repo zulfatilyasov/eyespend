@@ -3,15 +3,15 @@
 set -e
 case "$1" in
     configure)
-    if ! getent passwd eyespend-web-2 > /dev/null 2>&1 ; then
-        useradd -U -M -d /opt/apps/eyespend-web-2 eyespend-web-2 > /dev/null 2>&1 
+    if ! getent passwd eyespend > /dev/null 2>&1 ; then
+        useradd -U -M -d /opt/apps/eyespend eyespend > /dev/null 2>&1 
     fi
-    if ! getent group eyespend-web-2 > /dev/null 2>&1 ; then
-        addgroup --system --quiet eyespend-web-2
+    if ! getent group eyespend > /dev/null 2>&1 ; then
+        addgroup --system --quiet eyespend
     fi
 
-    chown -R eyespend-web-2:eyespend-web-2 /opt/apps/eyespend-web-2
-    touch /opt/apps/eyespend-web-2/tmp/restart.txt
+    chown -R eyespend:eyespend /opt/apps/eyespend
+    touch /opt/apps/eyespend/web-2/tmp/restart.txt
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

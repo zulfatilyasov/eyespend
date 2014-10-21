@@ -1,4 +1,4 @@
-/opt/apps/eyespend-web-2/log/*.log {
+/opt/apps/eyespend/web-2/log/*.log {
        daily
        rotate 30
        copytruncate
