@@ -142,19 +142,20 @@ mod.factory('n3utils', [
                 //     },
                 //     'fill-opacity': 0.3
                 // });
+                pattern.append('rect').style('fill-opacity', 0.3).attr('fill', '#ecdf96').attr('width', 16).attr('height', 16);
                 pattern
                     .append('polygon')
-                    .attr('fill', "#E3DE7B")
-                    .attr('fill-opacity', "0.4")
-                    .attr('points', "0,15 15,0 10.8,0 0,10.8 ")
+                    .attr('fill', "#67BC91")
+                    .attr('fill-opacity', "0.3")
+                    .attr('points', "0,15 15,0 10.8,0 0,10.8 ");
 
                 return pattern
                     .append('polygon')
-                    .attr('fill', '#E3DE7B')
-                    .attr('fill-opacity', "0.4")
+                    .attr('fill', '#67BC91')
+                    .attr('fill-opacity', "0.3")
                     .attr('points', '15.1,16 16,15.1 16,10.8 10.8,16 ');
 
-                pattern.append('rect').style('fill-opacity', 0.3).attr('width', 16).attr('height', 16);
+
                 pattern.append('path').attr('d', "M 10 0 l10 0 l -20 20 l 0 -10 z");
                 pattern.append('path').attr('d', "M40 0 l10 0 l-50 50 l0 -10 z");
                 pattern.append('path').attr('d', "M60 10 l0 10 l-40 40 l-10 0 z");
@@ -170,6 +171,33 @@ mod.factory('n3utils', [
                     y: this.createLeftAreaDrawer(scales, options.lineMode, options.tension),
                     y2: this.createRightAreaDrawer(scales, options.lineMode, options.tension)
                 };
+
+                svg.append("linearGradient")
+                    .attr("id", "temperature-gradient")
+                    .attr("gradientUnits", "userSpaceOnUse")
+                    .attr("x1", 0).attr("y1", '0%')
+                    .attr("x2", 0).attr("y2", '100%')
+                    .selectAll("stop")
+                    .data([{
+                        offset: "0%",
+                        opacity: '1',
+                        color: "green"
+                    }, {
+                        offset: "8%",
+                        opacity: '0',
+                        color: "white"
+                    }])
+                    .enter().append("stop")
+                    .attr("offset", function(d) {
+                        return d.offset;
+                    })
+                    .attr('stop-opacity', function(d) {
+                        return d.opacity;
+                    })
+                    .attr("stop-color", function(d) {
+                        return d.color;
+                    });
+
                 svg.select('.content').selectAll('.areaGroup').data(areaSeries).enter().append('g').attr('class', function(s) {
                     return 'areaGroup ' + 'series_' + s.index;
                 }).append('path').attr('class', 'area').style('fill', function(s) {
@@ -242,8 +270,8 @@ mod.factory('n3utils', [
                     return 10;
                 }
                 if ((seriesData.filter(function(s) {
-                    return s.type === 'column';
-                })).length === 0) {
+                        return s.type === 'column';
+                    })).length === 0) {
                     return 10;
                 }
                 _ref = this.getPseudoColumns(seriesData, options), pseudoColumns = _ref.pseudoColumns, keys = _ref.keys;
@@ -340,7 +368,7 @@ mod.factory('n3utils', [
                     var _ref;
                     return ((_ref = s.type) === 'line' || _ref === 'area') && s.drawDots;
                 })).enter().append('g');
-                dotGroup.attr({
+                var dgroup = dotGroup.attr({
                     "class": function(s) {
                         return "dotGroup series_" + s.index;
                     },
@@ -349,12 +377,16 @@ mod.factory('n3utils', [
                     }
                 }).selectAll('.dot').data(function(d) {
                     return d.values;
-                }).enter()
-                    .append('circle').attr({
+                }).enter();
+
+                var circleGroups = dgroup.append('g');
+
+                circleGroups.append('circle')
+                    .attr({
                         'class': 'dot',
                         'r': function(d) {
                             if (d.y > 0)
-                                return 3;
+                                return 4;
                             return 0;
                         },
                         'cx': function(d) {
@@ -363,11 +395,71 @@ mod.factory('n3utils', [
                         'cy': function(d) {
                             return axes[d.axis + 'Scale'](d.y + d.y0);
                         }
-                    }).style({
-                        'stroke': 'white',
-                        'stroke-width': '4px',
-                        'fill': 'white'
+                    })
+                    .attr({
+                        'stroke': '#fff',
+                        'stroke-width': '2px',
+                        'fill': '#67bc91'
                     });
+
+                circleGroups.append('circle')
+                    .attr({
+                        'class': 'dot-wrap',
+                        'r': function(d) {
+                            if (d.y > 0)
+                                return 7;
+                            return 0;
+                        },
+                        'cx': function(d) {
+                            return axes.xScale(d.x);
+                        },
+                        'cy': function(d) {
+                            return axes[d.axis + 'Scale'](d.y + d.y0);
+                        }
+                    })
+                    .attr({
+                        'fill': 'transparent',
+                        'stroke': 'rgba(103, 188, 145, 0.4)',
+                        'stroke-width': '3px'
+                    });
+
+                circleGroups
+                    .on("mouseover", function() {
+                        var g = d3.select(this);
+                        g.selectAll('.dot')
+                            .attr({
+                                'fill': '#e09c25',
+                                'r': '7',
+                                'stroke-width': '3px'
+                            });
+                        g.selectAll('.dot-wrap')
+                            .attr({
+                                'r': '12',
+                                'stroke': 'rgba(224, 156, 37, 0.4)',
+                                'stroke-width': '5px',
+                            });
+                        // Un-sets the "explicit" fill (might need to be null instead of '')
+                        // should then accept fill from CSS
+                    })
+                    .on("mouseout", function() {
+                        var g = d3.select(this);
+                        g.selectAll('.dot')
+                            .attr({
+                                'stroke-width': '2px',
+                                'fill': '#67bc91',
+                                'r': '4'
+                            });
+                        g.selectAll('.dot-wrap')
+                            .attr({
+                                'stroke': 'rgba(103, 188, 145, 0.4)',
+                                'stroke-width': '3px',
+                                'r': '7'
+                            });
+                    });;
+
+                // .attr('onmouseover', "evt.target.setAttribute('r', '11')")
+                // .attr('onmouseout', "evt.target.setAttribute('r', '7')");
+
                 if (options.tooltip.mode !== 'none') {
                     dotGroup.on('mouseover', function(series) {
                         var target;
@@ -1156,11 +1248,21 @@ mod.factory('n3utils', [
                                 style(svg.append('g').attr('class', 'y2 axis').attr('transform', 'translate(' + width + ', 0)').call(y2Axis));
                             }
                         }
-                        svg.append("g")
-                            .attr("class", "grid")
-                            .call(make_y_axis()
-                                .tickSize(-width, 0, 0)
-                                .tickFormat(""));
+                        var grid = svg.append("g")
+                            .attr("class", "grid");
+
+                        var gradient = svg.select('defs')
+                            .append('linearGradient')
+                            .attr('id', 'grid-bg').attr('x1', '0%').attr('x2', '0%').attr('y1', '0%').attr('y2', '100%');
+
+                        gradient.append('stop').attr('offset', '0%').attr('style', 'stop-color:rgb(255, 255, 255);stop-opacity:0');
+                        gradient.append('stop').attr('offset', '100%').attr('style', 'stop-color:rgb(136, 205, 231);stop-opacity:0.08')
+
+                        grid.append('rect').attr('class', 'grid-bg').attr('fill', 'url(#grid-bg)').attr('width', width).attr('height', '420');
+                        // grid.append('div').attr('class', 'grid-bg').attr('fill', '#EFE4A5').attr('width', '100%').attr('height', '100%');
+                        grid.call(make_y_axis()
+                            .tickSize(-width, 0, 0)
+                            .tickFormat(""));
                         return {
                             xScale: x,
                             yScale: y,
@@ -1253,8 +1355,8 @@ mod.factory('n3utils', [
             setXScale: function(xScale, data, series, axesOptions) {
                 xScale.domain(this.xExtent(data, axesOptions.x.key));
                 if (series.filter(function(s) {
-                    return s.type === 'column';
-                }).length) {
+                        return s.type === 'column';
+                    }).length) {
                     return this.adjustXScaleForColumns(xScale, data, axesOptions.x.key);
                 }
             },

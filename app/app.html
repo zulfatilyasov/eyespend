@@ -7,6 +7,7 @@
     <title>eyeSpend</title>
 
     <!-- build:css eyespend.min.css -->
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
     <link rel="stylesheet" type="text/css" href="lib/ng-tags-input/ng-tags-input.css">
     <link rel="stylesheet" type="text/css" href="lib/nanoscroller/nanoscroller/bin/css/nanoscroller.css">
     <link rel="stylesheet" type="text/css" href="bower_components/animate.css/animate.css">
@@ -30,13 +31,13 @@
     </style>
 </head>
 
-<body class="green-blue">
+<body class="orange-bg">
     <div ng-class="{'overlay-open':overlayIsOpen}" id="all">
         <div ng-include="'shell/shell.html'"></div>
         <div ng-view></div>
     </div>
     <div ng-show="showSpinner" class="spin">
-        <span us-spinner="{lines:15,color: '#fff', width:2, length:15, radius:15, hwaccel: true, speed:1.4}"></span>
+        <span us-spinner="{lines:15,color: '#5a5a5a', width:2, length:15, radius:15, hwaccel: true, speed:1.4}"></span>
     </div>
     <div style="display: none" class="overlay overlay-contentscale map-overlay" ng-class="{open:overlayIsOpen}" ng-cloak="ng-cloak" overlay>
         <a class="overlay-close" ng-click="closeMap();" href="javascript:void(0)">
@@ -127,7 +128,7 @@ function initAirbrake() {
     <script src="services/authInterceptor.js"></script>
     <script src="services/directives.js"></script>
     <script src="services/constants.js"></script>
-    <script src="services/date.js"></script>
+    <script src="js/date.js"></script>
     <script src="services/transaxns.js"></script>
     <script src="services/loginService.js"></script>
     <script src="services/debounce.js"></script>
@@ -135,9 +136,10 @@ function initAirbrake() {
     <script src="services/rcolor.js"></script>
 
     <script src="common/common.js"></script>
+    <script src="js/baseController.js"></script>
     <script src="common/logger.js"></script>
     <script src="transactions/transactions.js"></script>
-    <script src="shell/shell.js"></script>
+    <script src="js/shell.js"></script>
     <script src="login/login.js"></script>
     <script src="settings/settings.js"></script>
     <script src="stats/stats.js"></script>

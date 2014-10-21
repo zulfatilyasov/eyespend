@@ -132,7 +132,8 @@
                 y: 'value',
                 thickness: '2px',
                 color: 'rgb(255, 248, 140)',
-                striped: true
+                striped: true,
+                type: 'area',
             }],
             tooltip: {
                 mode: 'none'
@@ -177,7 +178,7 @@
                 $('.tip-amount').text(circleData.y);
                 $('.tip-date').text(intervalLabel);
                 $tip.css('top', $(this).offset().top - $tip.height() - 15);
-                $tip.css('left', $(this).offset().left - $tip.width() / 2 - 5);
+                $tip.css('left', $(this).offset().left - $tip.width() / 2 - 4);
                 $tip.addClass('active');
             });
             $('circle').mouseleave(function() {

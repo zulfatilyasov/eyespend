@@ -81,14 +81,14 @@
         function getExcelFile(fromDate, toDate, tags, withPhoto) {
             var tagsArray = _convertTagsToArray(tags);
             datacontext.getExcelFileUrl(
-                sortOptions.column,
-                sortOptions.descending,
-                offset,
-                count,
-                fromDate || '',
-                toDate || '',
-                tagsArray,
-                withPhoto)
+                    sortOptions.column,
+                    sortOptions.descending,
+                    offset,
+                    count,
+                    fromDate || '',
+                    toDate || '',
+                    tagsArray,
+                    withPhoto)
                 .success(function(data) {
                     location.href = data.url;
                 });
@@ -320,7 +320,7 @@
                     function() {
                         def.reject("При сохранении проихошла ошибка.")
                     }
-            );
+                );
             return def.promise;
         }
 
@@ -335,7 +335,7 @@
                     function() {
                         def.reject("При удалении произошла ошибка.")
                     }
-            );
+                );
             return def.promise;
         }
 
