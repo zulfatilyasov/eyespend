@@ -32,7 +32,7 @@
         return this.langsOpen = !this.langsOpen;
       };
       this.translate = function(lang) {
-        config.local = lang;
+        $rootScope.lang = config.local = lang;
         cookie.set('lang', lang);
         $translate.use(lang);
         if (lang === 'ru') {
@@ -41,7 +41,6 @@
           moment.locale('en-gb');
         }
         tmhDynamicLocale.set(lang);
-        $rootScope.lang = lang;
         return this.togglePopover();
       };
       $rootScope.$on('$routeChangeStart', function(event, next) {
