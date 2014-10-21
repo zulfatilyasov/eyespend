@@ -5,3 +5,4 @@ bower_components/
 node_modules/
 tags
 dist
+app/js
