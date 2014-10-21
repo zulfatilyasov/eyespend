@@ -609,6 +609,11 @@ input.transparentInput:focus {
     -o-transition: opacity 0.3s ease-out;
     transition: opacity 0.3s ease-out;
 }
+.right-menu li.active {
+    background: rgba(203, 88, 11, 0.6);
+    border-bottom: 3px solid #cb580b;
+    color: #fff;
+}
 .lang-option, .right-menu.open .lang-change-icon {
     visibility: hidden;
     opacity: 0;
@@ -624,8 +629,21 @@ input.transparentInput:focus {
     -o-transition: visibility 0s linear 0.3s;
     transition: visibility 0s linear 0.3s;
 }
-.lang-option a:hover, .page-header .navbar .nav > li > a:hover {
-    color: #000;
+.page-header .navbar .nav > li.lang-option {
+    height: 31px;
+}
+.page-header .navbar .nav > li.lang-option a {
+    color: #5a5a5a;
+}
+.page-header .navbar .nav > li.lang-option a:hover {
+    color: #5a5a5a;
+}
+.page-header .navbar .nav > li.lang-option.active:hover {
+    background: rgba(203, 88, 11, 0.6);
+}
+.page-header .navbar .nav > li.lang-option:hover {
+    background: rgba(247, 205, 177, 1);
+    border-bottom: 3px solid #cb580b;
 }
 .right-menu {
     background: url(../img/language-menu-center.png);
@@ -2858,4 +2876,10 @@ table.table thead .sorting .sort-icon {
 }
 .minichart .grid {
     display: none;
+}
+.simptip-position-right.simptip-movable:before {
+    top: 11px;
+}
+.simptip-position-right.simptip-movable:after {
+    top: 1px;
 }

@@ -1,4 +1,4 @@
-﻿(function () {
+﻿(function() {
     'use strict';
 
     var app = angular.module('app');
@@ -9,7 +9,7 @@
 
     function routeConfigurator($routeProvider, routes) {
 
-        routes.forEach(function (r) {
+        routes.forEach(function(r) {
             $routeProvider.when(r.url, r.config);
         });
         $routeProvider.otherwise({
@@ -31,12 +31,6 @@
                 title: 'login'
             }
         }, {
-            url: '/quickpass',
-            config: {
-                templateUrl: 'quickpass/quickpass.html',
-                title: 'quickpass'
-            }
-        }, {
             url: '/settings',
             config: {
                 templateUrl: 'settings/settings.html',
@@ -48,13 +42,12 @@
                 templateUrl: 'stats/stats.html',
                 title: 'stats'
             }
-            // }, {
-            //   url: '/',
-            //   config: {
-            //     templateUrl: 'menu/menu.html',
-            //     title: 'menu'
-            //   }
-            // }
+        }, {
+            url: '/tagstats',
+            config: {
+                templateUrl: 'tagstats/tagstats.html',
+                title: 'tagstats'
+            }
         }];
     }
 })();
