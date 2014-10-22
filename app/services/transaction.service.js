@@ -3,9 +3,9 @@
     'use strict';
 
     var serviceId = 'transaction.service';
-    angular.module('app').factory(serviceId, ['datacontext', 'common', 'rcolor', 'date', '$rootScope', 'map', transaxns]);
+    angular.module('app').factory(serviceId, ['datacontext', 'common', 'rcolor', 'date', '$rootScope', 'map', 'tag.service', transaxns]);
 
-    function transaxns(datacontext, common, rcolor, date, $rootScope, map) {
+    function transaxns(datacontext, common, rcolor, date, $rootScope, map, tagSerivce) {
         var transactions = [],
             _userTags = [],
             sortOptions = {
@@ -61,12 +61,12 @@
             angular.forEach(transactions, function(t) {
                 t.date = date.withoutTimeShort(t.timestamp);
                 t.time = date.onlyTime(t.timestamp);
-                _colorAndSaveTags(t.tags);
+                t.tags = tagSerivce.colorAndSaveTags(t.tags);
             });
         }
 
         function getUserTags() {
-            return _userTags;
+            return tagSerivce.getUserTags();
         }
 
         function getTransactionIndex(transactionId, array) {
@@ -121,42 +121,6 @@
         function getFirstPageWithFilters(fromDate, toDate, tags, withPhoto) {
             offset = 0;
             return getTransaxns(fromDate, toDate, tags, withPhoto);
-        }
-
-        function _colorAndSaveTags(tags) {
-            if (!tags)
-                return;
-            for (var i = tags.length - 1; i >= 0; i--) {
-                if (!tags[i].text) {
-                    var text = tags[i];
-                    tags[i] = {
-                        text: text,
-                        color: _getTagColor(text)
-                    };
-                } else {
-                    tags[i].color = _getTagColor(tags[i].text);
-                }
-                if (_userTagsContains(tags[i]) === false) {
-                    _userTags.push(angular.copy(tags[i]));
-                }
-            }
-        }
-
-        function _userTagsContains(tag) {
-            return _userTags.some(function(t) {
-                return t.text === tag.text;
-            });
-        }
-
-        function _getTagColor(tagText) {
-            var tag = _userTags.filter(function(t) {
-                return t.text === tagText;
-            });
-            if (tag.length && tag[0].color) {
-                return tag[0].color;
-            } else {
-                return rcolor.get();
-            }
         }
 
         function getTransactionsAndTotals() {
@@ -234,7 +198,7 @@
             target.date = source.date;
             target.time = source.time;
             target.tags = angular.copy(source.tags);
-            _colorAndSaveTags(target.tags);
+            target.tags = tagSerivce.colorAndSaveTags(target.tags);
             return target;
         }
 
@@ -302,7 +266,8 @@
             var def = common.$q.defer();
             setTxnTime(tnx);
             map.setTxnCoords(tnx);
-            _colorAndSaveTags(tnx.tags);
+            tnx.tags = tagSerivce.colorAnd
+            SaveTags(tnx.tags);
             datacontext.updateTransaction(_serverFormatTnx(tnx))
                 .then(function() {
                         var transaction = transactions.filter(function(t) {

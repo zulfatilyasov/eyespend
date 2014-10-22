@@ -1,7 +1,7 @@
 class TagStats extends BaseCtrl
     @register()
-    @inject 'common', '$rootScope', '$scope', '$interval', 'datacontext', 'stats.service', 'miniChartOption'
-    constructor: (@common, $rootScope, $scope, $interval, datacontext, statsService, miniChartOption) ->
+    @inject 'common', '$rootScope', '$scope', '$interval', 'datacontext', 'stats.service', 'miniChartOption','tag.service'
+    constructor: (@common, $rootScope, $scope, $interval, datacontext, statsService, miniChartOption, tagService) ->
         vm = @
 
         vm.sliderValuesChanged = (event, data) ->
@@ -15,13 +15,21 @@ class TagStats extends BaseCtrl
 
         vm.miniOptions = miniChartOption
 
+        vm.getBarWidth = (percent) ->
+            (percent / 100) * 362 + 'px'
+
+        vm.getTagColorStyle = (color) ->  
+            'transparent ' + color + ' transparent transparent'
+
         updateStats = ->
             vm.tagStats = []
             datacontext
                 .getTagsExpenses(new Date(1349538476000).getTime() / 1000, new Date(1412593875000).getTime() / 1000, [])
                 .success (data) ->
-                    console.log(data)
-                    vm.tagStats = data.slice(0, 30)
+                    vm.tagStats = data.slice(0, 11)
+                    for tagstat in vm.tagStats
+                        tagstat.tags = tagService.colorAndSaveTags tagstat.tags
+                    return
 
         $scope.$watch 'vm.sliderRangeStart', updateStats
         $scope.$watch 'vm.sliderRangeEnd', updateStats

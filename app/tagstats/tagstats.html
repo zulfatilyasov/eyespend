@@ -33,8 +33,30 @@
                                 </div>
                             </div>
                             <div class="tag-stats-main">
-                                <us-tagstats stats="vm.tagStats">
-                                </us-tagstats>
+                                <div class="tag-stat-table">
+                                    <table>
+                                        <tr ng-repeat="tagstat in vm.tagStats">
+                                            <td class="tag-list-td">
+                                                <div class="transaction-tags stat-tags">
+                                                    <div ng-repeat="tag in tagstat.tags" class="stat-tag">
+                                                        <span ng-style="{'border-color':vm.getTagColorStyle(tag.color)}" class="beforeTag"></span><a ng-style="{'background':tag.color}" href="javascript:void(0)">{{tag.text}}</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="bars-td">
+                                                <div class="bar-wrap">
+                                                    <div ng-style="{width:vm.getBarWidth(tagstat.percent)}" class="bar"></div>
+                                                    <div class="percetage">{{tagstat.percent}}%</div>
+                                                </div>
+                                                <div class="bar-bg"></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="tag-stat-filters"></div>
+                                <!-- <us-tagstats stats="vm.tagStats">
+</us-tagstats>
+ -->
                             </div>
                         </div>
                     </div>
