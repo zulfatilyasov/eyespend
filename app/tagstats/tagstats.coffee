@@ -27,6 +27,8 @@ class TagStats extends BaseCtrl
                 .getTagsExpenses(new Date(1349538476000).getTime() / 1000, new Date(1412593875000).getTime() / 1000, [])
                 .success (data) ->
                     vm.tagStats = data.slice(0, 11)
+                    max = vm.tagStats.reduce (a,b) -> if a.percent > b.percent then a else b
+                    console.log max
                     for tagstat in vm.tagStats
                         tagstat.tags = tagService.colorAndSaveTags tagstat.tags
                     return
@@ -56,4 +58,9 @@ class TagStats extends BaseCtrl
                         arrows: false
 
         @activate([getStats()])
+            .then ->
+                callback = ->
+                    $('.bar-wrap').addClass('open')
+                common.$timeout callback, 500
+                
 

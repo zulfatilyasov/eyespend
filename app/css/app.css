@@ -2960,16 +2960,23 @@ table.table thead .sorting .sort-icon {
     background: -ms-linear-gradient(-90deg, rgba(0, 0, 0, 0.0313725) 0%, rgba(0, 0, 0, 0) 54%);
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.0313725) 0%, rgba(0, 0, 0, 0) 54%);
     border-right: 2px solid #fff;
+    overflow: hidden;
 }
 .bar-wrap {
-    -webkit-transform: translateX(0);
-    -ms-transform: translateX(0);
-    -o-transform: translateX(0);
-    transform: translateX(0);
+    -webkit-transform: translateX(-320px);
+    -ms-transform: translateX(-320px);
+    -o-transform: translateX(-320px);
+    transform: translateX(-320px);
     -webkit-transition: transform 0.3s ease-out;
     -o-transition: transform 0.3s ease-out;
     transition: transform 0.3s ease-out;
     margin-top: 2px;
+}
+.bar-wrap.open {
+    -webkit-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
 }
 .tag-stat-table:before {
     content: '';
