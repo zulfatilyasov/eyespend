@@ -24,6 +24,8 @@ angular.module('app').factory 'tag.service', ['rcolor', (rcolor) ->
 
                 tag
 
+        getTagColorStyle : (color) -> 'transparent ' + color + ' transparent transparent'
+        
         getUserTags : ->
             _userTags
        ]
