@@ -7,7 +7,10 @@ class TagStats extends BaseCtrl
         offset = 80
         strech = 0
 
-        vm.sliderValuesChanged = (event, data) ->
+        vm.sliderValuesChanged = (e, data) ->
+            fromDate = data.values.min.getTime() / 1000
+            toDate = data.values.max.getTime() / 1000
+            refreshTagsExpenses(fromDate, toDate)
             $rootScope.$apply ->
                 vm.sliderRangeStart = data.values.min
                 vm.sliderRangeEnd = data.values.max
@@ -16,11 +19,25 @@ class TagStats extends BaseCtrl
             fromDate = data.values.min.getTime()
             toDate = data.values.max.getTime()
 
+        $scope.$watch 'vm.chartDateRange', (newVal) ->
+            if (!newVal || !newVal.startDate || !newVal.endDate)
+                return;
+            fromDate = newVal.startDate.unix()
+            toDate = newVal.endDate.unix()
+            refreshTagsExpenses(fromDate, toDate)
+
         vm.miniOptions = miniChartOption
 
         vm.getBarWidth = (percent) -> (percent / 100) * maxBarWidth + strech +  'px'
 
         vm.getTagColorStyle = tagService.getTagColorStyle
+
+        refreshTagsExpenses = (fromDate, toDate) ->
+            getTagsExpenses(fromDate, toDate)
+              .then ->
+                  callback = -> $('.bar-wrap').addClass('open')
+                  common.$timeout callback, 500
+                  vm.setSliderValues(new Date(fromDate*1000), new Date(toDate*1000))
 
         getTagsExpenses = (min, max) ->
             vm.tagStats = []
@@ -65,15 +82,3 @@ class TagStats extends BaseCtrl
             .then ->
                 callback = -> $('.bar-wrap').addClass('open')
                 common.$timeout callback, 500
-
-        $scope.$watch 'vm.chartDateRange', (newVal) ->
-            if (!newVal || !newVal.startDate || !newVal.endDate)
-                return;
-            fromDate = newVal.startDate.unix()
-            toDate = newVal.endDate.unix()
-
-            getTagsExpenses(fromDate, toDate)
-              .then ->
-                  callback = -> $('.bar-wrap').addClass('open')
-                  common.$timeout callback, 500
-                  vm.setSliderValues(new Date(fromDate*1000), new Date(toDate*1000))
