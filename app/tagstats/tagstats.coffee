@@ -28,42 +28,53 @@ class TagStats extends BaseCtrl
                 .getTagsExpenses(min, max, [])
                 .success (data) ->
                     vm.tagStats = data.slice(0, 11)
-                    maxPercent = (vm.tagStats.reduce (a,b) -> if a.percent > b.percent then a else b).percent
+                    maxPercent = (vm.tagStats.reduce ((a,b) -> if a.percent > b.percent then a else b), 0).percent
                     maxWidth = (maxPercent / 100) * maxBarWidth
-                    strech = maxBarWidth  - offset - maxWidth if maxWidth < maxBarWidth - offset 
+                    strech = maxBarWidth  - offset - maxWidth if maxWidth < maxBarWidth - offset
                     for tagstat in vm.tagStats
                         tagstat.tags = tagService.colorAndSaveTags tagstat.tags
                     return
 
-        getStatsMap = -> 
+        getStatsMap = ->
             statsService
                 .transactionsForChart()
                 .success (data) ->
                     minDate = statsService.minDate()
                     maxDate = statsService.maxDate()
 
-                    vm.chartDateRange = 
+                    vm.chartDateRange =
                         startDate: moment minDate
                         endDate: moment maxDate
 
                     vm.miniData = data
 
-                    vm.initializeSlider 
-                        defaultValues: 
+                    vm.initializeSlider
+                        defaultValues:
                             min: new Date minDate
                             max: new Date maxDate
-                        bounds: 
+                        bounds:
                             min: new Date minDate
                             max: new Date maxDate
-                        step: 
+                        step:
                             days: 1
                         arrows: false
 
-                    getTagsExpenses(minDate/1000, maxDate/1000)
+                    getTagsExpenses(minDate / 1000, maxDate / 1000)
+
+        $scope.$watch 'vm.chartDateRange', (newVal) ->
+            if (!newVal || !newVal.startDate || !newVal.endDate)
+                return;
+            fromDate = newVal.startDate.unix()
+            toDate = newVal.endDate.unix()
+
+            getTagsExpenses(fromDate, toDate)
+              .then ->
+                  callback = -> $('.bar-wrap').addClass('open')
+                  common.$timeout callback, 500
 
         @activate([getStatsMap()])
             .then ->
                 callback = -> $('.bar-wrap').addClass('open')
                 common.$timeout callback, 500
-                
+
 
