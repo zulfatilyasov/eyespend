@@ -24,13 +24,13 @@ angular.module('app').factory 'date', ['$filter', 	($filter) ->
             dateFilter date, 'dd.MM.yyyy HH:mm'
 
         addTimeToTimestamp: (timestamp, time)->
-           d = new Date()
-           d.setTime timestamp
-           time = time.replace ':', ''
-           hours = time.slice 0, 2
-           minutes = time.slice 2, 4
-           d.setHours hours
-           d.setMinutes minutes
-           d.getTime()
+            d = new Date()
+            d.setTime timestamp
+            time = time.replace ':', ''
+            hours = time.slice 0, 2
+            minutes = time.slice 2, 4
+            d.setHours hours
+            d.setMinutes minutes
+            d.getTime()
 
        ]

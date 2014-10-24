@@ -2906,6 +2906,7 @@ table.table thead .sorting .sort-icon {
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.06) 0, rgba(79, 79, 79, 0.06) 21%, rgba(79, 79, 79, 0) 70%, rgba(255, 255, 255, .02) 70%, rgba(79, 79, 79, 0.06) 99%, rgba(0, 0, 0, 0.06) 100%);
     background-color: rgba(255, 255, 255, 0.7);
     border-right: 2px solid #fff;
+    padding-left: 20px;
 }
 .bar {
     background: url(../img/stats-pattern.png);
@@ -2971,6 +2972,8 @@ table.table thead .sorting .sort-icon {
     -o-transition: transform 0.3s ease-out;
     transition: transform 0.3s ease-out;
     margin-top: 2px;
+    width: 362px;
+    float: left;
 }
 .bar-wrap.open {
     -webkit-transform: translateX(0);
@@ -2996,4 +2999,77 @@ table.table thead .sorting .sort-icon {
 }
 .stats .stats-content {
     padding: 10px 24px;
+}
+.tagstat-amout {
+    display: inline-block;
+    float: right;
+    margin-right: 30px;
+}
+.tag-stat-table {
+    width: 750px;
+    display: inline-block;
+    float: left;
+}
+.tag-stat-filters {
+    display: inline-block;
+    width: 290px;
+    padding-right: 20px;
+    float: right;
+}
+.tagstats-filter .description {
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 300;
+    margin-top: 10px;
+}
+.tagstats-filter.include {
+    margin-top: 15px;
+}
+.tagstats-filter.exclude {
+    margin-top: 40px;
+}
+.tagstats-filter .tags-box {
+    margin: 10px 0;
+    background: -webkit-linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.001) 49%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.026500000000000003) 76%, rgba(0, 0, 0, 0.05) 100%);
+    background: -moz-linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.001) 49%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.026500000000000003) 76%, rgba(0, 0, 0, 0.05) 100%);
+    background: -o-linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.001) 49%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.026500000000000003) 76%, rgba(0, 0, 0, 0.05) 100%);
+    background: -ms-linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.001) 49%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.026500000000000003) 76%, rgba(0, 0, 0, 0.05) 100%);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.001) 49%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.026500000000000003) 76%, rgba(0, 0, 0, 0.05) 100%);
+    background-color: rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+}
+.tagstats-filter .host .tags {
+    background: none !important;
+    padding-top: 5px;
+    padding-left: 5px;
+}
+.tagstats-filter .empty .host .tags {
+    background: url(../img/tag-placeholder.png) 10px no-repeat !important;
+}
+.tagstats-filter .host .tags:focus {
+    outline: none;
+}
+.tagstats-filter tags-input .host:focus {
+    outline: none;
+}
+.tagstats-filter .tag-list input::-webkit-input-placeholder {
+    opacity: 0;
+}
+.tagstats-filter .tag-list input:-moz-placeholder {
+    opacity: 0;
+}
+.tagstats-filter .tag-list input::-moz-placeholder {
+    opacity: 0;
+}
+.tagstats-filter .tag-list input:-ms-input-placeholder {
+    opacity: 0;
+}
+.tagstats-filter tags-input .tags .input, .tagstats-filter tags-input .tags .input.invalid-tag {
+    padding-left: 5px;
+    color: #fff;
+}
+.tagstats-filter tags-input .tags .tag-item {
+    background: transparent;
+    color: #fff;
+    border: 1px solid #FFFFFF;
 }

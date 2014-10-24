@@ -6,9 +6,9 @@
 
     angular
         .module('app')
-        .controller(controllerId, ['common', '$window', 'config', '$rootScope', '$scope', 'date', 'transaction.service', '$translate', 'login.service', 'debounce', 'map', transactions]);
+        .controller(controllerId, ['common', '$window', 'config', '$rootScope', '$scope', 'date', 'transaction.service', '$translate', 'login.service', 'debounce', 'map', 'datepicker.service', transactions]);
 
-    function transactions(common, $window, config, $rootScope, $scope, date, transactionService, $translate, login, debounce, map) {
+    function transactions(common, $window, config, $rootScope, $scope, date, transactionService, $translate, login, debounce, map, datepicker) {
         var vm = this;
         var logError = common.logger.getLogFn(controllerId, 'logError');
         var fromUnixDate = null;
@@ -207,41 +207,10 @@
 
         moment.locale(config.local);
 
-        if (config.local == 'ru') {
-            moment.locale('ru');
-
-            vm.datePickerTexts = {
-                cancelLabel: 'Отмена',
-                applyLabel: 'ok',
-                fromLabel: 'От',
-                toLabel: 'До',
-                customRangeLabel: 'Выбрать интервал',
-                firstDay: 1
-            };
-
-            vm.dateRanges = {
-                'Последние 7 дней': [moment().subtract(6, 'days'), moment()],
-                'Последние 30 дней': [moment().subtract(29, 'days'), moment()]
-            };
-        } else {
-            moment.locale('en-gb');
-
-            vm.datePickerTexts = {
-                cancelLabel: 'Cancel',
-                applyLabel: 'Ok',
-                fromLabel: 'From',
-                toLabel: 'To',
-                firstDay: 0,
-                customRangeLabel: 'Select interval'
-            };
-
-            vm.dateRanges = {
-                'Last 7 days': [moment().subtract(6, 'days'), moment()],
-                'Last 30 days': [moment().subtract(29, 'days'), moment()]
-            };
-        }
-
-
+        vm.datePickerTexts = datepicker.getTexts();
+        vm.dateRanges = datepicker.getRanges();
+        // moment.locale('ru');
+        // moment.locale('en-gb');
         function applyfilters() {
             $rootScope.showSpinner = true;
             transactionService.getFirstPageWithFilters(fromUnixDate, toUnixDate, vm.tags, vm.onlyWithPhoto)

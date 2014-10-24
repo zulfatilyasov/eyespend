@@ -1,4 +1,4 @@
-<div class="page stats tag-stats" ng-controller="TagStats as vm">
+<div class="page stats tag-stats" ng-controller="TagStatsCtrl as vm">
     <div class="row">
         <div class="col-md-12">
             <div class="container">
@@ -43,13 +43,36 @@
                                                     <div ng-style="{width:vm.getBarWidth(tagstat.percent)}" class="bar"></div>
                                                     <div class="percetage">{{tagstat.percent}}%</div>
                                                 </div>
+                                                <div class="tagstat-amout">{{tagstat.amount}}</div>
                                                 <div class="bar-bg"></div>
                                             </td>
                                         </tr>
                                     </table>
                                 </div>
-                                <div class="tag-stat-filters"></div>
+                                <div class="tag-stat-filters">
+                                    <div class="tagstats-filter include">
+                                        <div class="filter-header">Перенесите тег</div>
+                                        <div class="tags-box">
+                                            <tags-input ng-class="{empty:vm.includeTags.length === 0}" ng-model="vm.includeTags" placeholder="&nbsp;">
+                                                <auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0" max-results="5">
+                                                </auto-complete>
+                                            </tags-input>
+                                        </div>
+                                        <p class="description">Вы можете добавить группу тегов которые хотите отобразить в статистике перетащив их в данное поле</p>
+                                    </div>
+                                    <div class="tagstats-filter exclude">
+                                        <div class="filter-header">Перенесите тег</div>
+                                        <div class="tags-box">
+                                            <tags-input ng-class="{empty:vm.excludeTags.length === 0}" ng-model="vm.excludeTags" placeholder="&nbsp;">
+                                                <auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0" max-results="5">
+                                                </auto-complete>
+                                            </tags-input>
+                                        </div>
+                                        <p class="description">Вы можете добавить группу тегов которые хотите отобразить в статистике перетащив их в данное поле</p>
+                                    </div>
+                                </div>
                             </div>
+                            <div class="clearfix"></div>
                         </div>
                     </div>
             </div>

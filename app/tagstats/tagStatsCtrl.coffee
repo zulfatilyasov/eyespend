@@ -1,11 +1,8 @@
-class TagStats extends BaseCtrl
+class TagStatsCtrl extends BaseCtrl
     @register()
-    @inject 'common', '$rootScope', '$scope', '$interval', 'datacontext', 'stats.service', 'miniChartOption','tag.service'
-    constructor: (@common, $rootScope, $scope, $interval, datacontext, statsService, miniChartOption, tagService) ->
+    @inject 'common', '$rootScope', '$scope', '$interval', 'datacontext', 'stats.service', 'miniChartOption','tag.service', 'datepicker.service', 'tagstats.service','login.service'
+    constructor: (@common, $rootScope, $scope, $interval, datacontext, statsService, miniChartOption, tagService, datepicker, tagStatsService,login) ->
         vm = @
-        maxBarWidth = 362
-        offset = 80
-        strech = 0
 
         vm.sliderValuesChanged = (event, data) ->
             $rootScope.$apply ->
@@ -16,24 +13,29 @@ class TagStats extends BaseCtrl
             fromDate = data.values.min.getTime()
             toDate = data.values.max.getTime()
 
+        vm.loadTags = ->
+            def = common.defer()
+            login
+                .getUserTags()
+                .then (data) ->
+                    def.resolve(data) 
+            def.promise;
+
+        vm.datePickerTexts = datepicker.getTexts()
+        vm.dateRanges = datepicker.getRanges()
+
         vm.miniOptions = miniChartOption
 
-        vm.getBarWidth = (percent) -> (percent / 100) * maxBarWidth + strech +  'px'
+        vm.getBarWidth = tagStatsService.getBarWidth
 
         vm.getTagColorStyle = tagService.getTagColorStyle
 
         getTagsExpenses = (min, max) ->
             vm.tagStats = []
-            datacontext
-                .getTagsExpenses(min, max, [])
+            tagStatsService
+                .getTagStats(min, max, [])
                 .success (data) ->
-                    vm.tagStats = data.slice(0, 11)
-                    maxPercent = (vm.tagStats.reduce (a,b) -> if a.percent > b.percent then a else b).percent
-                    maxWidth = (maxPercent / 100) * maxBarWidth
-                    strech = maxBarWidth  - offset - maxWidth if maxWidth < maxBarWidth - offset 
-                    for tagstat in vm.tagStats
-                        tagstat.tags = tagService.colorAndSaveTags tagstat.tags
-                    return
+                    vm.tagStats = data 
 
         getStatsMap = -> 
             statsService
