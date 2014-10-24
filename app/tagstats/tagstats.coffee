@@ -67,6 +67,7 @@ class TagStats extends BaseCtrl
             fromDate = newVal.startDate.unix()
             toDate = newVal.endDate.unix()
 
+            vm.setSliderValues(new Date(fromDate*1000), new Date(toDate*1000))
             getTagsExpenses(fromDate, toDate)
               .then ->
                   callback = -> $('.bar-wrap').addClass('open')
