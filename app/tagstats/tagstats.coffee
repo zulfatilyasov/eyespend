@@ -61,21 +61,19 @@ class TagStats extends BaseCtrl
 
                     getTagsExpenses(minDate / 1000, maxDate / 1000)
 
+        @activate([getStatsMap()])
+            .then ->
+                callback = -> $('.bar-wrap').addClass('open')
+                common.$timeout callback, 500
+
         $scope.$watch 'vm.chartDateRange', (newVal) ->
             if (!newVal || !newVal.startDate || !newVal.endDate)
                 return;
             fromDate = newVal.startDate.unix()
             toDate = newVal.endDate.unix()
 
-            vm.setSliderValues(new Date(fromDate*1000), new Date(toDate*1000))
             getTagsExpenses(fromDate, toDate)
               .then ->
                   callback = -> $('.bar-wrap').addClass('open')
                   common.$timeout callback, 500
-
-        @activate([getStatsMap()])
-            .then ->
-                callback = -> $('.bar-wrap').addClass('open')
-                common.$timeout callback, 500
-
-
+                  vm.setSliderValues(new Date(fromDate*1000), new Date(toDate*1000))
