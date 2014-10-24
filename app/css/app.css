@@ -2047,7 +2047,8 @@ q:hover, a.nl-field-toggle:hover {
 .link-code {
     position: absolute;
     top: 11px;
-    left: 41px;
+    left: 38px;
+    color: #5a5a5a;
 }
 .widget-content {
     border: 1px solid rgba(255, 255, 255, 0.08);
