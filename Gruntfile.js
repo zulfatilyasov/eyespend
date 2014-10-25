@@ -15,7 +15,13 @@ module.exports = function(grunt) {
                 flatten: true,
                 src: ['app/**/*.coffee', '!app/bower_components/**/*', '!app/lib/**/*'],
                 dest: 'app/js/',
-                ext: '.js'
+                ext: '.js',
+				filter: function (filepath) {
+					var fs = require('fs');
+					var now = new Date();
+					var modified = fs.statSync(filepath).mtime;
+					return (now - modified) < 10000;
+				}
             }
         },
         useminPrepare: {
@@ -186,4 +192,5 @@ module.exports = function(grunt) {
     grunt.registerTask('stub:dist', ['build', 'start:dist']);
     grunt.registerTask('service', ['start:service']);
     grunt.registerTask('service:dist', ['build', 'start:service-dist']);
+	grunt.registerTask('watch'['watch:app']);
 };

@@ -53,7 +53,7 @@
                                     <div class="tagstats-filter include">
                                         <div class="filter-header">Перенесите тег</div>
                                         <div class="tags-box">
-                                            <tags-input ng-class="{empty:vm.includeTags.length === 0}" ng-model="vm.includeTags" placeholder="&nbsp;">
+                                            <tags-input ng-class="{empty:vm.includeTags.length === 0}" ng-model="vm.includeTags" on-tag-added="vm.tagFilterChange()" on-tag-removed="vm.tagFilterChange()" placeholder="&nbsp;">
                                                 <auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0" max-results="5">
                                                 </auto-complete>
                                             </tags-input>
@@ -63,7 +63,7 @@
                                     <div class="tagstats-filter exclude">
                                         <div class="filter-header">Перенесите тег</div>
                                         <div class="tags-box">
-                                            <tags-input ng-class="{empty:vm.excludeTags.length === 0}" ng-model="vm.excludeTags" placeholder="&nbsp;">
+                                            <tags-input ng-class="{empty:vm.excludeTags.length === 0}" on-tag-added="vm.tagFilterChange()" on-tag-removed="vm.tagFilterChange()" ng-model="vm.excludeTags" placeholder="&nbsp;">
                                                 <auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0" max-results="5">
                                                 </auto-complete>
                                             </tags-input>

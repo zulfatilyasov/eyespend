@@ -1284,6 +1284,12 @@ datepicker {
     padding: 0px 8px;
     line-height: 1;
     vertical-align: top;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 .td-content {
     /*padding-top: 12px;*/
@@ -2926,9 +2932,9 @@ table.table thead .sorting .sort-icon {
     background: #f4a755;
     height: 25px;
     z-index: -1;
-    top: 0;
+    top: 50%;
     left: 0;
-    margin-top: 9px;
+    margin-top: -12px;
 }
 .bar:after {
     content: '';
@@ -2965,10 +2971,10 @@ table.table thead .sorting .sort-icon {
     overflow: hidden;
 }
 .bar-wrap {
-    -webkit-transform: translateX(-320px);
-    -ms-transform: translateX(-320px);
-    -o-transform: translateX(-320px);
-    transform: translateX(-320px);
+    -webkit-transform: translateX(-350px);
+    -ms-transform: translateX(-350px);
+    -o-transform: translateX(-350px);
+    transform: translateX(-350px);
     -webkit-transition: transform 0.3s ease-out;
     -o-transition: transform 0.3s ease-out;
     transition: transform 0.3s ease-out;
@@ -3046,6 +3052,9 @@ table.table thead .sorting .sort-icon {
 }
 .tagstats-filter .empty .host .tags {
     background: url(../img/tag-placeholder.png) 10px no-repeat !important;
+}
+.tagstats-filter .empty .host .tags.focused {
+    background: none !important;
 }
 .tagstats-filter .host .tags:focus {
     outline: none;
