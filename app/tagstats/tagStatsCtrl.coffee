@@ -41,10 +41,14 @@ class TagStatsCtrl extends BaseCtrl
 		vm.dateRanges = datepicker.getRanges()
 
 		$scope.$watch 'vm.chartDateRange', (newVal) ->
-			if !vm.tagStats or !newVal or !newVal.startDate or !newVal.endDate
+			if !newVal or !newVal.startDate or !newVal.endDate
 				return;
+
 			fromDate = newVal.startDate.unix()
 			toDate = newVal.endDate.unix()
+
+			if !vm.tagStats
+				return
 			refreshTagsExpenses(fromDate, toDate)
 
 		vm.miniOptions = miniChartOption
@@ -98,5 +102,3 @@ class TagStatsCtrl extends BaseCtrl
 		@activate([getStatsMap()])
 		.then ->
             showBars()
-
-        console.log 'controller sublime'
