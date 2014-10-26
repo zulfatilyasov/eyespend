@@ -43,7 +43,7 @@
                 thickness: '2px',
                 color: 'rgb(255, 248, 140)',
                 striped: true,
-                type: 'area',
+                type: 'area'
             }],
             tooltip: {
                 mode: 'none'

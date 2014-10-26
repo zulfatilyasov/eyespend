@@ -1,0 +1,26 @@
+<div class="filters" ng-show="vm.isFiltering">
+	<div class="arrow-up">
+		<img src="../img/shishka-brown.png" height="12" width="30" alt="">
+	</div>
+	<div class="row">
+		<div class="col-md-5">
+			<div class="searchByDate">
+				<div style="padding: 6px 0">
+					<datepicker type="daterange" locale="vm.datePickerTexts" format="DD.MM.YYYY" opens="right" ranges="vm.dateRanges" ng-model="vm.filterDateRange">
+						<i class="calendar-icon"></i>
+						<span translate>SEARCH_BY_DATE</span>
+						<b class="caret"></b>
+					</datepicker>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-7">
+			<div class="tags-filter" focus-me="vm.isFiltering">
+				<tags-input ng-model="vm.tags" min-Length="1" add-from-autocomplete-only="false" replace-spaces-with-dashes="false" placeholder="{{'SEARCH_BY_TAGS'|translate}}" on-tag-added="vm.tagFilterChange()" on-tag-removed="vm.tagFilterChange()" class="bootstrap inline-tags-input">
+					<auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0" max-results-to-show="50">
+					</auto-complete>
+				</tags-input>
+			</div>
+		</div>
+	</div>
+</div>

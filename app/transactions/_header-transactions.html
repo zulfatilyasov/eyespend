@@ -1,0 +1,28 @@
+<header>
+	<div class="row shortStats">
+		<div style="float: left" class="col-md-4 widgeTitle"><span> <span translate>TOTAL_SUM</span>:</span> <span>{{vm.total}}</span></div>
+		<div style="float: right" class="col-md-3 table-icons">
+			<span class="tableAction hidden-phone-landscape">
+				<a href="javascript:void(0)" ng-click="vm.downloadExcel()" class="download-excel-icon" title="{{'DOWNLOAD'|translate}}">
+					<img src="../img/icon_excel.png" alt="">
+				</a>
+			</span>
+			<span class="tableAction">
+				<a href="javascript:void(0)" class="filter-icon" ng-class="{active:vm.isFiltering}" ng-click="vm.toggleFiltering()">
+					<img src="../img/filter-brown.png" height="25" width="23" alt="">
+				</a>
+			</span>
+			<span class="tableAction hidden-xs">
+				<a ng-click="vm.addNewTxn(true)" href="javascript:void(0)">
+					<img src="../img/icon_add.png" alt="">
+				</a>
+			</span>
+			<span class="tableAction hidden-md hidden-lg hidden-sm">
+				<a href="javascript:void(0)" ng-click="vm.addNewTxn(false)">
+					<img src="../img/icon_add.png" alt="">
+				</a>
+			</span>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</header>

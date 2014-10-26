@@ -1,0 +1,135 @@
+<div ng-show="vm.selectedTnx || vm.isAdding" class="transaction-menu" ng-class="{fullHeight : vm.editingMobile || vm.isAdding}">
+	<div class="actions" ng-hide="vm.isAdding">
+		<a class="menu-action" href="javascript:void(0)" ng-hide="vm.editingMobile" ng-click="vm.toggleEditingMobile()">
+			<i class="fa fa-pencil"></i>
+			<span translate>EDIT</span>
+		</a>
+		<a class="menu-action" href="javascript:void(0)" ng-click="vm.remove(vm.selectedTnx)">
+			<i class="fa fa-trash-o"></i>
+			<span translate>DELETE</span>
+		</a>
+		<a class="menu-action" href="javascript:void(0)" ng-click="vm.closeMobileInfo()">
+			<i class="fa fa-times"></i>
+			<span translate>CLOSE</span>
+		</a>
+	</div>
+	<div class="menu-tags" ng-hide="vm.editingMobile || vm.isAdding">
+		<ul class="transaction-tags">
+			<li ng-repeat="tag in vm.selectedTnx.tags">
+				<div style="display:inline-block">
+					<span ng-style="{'border-color':vm.getTagColorStyle(tag.color)}" class="beforeTag"></span><a ng-style="{'background':tag.color}" ng-click="vm.addTag(tag.text)" href="javascript:void(0)">{{tag.text}}</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div ng-if="vm.editingMobile" class="mobileform">
+		<div class="row">
+			<div class="col-md-12">
+				<div>
+					<label for="dateAndTimeEditor" translate>DATE_AND_TIME</label>
+					<br/>
+					<input type="text" id="dateAndTimeEditor" style="width: 100%" class="styledInput" ui-mask="99.99.9999 99:99" ng-model="vm.editedTnx.dateTime">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div>
+					<label for="editedAmount" translate>AMOUNT</label>
+					<br/>
+					<input type="text" id="editedAmount" value="" style="width: 100%" class="styledInput" ng-model="vm.editedTnx.amountInBaseCurrency">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div style="width:100%" class="inputHost tags-filter">
+					<label translate>TAGS</label>
+					<br/>
+					<tags-input ng-model="vm.editedTnx.tags" min-Length="1" replace-spaces-with-dashes="false" style="width: 250px" placeholder="{{'ADD_TAG'|translate}}" class="bootstrap">
+						<auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0" max-results="5">
+						</auto-complete>
+					</tags-input>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="inputHost">
+					<label translate>PLACE</label>
+					<br/>
+					<button style="display:inline-block" type="button" ng-click="vm.pickAddress(vm.editedTnx)" class="btn btn-success">
+						<i style="font-size:15px;" class="fa fa-map-marker fa-1x"></i>
+						<span translate>SHOW_ON_MAP</span>
+					</button>
+				</div>
+				<div class="inputHost">
+					<label class="emptyLabel">&nbsp;</label>
+					<button type="button" class="btn btn-primary" ng-click="vm.saveTnx(vm.editedTnx);" data-placement="right">
+						<span translate>SAVE</span>
+					</button>
+					<button type="button" class="btn btn-danger" ng-click="vm.remove(vm.selectedTnx)" data-placement="right">
+						<span translate>DELETE</span>
+					</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div ng-if="vm.isAdding" class="mobileform">
+		<div class="row">
+			<div class="col-md-12">
+				<div>
+					<label for="dateAndTimeEditor" translate>DATE_AND_TIME</label>
+					<br/>
+					<input type="text" ui-mask="99.99.9999 99:99" style="width: 100%" class="styledInput" ng-model="vm.newTnx.dateTime">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div>
+					<label for="editedAmount" translate>AMOUNT</label>
+					<br/>
+					<input type="text" value="" style="width: 100%" class="styledInput" ng-model="vm.newTnx.amountInBaseCurrency">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div style="width:100%" class="inputHost">
+					<label translate>TAGS</label>
+					<br/>
+					<tags-input ng-model="vm.newTnx.tags" min-Length="1" replace-spaces-with-dashes="false" style="width: 250px" placeholder="{{'ADD_TAG'|translate}}" class="bootstrap">
+						<auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0" max-results="5">
+						</auto-complete>
+					</tags-input>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="inputHost" style="width: 100%">
+					<label translate>PLACE</label>
+					<br/>
+					<button style="display:inline-block" type="button" ng-click="vm.pickAddress(vm.newTnx)" class="btn btn-success">
+						<i style="font-size:15px;" class="fa fa-map-marker fa-1x"></i>
+						<span translate>SHOW_ON_MAP</span>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="inputHost">
+					<button type="button" class="btn btn-primary" ng-click="vm.addTnx();vm.closeMobileInfo();" data-placement="right">
+						<span translate>ADD_NEW</span>
+					</button>
+					<button type="button" class="btn btn-default" ng-click="vm.closeMobileInfo()" data-placement="right">
+						<span translate>CANCEL</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

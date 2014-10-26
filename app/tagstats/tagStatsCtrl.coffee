@@ -60,8 +60,8 @@ class TagStatsCtrl extends BaseCtrl
 		refreshTagsExpenses = (from, to, includedTags, excludedTags) ->
 			getTagsExpenses(from, to, includedTags, excludedTags)
 			.then ->
-                showBars()
-                vm.setSliderValues(new Date(from * 1000), new Date(to * 1000))
+				showBars()
+				vm.setSliderValues(new Date(from * 1000), new Date(to * 1000))
 
 		getTagsExpenses = (min, max, includedTags = [], excludedTags = []) ->
 			tagStatsService
@@ -69,7 +69,18 @@ class TagStatsCtrl extends BaseCtrl
 			.success (data) ->
 				vm.tagStats = data
 
-		getStatsMap = ->
+		getSliderOptions = (minDate, maxDate) ->
+			defaultValues:
+				min: new Date minDate
+				max: new Date maxDate
+			bounds:
+				min: new Date minDate
+				max: new Date maxDate
+			step:
+				days: 1
+			arrows: false
+
+		getStats = ->
 			statsService
 			.transactionsForChart()
 			.success (data) ->
@@ -82,23 +93,14 @@ class TagStatsCtrl extends BaseCtrl
 
 				vm.miniData = data
 
-				vm.initializeSlider
-					defaultValues:
-						min: new Date minDate
-						max: new Date maxDate
-					bounds:
-						min: new Date minDate
-						max: new Date maxDate
-					step:
-						days: 1
-					arrows: false
+				vm.initializeSlider getSliderOptions(minDate, maxDate)
 
 				getTagsExpenses(minDate / 1000, maxDate / 1000)
 
 		showBars = ->
-            callback = -> $('.bar-wrap').addClass('open')
-            common.$timeout callback, 200
+			callback = -> $('.bar-wrap').addClass('open')
+			common.$timeout callback, 200
 
-		@activate([getStatsMap()])
+		@activate([getStats()])
 		.then ->
-            showBars()
+			showBars()

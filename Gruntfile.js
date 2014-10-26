@@ -15,13 +15,7 @@ module.exports = function(grunt) {
                 flatten: true,
                 src: ['app/**/*.coffee', '!app/bower_components/**/*', '!app/lib/**/*'],
                 dest: 'app/js/',
-                ext: '.js',
-				filter: function (filepath) {
-					var fs = require('fs');
-					var now = new Date();
-					var modified = fs.statSync(filepath).mtime;
-					return (now - modified) < 10000;
-				}
+                ext: '.js'
             }
         },
         useminPrepare: {
@@ -146,7 +140,7 @@ module.exports = function(grunt) {
                     '!app/bower_components/**/*',
                     '!app/js/*'
                 ],
-                tasks: ['coffee'],
+                tasks: ['newer:coffee'],
                 options: {
                     interrupt: true,
                     livereload: true
@@ -164,6 +158,7 @@ module.exports = function(grunt) {
         }
     });
 
+	grunt.loadNpmTasks('grunt-newer');
     grunt.loadNpmTasks('grunt-contrib-coffee');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
