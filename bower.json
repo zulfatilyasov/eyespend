@@ -47,6 +47,7 @@
     "momentjs": "~2.8.1",
     "jquery-debounce": "~1.0.5",
     "angular-spinner": "~0.5.1",
-    "airbrake-js": "~0.3.8"
+    "airbrake-js": "~0.3.8",
+    "angular-dragdrop": "~1.0.8"
   }
 }

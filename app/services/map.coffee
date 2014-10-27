@@ -1,6 +1,6 @@
 angular.module('app').factory 'map',
  ['common', '$rootScope', 'config', 'geolocation',
-    (common,$rootScope,config,geolocation) ->
+    (common,$rootScope, config,geolocation) ->
         class Map
             lat = 0
             lng = 0

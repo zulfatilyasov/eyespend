@@ -9,6 +9,8 @@ class TagStatsCtrl extends BaseCtrl
 		fromDate = null
 		toDate = null
 
+		vm.draggableOptions  =
+			placeholder:'keep'
 		vm.sliderValuesChanged = (e, data) ->
 			fromDate = data.values.min.getTime() / 1000
 			toDate = data.values.max.getTime() / 1000
@@ -17,10 +19,18 @@ class TagStatsCtrl extends BaseCtrl
 				vm.sliderRangeStart = data.values.min
 				vm.sliderRangeEnd = data.values.max
 
+		vm.tagDropped = (event, t) ->
+			tagText = t.draggable.text().trim()
+			vm.includeTags.push
+				text:tagText
+			t.draggable.hide()
+			vm.tagFilterChange()
+
 		vm.sliderValuesChanging = (e, data) ->
 			fromDate = data.values.min.getTime()
 			toDate = data.values.max.getTime()
-			updateDateInterval(date.withoutTimeShort(fromDate), date.withoutTimeShort(toDate))
+			updateDateInterval date.withoutTimeShort(fromDate), date.withoutTimeShort(toDate)
+
 
 		vm.loadTags = ->
 			def = common.defer()
@@ -44,7 +54,6 @@ class TagStatsCtrl extends BaseCtrl
 		$scope.$watch 'vm.chartDateRange', (newVal) ->
 			if !newVal or !newVal.startDate or !newVal.endDate
 				return;
-
 			fromDate = newVal.startDate.unix()
 			toDate = newVal.endDate.unix()
 

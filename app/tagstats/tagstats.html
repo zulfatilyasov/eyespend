@@ -1,83 +1,44 @@
 <div class="page stats tag-stats" ng-controller="TagStatsCtrl as vm">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="container">
-                <section class="widget">
-                    <div class="widget-content">
-                        <header class="tagstats-header">
-                            <div class="widgeTitle">
-                                <span translate="">Статистика по тегам</span>
-                            </div>
-                        </header>
-                        <div class="tagstats-content">
-                            <div class="stat-controls">
-                                <div class="stats-datepicker">
-                                    <datepicker type="daterange" locale="vm.datePickerTexts" format="DD.MM.YYYY" interval-format="DD.MM.YYYY" opens="right" ranges="vm.dateRanges" ng-model="vm.chartDateRange">
-                                        <i class="calendar-icon"></i>
-                                        <span translate>Уточнить интервал</span>
-                                        <b class="caret"></b>
-                                    </datepicker>
-                                </div>
-                                <div class="date-slider">
-                                    <div class="minichart">
-                                        <linechart data="vm.miniData" options="vm.miniOptions" mode="thumbnail">
-                                        </linechart>
-                                    </div>
-                                    <us-slider changing="vm.sliderValuesChanging" changed="vm.sliderValuesChanged" options="vm.sliderOptions">
-                                    </us-slider>
-                                </div>
-                            </div>
-                            <div class="tag-stats-main">
-                                <div class="tag-stat-table">
-                                    <table>
-                                        <tr ng-repeat="tagstat in vm.tagStats">
-                                            <td class="tag-list-td">
-                                                <div class="transaction-tags stat-tags">
-                                                    <div ng-repeat="tag in tagstat.tags" class="stat-tag">
-                                                        <span ng-style="{'border-color':vm.getTagColorStyle(tag.color)}" class="beforeTag"></span><a ng-style="{'background':tag.color}" href="javascript:void(0)">{{tag.text}}</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="bars-td">
-                                                <div class="bar-wrap">
-                                                    <div ng-style="{width:vm.getBarWidth(tagstat.percent)}" class="bar"></div>
-                                                    <div class="percetage">{{tagstat.percent}}%</div>
-                                                </div>
-                                                <div class="tagstat-amout">{{tagstat.amount}}</div>
-                                                <div class="bar-bg"></div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div class="tag-stat-filters">
-                                    <div class="tagstats-filter include">
-                                        <div class="filter-header">Перенесите тег</div>
-                                        <div class="tags-box">
-                                            <tags-input ng-class="{empty:vm.includeTags.length === 0}" ng-model="vm.includeTags" on-tag-added="vm.tagFilterChange()" on-tag-removed="vm.tagFilterChange()" placeholder="&nbsp;">
-                                                <auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0" max-results="5">
-                                                </auto-complete>
-                                            </tags-input>
-                                        </div>
-                                        <p class="description">Вы можете добавить группу тегов которые хотите отобразить в статистике перетащив их в данное поле</p>
-                                    </div>
-                                    <div class="tagstats-filter exclude">
-                                        <div class="filter-header">Перенесите тег</div>
-                                        <div class="tags-box">
-                                            <tags-input ng-class="{empty:vm.excludeTags.length === 0}" on-tag-added="vm.tagFilterChange()" on-tag-removed="vm.tagFilterChange()" ng-model="vm.excludeTags" placeholder="&nbsp;">
-                                                <auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0" max-results="5">
-                                                </auto-complete>
-                                            </tags-input>
-                                        </div>
-                                        <p class="description">Вы можете добавить группу тегов которые хотите отобразить в статистике перетащив их в данное поле</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-            </div>
-            </section>
-        </div>
-    </div>
-</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="container">
+				<section class="widget">
+					<div class="widget-content">
+						<header class="tagstats-header">
+							<div class="widgeTitle">
+								<span translate="">Статистика по тегам</span>
+							</div>
+						</header>
+						<div class="tagstats-content">
+							<div class="stat-controls">
+								<div class="stats-datepicker">
+									<datepicker type="daterange" locale="vm.datePickerTexts" format="DD.MM.YYYY"
+												interval-format="DD.MM.YYYY" opens="right" ranges="vm.dateRanges"
+												ng-model="vm.chartDateRange">
+										<i class="calendar-icon"></i>
+										<span translate>Уточнить интервал</span>
+										<b class="caret"></b>
+									</datepicker>
+								</div>
+								<div class="date-slider">
+									<div class="minichart">
+										<linechart data="vm.miniData" options="vm.miniOptions" mode="thumbnail">
+										</linechart>
+									</div>
+									<us-slider changing="vm.sliderValuesChanging" changed="vm.sliderValuesChanged"
+											   options="vm.sliderOptions">
+									</us-slider>
+								</div>
+							</div>
+							<div class="tag-stats-main">
+								<div ng-include="'tagstats/_table-tagstats.html'"></div>
+								<div ng-include="'tagstats/_filters-tagstats.html'"></div>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
 </div>
