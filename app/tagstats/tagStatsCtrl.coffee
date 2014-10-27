@@ -9,8 +9,8 @@ class TagStatsCtrl extends BaseCtrl
 		fromDate = null
 		toDate = null
 
-		vm.draggableOptions  =
-			placeholder:'keep'
+		vm.draggableOptions =
+			placeholder: 'keep'
 		vm.sliderValuesChanged = (e, data) ->
 			fromDate = data.values.min.getTime() / 1000
 			toDate = data.values.max.getTime() / 1000
@@ -19,18 +19,35 @@ class TagStatsCtrl extends BaseCtrl
 				vm.sliderRangeStart = data.values.min
 				vm.sliderRangeEnd = data.values.max
 
-		vm.tagDropped = (event, t) ->
-			tagText = t.draggable.text().trim()
-			vm.includeTags.push
+		tagIsNotAdded  = (array, tagText) ->
+			t = array.filter (t) -> t.text is tagText
+			t.length < 1
+
+		addTagToArray = (tagText, array) ->
+			array.push
 				text:tagText
-			t.draggable.hide()
 			vm.tagFilterChange()
+
+		vm.tagDropped = (event, tag) ->
+			$target = $ event.target
+			tagText = tag.draggable.text().trim()
+
+			if $target.is('.include') and tagIsNotAdded(vm.includeTags, tagText)
+			 	addTagToArray(tagText, vm.includeTags)
+			if $target.is('.exclude') and tagIsNotAdded(vm.excludeTags, tagText)
+				addTagToArray(tagText, vm.excludeTags)
+
+			tag.draggable.hide()
+
+		updateDateInterval = (begin, end) ->
+			$('datepicker span').text(begin + ' - ' + end)
 
 		vm.sliderValuesChanging = (e, data) ->
 			fromDate = data.values.min.getTime()
 			toDate = data.values.max.getTime()
-			updateDateInterval date.withoutTimeShort(fromDate), date.withoutTimeShort(toDate)
-
+			intervalBegin = date.withoutTimeShort(fromDate);
+			intervalEnd = date.withoutTimeShort(toDate)
+			updateDateInterval intervalBegin, intervalEnd
 
 		vm.loadTags = ->
 			def = common.defer()
@@ -107,8 +124,6 @@ class TagStatsCtrl extends BaseCtrl
 
 				getTagsExpenses(minDate / 1000, maxDate / 1000)
 
-		updateDateInterval = (fromDate, toDate) ->
-			$('datepicker span').text(fromDate + ' - ' + toDate)
 
 		showBars = ->
 			callback = -> $('.bar-wrap').addClass('open')
