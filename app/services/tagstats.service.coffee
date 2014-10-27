@@ -13,7 +13,7 @@ angular.module('app').factory 'tagstats.service',
 						.getTagsExpenses(min, max, includeTags, excludeTags)
 						.success (data) ->
 							stats = data.slice(0, 11)
-							maxPercent = (stats.reduce (a, b) -> if a.percent > b.percent then a else b).percent
+							maxPercent = (stats.reduce ((a, b) -> if a.percent > b.percent then a else b), 0).percent
 							longestBar = (maxPercent / 100) * maxBarWidth
 							ratio = maxBarWidth / longestBar
 							for tagstat in stats
