@@ -1,7 +1,7 @@
 class TagStatsCtrl extends BaseCtrl
 	@register()
-	@inject 'common', '$rootScope', '$scope', '$interval', 'datacontext', 'stats.service', 'miniChartOption', 'tag.service', 'datepicker.service', 'tagstats.service', 'login.service'
-	constructor: (@common, $rootScope, $scope, $interval, datacontext, statsService, miniChartOption, tagService, datepicker, tagStatsService, login) ->
+	@inject 'common', '$rootScope', '$scope', '$interval', 'datacontext', 'stats.service', 'miniChartOption', 'tag.service', 'datepicker.service', 'tagstats.service', 'login.service', 'date'
+	constructor: (@common, $rootScope, $scope, $interval, datacontext, statsService, miniChartOption, tagService, datepicker, tagStatsService, login, date) ->
 		vm = @
 		vm.tagStats = null
 		vm.includeTags = []
@@ -20,6 +20,7 @@ class TagStatsCtrl extends BaseCtrl
 		vm.sliderValuesChanging = (e, data) ->
 			fromDate = data.values.min.getTime()
 			toDate = data.values.max.getTime()
+			updateDateInterval(date.withoutTimeShort(fromDate), date.withoutTimeShort(toDate))
 
 		vm.loadTags = ->
 			def = common.defer()
@@ -96,6 +97,9 @@ class TagStatsCtrl extends BaseCtrl
 				vm.initializeSlider getSliderOptions(minDate, maxDate)
 
 				getTagsExpenses(minDate / 1000, maxDate / 1000)
+
+		updateDateInterval = (fromDate, toDate) ->
+			$('datepicker span').text(fromDate + ' - ' + toDate)
 
 		showBars = ->
 			callback = -> $('.bar-wrap').addClass('open')
