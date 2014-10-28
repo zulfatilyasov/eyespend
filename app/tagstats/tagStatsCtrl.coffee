@@ -116,6 +116,8 @@ class TagStatsCtrl extends BaseCtrl
 			.success (data) ->
 				minDate = statsService.minDate()
 				maxDate = statsService.maxDate()
+				fromDate = minDate / 1000
+				toDate = maxDate / 1000
 
 				vm.chartDateRange =
 					startDate: moment minDate
