@@ -14,7 +14,9 @@ class TagStatsCtrl extends BaseCtrl
 		vm.sliderValuesChanged = (e, data) ->
 			fromDate = data.values.min.getTime() / 1000
 			toDate = data.values.max.getTime() / 1000
-			refreshTagsExpenses(fromDate, toDate)
+			stripedIncludeTags = stripTags vm.includeTags
+			stripedExcludeTags = stripTags vm.excludeTags
+			refreshTagsExpenses(fromDate, toDate, stripedIncludeTags, stripedExcludeTags)
 			$rootScope.$apply ->
 				vm.sliderRangeStart = data.values.min
 				vm.sliderRangeEnd = data.values.max
@@ -71,12 +73,13 @@ class TagStatsCtrl extends BaseCtrl
 		$scope.$watch 'vm.chartDateRange', (newVal) ->
 			if !newVal or !newVal.startDate or !newVal.endDate
 				return;
-			fromDate = newVal.startDate.unix()
-			toDate = newVal.endDate.unix()
-
 			if !vm.tagStats
 				return
-			refreshTagsExpenses(fromDate, toDate)
+			fromDate = newVal.startDate.unix()
+			toDate = newVal.endDate.unix()
+			stripedIncludeTags = stripTags vm.includeTags
+			stripedExcludeTags = stripTags vm.excludeTags
+			refreshTagsExpenses(fromDate, toDate, stripedIncludeTags, stripedExcludeTags)
 
 		vm.miniOptions = miniChartOption
 
