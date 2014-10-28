@@ -3,7 +3,8 @@
 		<tr ng-repeat="tagstat in vm.tagStats">
 			<td class="tag-list-td">
 				<div class="transaction-tags stat-tags">
-					<div ng-repeat="tag in tagstat.tags" class="stat-tag" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{placeholder:'keep', animate:true}">
+					<div ng-repeat="tag in tagstat.tags" class="stat-tag" data-drag="true" data-jqyoui-options="{revert: 'invalid'}"
+						 jqyoui-draggable="{placeholder:'keep', animate:true, onStart:'vm.dragStart()', onStop:'vm.dragStop()'}">
 						<span ng-style="{'border-color':vm.getTagColorStyle(tag.color)}" class="beforeTag"></span>
 						<a ng-style="{'background':tag.color}" href="javascript:void(0)">{{tag.text}}</a>
 					</div>

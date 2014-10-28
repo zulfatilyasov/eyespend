@@ -18,7 +18,6 @@ angular.module('app').factory 'tagstats.service',
 							ratio = maxBarWidth / longestBar
 							for tagstat in stats
 								tagstat.tags = tagService.colorAndSaveTags tagstat.tags
-							console.log stats
 							def.resolve stats
 
 						.error ->

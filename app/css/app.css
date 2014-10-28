@@ -952,37 +952,40 @@ div.tags {
     text-align: center;
     vertical-align: middle;
     display: table-cell;
-    height: 17px;
-    width: 17px;
+    height: 20px;
+    width: 19px;
     margin-top: 5px;
 }
 .side-bar li .expenses-icon {
-    background: url(../img/icon_costs_grey.png);
+    background: url(../img/icon_costs_grey.png) 3px 1px no-repeat;
 }
 .side-bar li .statistics-icon {
-    background: url(../img/icon_statistics_grey.png);
+    background: url(../img/icon_statistics_grey.png) 3px 1px no-repeat;
 }
 .side-bar li .tagstats-icon {
-    background: url(../img/bytag-black.png);
+    background: url(../img/bytag-black.png) 3px 1px no-repeat;
 }
 .side-bar li .settings-icon {
-    background: url(../img/icon_settings_grey.png);
+    background: url(../img/icon_settings_grey.png) 2px 1px no-repeat;
 }
 .side-bar li.active .expenses-icon {
-    background: url(../img/icon_costs_white.png);
+    background: url(../img/icon_costs_white.png) 3px 1px no-repeat;
 }
 .side-bar li.active .statistics-icon {
-    background: url(../img/icon_statistics_white.png);
+    background: url(../img/icon_statistics_white.png) 3px 1px no-repeat;
 }
 .side-bar li.active .settings-icon {
-    background: url(../img/icon_settings_white.png);
+    background: url(../img/icon_settings_white.png) 2px 1px no-repeat;
 }
 .side-bar li.active .tagstats-icon {
-    background: url(../img/bytag-white.png);
+    background: url(../img/bytag-white.png) 3px 1px no-repeat;
 }
 .side-bar ul li:nth-child(2) {
     border-top: 1px solid rgba(90, 90, 90, 0.1);
     border-bottom: 1px solid rgba(90, 90, 90, 0.1);
+}
+.side-bar ul li:nth-child(3){
+	border-bottom: 1px solid rgba(90, 90, 90, 0.1);
 }
 .tableAction {
     margin-left: 5px;
@@ -1669,6 +1672,33 @@ div[ng-view].ng-leave {
 .stat-tags a {
     margin-left: 12px;
 }
+.tag-list-td .transaction-tags .beforeTag, .tag-list-td .transaction-tags a{
+	-webkit-transition: none;
+	-moz-transition: none;
+	-ms-transition: none;
+	-o-transition: none;
+	transition: none;
+ }
+.tag-list-td .transaction-tags a{
+	transition: box-shadow 0.2s ease-out;
+}
+.stat-tag{
+	-webkit-transition: transform 0.2s ease-out;
+	-moz-transition: transform 0.2s ease-out;
+	-ms-transition: transform 0.2s ease-out;
+	-o-transition: transform 0.2s ease-out;
+	transition: transform 0.2s ease-out;
+}
+.stat-tag:hover{
+	-webkit-transform: translateY(-2px);
+	-moz-transform: translateY(-2px);
+	-ms-transform: translateY(-2px);
+	-o-transform: translateY(-2px);
+	transform: translateY(-2px);
+}
+.stat-tags a:hover{
+	/*box-shadow: 4px 0px 7px 0px rgba(50, 50, 50, 0.2);*/
+}
 .beforeTag {
     content: "";
     float: left;
@@ -2098,11 +2128,11 @@ tr.selected .chekin-icon {
         left: 36px;
     }
     .side-bar li.active .pointer img {
-        max-height: 36px;
+        max-height: 33px;
     }
     .side-bar li {
         width: 36px;
-        height: 36px;
+        height: 33px;
     }
     .side-bar li span {
         display: none;
@@ -2871,7 +2901,7 @@ table.table thead .sorting .sort-icon {
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.06) 0, rgba(79, 79, 79, 0.06) 21%, rgba(79, 79, 79, 0) 70%, rgba(255, 255, 255, .02) 70%, rgba(79, 79, 79, 0.06) 99%, rgba(0, 0, 0, 0.06) 100%);
     background-color: rgba(255, 255, 255, 0.7);
     border-right: 2px solid #fff;
-    padding-left: 20px;
+    padding-left: 9px;
 	border-bottom: 1px solid #fff;
 }
 .bar {
@@ -3015,6 +3045,8 @@ table.table thead .sorting .sort-icon {
     background-color: rgba(0, 0, 0, 0.15);
     border-radius: 6px;
 }
+.tagstats-filter .tags-box:hover{
+}
 .tagstats-filter .host .tags {
 	background: none 10px !important;
 	padding-top: 5px;
@@ -3027,6 +3059,35 @@ table.table thead .sorting .sort-icon {
 	-ms-transition: background-position 0.2s ease;
 	-o-transition: background-position 0.2s ease;
 	transition: background-position 0.2s ease;
+}
+.tagstats-filter .is-dragging .empty .host .tags{
+	background: url(../img/tag-drag-2.png) 10px no-repeat !important;
+	background-position: 185px !important;
+}
+.tagstats-filter .tags:before{
+	opacity: 0;
+	-webkit-transition: opacity 0.1s linear 0s;
+	-moz-transition: opacity 0.1s linear 0s;
+	-ms-transition: opacity 0.1s linear 0s;
+	-o-transition: opacity 0.1s linear 0s;
+	transition: opacity 0.1s linear 0s;
+	content: 'Перенесите тег';
+	display: inline-block;
+	height: 41px;
+	position: absolute;
+	padding: 2px 0 0 2px;
+}
+.is-dragging .empty .tags:before{
+	opacity: 0.3;
+	-webkit-transition-delay: 0.1s;
+	-moz-transition-delay: 0.1s;
+	-ms-transition-delay: 0.1s;
+	-o-transition-delay: 0.1s;
+	transition-delay: 0.1s;
+}
+.tagstats-filter tags-input .tags .tag-item{
+	opacity: 0.99;
+	z-index: 10;
 }
 .tagstats-filter .empty .host .tags.focused {
 	background-position: 185px !important;
@@ -3057,4 +3118,7 @@ table.table thead .sorting .sort-icon {
     background: transparent;
     color: #fff;
     border: 1px solid #FFFFFF;
+}
+.tagstats-content{
+	min-height: 518px;
 }

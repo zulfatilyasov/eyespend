@@ -11,10 +11,11 @@ class TagStatsCtrl extends BaseCtrl
 
 		vm.draggableOptions =
 			placeholder: 'keep'
+
 		vm.sliderValuesChanged = (e, data) ->
 			fromDate = data.values.min.getTime() / 1000
 			toDate = data.values.max.getTime() / 1000
-			refreshTagsExpenses(fromDate, toDate)
+			refreshTagsExpenses()
 			$rootScope.$apply ->
 				vm.sliderRangeStart = data.values.min
 				vm.sliderRangeEnd = data.values.max
@@ -61,9 +62,7 @@ class TagStatsCtrl extends BaseCtrl
 			tags.map (tag) -> tag.text
 
 		vm.tagFilterChange = ->
-			stripedIncludeTags = stripTags vm.includeTags
-			stripedExcludeTags = stripTags vm.excludeTags
-			refreshTagsExpenses(fromDate, toDate, stripedIncludeTags, stripedExcludeTags)
+			refreshTagsExpenses()
 
 		vm.datePickerTexts = datepicker.getTexts()
 		vm.dateRanges = datepicker.getRanges()
@@ -76,7 +75,7 @@ class TagStatsCtrl extends BaseCtrl
 
 			if !vm.tagStats
 				return
-			refreshTagsExpenses(fromDate, toDate)
+			refreshTagsExpenses()
 
 		vm.miniOptions = miniChartOption
 
@@ -84,8 +83,14 @@ class TagStatsCtrl extends BaseCtrl
 
 		vm.getTagColorStyle = tagService.getTagColorStyle
 
-		refreshTagsExpenses = (from, to, includedTags, excludedTags) ->
-			getTagsExpenses(from, to, includedTags, excludedTags)
+		vm.dragStart = ->
+			vm.isDragging = true
+
+		vm.dragStop = ->
+			vm.isDragging = false
+
+		refreshTagsExpenses = (from = fromDate, to = toDate, includeTags = vm.includeTags, excludeTags = vm.excludeTags) ->
+			getTagsExpenses(from, to, stripTags(includeTags), stripTags(excludeTags))
 			.then ->
 				showBars()
 				vm.setSliderValues(new Date(from * 1000), new Date(to * 1000))

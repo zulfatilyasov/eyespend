@@ -1,7 +1,7 @@
 <div class="tag-stat-filters">
 	<div class="tagstats-filter include">
 		<div class="filter-header">Перенесите тег</div>
-		<div class="tags-box include" data-drop="true" jqyoui-droppable="{onDrop:'vm.tagDropped()'}">
+		<div class="tags-box include" data-drop="true" ng-class="{'is-dragging':vm.isDragging}" jqyoui-droppable="{onDrop:'vm.tagDropped()'}">
 			<tags-input ng-class="{empty:vm.includeTags.length === 0}" ng-model="vm.includeTags" on-tag-added="vm.tagFilterChange()" on-tag-removed="vm.tagFilterChange()" placeholder="&nbsp;">
 				<auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0" max-results="5">
 				</auto-complete>
@@ -11,7 +11,7 @@
 	</div>
 	<div class="tagstats-filter exclude">
 		<div class="filter-header">Перенесите тег</div>
-		<div class="tags-box exclude" data-drop="true" jqyoui-droppable="{onDrop:'vm.tagDropped()'}">
+		<div class="tags-box exclude" data-drop="true" ng-class="{'is-dragging':vm.isDragging}" jqyoui-droppable="{onDrop:'vm.tagDropped()'}">
 			<tags-input ng-class="{empty:vm.excludeTags.length === 0}" on-tag-added="vm.tagFilterChange()" on-tag-removed="vm.tagFilterChange()" ng-model="vm.excludeTags" placeholder="&nbsp;">
 				<auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0" max-results="5">
 				</auto-complete>
