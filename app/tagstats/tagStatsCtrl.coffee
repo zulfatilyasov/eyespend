@@ -50,10 +50,10 @@ class TagStatsCtrl extends BaseCtrl
 			intervalEnd = date.withoutTimeShort(toDate)
 			updateDateInterval intervalBegin, intervalEnd
 
-		vm.loadTags = ->
+		vm.loadTags = (query) ->
 			def = common.defer()
 			login
-			.getUserTags()
+			.getUserTags(query)
 			.then (data) ->
 				def.resolve(data)
 			def.promise;

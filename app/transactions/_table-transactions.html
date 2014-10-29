@@ -139,7 +139,7 @@
 				<td class="hidden-phone-landscape bootstrap tags-td">
 					<div>
 						<tags-input ng-model="transaction.tags" min-Length="1" replace-spaces-with-dashes="false" placeholder="{{'ADD_TAG'|translate}}" class="bootstrap inline-tags-input">
-							<auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0" max-results="5">
+							<auto-complete source="vm.loadTags($query)" min-length="0" debounce-delay="0" max-results="5">
 							</auto-complete>
 						</tags-input>
 					</div>

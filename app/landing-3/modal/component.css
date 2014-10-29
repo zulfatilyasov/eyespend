@@ -1,8 +1,8 @@
 /* General styles for the modal */
 
-/* 
+/*
 Styles for the html/body for special modal where we want 3d effects
-Note that we need a container wrapping all content on the page for the 
+Note that we need a container wrapping all content on the page for the
 perspective effects (not including the modals and the overlay).
 */
 
@@ -95,11 +95,10 @@ perspective effects (not including the modals and the overlay).
     height: 100%;
 }
 .modal-bg {
-    background: -webkit-linear-gradient(-145deg, #66bb90 0%, #40757c 100%);
-    background: -moz-linear-gradient(-145deg, #66bb90 0%, #40757c 100%);
-    background: -o-linear-gradient(-145deg, #66bb90 0%, #40757c 100%);
-    background: -ms-linear-gradient(-145deg, #66bb90 0%, #40757c 100%);
-    background: linear-gradient(235deg, #66bb90 0%, #40757c 100%);
+	background-image: -moz-linear-gradient( 45deg, rgb(225,115,102) 0%, rgb(225,115,102) 0%, rgb(237,131,102) 100%);
+	background-image: -webkit-linear-gradient( 45deg, rgb(225,115,102) 0%, rgb(225,115,102) 0%, rgb(237,131,102) 100%);
+	background-image: -ms-linear-gradient( 45deg, rgb(225,115,102) 0%, rgb(225,115,102) 0%, rgb(237,131,102) 100%);
+	background: linear-gradient( 45deg, rgb(225,115,102) 0%, rgb(225,115,102) 0%, rgb(237,131,102) 100%);
 }
 .modal-bg-overlay {
     display: none;

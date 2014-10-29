@@ -17,7 +17,7 @@
 		<div class="col-md-7">
 			<div class="tags-filter" focus-me="vm.isFiltering">
 				<tags-input ng-model="vm.tags" min-Length="1" add-from-autocomplete-only="false" replace-spaces-with-dashes="false" placeholder="{{'SEARCH_BY_TAGS'|translate}}" on-tag-added="vm.tagFilterChange()" on-tag-removed="vm.tagFilterChange()" class="bootstrap inline-tags-input">
-					<auto-complete source="vm.loadTags()" min-length="0" debounce-delay="0" max-results-to-show="50">
+					<auto-complete source="vm.loadTags($query)" min-length="0" debounce-delay="0" max-results-to-show="50">
 					</auto-complete>
 				</tags-input>
 			</div>

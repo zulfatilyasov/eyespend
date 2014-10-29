@@ -579,19 +579,8 @@ Carousel
 .slide-1-icon {
     display: none;
 }
-.slide-1-icon img {
-    -webkit-transition: all 0.3s;
-    -o-transition: all 0.3s;
-    transition: all 0.3s;
-}
 .slide-1-icon:not(:first-of-type) {
     margin-left: 25px;
-}
-.slide-1-icon:hover img {
-    -webkit-transform: scale(1.2);
-    -ms-transform: scale(1.2);
-    -o-transform: scale(1.2);
-    transform: scale(1.2);
 }
 .app-ref {
     -webkit-animation-delay: 0.8s;
@@ -750,7 +739,7 @@ WIDE: Main
     .slide3-receipt {
         display: block;
         position: absolute;
-        bottom: -58px;
+        bottom: -66px;
         left: -55px;
     }
     .arrow {

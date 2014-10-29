@@ -17,8 +17,8 @@
         escape: 27,
         space: 32,
         up: 38,
-        down: 40,
-        comma: 188
+        down: 40
+        //comma: 188
     };
 
     function SimplePubSub() {
@@ -448,7 +448,7 @@
 
                             items = makeObjectArray(items.data || items, options.tagsInput.displayProperty);
                             items = getDifference(items, tags);
-                            self.items = items.slice(0, options.maxResultsToShow);
+                            self.items = items;
 
                             if (self.items.length > 0) {
                                 self.show();
