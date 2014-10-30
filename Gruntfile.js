@@ -18,6 +18,19 @@ module.exports = function(grunt) {
                 ext: '.js'
             }
         },
+		coffeelint: {
+            options:{
+                    'indentation':{
+                        value: 4
+                    },
+                    'max_line_length':{
+                        value: 120
+                    }
+                },
+            app:{
+               src: ['app/**/*.coffee', '!app/bower_components/**/*', '!app/lib/**/*']
+           }
+		},
         useminPrepare: {
             html: './dist/app.html',
             options: {
@@ -140,7 +153,7 @@ module.exports = function(grunt) {
                     '!app/bower_components/**/*',
                     '!app/js/*'
                 ],
-                tasks: ['newer:coffee'],
+                tasks: ['newer:coffeelint','newer:coffee'],
                 options: {
                     interrupt: true,
                     livereload: true
@@ -159,6 +172,7 @@ module.exports = function(grunt) {
     });
 
 	grunt.loadNpmTasks('grunt-newer');
+    grunt.loadNpmTasks('grunt-coffeelint');
     grunt.loadNpmTasks('grunt-contrib-coffee');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');

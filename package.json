@@ -30,6 +30,7 @@
   "dependencies": {
     "body-parser": "^1.0.2",
     "bower": "^1.3.1",
+    "coffeelint": "^1.6.1",
     "cookie-parser": "^1.1.0",
     "dummy-json": "0.0.2",
     "express": "^4.1.1",
@@ -37,6 +38,7 @@
     "express-session": "^1.2.1",
     "grunt": "^0.4.4",
     "grunt-cache-busting": "0.0.10",
+    "grunt-coffeelint": "0.0.13",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-coffee": "^0.12.0",
     "grunt-contrib-copy": "^0.5.0",

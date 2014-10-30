@@ -4,7 +4,7 @@ html {
     overflow-y: scroll;
 }
 body {
-    font: 16px/26px Helvetica Neue, Arial;
+    font: 16px/26px HelveticaNeue, Arial;
     -webkit-font-smoothing: antialiased;
     font-style: normal;
     font-weight: normal;
@@ -515,7 +515,7 @@ input.inlineInput {
 }
 input.transparentInput {
     background: transparent;
-    font: 16px/26px Helvetica Neue, Arial;
+    font: 16px/26px HelveticaNeue, Arial;
     -webkit-font-smoothing: antialiased;
     color: rgba(255, 255, 254, 0.6);
     border: 0;
@@ -728,7 +728,7 @@ tags-input.inline-tags-input .tags .input, tags-input.inline-tags-input .tags .i
     height: 24px;
     color: #fff;
     line-height: 24px;
-    font: 16px/26px Helvetica Neue, Arial;
+    font: 16px/26px HelveticaNeue, Arial;
     -webkit-font-smoothing: antialiased;
     margin-top: 3px;
 }
@@ -746,7 +746,7 @@ tags-input .bootstrap .tags .tag-item, .bootstrap .tags .tag-item {
     -webkit-transition: all 0.2s;
     transition: all 0.2s;
     color: #000;
-    font: 16px/26px Helvetica Neue, Arial;
+    font: 16px/26px HelveticaNeue, Arial;
 }
 tags-input .tags .tag-item .remove-button {
     color: #fff;
@@ -767,7 +767,7 @@ tags-input .tags.focused {
 }
 ::-webkit-input-placeholder {
     color: rgba(255, 255, 255, 0.8);
-    font: 16px/26px Helvetica Neue, Arial;
+    font: 16px/26px HelveticaNeue, Arial;
     -webkit-font-smoothing: antialiased;
     letter-spacing: 0.7px;
     font-weight: 300;
@@ -775,14 +775,14 @@ tags-input .tags.focused {
 }
 :-moz-placeholder {
     color: rgba(255, 255, 255, 0.8);
-    font: 16px/26px Helvetica Neue, Arial;
+    font: 16px/26px HelveticaNeue, Arial;
     -webkit-font-smoothing: antialiased;
     opacity: 1;
     font-weight: 300;
 }
 ::-moz-placeholder {
     color: rgba(255, 255, 255, 0.8);
-    font: 16px/26px Helvetica Neue, Arial;
+    font: 16px/26px HelveticaNeue, Arial;
     -webkit-font-smoothing: antialiased;
     letter-spacing: 0.7px;
     opacity: 1;
@@ -790,7 +790,7 @@ tags-input .tags.focused {
 }
 :-ms-input-placeholder {
     color: rgba(255, 255, 255, 0.8);
-    font: 16px/26px Helvetica Neue, Arial;
+    font: 16px/26px HelveticaNeue, Arial;
     -webkit-font-smoothing: antialiased;
     opacity: 1;
     font-weight: 300;
@@ -808,23 +808,23 @@ tags-input .tags.focused {
     color: rgba(255, 255, 255, 0.6);
 }
 .styledInput::-webkit-input-placeholder {
-    font: 14px/26px Helvetica Neue, Arial;
+    font: 14px/26px HelveticaNeue, Arial;
     letter-spacing: 0.7px;
     color: rgba(255, 255, 255, 0.7);
 }
 .styledInput:-moz-placeholder {
     color: rgba(255, 255, 255, 0.7);
-    font: 14px/26px Helvetica Neue, Arial;
+    font: 14px/26px HelveticaNeue, Arial;
     letter-spacing: 0.7px;
 }
 .styledInput:-ms-input-placeholder {
-    font: 14px/26px Helvetica Neue, Arial;
+    font: 14px/26px HelveticaNeue, Arial;
     letter-spacing: 0.7px;
     color: rgba(255, 255, 255, 0.7);
     font-weight: 300;
 }
 .styledInput::-moz-placeholder {
-    font: 14px/26px Helvetica Neue, Arial;
+    font: 14px/26px HelveticaNeue, Arial;
     letter-spacing: 0.7px;
     color: rgba(255, 255, 255, 0.7);
 }
@@ -3121,4 +3121,7 @@ table.table thead .sorting .sort-icon {
 }
 .tagstats-content{
 	min-height: 518px;
+}
+b, strong{
+	font-weight: 500;
 }

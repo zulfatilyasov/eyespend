@@ -1,5 +1,5 @@
 angular.module('app').factory 'tag.service', ['rcolor', (rcolor) ->
-    new class tagService
+    new class TagService
         _userTags = []
 
         _getTagColor = (tagText) ->

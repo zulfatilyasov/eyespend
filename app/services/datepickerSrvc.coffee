@@ -1,5 +1,5 @@
 angular.module('app').factory 'datepicker.service', ['config', (config) ->
-    new class datePickerSrvc 
+    new class DatePickerSrvc
         getTexts : ->
             if config.local is 'ru'
                 cancelLabel: 'Отмена'
