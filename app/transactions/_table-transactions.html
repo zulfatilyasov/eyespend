@@ -37,33 +37,33 @@
 						<img src="../img/edited-expense-pointer.png" alt="">
 					</div>
 					<div class="td-content">
-								<span class="fullDate">
-									{{transaction.timestamp | date:'dd MMMM yyyy'}}
-								</span>
-								<span class="shortDate">
-									{{transaction.timestamp | date:'dd.MM.yy'}}
-								</span>
+						<span class="fullDate">
+							{{transaction.timestamp | date:'dd MMMM yyyy'}}
+						</span>
+						<span class="shortDate">
+							{{transaction.timestamp | date:'dd.MM.yy'}}
+						</span>
 					</div>
 				</td>
 				<td class="time-td">
 					<div class="td-content">
 						<div ng-show="lang === 'en'">
-									<span>
-										{{transaction.timestamp | date:'hh:mm a'}}
-									</span>
+							<span>
+								{{transaction.timestamp | date:'hh:mm a'}}
+							</span>
 						</div>
 						<div ng-show="lang === 'ru'">
-									<span>
-										{{transaction.timestamp | date:'HH:mm'}}
-									</span>
+							<span>
+								{{transaction.timestamp | date:'HH:mm'}}
+							</span>
 						</div>
 					</div>
 				</td>
 				<td class="transactionAmount">
 					<div class="td-content">
-								<span>
-									{{transaction.amountInBaseCurrency}}
-								</span>
+						<span>
+							{{transaction.amountInBaseCurrency}}
+						</span>
 					</div>
 				</td>
 				<td class="map">

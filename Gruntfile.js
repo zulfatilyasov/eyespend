@@ -1,3 +1,4 @@
+
 'use strict';
 
 module.exports = function(grunt) {
@@ -9,6 +10,14 @@ module.exports = function(grunt) {
     //    }
 
     grunt.initConfig({
+        indent: {
+            src: ['app/services/datepickerSrvc.coffee'],
+            options: {
+              style: 'space',
+              size: 2,
+              change: -2
+            }
+        },
         coffee: {
             compile: {
                 expand: true,
@@ -20,10 +29,7 @@ module.exports = function(grunt) {
         },
 		coffeelint: {
             options:{
-                    'indentation':{
-                        value: 4
-                    },
-                    'max_line_length':{
+                   'max_line_length':{
                         value: 120
                     }
                 },
@@ -185,6 +191,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-run');
     grunt.loadNpmTasks('grunt-open');
     grunt.loadNpmTasks('grunt-usemin');
+    grunt.loadNpmTasks('grunt-indent');
 
     grunt.registerTask('bust', ['cacheBust:app', 'cacheBust:landing']);
     grunt.registerTask('minify', ['useminPrepare', 'concat:generated', 'cssmin:generated', 'uglify:generated', 'usemin']);

@@ -1150,8 +1150,8 @@ tags-input .tags .input {
     margin: 0;
     color: #333;
     height: 35px;
-    font-size: 15px;
-    font-weight: normal;
+    font-size: 16px;
+    font-weight: 300;
     padding-left: 0px;
 }
 .transactionForm .host {
@@ -2262,6 +2262,12 @@ tr.selected .chekin-icon {
 .nano > .nano-content {
     padding-top: 40px;
 }
+.tag-stats .nano > .nano-content{
+    padding-top: 0;
+}
+.tag-stats .nano > .nano-pane{
+    top:0;
+}
 .nano > .nano-content:focus {
     outline: none;
 }
@@ -3074,13 +3080,14 @@ table.table thead .sorting .sort-icon {
 	-o-transition: opacity 0.1s linear 0s;
 	transition: opacity 0.1s linear 0s;
 	content: 'Перенесите тег';
+    font-weight: 300;
 	display: inline-block;
 	height: 41px;
 	position: absolute;
 	padding: 2px 0 0 2px;
 }
 .is-dragging .empty .tags:before{
-	opacity: 0.3;
+	opacity: 0.5;
 	-webkit-transition-delay: 0.1s;
 	-moz-transition-delay: 0.1s;
 	-ms-transition-delay: 0.1s;
