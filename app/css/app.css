@@ -69,15 +69,11 @@ body.background-blue {
 }
 
 body.orange-bg {
-	background: url(../img/orange-bg.png) no-repeat;
-	background-size: cover;
-    /*
-    background: -webkit-linear-gradient(-145deg, #f4e6c9 4%, #ecbc8c 48%, #e09673 65%, #da8366 96%);
-    background: -moz-linear-gradient(-145deg, #f4e6c9 4%, #ecbc8c 48%, #e09673 65%, #da8366 96%);
-    background: -o-linear-gradient(-145deg, #f4e6c9 4%, #ecbc8c 48%, #e09673 65%, #da8366 96%);
-    background: -ms-linear-gradient(-145deg, #f4e6c9 4%, #ecbc8c 48%, #e09673 65%, #da8366 96%);
-    background: linear-gradient(235deg, #f4e6c9 4%, #ecbc8c 48%, #e09673 65%, #da8366 96%);
-*/
+    background: url(../img/texture-orange.png), -webkit-linear-gradient(-145deg, #f4e6c9 4%, #ecbc8c 48%, #e09673 65%, #da8366 96%);
+    background: url(../img/texture-orange.png), -moz-linear-gradient(-145deg, #f4e6c9 4%, #ecbc8c 48%, #e09673 65%, #da8366 96%);
+    background: url(../img/texture-orange.png), -o-linear-gradient(-145deg, #f4e6c9 4%, #ecbc8c 48%, #e09673 65%, #da8366 96%);
+    background: url(../img/texture-orange.png), -ms-linear-gradient(-145deg, #f4e6c9 4%, #ecbc8c 48%, #e09673 65%, #da8366 96%);
+    background: url(../img/texture-orange.png), linear-gradient(-145deg, #f4e6c9 4%, #ecbc8c 48%, #e09673 65%, #da8366 96%);
 }
 .new-table-row {
     background-color: rgba(255, 255, 255, 0.15);
@@ -549,20 +545,22 @@ input.transparentInput:focus {
 .navbar-nav.open {
     max-width: 185px;
 }
-.lang-change-icon {
+.page-header .nav > li.lang-change-icon {
     visibility: visible;
     opacity: 1;
     -webkit-transition: visibility 0s linear 0.2s;
     -o-transition: visibility 0s linear 0.2s;
     transition: visibility 0s linear 0.2s;
+    background: url(../img/earth-icon.png) 10px 6px no-repeat;
 }
-.right-menu.open .lang-change-icon {
-    visibility: hidden;
-    opacity: 0;
-    transition-delay: 0s;
-    -webkit-transition: opacity 0.3s ease-out;
-    -o-transition: opacity 0.3s ease-out;
-    transition: opacity 0.3s ease-out;
+.page-header .nav > li.lang-change-icon:hover{
+    background: url(../img/lang-icon-hover.png) 10px 6px no-repeat;
+}
+.page-header .nav > li.sign-in-icon{
+    background: url(../img/sign-in-icon.png) 10px 6px no-repeat;
+}
+.page-header .nav > li.sign-in-icon:hover{
+    background: url(../img/sign-out-hover.png) 10px 6px no-repeat;
 }
 .right-menu li.active {
     background: rgba(203, 88, 11, 0.6);
@@ -1298,7 +1296,7 @@ tr.edited .pointer {
 }
 #transactions-table tr.edited td {
     background-color: rgba(219, 124, 61, 0.7) !important;
-    height: 43px;
+    height: 42px;
 }
 #transactions-table tr.edited td {
     overflow: initial;
@@ -2903,6 +2901,10 @@ table.table thead .sorting .sort-icon {
     border-right: 2px solid #fff;
     padding-left: 9px;
 	border-bottom: 1px solid #fff;
+    vertical-align: top;
+}
+.tag-list-td .transaction-tags div{
+    margin-top: 5px;
 }
 .bar {
     background: url(../img/stats-pattern.png);

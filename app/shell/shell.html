@@ -10,14 +10,12 @@
                     </div>
                 </a>
                 <ul ng-class="{open:vm.langsOpen}" class="nav right-menu navbar-nav navbar-right pull-right">
-                    <li>
+                    <li class="sign-in-icon">
                         <a href="javascript:void(0)" id="logoutButton" class="top-icon simptip-position-right simptip-movable simptip-smooth" data-tooltip="{{'EXIT'|translate}}" ng-click="vm.logout()">
-                            <img src="../img/sign-in-icon.png" alt="">
                         </a>
                     </li>
                     <li class="lang-change-icon" ng-show="!vm.langsOpen">
                         <a href="javascript:void(0)" ng-click="vm.togglePopover()" id="globe" data-toggle="popover" data-placement="bottom" class="top-icon" data-original-title="Settings">
-                            <img src="../img/earth-icon.png" alt="">
                         </a>
                     </li>
                     <li ng-class="{active:lang === 'en'}" class="lang-option">
