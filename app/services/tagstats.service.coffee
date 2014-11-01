@@ -18,7 +18,7 @@ angular.module('app').factory 'tagstats.service', ['tag.service', 'common', 'dat
 
             for tagstat in stats
               tagstat.tags = tagService.colorAndSaveTags tagstat.tags
-              def.resolve stats
+            def.resolve stats
 
           .error ->
             def.reject()
