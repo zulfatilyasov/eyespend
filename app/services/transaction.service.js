@@ -266,8 +266,7 @@
             var def = common.$q.defer();
             setTxnTime(tnx);
             map.setTxnCoords(tnx);
-            tnx.tags = tagSerivce.colorAnd
-            SaveTags(tnx.tags);
+            tnx.tags = tagSerivce.colorAndSaveTags(tnx.tags);
             datacontext.updateTransaction(_serverFormatTnx(tnx))
                 .then(function() {
                         var transaction = transactions.filter(function(t) {
