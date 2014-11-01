@@ -94,10 +94,17 @@ $(function() {
                 setAthenticated(data.token);
                 location.reload(true);
             })
-            .fail(function() {
-                $('#email-area').addClass('error');
-                $('#password-area').addClass('error');
-                setMessage(translations.INVALID_CODE_OR_EMAIL);
+            .fail(function(data) {
+                if(data && data.responseJSON && data.responseJSON.error && data.responseJSON.error.code){
+                    if(data.responseJSON.error.code === 'subscription_required'){
+                        setMessage(translations.SUBSCIPTION_REQUIRED);
+                    }
+                }
+                else{
+                    $('#email-area').addClass('error');
+                    $('#password-area').addClass('error');
+                    setMessage(translations.INVALID_CODE_OR_EMAIL);
+                }
             });
     }
 

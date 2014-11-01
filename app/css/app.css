@@ -1654,7 +1654,7 @@ div[ng-view].ng-leave {
     position: relative;
 }
 .transaction-tags a {
-    margin-left: 17px;
+    margin-left: 18px;
     padding: 0 10px 0 12px;
     background: #97A6C3;
     color: #fff;
@@ -1668,7 +1668,7 @@ div[ng-view].ng-leave {
     border-top-right-radius: 4px;
 }
 .stat-tags a {
-    margin-left: 12px;
+    margin-left: 13px;
 }
 .tag-list-td .transaction-tags .beforeTag, .tag-list-td .transaction-tags a{
 	-webkit-transition: none;
@@ -1707,7 +1707,7 @@ div[ng-view].ng-leave {
     height: 0;
     border-color: transparent #97A6C3 transparent transparent;
     border-style: solid;
-    border-width: 15px 13px 15px 0;
+    border-width: 15px 14px 15px 0;
 }
 .transaction-tags a, .beforeTag {
     -webkit-transition: all 0.5s;
@@ -3009,6 +3009,9 @@ table.table thead .sorting .sort-icon {
     background: -ms-linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.03) 100%);
     background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.03) 100%);
 }
+.tag-stat-table table{
+    width: 750px;
+}
 .tag-stat-table tr {
     height: 42px;
 }
@@ -3027,9 +3030,11 @@ table.table thead .sorting .sort-icon {
 }
 .tag-stat-filters {
     display: inline-block;
+    position: absolute;
     width: 290px;
     padding-right: 20px;
     float: right;
+    margin-left: 15px;
 }
 .tagstats-filter .description {
     font-size: 14px;

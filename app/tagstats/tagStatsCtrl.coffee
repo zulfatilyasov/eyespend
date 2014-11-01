@@ -145,3 +145,9 @@ class TagStatsCtrl extends BaseCtrl
     @activate([getStats()])
       .then ->
         showBars()
+
+        callback = ->
+          $('.nano').bind 'update', ->
+            $('.tag-stat-filters').css 'top', $('.nano-content').scrollTop()
+
+        common.$timeout callback, 200

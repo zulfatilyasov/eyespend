@@ -89,7 +89,8 @@ var translationsRu = {
     EXPENSES: 'Расходы',
     ACCOUNT: "Настройки",
     STATISTICS: "Статистика",
-    TAGSTATS: "По тегам"
+    TAGSTATS: "По тегам",
+    SUBSCIPTION_REQUIRED:"Для входа на сайт необходимо активировать подписку."
 };
 
 var translationsEn = {
@@ -182,7 +183,8 @@ var translationsEn = {
     EXPENSES: 'Expenses',
     ACCOUNT: "Account",
     STATISTICS: "Statistics",
-    TAGSTATS: "By tags"
+    TAGSTATS: "By tags",
+    SUBSCIPTION_REQUIRED:"Please, activate your subscription to log in."
 };
 try {
     exports.ru = translationsRu;
