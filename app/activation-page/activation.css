@@ -13,7 +13,6 @@ body.green-blue {
   background: url("../img/texture-light.png"), -o-linear-gradient(-145deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
   background: url("../img/texture-light.png"), -ms-linear-gradient(-145deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
   background: url("../img/texture-light.png"), linear-gradient(235deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
-  background-attachment: fixed;
 }
 .orange-bg {
   font: 16px/26px Helvetica Neue, Arial;
