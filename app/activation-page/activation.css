@@ -212,3 +212,11 @@ button:hover {
 button:focus {
   outline: none;
 }
+.logo.sidebar-icons {
+    left: 0;
+    padding-left: 0;
+    height: 37px;
+    width: 153px;
+    margin-top: 15px;
+    background: url(../img/logo.png);
+}
