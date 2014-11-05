@@ -183,7 +183,7 @@ input.styledInput.error {
   -webkit-font-smoothing: antialiased;
   letter-spacing: 0.7px;
   opacity: 1;
-  font-weight: 300;
+  font-weight: 450;
 }
 :-moz-placeholder {
   color: rgba(255, 255, 255, 0.8);
@@ -191,7 +191,7 @@ input.styledInput.error {
   -webkit-font-smoothing: antialiased;
   letter-spacing: 0.7px;
   opacity: 1;
-  font-weight: 300;
+  font-weight: 450;
 }
 ::-moz-placeholder {
   color: rgba(255, 255, 255, 0.8);
@@ -199,7 +199,7 @@ input.styledInput.error {
   -webkit-font-smoothing: antialiased;
   letter-spacing: 0.7px;
   opacity: 1;
-  font-weight: 300;
+  font-weight: 450;
 }
 :-ms-input-placeholder {
   color: rgba(255, 255, 255, 0.8);
@@ -207,14 +207,14 @@ input.styledInput.error {
   -webkit-font-smoothing: antialiased;
   letter-spacing: 0.7px;
   opacity: 1;
-  font-weight: 300;
+  font-weight: 450;
 }
 button {
   border-radius: 6px;
   width: 163px;
   height: 35px;
-  border: 1px solid #fff;
-  background: 0 0;
+  border: none;
+  background: #5a5a5a;
   -webkit-transition: all .5s;
   -o-transition: all .5s;
   transition: all .5s;
