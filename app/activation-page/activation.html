@@ -171,8 +171,19 @@
     }
   }
 
+  function bindEnterKey() {
+    $('.styledInput').keypress(function(event) {
+      if (event.keyCode == 13) {
+        debugger;
+        event.preventDefault();
+        $('button:visible').click();
+      }
+    });
+  }
+
   $(function() {
     verifyCode();
+    bindEnterKey();
     showForm();
   });
   </script>
@@ -186,11 +197,11 @@
           <div>
             <div class="navbar">
               <a href="/">
-                  <div class="logo sidebar-icons">
-                      <!--<h4 style="display:inline-block">
-                          eye<b>Spend</b>
-                      </h4>-->
-                  </div>
+                <div class="logo sidebar-icons">
+                    <!--<h4 style="display:inline-block">
+                        eye<b>Spend</b>
+                    </h4>-->
+                </div>
               </a>
             </div>
           </div>

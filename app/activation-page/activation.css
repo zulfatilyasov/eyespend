@@ -128,9 +128,9 @@ body.green-blue {
 }
 p.opac {
   color: #5a5a5a;
-  font-size: 16px;
+  font-size: 15px;
   margin: 0 0 10px;
-  line-height: 17px;
+  line-height: 16px;
 }
 .error-message, .error-confirmation, .error-password, .error-change {
   color: rgb(159, 37, 37);
