@@ -174,7 +174,6 @@
   function bindEnterKey() {
     $('.styledInput').keypress(function(event) {
       if (event.keyCode == 13) {
-        debugger;
         event.preventDefault();
         $('button:visible').click();
       }
@@ -183,8 +182,8 @@
 
   $(function() {
     verifyCode();
-    bindEnterKey();
     showForm();
+    bindEnterKey();
   });
   </script>
 </head>
@@ -227,7 +226,7 @@
                   <label for="password">
                     Одноразовый пароль
                   </label>
-                  <input type="password" id="password" class="styledInput" placeholder="Введите одноразовый пароль">
+                  <input type="password" id="password" class="styledInput" placeholder="Введите одноразовый пароль" autofocus>
                   <div class="error-message"></div>
                 </div>
                 <button onclick="confirmDesktop()">Сохранить</button>
@@ -257,7 +256,7 @@
                   <label for="password">
                     Пароль
                   </label>
-                  <input type="password" class="password-mobile styledInput" placeholder="Введите пароль">
+                  <input type="password" class="password-mobile styledInput" placeholder="Введите пароль" autofocus>
                   <div class="error-password"></div>
                 </div>
                 <div class="control-group">
@@ -295,7 +294,7 @@
                 <label for="password">
                   Пароль
                 </label>
-                <input type="password" class="password-change styledInput" placeholder="Введите пароль">
+                <input type="password" class="password-change styledInput" placeholder="Введите пароль" autofocus>
                 <div class="error-change"></div>
               </div>
               <button onclick="confirmEmailChange()">Сохранить</button>
