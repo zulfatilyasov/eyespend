@@ -1,7 +1,21 @@
 html {
   min-height: 100%;
 }
-.green-blue {
+body.green-blue {
+  font: 16px/26px Helvetica Neue, Arial;
+  -webkit-font-smoothing: antialiased;
+  font-style: normal;
+  font-weight: 400;
+  padding-bottom: 0;
+  margin: 0;
+  background: url("../img/texture-light.png"), -webkit-linear-gradient(-145deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
+  background: url("../img/texture-light.png"), -moz-linear-gradient(-145deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
+  background: url("../img/texture-light.png"), -o-linear-gradient(-145deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
+  background: url("../img/texture-light.png"), -ms-linear-gradient(-145deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
+  background: url("../img/texture-light.png"), linear-gradient(235deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
+  background-attachment: fixed;
+}
+.orange-bg {
   font: 16px/26px Helvetica Neue, Arial;
   -webkit-font-smoothing: antialiased;
   font-style: normal;
@@ -73,7 +87,7 @@ html {
   background: -o-linear-gradient(0deg, rgba(80, 166, 189, .06)0, rgba(255, 255, 255, 0)72%, rgba(0, 0, 0, .06)99%, rgba(0, 0, 0, .06)100%);
   background: -ms-linear-gradient(0deg, rgba(80, 166, 189, .06)0, rgba(255, 255, 255, 0)72%, rgba(0, 0, 0, .06)99%, rgba(0, 0, 0, .06)100%);
   background: linear-gradient(0deg, rgba(80, 166, 189, .06)0, rgba(255, 255, 255, 0)72%, rgba(0, 0, 0, .06)99%, rgba(0, 0, 0, .06)100%);
-  background-color: rgba(255, 255, 255, .15);
+  background-color: rgba(255, 255, 255, .7);
   padding: 0;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
@@ -98,7 +112,7 @@ html {
   padding: 10px 0;
 }
 .widgeTitle {
-  color: #54747b;
+  color: #5a5a5a;
   font-size: 24px;
   font-weight: 300;
   height: 46px;
@@ -113,10 +127,10 @@ html {
   border-bottom-right-radius: 6px;
 }
 p.opac {
-  color: #fff;
-  font-size: 15px;
+  color: #5a5a5a;
+  font-size: 16px;
   margin: 0 0 10px;
-  line-height: 16px;
+  line-height: 17px;
 }
 .error-message, .error-confirmation, .error-password, .error-change {
   color: rgb(159, 37, 37);
@@ -132,7 +146,7 @@ section {
 }
 label {
   display: block;
-  color: #fff;
+  color: #5a5a5a;;
   font-size: 16px;
   font-weight: 400;
 }
@@ -150,7 +164,7 @@ input.styledInput {
   width: 300px;
   font-size: 14px;
   font-weight: 300;
-  min-height: 30px;
+  min-height: 26px;
   padding-left: 6px;
   padding-right: 6px;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
@@ -166,27 +180,34 @@ input.styledInput.error {
 ::-webkit-input-placeholder {
   color: rgba(255, 255, 255, 0.8);
   font: 14px Helvetica Neue, Arial;
-  font-weight: 100;
+  -webkit-font-smoothing: antialiased;
   letter-spacing: 0.7px;
+  opacity: 1;
+  font-weight: 300;
 }
 :-moz-placeholder {
   color: rgba(255, 255, 255, 0.8);
   font: 14px Helvetica Neue, Arial;
-  font-weight: 100;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: 0.7px;
   opacity: 1;
+  font-weight: 300;
 }
 ::-moz-placeholder {
   color: rgba(255, 255, 255, 0.8);
   font: 14px Helvetica Neue, Arial;
-  font-weight: 100;
+  -webkit-font-smoothing: antialiased;
   letter-spacing: 0.7px;
   opacity: 1;
+  font-weight: 300;
 }
 :-ms-input-placeholder {
   color: rgba(255, 255, 255, 0.8);
-  font-weight: 100;
-  letter-spacing: 0.7px;
   font: 14px Helvetica Neue, Arial;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: 0.7px;
+  opacity: 1;
+  font-weight: 300;
 }
 button {
   border-radius: 6px;
