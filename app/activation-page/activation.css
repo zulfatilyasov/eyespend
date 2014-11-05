@@ -8,11 +8,11 @@ html {
   font-weight: 400;
   padding-bottom: 0;
   margin: 0;
-  background: url("../img/texture-light.png"), -webkit-linear-gradient(-145deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
-  background: url("../img/texture-light.png"), -moz-linear-gradient(-145deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
-  background: url("../img/texture-light.png"), -o-linear-gradient(-145deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
-  background: url("../img/texture-light.png"), -ms-linear-gradient(-145deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
-  background: url("../img/texture-light.png"), linear-gradient(235deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
+  background: url(../img/texture-orange.png), -webkit-linear-gradient(-145deg, #f4e6c9 4%, #ecbc8c 48%, #e09673 65%, #da8366 96%);
+  background: url(../img/texture-orange.png), -moz-linear-gradient(-145deg, #f4e6c9 4%, #ecbc8c 48%, #e09673 65%, #da8366 96%);
+  background: url(../img/texture-orange.png), -o-linear-gradient(-145deg, #f4e6c9 4%, #ecbc8c 48%, #e09673 65%, #da8366 96%);
+  background: url(../img/texture-orange.png), -ms-linear-gradient(-145deg, #f4e6c9 4%, #ecbc8c 48%, #e09673 65%, #da8366 96%);
+  background: url(../img/texture-orange.png), linear-gradient(-145deg, #f4e6c9 4%, #ecbc8c 48%, #e09673 65%, #da8366 96%);
 }
 .generic-error {
   display: none;
