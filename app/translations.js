@@ -90,7 +90,12 @@ var translationsRu = {
     ACCOUNT: "Настройки",
     STATISTICS: "Статистика",
     TAGSTATS: "По тегам",
-    SUBSCIPTION_REQUIRED:"Для входа на сайт необходимо активировать подписку."
+    SUBSCIPTION_REQUIRED:"Для входа на сайт необходимо активировать подписку.",
+    STATS_BY_TAGS :"Статистика по тегам",
+    CHOOSE_INTERVAL :"Уточнить интервал",
+    DAY: "День",
+    WEEK: "Неделя",
+    MONTH: "Месяц"
 };
 
 var translationsEn = {
@@ -184,8 +189,14 @@ var translationsEn = {
     ACCOUNT: "Account",
     STATISTICS: "Statistics",
     TAGSTATS: "By tags",
-    SUBSCIPTION_REQUIRED:"Please, activate your subscription to log in."
+    SUBSCIPTION_REQUIRED:"Please, activate your subscription to log in.",
+    STATS_BY_TAGS: "Statistics by tags",
+    CHOOSE_INTERVAL: "Choose date",    
+    DAY: "Day",
+    WEEK: "Week",
+    MONTH: "Month"
 };
+
 try {
     exports.ru = translationsRu;
     exports.en = translationsEn;

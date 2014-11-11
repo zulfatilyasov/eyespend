@@ -37,7 +37,7 @@
 
 		function setWidgetAndTableHeight() {
 			vm.tableHeight = getTableHeight();
-			vm.widgetHeight = vm.tableHeight + 73;
+			vm.widgetHeight = vm.tableHeight + 75;
 		}
 
 		function getTableHeight() {
@@ -426,7 +426,8 @@
 				text: tagText
 			});
 			if (!vm.isFiltering)
-				vm.isFiltering = true;
+				vm.toggleFiltering();
+				// vm.isFiltering = true;
 			applyfilters();
 		};
 
