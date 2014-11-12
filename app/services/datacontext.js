@@ -105,12 +105,14 @@
             return $http.get('/api/secure/stats/dailyExpenses');
         }
 
-        function getTagsExpenses(dateFrom, dateTo, includeTags, excludeTags) {
+        function getTagsExpenses(dateFrom, dateTo, includeTags, excludeTags, limit, offset) {
             var params = {
                 dateFrom: dateFrom,
                 dateTo: dateTo,
                 'includeTags[]': includeTags,
-                'excludeTags[]': excludeTags
+                'excludeTags[]': excludeTags,
+                limit: limit,
+                offset: offset
             };
             console.log(params);
             return $http.get('/api/secure/stats/tagsExpenses', {

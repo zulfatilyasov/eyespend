@@ -1,4 +1,7 @@
 class TagStatsCtrl extends BaseCtrl
+  RECORD_LIMIT: 20
+  RECORD_OFFSET: 0
+
   @register()
 
   @inject 'common', '$rootScope', '$scope', '$interval', 'datacontext', 'stats.service',
@@ -95,8 +98,8 @@ class TagStatsCtrl extends BaseCtrl
       vm.isDragging = false
 
     refreshTagsExpenses =
-      (from = fromDate, to = toDate, includeTags = vm.includeTags, excludeTags = vm.excludeTags) ->
-        getTagsExpenses(from, to, stripTags(includeTags), stripTags(excludeTags))
+      (from = fromDate, to = toDate, includeTags = vm.includeTags, excludeTags = vm.excludeTags, limit = RECORD_LIMIT, offset = RECORD_OFFSET) ->
+        getTagsExpenses(from, to, stripTags(includeTags), stripTags(excludeTags), limit, offset)
         .then ->
           showBars()
           vm.setSliderValues(new Date(from * 1000), new Date(to * 1000))
