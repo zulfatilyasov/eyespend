@@ -15,10 +15,9 @@
         };
     });
 
-    commonModule.factory('common', ['$q', '$rootScope', '$timeout', 'commonConfig', 'logger', common]);
+    commonModule.factory('common', ['$q', '$rootScope', '$timeout', 'commonConfig', 'config', 'logger', '$translate', 'cookie', 'tmhDynamicLocale', common]);
 
-    function common($q, $rootScope, $timeout, commonConfig, logger) {
-
+    function common($q, $rootScope, $timeout, commonConfig, config, logger, $translate, cookie, tmhDynamicLocale) {
 
         var log = logger.getLogFn();
 
@@ -66,6 +65,21 @@
             });
         }
 
+        function translate(lang) {
+            $rootScope.lang = config.local = lang;
+            cookie.set('lang', lang);
+            $translate.use(lang);
+            if (lang === 'ru') {
+                moment.locale(lang);
+            } else {
+                moment.locale('en-gb');
+            }
+            tmhDynamicLocale.set(lang);
+            $broadcast(commonConfig.config.localeChange, {
+                locale: lang
+            });
+        }
+
         function $broadcast() {
             return $rootScope.$broadcast.apply($rootScope, arguments);
         }
@@ -80,6 +94,7 @@
 
         return {
             $broadcast: $broadcast,
+            translate: translate,
             $q: $q,
             $timeout: $timeout,
             activateController: activateController,

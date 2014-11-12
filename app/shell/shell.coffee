@@ -22,12 +22,8 @@ class Shell extends BaseCtrl
       @langsOpen = !@langsOpen
 
     @translate = (lang) ->
-      $rootScope.lang = config.local = lang
-      cookie.set 'lang', lang
-      $translate.use lang
-      if lang == 'ru' then moment.locale lang else moment.locale 'en-gb'
-      tmhDynamicLocale.set lang
       @togglePopover()
+      @common.translate(lang)
 
     $rootScope.$on '$routeChangeStart' , (event, next) ->
       toggleSpinner on if next.$$route.originalPath == '/'

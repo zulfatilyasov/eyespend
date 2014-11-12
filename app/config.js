@@ -9,6 +9,7 @@
     var events = {
         controllerActivateSuccess: 'controller.activateSuccess',
         spinnerToggle: 'spinner.toggle',
+        localeChange:'locale.change',
         locationSet: 'location.set'
     };
 

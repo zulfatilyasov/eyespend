@@ -18,6 +18,13 @@ module.exports = function(grunt) {
               change: -2
             }
         },
+        sprite:{
+          all: {
+            src: 'app/img/**/*.png',
+            destImg: 'app/img/spritesheet.png',
+            destCSS: 'app/css/app.css'
+          }
+        },
         coffee: {
             compile: {
                 expand: true,
@@ -192,6 +199,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-open');
     grunt.loadNpmTasks('grunt-usemin');
     grunt.loadNpmTasks('grunt-indent');
+    grunt.loadNpmTasks('grunt-spritesmith');
 
     grunt.registerTask('bust', ['cacheBust:app', 'cacheBust:landing']);
     grunt.registerTask('minify', ['useminPrepare', 'concat:generated', 'cssmin:generated', 'uglify:generated', 'usemin']);

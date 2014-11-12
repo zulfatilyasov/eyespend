@@ -80,7 +80,7 @@
 
         function getExcelFile(fromDate, toDate, tags, withPhoto) {
             var tagsArray = _convertTagsToArray(tags);
-            datacontext.getExcelFileUrl(
+            return datacontext.getExcelFileUrl(
                     sortOptions.column,
                     sortOptions.descending,
                     offset,

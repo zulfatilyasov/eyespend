@@ -1,24 +1,27 @@
 <div class="tag-filters-wrap" sticky>
 	<div  class="tag-stat-filters">
+		<div class="filters-header">
+		 <img class="filter-small" src="../img/filter-small.png" alt="">Фильтрация
+		</div>
+		<div class="white-delimiter"></div>
+		<p class="description">Вы можете ввести тег с клавиатуры или перетащить мышью</p>
 		<div class="tagstats-filter include">
-			<div class="filter-header">Добавить тег</div>
+			<div class="filter-header">Показать</div>
 			<div class="tags-box include" data-drop="true" ng-class="{'is-dragging':vm.isDragging}" jqyoui-droppable="{onDrop:'vm.tagDropped()'}">
 				<tags-input ng-class="{empty:vm.includeTags.length === 0}" ng-model="vm.includeTags" on-tag-added="vm.tagFilterChange()" on-tag-removed="vm.tagFilterChange()" placeholder="&nbsp;">
 					<auto-complete source="vm.loadTags($query)" min-length="0" debounce-delay="0" max-results="100">
 					</auto-complete>
 				</tags-input>
 			</div>
-			<p class="description">Вы можете добавить группу тегов которые хотите отобразить в статистике перетащив их в данное поле</p>
 		</div>
 		<div class="tagstats-filter exclude">
-			<div class="filter-header">Исключить тег</div>
+			<div class="filter-header">Скрыть</div>
 			<div class="tags-box exclude" data-drop="true" ng-class="{'is-dragging':vm.isDragging}" jqyoui-droppable="{onDrop:'vm.tagDropped()'}">
 				<tags-input ng-class="{empty:vm.excludeTags.length === 0}" on-tag-added="vm.tagFilterChange()" on-tag-removed="vm.tagFilterChange()" ng-model="vm.excludeTags" placeholder="&nbsp;">
 					<auto-complete source="vm.loadTags($query)" min-length="0" debounce-delay="0" max-results="100">
 					</auto-complete>
 				</tags-input>
 			</div>
-			<p class="description">Вы можете добавить группу тегов которые хотите отобразить в статистике перетащив их в данное поле</p>
 		</div>
 	</div>
 </div>

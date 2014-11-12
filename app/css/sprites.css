@@ -1,0 +1,478 @@
+.arrow-down-black, .arrow-down-top, .arrow-down, .arrow-up, .bg-texture, .bgnoise_lg_dark, .bytag-black, .bytag-white, .calendar-black, .calendar-icon, .camera, .camera, .check-icon, .combo, .earth-icon, .earth, .edited-expense-pointer, .excel-3-32, .excel-icon, .excel, .expenses-icon, .expenses-icon, .favicon, .filter-brown, .filter-icon, .gear-icon, .green-pip, .icon_add, .icon_chekin_grey, .icon_chekin_white, .icon_costs_grey, .icon_costs_white, .icon_edit_grey, .icon_edit_white, .icon_excel, .icon_fotki_grey, .icon_fotki_white, .icon_settings_grey, .icon_settings_white, .icon_statistics_grey, .icon_statistics_white, .icon_up_grey, .icon-expenses, .image-icon, .image-icon, .lang-icon-hover, .language-menu-center, .language-menu-left, .language-menu-right, .localhost, .logo-landing, .logo, .map-icon, .menu-back-border, .menu-back, .menu-pointer, .pencil, .plus-icon, .plus-icon, .pointer-brown, .pointer, .question, .search-white, .settings-icon-grey, .shishka-brown, .shishka, .sign-in-icon, .sign-in, .sign-out-hover, .sortable-icon-black, .stats-icon-grey, .stats-icon, .stats-icon, .stats-pattern, .tag-drag-2, .tag-placeholder, .texture-light, .texture-orange, .trash{
+	background: url(../img/sprites.png) no-repeat !important;
+}
+
+.arrow-down-black{
+	background-position: -24px -137px ;
+	width: 8px;
+	height: 8px;
+}
+
+.arrow-down-top{
+	background-position: -24px -137px ;
+	width: 8px;
+	height: 18px;
+}
+
+.arrow-down{
+	background-position: -24px -137px ;
+	width: 8px;
+	height: 8px;
+}
+
+.arrow-up{
+	background-position: -24px -137px ;
+	width: 8px;
+	height: 8px;
+}
+
+.bg-texture{
+	background-position: -24px -137px ;
+	width: 1440px;
+	height: 768px;
+}
+
+.bgnoise_lg_dark{
+	background-position: -24px -137px ;
+	width: 100px;
+	height: 100px;
+}
+
+.bytag-black{
+	background-position: -24px -137px ;
+	width: 17px;
+	height: 17px;
+}
+
+.bytag-white{
+	background-position: -24px -137px ;
+	width: 17px;
+	height: 17px;
+}
+
+.calendar-black{
+	background-position: -24px -137px ;
+	width: 16px;
+	height: 18px;
+}
+
+.calendar-icon{
+	background-position: -24px -137px ;
+	width: 16px;
+	height: 18px;
+}
+
+.camera{
+	background-position: -24px -137px ;
+	width: 27px;
+	height: 21px;
+}
+
+.camera{
+	background-position: -24px -137px ;
+	width: 27px;
+	height: 21px;
+}
+
+.check-icon{
+	background-position: -24px -137px ;
+	width: 22px;
+	height: 18px;
+}
+
+.combo{
+	background-position: -24px -137px ;
+	width: 0px;
+	height: 0px;
+}
+
+.earth-icon{
+	background-position: -24px -137px ;
+	width: 18px;
+	height: 18px;
+}
+
+.earth{
+	background-position: -24px -137px ;
+	width: 18px;
+	height: 18px;
+}
+
+.edited-expense-pointer{
+	background-position: -24px -137px ;
+	width: 17px;
+	height: 41px;
+}
+
+.excel-3-32{
+	background-position: -24px -137px ;
+	width: 32px;
+	height: 32px;
+}
+
+.excel-icon{
+	background-position: -24px -137px ;
+	width: 30px;
+	height: 31px;
+}
+
+.excel{
+	background-position: -24px -137px ;
+	width: 30px;
+	height: 31px;
+}
+
+.expenses-icon{
+	background-position: -24px -137px ;
+	width: 16px;
+	height: 16px;
+}
+
+.expenses-icon{
+	background-position: -24px -137px ;
+	width: 16px;
+	height: 16px;
+}
+
+.favicon{
+	background-position: -24px -137px ;
+	width: 16px;
+	height: 16px;
+}
+
+.filter-brown{
+	background-position: -24px -137px ;
+	width: 22px;
+	height: 23px;
+}
+
+.filter-icon{
+	background-position: -24px -137px ;
+	width: 23px;
+	height: 25px;
+}
+
+.gear-icon{
+	background-position: -24px -137px ;
+	width: 22px;
+	height: 22px;
+}
+
+.green-pip{
+	background-position: -24px -137px ;
+	width: 29px;
+	height: 11px;
+}
+
+.icon_add{
+	background-position: -24px -137px ;
+	width: 21px;
+	height: 21px;
+}
+
+.icon_chekin_grey{
+	background-position: -24px -137px ;
+	width: 21px;
+	height: 28px;
+}
+
+.icon_chekin_white{
+	background-position: -24px -137px ;
+	width: 21px;
+	height: 28px;
+}
+
+.icon_costs_grey{
+	background-position: -24px -137px ;
+	width: 17px;
+	height: 17px;
+}
+
+.icon_costs_white{
+	background-position: -24px -137px ;
+	width: 17px;
+	height: 17px;
+}
+
+.icon_edit_grey{
+	background-position: -24px -137px ;
+	width: 23px;
+	height: 23px;
+}
+
+.icon_edit_white{
+	background-position: -24px -137px ;
+	width: 23px;
+	height: 23px;
+}
+
+.icon_excel{
+	background-position: -24px -137px ;
+	width: 26px;
+	height: 27px;
+}
+
+.icon_fotki_grey{
+	background-position: -24px -137px ;
+	width: 0px;
+	height: 0px;
+}
+
+.icon_fotki_white{
+	background-position: -24px -137px ;
+	width: 28px;
+	height: 22px;
+}
+
+.icon_settings_grey{
+	background-position: -24px -137px ;
+	width: 19px;
+	height: 19px;
+}
+
+.icon_settings_white{
+	background-position: -24px -137px ;
+	width: 19px;
+	height: 19px;
+}
+
+.icon_statistics_grey{
+	background-position: -24px -137px ;
+	width: 17px;
+	height: 16px;
+}
+
+.icon_statistics_white{
+	background-position: -24px -137px ;
+	width: 17px;
+	height: 16px;
+}
+
+.icon_up_grey{
+	background-position: -24px -137px ;
+	width: 8px;
+	height: 8px;
+}
+
+.icon-expenses{
+	background-position: -24px -137px ;
+	width: 16px;
+	height: 16px;
+}
+
+.image-icon{
+	background-position: -24px -137px ;
+	width: 22px;
+	height: 22px;
+}
+
+.image-icon{
+	background-position: -24px -137px ;
+	width: 22px;
+	height: 22px;
+}
+
+.lang-icon-hover{
+	background-position: -24px -137px ;
+	width: 18px;
+	height: 18px;
+}
+
+.language-menu-center{
+	background-position: -24px -137px ;
+	width: 1px;
+	height: 33px;
+}
+
+.language-menu-left{
+	background-position: -24px -137px ;
+	width: 27px;
+	height: 33px;
+}
+
+.language-menu-right{
+	background-position: -24px -137px ;
+	width: 27px;
+	height: 33px;
+}
+
+.localhost{
+	background-position: -24px -137px ;
+	width: 0px;
+	height: 0px;
+}
+
+.logo-landing{
+	background-position: -24px -137px ;
+	width: 153px;
+	height: 37px;
+}
+
+.logo{
+	background-position: -24px -137px ;
+	width: 153px;
+	height: 37px;
+}
+
+.map-icon{
+	background-position: -24px -137px ;
+	width: 20px;
+	height: 27px;
+}
+
+.menu-back-border{
+	background-position: -24px -137px ;
+	width: 108px;
+	height: 32px;
+}
+
+.menu-back{
+	background-position: -24px -137px ;
+	width: 108px;
+	height: 31px;
+}
+
+.menu-pointer{
+	background-position: -24px -137px ;
+	width: 10px;
+	height: 41px;
+}
+
+.pencil{
+	background-position: -24px -137px ;
+	width: 22px;
+	height: 22px;
+}
+
+.plus-icon{
+	background-position: -24px -137px ;
+	width: 23px;
+	height: 23px;
+}
+
+.plus-icon{
+	background-position: -24px -137px ;
+	width: 23px;
+	height: 23px;
+}
+
+.pointer-brown{
+	background-position: -24px -137px ;
+	width: 9px;
+	height: 30px;
+}
+
+.pointer{
+	background-position: -24px -137px ;
+	width: 10px;
+	height: 41px;
+}
+
+.question{
+	background-position: -24px -137px ;
+	width: 11px;
+	height: 19px;
+}
+
+.search-white{
+	background-position: -24px -137px ;
+	width: 20px;
+	height: 20px;
+}
+
+.settings-icon-grey{
+	background-position: -24px -137px ;
+	width: 18px;
+	height: 18px;
+}
+
+.shishka-brown{
+	background-position: -24px -137px ;
+	width: 30px;
+	height: 9px;
+}
+
+.shishka{
+	background-position: -24px -137px ;
+	width: 30px;
+	height: 12px;
+}
+
+.sign-in-icon{
+	background-position: -24px -137px ;
+	width: 17px;
+	height: 18px;
+}
+
+.sign-in{
+	background-position: -24px -137px ;
+	width: 17px;
+	height: 18px;
+}
+
+.sign-out-hover{
+	background-position: -24px -137px ;
+	width: 18px;
+	height: 18px;
+}
+
+.sortable-icon-black{
+	background-position: -24px -137px ;
+	width: 8px;
+	height: 18px;
+}
+
+.stats-icon-grey{
+	background-position: -24px -137px ;
+	width: 19px;
+	height: 16px;
+}
+
+.stats-icon{
+	background-position: -24px -137px ;
+	width: 18px;
+	height: 15px;
+}
+
+.stats-icon{
+	background-position: -24px -137px ;
+	width: 18px;
+	height: 15px;
+}
+
+.stats-pattern{
+	background-position: -24px -137px ;
+	width: 5px;
+	height: 25px;
+}
+
+.tag-drag-2{
+	background-position: -24px -137px ;
+	width: 78px;
+	height: 29px;
+}
+
+.tag-placeholder{
+	background-position: -24px -137px ;
+	width: 78px;
+	height: 29px;
+}
+
+.texture-light{
+	background-position: -24px -137px ;
+	width: 12px;
+	height: 12px;
+}
+
+.texture-orange{
+	background-position: -24px -137px ;
+	width: 26px;
+	height: 12px;
+}
+
+.trash{
+	background-position: -24px -137px ;
+	width: 20px;
+	height: 22px;
+}
+
