@@ -132,11 +132,11 @@ function goToAppStore() {
 }
 
 function shareFacebook() {
-    alert('facebook');
+    window.open('https://www.facebook.com/eyespnd','_blank');
 }
 
 function shareTwitter() {
-    alert('twitter');
+    window.open('https://twitter.com/eyeSpend_RU/','_blank');
 }
 
 function getParameterByName(name) {

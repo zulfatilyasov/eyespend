@@ -6,10 +6,10 @@ angular.module('app').factory 'tagstats.service', ['tag.service', 'common', 'dat
 
       getBarWidth: (percent) -> ((percent / 100) * maxBarWidth) * ratio + 'px'
 
-      getTagStats: (min, max, includeTags, excludeTags)->
+      getTagStats: (min, max, includeTags, excludeTags, limit, offset)->
         def = common.defer()
         datacontext
-          .getTagsExpenses(min, max, includeTags, excludeTags)
+          .getTagsExpenses(min, max, includeTags, excludeTags, limit, offset)
           .success (data) ->
             stats = data
             maxPercent = (stats.reduce ((a, b) -> if a.percent > b.percent then a else b), 0).percent

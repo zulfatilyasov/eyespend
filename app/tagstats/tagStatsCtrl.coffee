@@ -12,6 +12,8 @@ class TagStatsCtrl extends BaseCtrl
     vm.excludeTags = []
     fromDate = null
     toDate = null
+    recordLimit = 20
+    recordOffset = 0
 
     vm.draggableOptions =
       placeholder: 'keep'
@@ -101,9 +103,9 @@ class TagStatsCtrl extends BaseCtrl
           showBars()
           vm.setSliderValues(new Date(from * 1000), new Date(to * 1000))
 
-    getTagsExpenses = (min, max, includedTags = [], excludedTags = []) ->
+    getTagsExpenses = (min, max, includedTags = [], excludedTags = [], limit = recordLimit, offset = recordOffset) ->
       tagStatsService
-      .getTagStats(min, max, includedTags, excludedTags)
+      .getTagStats(min, max, includedTags, excludedTags, limit, offset)
       .success (data) ->
         vm.tagStats = data
 
