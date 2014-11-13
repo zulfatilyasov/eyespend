@@ -9,7 +9,7 @@
     var events = {
         controllerActivateSuccess: 'controller.activateSuccess',
         spinnerToggle: 'spinner.toggle',
-        localeChange:'locale.change',
+        localeChange: 'locale.change',
         locationSet: 'location.set'
     };
 
@@ -68,6 +68,7 @@
         function(cfg) {
             cfg.config.controllerActivateSuccessEvent = config.events.controllerActivateSuccess;
             cfg.config.spinnerToggleEvent = config.events.spinnerToggle;
+            cfg.config.localeChange = config.events.localeChange;
         }
     ]);
 

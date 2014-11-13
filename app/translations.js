@@ -90,12 +90,16 @@ var translationsRu = {
     ACCOUNT: "Настройки",
     STATISTICS: "Статистика",
     TAGSTATS: "По тегам",
-    SUBSCIPTION_REQUIRED:"Для входа на сайт необходимо активировать подписку.",
-    STATS_BY_TAGS :"Статистика по тегам",
-    CHOOSE_INTERVAL :"Уточнить интервал",
+    SUBSCIPTION_REQUIRED: "Для входа на сайт необходимо активировать подписку.",
+    STATS_BY_TAGS: "Статистика по тегам",
+    CHOOSE_INTERVAL: "Уточнить интервал",
     DAY: "День",
     WEEK: "Неделя",
-    MONTH: "Месяц"
+    MONTH: "Месяц",
+    FILTER: "Фильтрация",
+    FILTER_INSTRUCTIONS: "Вы можете ввести тег с клавиатуры или перетащить мышью",
+    SHOW: "Показать",
+    HIDE: "Скрыть"
 };
 
 var translationsEn = {
@@ -189,12 +193,16 @@ var translationsEn = {
     ACCOUNT: "Account",
     STATISTICS: "Statistics",
     TAGSTATS: "By tags",
-    SUBSCIPTION_REQUIRED:"Please, activate your subscription to log in.",
+    SUBSCIPTION_REQUIRED: "Please, activate your subscription to log in.",
     STATS_BY_TAGS: "Statistics by tags",
-    CHOOSE_INTERVAL: "Choose date",    
+    CHOOSE_INTERVAL: "Choose date",
     DAY: "Day",
     WEEK: "Week",
-    MONTH: "Month"
+    MONTH: "Month",
+    FILTER: "Filter",
+    FILTER_INSTRUCTIONS: "You can enter tag using keyboard or drag it with mouse.",
+    SHOW: "Show",
+    HIDE: "Hide"
 };
 
 try {

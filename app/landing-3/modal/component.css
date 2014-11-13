@@ -1,5 +1,4 @@
 /* General styles for the modal */
-
 /*
 Styles for the html/body for special modal where we want 3d effects
 Note that we need a container wrapping all content on the page for the
@@ -17,11 +16,8 @@ perspective effects (not including the modals and the overlay).
     perspective: 600px;
 }
 /*.container {*/
-
 /*background: #e74c3c;*/
-
 /*min-height: 100%;*/
-
 /*}*/
 
 .md-close {
@@ -40,6 +36,7 @@ perspective effects (not including the modals and the overlay).
     top: 50%;
     left: 50%;
     /*width: 50%;*/
+    
     max-width: 630px;
     min-width: 320px;
     height: auto;
@@ -85,6 +82,7 @@ perspective effects (not including the modals and the overlay).
 .md-content {
     /*color: #fff;*/
     /*background: #e74c3c;*/
+    
     position: relative;
     border-radius: 3px;
     margin: 0 auto;
@@ -95,10 +93,18 @@ perspective effects (not including the modals and the overlay).
     height: 100%;
 }
 .modal-bg {
-	background-image: -moz-linear-gradient( 45deg, rgb(225,115,102) 0%, rgb(225,115,102) 0%, rgb(237,131,102) 100%);
-	background-image: -webkit-linear-gradient( 45deg, rgb(225,115,102) 0%, rgb(225,115,102) 0%, rgb(237,131,102) 100%);
-	background-image: -ms-linear-gradient( 45deg, rgb(225,115,102) 0%, rgb(225,115,102) 0%, rgb(237,131,102) 100%);
-	background: linear-gradient( 45deg, rgb(225,115,102) 0%, rgb(225,115,102) 0%, rgb(237,131,102) 100%);
+    background-image: -moz-linear-gradient( 45deg, rgb(225, 115, 102) 0%, rgb(225, 115, 102) 0%, rgb(237, 131, 102) 100%);
+    background-image: -webkit-linear-gradient( 45deg, rgb(225, 115, 102) 0%, rgb(225, 115, 102) 0%, rgb(237, 131, 102) 100%);
+    background-image: -ms-linear-gradient( 45deg, rgb(225, 115, 102) 0%, rgb(225, 115, 102) 0%, rgb(237, 131, 102) 100%);
+    background: linear-gradient( 45deg, rgb(225, 115, 102) 0%, rgb(225, 115, 102) 0%, rgb(237, 131, 102) 100%);
+}
+.instruction .modal-bg {
+    background: -webkit-linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9098040000000001) 80%, rgba(255, 255, 255, 0.96) 91%, #ffffff 100%);
+    background: -moz-linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9098040000000001) 80%, rgba(255, 255, 255, 0.96) 91%, #ffffff 100%);
+    background: -o-linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9098040000000001) 80%, rgba(255, 255, 255, 0.96) 91%, #ffffff 100%);
+    background: -ms-linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9098040000000001) 80%, rgba(255, 255, 255, 0.96) 91%, #ffffff 100%);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9098040000000001) 80%, rgba(255, 255, 255, 0.96) 91%, #ffffff 100%);
+    background-color: #f8f8f8;
 }
 .modal-bg-overlay {
     display: none;
@@ -160,8 +166,29 @@ perspective effects (not including the modals and the overlay).
     background: url(../img/close-btn-hover.png);
     cursor: pointer;
 }
+.instruction .md-content div.close-btn {
+    background: url(../img/close.png);
+    height: 19px;
+    width: 19px;
+    background-repeat: none;
+}
+.instruction .md-content div.close-btn:hover {
+    background: url(../img/close_hovered.png);
+}
+.instruction .md-content > div {
+    padding-bottom: 0;
+}
+.instruction header {
+    display: inline-block;
+    width: 170px;
+}
+.instruction h4 {
+    margin: 10px;
+}
+.instruction img {
+    margin-top: -15px;
+}
 /* Individual modal styles with animations/transitions */
-
 /* Effect 1: Fade in and scale up */
 
 .md-effect-1 .md-content {
@@ -763,10 +790,13 @@ perspective effects (not including the modals and the overlay).
 section.login-widget {
     color: #000;
 }
-.login-widget h4, .login-widget .forgot, label {
+h4, .login-widget .forgot, label {
     color: #fff;
 }
-.login-widget h4 {
+.instruction h4 {
+    color: #5a5a5a;
+}
+h4 {
     font-size: 16px;
     font-weight: 400;
 }

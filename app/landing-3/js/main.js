@@ -3,8 +3,8 @@ $(function() {
     var code = parseInt(getParameterByName('code'));
     if (code) {
         $.post('/api/users/login', {
-            auth_code: code
-        })
+                auth_code: code
+            })
             .done(function(data) {
                 if (data.token) {
                     setAthenticated(data.token);
@@ -34,6 +34,12 @@ $(function() {
         if (e.which == 13) {
             authenticate();
         }
+    });
+
+    $('.close-btn').click(function() {
+        setTimeout(function() {
+            showLogin();
+        }, 600);
     });
 
     $('#email').keyup(function(e) {
@@ -95,12 +101,11 @@ $(function() {
                 location.reload(true);
             })
             .fail(function(data) {
-                if(data && data.responseJSON && data.responseJSON.error && data.responseJSON.error.code){
-                    if(data.responseJSON.error.code === 'subscription_required'){
-                        setMessage(translations.SUBSCIPTION_REQUIRED);
+                if (data && data.responseJSON && data.responseJSON.error && data.responseJSON.error.code) {
+                    if (data.responseJSON.error.code === 'subscription_required') {
+                        showInstruction();
                     }
-                }
-                else{
+                } else {
                     $('#email-area').addClass('error');
                     $('#password-area').addClass('error');
                     setMessage(translations.INVALID_CODE_OR_EMAIL);
@@ -113,6 +118,18 @@ $(function() {
     }, 800);
 
 });
+
+function showInstruction() {
+    $('.md-modal').addClass('instruction');
+    $('.login-widget').hide();
+    $('.instruction-widget').show();
+}
+
+function showLogin() {
+    $('.md-modal').removeClass('instruction');
+    $('.login-widget').show();
+    $('.instruction-widget').hide();
+}
 
 function setMessage(message) {
     $('#loginError').text(message);
@@ -128,15 +145,15 @@ function isNumeric(str) {
 }
 
 function goToAppStore() {
-    alert('appstore');
+    window.open('https://itunes.apple.com/ru/app/eyespend/id608344707', '_blank');
 }
 
 function shareFacebook() {
-    window.open('https://www.facebook.com/eyespnd','_blank');
+    window.open('https://www.facebook.com/eyespnd', '_blank');
 }
 
 function shareTwitter() {
-    window.open('https://twitter.com/eyeSpend_RU/','_blank');
+    window.open('https://twitter.com/eyeSpend_RU/', '_blank');
 }
 
 function getParameterByName(name) {

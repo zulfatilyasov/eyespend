@@ -22,51 +22,13 @@ body {
 a {
     color: #f8f8f8;
 }
-body.green-blue {
-    background: url("../img/texture-light.png"), -webkit-linear-gradient(-145deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
-    background: url("../img/texture-light.png"), -moz-linear-gradient(-145deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
-    background: url("../img/texture-light.png"), -o-linear-gradient(-145deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
-    background: url("../img/texture-light.png"), -ms-linear-gradient(-145deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
-    background: url("../img/texture-light.png"), linear-gradient(235deg, #e3dfc1 0%, #b0b9a3 48%, #738b88 66%, #54747b 100%);
-    background-attachment: fixed;
-}
-body.coffee {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
-}
-body.coffee:before {
-    content: "";
-    position: absolute;
-    background: #000;
-    /*background: url(https://s3.amazonaws.com/ooomf-com-files/fN6hZMWqRHuFET5YoApH_StBalmainCoffee.jpg);*/
-    /*background-image: url(https://s3.amazonaws.com/ooomf-com-files/L3APwvISQ7i8XcFsQYwQ_IMG_1820.jpg);*/
-    
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center top;
-    z-index: -1;
-    height: 100%;
-    width: 100%;
-    transform: translateZ(-1);
-    transform-origin: top left;
-    -webkit-filter: blur(4px);
-    -moz-filter: blur(4px);
-    filter: blur(4px);
-    -o-filter: blur(4px);
-}
-body.background-blue {
-    background-image: radial-gradient(circle farthest-side at 66% 9%, #FFFFFF 0%, #FAE7D3 6%, #93CDC4 25%, #2B73A4 61%, #003D62 87%, #010A37 100%);
-}
 body.orange-bg {
     background: url(../img/texture-orange.png), -webkit-linear-gradient(-145deg, #f4e6c9 4%, #ecbc8c 48%, #e09673 65%, #da8366 96%);
     background: url(../img/texture-orange.png), -moz-linear-gradient(-145deg, #f4e6c9 4%, #ecbc8c 48%, #e09673 65%, #da8366 96%);
     background: url(../img/texture-orange.png), -o-linear-gradient(-145deg, #f4e6c9 4%, #ecbc8c 48%, #e09673 65%, #da8366 96%);
     background: url(../img/texture-orange.png), -ms-linear-gradient(-145deg, #f4e6c9 4%, #ecbc8c 48%, #e09673 65%, #da8366 96%);
     background: url(../img/texture-orange.png), linear-gradient(-145deg, #f4e6c9 4%, #ecbc8c 48%, #e09673 65%, #da8366 96%);
+    background-attachment: fixed;
 }
 .new-table-row {
     background-color: rgba(255, 255, 255, 0.15);
@@ -77,16 +39,6 @@ body.orange-bg {
     background: linear-gradient(0deg, #000000 0%, #4f4f4f 21%, rgba(79, 79, 79, 0) 70%, rgba(255, 255, 255, 0.02) 70%, #4f4f4f 99%, #000000 100%);
     border-radius: 3px;
     box-shadow: 2px 4px 4.95px 0.05px rgba(0, 0, 0, 0.5);
-}
-body.background-chocolate {
-    background-image: url("../img/bg-texture.png");
-    background: url("../img/bg-texture.png"), -webkit-linear-gradient(-145deg, #e2a054 0%, #ad6b2b 35%, #9e6236 58%, #945c3d 100%);
-    background: url("../img/bg-texture.png"), -moz-linear-gradient(-145deg, #e2a054 0%, #ad6b2b 35%, #9e6236 58%, #945c3d 100%);
-    background: url("../img/bg-texture.png"), -o-linear-gradient(-145deg, #e2a054 0%, #ad6b2b 35%, #9e6236 58%, #945c3d 100%);
-    background: url("../img/bg-texture.png"), -ms-linear-gradient(-145deg, #e2a054 0%, #ad6b2b 35%, #9e6236 58%, #945c3d 100%);
-    background: url("../img/bg-texture.png"), linear-gradient(235deg, #e2a054 0%, #ad6b2b 35%, #9e6236 58%, #945c3d 100%);
-    background-position: center center;
-    background-attachment: fixed;
 }
 .widget header {
     padding: 10px 0;
@@ -3041,6 +2993,7 @@ table.table thead .sorting .sort-icon {
     text-align: center;
     margin-top: 3px;
     overflow: hidden;
+    text-overflow: ellipsis;
 }
 .tag-stat-table {
     width: 750px;

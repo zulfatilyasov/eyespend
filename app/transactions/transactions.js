@@ -201,10 +201,6 @@
 
         moment.locale(config.local);
 
-        vm.datePickerTexts = datepicker.getTexts();
-        vm.dateRanges = datepicker.getRanges();
-        // moment.locale('ru');
-        // moment.locale('en-gb');
         function applyfilters() {
             $rootScope.showSpinner = true;
             transactionService.getFirstPageWithFilters(fromUnixDate, toUnixDate, vm.tags, vm.onlyWithPhoto)
