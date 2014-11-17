@@ -32,5 +32,8 @@ angular.module('app').factory 'date',
         d.setHours hours
         d.setMinutes minutes
         d.getTime()
-    
+
+      getTimeZoneOffset : ->
+        offset = new Date().getTimezoneOffset() * -1
+        offsetInSeconds = offset * 60
   ]

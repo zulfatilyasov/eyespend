@@ -235,6 +235,8 @@
                 txn.timestamp = dateTimeToTimestamp(txn.dateTime);
             if (txn.timestamp && txn.time)
                 txn.timestamp = date.addTimeToTimestamp(txn.timestamp, txn.time);
+            txn.timeZoneOffset = date.getTimeZoneOffset()
+            console.log(txn.timeZoneOffset);
         }
 
         function create(tnx) {
