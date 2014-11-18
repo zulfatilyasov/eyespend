@@ -435,3 +435,31 @@
   message: 'Необходимо продлить подписку'
 }
 ```
+
+##Сохранение расхода (web)
+
+### Запрос
+
+**POST** /api/secure/transactions
+
+#### Параметры
+
+- latitude - float, широта
+- longitutde - float, долгота
+- amount - float, сумма расхода в валюте currency
+- amountInBaseCurrency - float, сумма расхода в валюте baseCurrency
+- currency - string, валюта
+- baseCurrency - string, базовая валюта
+- timestamp - int, время расхода (местное)
+- tags - array of string, массив тэгов
+- timeOffset - int, смещение местного времени в секундах относительно UTC
+### Ответ
+
+#### Успех, 201
+```
+[{
+  аттрибуты созданной записи
+},...]
+```
+
+```
