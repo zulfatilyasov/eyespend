@@ -123,33 +123,6 @@
             return getTransaxns(fromDate, toDate, tags, withPhoto);
         }
 
-        function getTransactionsAndTotals() {
-            var def = common.defer();
-            datacontext.getTransactionsAndTotals(count)
-                .then(function(resp) {
-                    var trs = resp.data.transactions;
-                    var totals = resp.data.totals;
-                    $rootScope.hideContent = false;
-                    if (trs && trs instanceof Array) {
-                        transactions = trs;
-                        offset = transactions.length;
-                        extendTransactions(transactions);
-                        def.resolve({
-                            data: {
-                                transactions: angular.copy(transactions),
-                                totals: totals
-                            }
-                        });
-                    } else {
-                        def.reject();
-                    }
-                }, function(resp) {
-                    console.log(resp);
-                });
-
-            return def.promise;
-        }
-
         function getTransaxns(fromDate, toDate, tags, withPhoto) {
             var def = common.defer();
 
@@ -236,7 +209,6 @@
             if (txn.timestamp && txn.time)
                 txn.timestamp = date.addTimeToTimestamp(txn.timestamp, txn.time);
             txn.timeZoneOffset = date.getTimeZoneOffset()
-            console.log(txn.timeZoneOffset);
         }
 
         function create(tnx) {
@@ -245,7 +217,6 @@
                 tnx.amountInBaseCurrency = 0;
             var txnCopy = {};
             setTxnTime(tnx);
-            map.setTxnCoords(tnx);
             copy(tnx, txnCopy);
             if (!txnCopy.timestamp) {
                 txnCopy.timestamp = date.now();
@@ -326,7 +297,6 @@
             remove: remove,
             copy: copy,
             getExcelFile: getExcelFile,
-            getTransactionsAndTotals: getTransactionsAndTotals,
             batchSize: count,
             destroy: destroy
         };

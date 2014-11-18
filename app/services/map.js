@@ -5,15 +5,14 @@
     angular.module('app').factory(serviceId, ['common', '$rootScope', 'config', 'geolocation', map]);
 
     function map(common, $rootScope, config, geolocation) {
-        var lat = 0,
-            lng = 0;
+        var editedTransaction = null;
 
         $rootScope.showMap = true;
         $rootScope.placePicker = {};
 
         $rootScope.saveLocation = function() {
-            lat = $rootScope.markers[0].location.lat;
-            lng = $rootScope.markers[0].location.lng;
+            editedTransaction.latitude = $rootScope.markers[0].location.lat;
+            editedTransaction.longitude = $rootScope.markers[0].location.lng;
             $rootScope.overlayIsOpen = false;
         };
 
@@ -59,19 +58,21 @@
         }
 
         function pickAddress(transaction) {
+            editedTransaction = transaction;
             var mapProperties = {
                 latitude: transaction.latitude,
                 longitude: transaction.longitude,
                 markerDraggable: true,
                 id: transaction.id
             };
-            _setLocation(mapProperties);
             if (!transaction.latitude || !transaction.longitude) {
                 geolocation.getLocation().then(function(data) {
                     mapProperties.longitude = data.coords.longitude;
                     mapProperties.latitude = data.coords.latitude;
                     _setLocation(mapProperties);
                 });
+            } else {
+                _setLocation(mapProperties);
             }
             $rootScope.overlayIsOpen = true;
             $rootScope.placePicker = {};
@@ -99,17 +100,9 @@
             }, 300);
         };
 
-        function setTransactionCoords(transaction) {
-            transaction.latitude = lat;
-            transaction.longitude = lng;
-            lat = null;
-            lng = null;
-        }
-
         return {
             pickAddress: pickAddress,
-            showAddress: showAddress,
-            setTxnCoords: setTransactionCoords
+            showAddress: showAddress
         };
     }
 })();

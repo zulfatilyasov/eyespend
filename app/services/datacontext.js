@@ -23,15 +23,6 @@
             });
         }
 
-        function getTransactionsAndTotals(count) {
-            var params = {
-                count: count
-            };
-            return $http.get('/api/secure/transactionsExtended', {
-                params: params
-            });
-        }
-
         function updateTransaction(transaction) {
             return $http.put('/api/secure/transactions/' + transaction.id, transaction);
         }
@@ -133,7 +124,6 @@
             getUserTags: getUserTags,
             getExcelFileUrl: getExcelFileUrl,
             getSettings: getSettings,
-            getTransactionsAndTotals: getTransactionsAndTotals,
             getTransactionsForChart: getTransactionsForChart,
             getTagsExpenses: getTagsExpenses
         };

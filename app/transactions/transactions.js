@@ -6,9 +6,9 @@
 
     angular
         .module('app')
-        .controller(controllerId, ['common', '$window', 'config', '$rootScope', '$scope', 'date', 'transaction.service', '$translate', 'login.service', 'debounce', 'map', 'datepicker.service', transactions]);
+        .controller(controllerId, ['common', 'commonConfig', '$window', 'config', '$rootScope', '$scope', 'date', 'transaction.service', '$translate', 'login.service', 'debounce', 'map', 'datepicker.service', transactions]);
 
-    function transactions(common, $window, config, $rootScope, $scope, date, transactionService, $translate, login, debounce, map, datepicker) {
+    function transactions(common, commonConfig, $window, config, $rootScope, $scope, date, transactionService, $translate, login, debounce, map, datepicker) {
         var vm = this;
         var logError = common.logger.getLogFn(controllerId, 'logError');
         var fromUnixDate = null;
@@ -394,8 +394,14 @@
                 );
         }
 
+        function _transactionEmpty(transaction) {
+            return !transaction.amountInBaseCurrency && !transaction.tags.length && !transaction.latitude && !transaction.longitude;
+        }
+
         vm.remove = function(transaction) {
-            if (confirm('Удалить запись?')) {
+            if (_transactionEmpty(transaction)) {
+                removeTransaction(transaction);
+            } else if (confirm('Удалить запись?')) {
                 removeTransaction(transaction);
             }
         };
@@ -430,9 +436,18 @@
             });
             if (!vm.isFiltering)
                 vm.toggleFiltering();
-            // vm.isFiltering = true;
             applyfilters();
         };
+
+        $rootScope.$on(commonConfig.config.localeChange, function(event, data) {
+            if (data.locale === 'ru') {
+                $('.tags-td .host .input').attr('placeholder', translationsRu.ADD_TAG).css('width', '110px');
+                $('.tags-filter .host .input').attr('placeholder', translationsRu.SEARCH_BY_TAGS);
+            } else {
+                $('.tags-td .host .input').attr('placeholder', translationsEn.ADD_TAG).css('width', '60px');
+                $('.tags-filter .host .input').attr('placeholder', translationsEn.SEARCH_BY_TAGS);
+            }
+        });
 
         function _getTransactions() {
             vm.isLoading = true;
