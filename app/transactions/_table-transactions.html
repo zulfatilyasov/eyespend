@@ -1,187 +1,190 @@
 <div class="body" id="transactions-table">
-	<table class="table table-striped dataTable">
-		<thead>
-		<tr>
-			<th ng-class="vm.getSortingForColumn('timestamp')" ng-click="vm.changeSorting('timestamp')" id="timestamp" class="date-th">
-				<div class="th-title" translate>DATE
-				</div>
-				<div class="sort-icon"></div>
-			</th>
-			<th class="no-sort time-td" translate>
-				TIME
-			</th>
-			<th ng-class="vm.getSortingForColumn('amountInBaseCurrency')" ng-click="vm.changeSorting('amountInBaseCurrency')" id="amount">
-				<div class="th-title" translate>AMOUNT</div>
-				<div class="sort-icon"></div>
-			</th>
-			<th class="no-sort map" translate>ADDRESS</th>
-			<th ng-class="vm.getSortingForColumn('foto')" ng-click="vm.changeSorting('foto')" id="foto">
-				<div class="th-title" translate>FOTO</div>
-				<div class="sort-icon"></div>
-			</th>
-			<th class="tags-header">
-				<span class="tags-header" translate>TAGS</span>
-			</th>
-			<th class="rowActions-th">
+    <table class="table table-striped dataTable">
+        <thead>
+            <tr>
+                <th ng-class="vm.getSortingForColumn('timestamp')" ng-click="vm.changeSorting('timestamp')" id="timestamp" class="date-th">
+                    <div class="th-title" translate>DATE
+                    </div>
+                    <div class="sort-icon"></div>
+                </th>
+                <th class="no-sort time-td" translate>
+                    TIME
+                </th>
+                <th ng-class="vm.getSortingForColumn('amountInBaseCurrency')" ng-click="vm.changeSorting('amountInBaseCurrency')" id="amount">
+                    <div class="th-title" translate>AMOUNT</div>
+                    <div class="sort-icon"></div>
+                </th>
+                <th class="no-sort map" translate>ADDRESS</th>
+                <th ng-class="vm.getSortingForColumn('foto')" ng-click="vm.changeSorting('foto')" id="foto">
+                    <div class="th-title" translate>FOTO</div>
+                    <div class="sort-icon"></div>
+                </th>
+                <th class="tags-header">
+                    <span class="tags-header" translate>TAGS</span>
+                </th>
+                <th class="rowActions-th">
 
-			</th>
-		</tr>
-		</thead>
-	</table>
-	<div class="table-wrap">
-		<table ng-click="vm.tableClicked($event)" ng-style="{'height':vm.tableHeight}" class="table table-body table-striped dataTable" scrollable="{scrollTop: '45px'}" ng-class="{loaded:vm.transactionsLoaded}">
-			<tbody ng-repeat="transaction in vm.trs track by $index">
-			<tr ng-class="{selected:vm.selectedTnx.id === transaction.id}" ng-if="!(vm.editing && vm.selectedTnx.id === transaction.id) && !transaction.new" ng-dblclick="vm.editTransaction($index)" data-index="{{$index}}">
-				<td class="date-td">
-					<div class="pointer">
-						<img src="../img/edited-expense-pointer.png" alt="">
-					</div>
-					<div class="td-content">
-						<span class="fullDate">
-							{{transaction.timestamp | date:'dd MMMM yyyy'}}
-						</span>
-						<span class="shortDate">
-							{{transaction.timestamp | date:'dd.MM.yy'}}
-						</span>
-					</div>
-				</td>
-				<td class="time-td">
-					<div class="td-content">
-						<div ng-show="lang === 'en'">
-							<span>
-								{{transaction.timestamp | date:'hh:mm a'}}
-							</span>
-						</div>
-						<div ng-show="lang === 'ru'">
-							<span>
-								{{transaction.timestamp | date:'HH:mm'}}
-							</span>
-						</div>
-					</div>
-				</td>
-				<td class="transactionAmount">
-					<div class="td-content">
-						<span>
-							{{transaction.amountInBaseCurrency}}
-						</span>
-					</div>
-				</td>
-				<td class="map">
-					<div ng-if="transaction.latitude && transaction.longitude">
-						<a title="{{'SHOW_ON_MAP'|translate}}" href="javascript:void(0)">
-							<div class="chekin-icon showMap">
-							</div>
-						</a>
-					</div>
-				</td>
-				<td class="foto-td">
-					<a href="javascript:void(0)" ng-if="transaction.imgUrl">
-						<div class="camera-icon showPicture">
-						</div>
-					</a>
-				</td>
-				<td class="hidden-phone-landscape bootstrap tags-td">
-					<div class="tags-container">
-						<div class="transaction-tags">
-							<div ng-repeat="tag in transaction.tags" ng-mouseenter="vm.hoveredTag = tag" ng-mouseleave="vm.hoveredTag = null" ng-class="{'tag-hovered':vm.hoveredTag.text === tag.text}">
-								<div style="display:inline-block">
-											<span ng-style="{'border-color':vm.getTagColorStyle(tag.color)}" class="beforeTag">
-											</span><a class="transaction-tag" ng-style="{'background-color':tag.color}" href="javascript:void(0)">
+                </th>
+            </tr>
+        </thead>
+    </table>
+    <div class="table-wrap">
+        <table ng-click="vm.tableClicked($event)" ng-style="{'height':vm.tableHeight}" class="table table-body table-striped dataTable" scrollable="{scrollTop: '45px'}" ng-class="{loaded:vm.transactionsLoaded}">
+            <tbody ng-repeat="transaction in vm.trs track by $index">
+                <tr ng-class="{selected:vm.selectedTnx.id === transaction.id}" ng-if="!(vm.editing && vm.selectedTnx.id === transaction.id) && !transaction.new" ng-dblclick="vm.editTransaction($index)" data-index="{{$index}}">
+                    <td class="date-td">
+                        <div class="pointer">
+                            <img src="../img/edited-expense-pointer.png" alt="">
+                        </div>
+                        <div class="td-content">
+                            <span class="fullDate">
+                                {{transaction.timestamp | date:'dd MMMM yyyy'}}
+                            </span>
+                            <span class="shortDate">
+                                {{transaction.timestamp | date:'dd.MM.yy'}}
+                            </span>
+                        </div>
+                    </td>
+                    <td class="time-td">
+                        <div class="td-content">
+                            <div ng-show="lang === 'en'">
+                                <span>
+                                    {{transaction.timestamp | date:'hh:mm a'}}
+                                </span>
+                            </div>
+                            <div ng-show="lang === 'ru'">
+                                <span>
+                                    {{transaction.timestamp | date:'HH:mm'}}
+                                </span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="transactionAmount">
+                        <div class="td-content">
+                            <span>
+                                {{transaction.amountInBaseCurrency}}
+                            </span>
+                        </div>
+                    </td>
+                    <td class="map">
+                        <div ng-if="transaction.latitude && transaction.longitude">
+                            <a title="{{'SHOW_ON_MAP'|translate}}" href="javascript:void(0)">
+                                <div class="chekin-icon showMap">
+                                </div>
+                            </a>
+                        </div>
+                    </td>
+                    <td class="foto-td">
+                        <a href="javascript:void(0)" ng-if="transaction.imgUrl">
+                            <div class="camera-icon showPicture">
+                            </div>
+                        </a>
+                    </td>
+                    <td class="hidden-phone-landscape bootstrap tags-td">
+                        <div class="tags-container">
+                            <div class="transaction-tags">
+                                <div ng-repeat="tag in transaction.tags" ng-mouseenter="vm.hoveredTag = tag" ng-mouseleave="vm.hoveredTag = null" ng-class="{'tag-hovered':vm.hoveredTag.text === tag.text}">
+                                    <div style="display:inline-block">
+                                        <span ng-style="{'border-color':vm.getTagColorStyle(tag.color)}" class="beforeTag">
+                                        </span><a class="transaction-tag" ng-style="{'background-color':tag.color}" href="javascript:void(0)">
 									{{tag.text}}
 								</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</td>
-				<td class="rowActions-td hidden-phone-landscape">
-					<ul ng-class="{visible:vm.selectedTnx.id === transaction.id}" class="rowActions">
-						<li>
-							<a href="javascript:void(0)">
-								<img class="edit-transaction" src="../img/pencil.svg" alt="">
-							</a>
-						</li>
-					</ul>
-				</td>
-			</tr>
-			<tr class="edited" data-index="{{$index}}" ng-enter="vm.saveTnx(transaction)" ng-if="(vm.selectedTnx.id === transaction.id && vm.editing) || transaction.new">
-				<td class="date-td">
-					<div class="pointer">
-						<img src="../img/edited-expense-pointer.png" alt="">
-					</div>
-					<div class="td-content">
-						<input type="text" us-date-time-picker class="inlineInput transparentInput" ng-model="transaction.date"/>
-					</div>
-				</td>
-				<td class="time-td">
-					<div class="td-content">
-						<input style="width:40px" type="text" ng-model="transaction.time" ui-mask="99:99" class="inlineInput transparentInput"/>
-					</div>
-				</td>
-				<td class="transactionAmount">
-					<div class="td-content">
-						<input type="text" ng-model="transaction.amountInBaseCurrency" validate-amount style="width: 50px" class="styledInput transparentInput amount inlineInput"/>
-					</div>
-				</td>
-				<td class="map">
-					<div style="margin: 0 auto;">
-						<a href="javascript:void(0)">
-							<img src="../img/question.png" height="19" width="11" class="pickAddress" alt="">
-						</a>
-					</div>
-				</td>
-				<td class="foto-td">
-					<a href="javascript:void(0)" ng-if="transaction.imgUrl">
-						<div class="camera-icon showPicture">
-						</div>
-					</a>
-				</td>
-				<td class="hidden-phone-landscape bootstrap tags-td">
-					<div>
-						<tags-input ng-model="transaction.tags" min-Length="1" replace-spaces-with-dashes="false" placeholder="{{'ADD_TAG'|translate}}" class="bootstrap inline-tags-input">
-							<auto-complete source="vm.loadTags($query)" min-length="0" debounce-delay="0" max-results="5">
-							</auto-complete>
-						</tags-input>
-					</div>
-				</td>
-				<td class="rowActions-td hidden-phone-landscape">
-					<ul class="rowActions">
-						<li>
-							<a href="javascript:void(0)">
-								<img src="../img/check-icon.png" class="save" height="18" width="22" alt="">
-							</a>
-						</li>
-						<li>
-							<a href="javascript:void(0)">
-								<img src="../img/trash.png" class="remove-tr" height="22" width="20" alt="">
-							</a>
-						</li>
-					</ul>
-				</td>
-			</tr>
-			</tbody>
-			<tbody class="hidden-phone-landscape" ng-show="vm.trs.length > 0 && !vm.richedTheEnd">
-			<tr>
-				<td colspan="10" style="text-align: center" class="empty-td">
-					<span us-spinner="{lines:15,color: '#5a5a5a', width:2, length:7, radius:7, hwaccel: true, speed:1.4}"></span>
-				</td>
-			</tr>
-			</tbody>
-			<tbody ng-show="vm.trs.length === 0 && !vm.isLoading">
-			<tr>
-				<td colspan="10" style="text-align: center" class="empty-td">
-					<div>
-						<span>Нет записей</span>
-					</div>
-				</td>
-			</tr>
-			</tbody>
-		</table>
-	</div>
-	<div class="hidden-lg hidden-md loadMore" ng-click="vm.loadMoreTransactions()">
-		<span ng-hide="vm.isLoading || vm.richedTheEnd" translate>MORE</span>
-		<div ng-show="vm.isLoading">
-			<span translate>LOADING</span>...</span>
-		</div>
-	</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="rowActions-td hidden-phone-landscape">
+                        <ul ng-class="{visible:vm.selectedTnx.id === transaction.id}" class="rowActions">
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <img class="edit-transaction" src="../img/pencil.svg" alt="">
+                                </a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="edited" data-index="{{$index}}" ng-enter="vm.saveTnx(transaction)" ng-if="(vm.selectedTnx.id === transaction.id && vm.editing) || transaction.new">
+                    <td class="date-td">
+                        <div class="pointer">
+                            <img src="../img/edited-expense-pointer.png" alt="">
+                        </div>
+                        <div class="td-content">
+                            <input type="text" us-date-time-picker class="inlineInput transparentInput" ng-model="transaction.date" />
+                        </div>
+                    </td>
+                    <td class="time-td">
+                        <div class="td-content">
+                            <input style="width:40px" type="text" ng-model="transaction.time" ui-mask="99:99" class="inlineInput transparentInput" />
+                        </div>
+                    </td>
+                    <td class="transactionAmount">
+                        <div class="td-content">
+                            <input type="text" ng-model="transaction.amountInBaseCurrency" validate-amount style="width: 50px" class="styledInput transparentInput amount inlineInput" />
+                        </div>
+                    </td>
+                    <td class="map">
+                        <div style="margin: 0 auto;">
+                            <a ng-show="!transaction.latitude && !transaction.longitude" href="javascript:void(0)">
+                                <img src="../img/question.png" height="19" width="11" class="pickAddress" alt="">
+                            </a>
+                            <a ng-show="transaction.latitude || transaction.longitude" href="javascript:void(0)">
+                                <img src="../img/checkin-white.png" class="pickAddress checkin-white" alt="">
+                            </a>
+                        </div>
+                    </td>
+                    <td class="foto-td">
+                        <a href="javascript:void(0)" ng-if="transaction.imgUrl">
+                            <div class="camera-icon showPicture">
+                            </div>
+                        </a>
+                    </td>
+                    <td class="hidden-phone-landscape bootstrap tags-td">
+                        <div>
+                            <tags-input ng-model="transaction.tags" min-Length="1" replace-spaces-with-dashes="false" placeholder="{{'ADD_TAG'|translate}}" class="bootstrap inline-tags-input">
+                                <auto-complete source="vm.loadTags($query)" min-length="0" debounce-delay="0" max-results="5">
+                                </auto-complete>
+                            </tags-input>
+                        </div>
+                    </td>
+                    <td class="rowActions-td hidden-phone-landscape">
+                        <ul class="rowActions">
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <img src="../img/check-icon.png" class="save" height="18" width="22" alt="">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <img src="../img/trash.png" class="remove-tr" height="22" width="20" alt="">
+                                </a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody class="hidden-phone-landscape" ng-show="vm.trs.length > 0 && !vm.richedTheEnd">
+                <tr>
+                    <td colspan="10" style="text-align: center" class="empty-td">
+                        <span us-spinner="{lines:15,color: '#5a5a5a', width:2, length:7, radius:7, hwaccel: true, speed:1.4}"></span>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody ng-show="vm.trs.length === 0 && !vm.isLoading">
+                <tr>
+                    <td colspan="10" style="text-align: center" class="empty-td">
+                        <div>
+                            <span>Нет записей</span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="hidden-lg hidden-md loadMore" ng-click="vm.loadMoreTransactions()">
+        <span ng-hide="vm.isLoading || vm.richedTheEnd" translate>MORE</span>
+        <div ng-show="vm.isLoading">
+            <span translate>LOADING</span>...</span>
+        </div>
+    </div>
 </div>

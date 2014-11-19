@@ -208,7 +208,7 @@
                 txn.timestamp = dateTimeToTimestamp(txn.dateTime);
             if (txn.timestamp && txn.time)
                 txn.timestamp = date.addTimeToTimestamp(txn.timestamp, txn.time);
-            txn.timeZoneOffset = date.getTimeZoneOffset()
+            txn.timeOffset = date.getTimeZoneOffset()
         }
 
         function create(tnx) {
@@ -238,7 +238,6 @@
         function update(tnx) {
             var def = common.$q.defer();
             setTxnTime(tnx);
-            map.setTxnCoords(tnx);
             tnx.tags = tagSerivce.colorAndSaveTags(tnx.tags);
             datacontext.updateTransaction(_serverFormatTnx(tnx))
                 .then(function() {

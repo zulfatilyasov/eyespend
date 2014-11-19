@@ -39,16 +39,16 @@
                                         </a>
                                         <ul ng-show="vm.showRanges" data-toggle="popover" data-placement="bottom" class="pop-menu dropdown-menu messages" role="menu">
                                             <li role="presentation">
-                                              <a ng-class="{current: vm.interval === 'day'}" href="javascript:void(0)" ng-click="vm.interval = 'day'" class="message" translate>DAY
+                                                <a ng-class="{current: vm.interval === 'day'}" href="javascript:void(0)" ng-click="vm.interval = 'day'" class="message" translate>DAY
                                               </a>
                                             </li>
                                             <li role="presentation">
-                                              <a ng-class="{current: vm.interval === 'week'}" href="javascript:void(0)" ng-click="vm.interval = 'week'" class="message" translate>
+                                                <a ng-class="{current: vm.interval === 'week'}" href="javascript:void(0)" ng-click="vm.interval = 'week'" class="message" translate>
                                               WEEK
                                               </a>
                                             </li>
                                             <li role="presentation">
-                                              <a ng-class="{current: vm.interval === 'month'}" href="javascript:void(0)" ng-click="vm.interval = 'month'" class="message" translate>
+                                                <a ng-class="{current: vm.interval === 'month'}" href="javascript:void(0)" ng-click="vm.interval = 'month'" class="message" translate>
                                               MONTH
                                               </a>
                                             </li>
@@ -72,7 +72,8 @@
         <div class="tip-content">
             <span class="tip-date"></span>
             <br>
-            <span>Сумма:
+            <span>
+                <span translate>SUM</span>
                 <span class='tip-amount'></span>
             </span>
         </div>
