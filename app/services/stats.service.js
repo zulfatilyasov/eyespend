@@ -2,23 +2,23 @@
     'use strict';
 
     var serviceId = 'stats.service';
-    angular.module('app').factory(serviceId, ['datacontext', 'common', statsService]);
+    angular.module('app').factory(serviceId, ['datacontext', 'common', 'date', statsService]);
 
-    function statsService(datacontext, common) {
+    function statsService(datacontext, common, date) {
 
         var transactions = null;
         var reducedTransactions = [];
 
-        function transactionsForChart() {
+        function transactionsForChart(timeOffset) {
             var def = common.defer();
 
-            datacontext.getTransactionsForChart()
+            datacontext.getTransactionsForChart(timeOffset)
                 .success(function(data) {
                     transactions = [];
                     for (var i = 0; i < data.length; i++) {
                         transactions.push({
                             value: data[i].amountInBaseCurrency,
-                            x: new Date(data[i].date)
+                            x: date.toUTC(new Date(data[i].date))
                         });
                     }
                     def.resolve(transactions);

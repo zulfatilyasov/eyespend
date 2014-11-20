@@ -33,7 +33,10 @@ angular.module('app').factory 'date',
         d.setMinutes minutes
         d.getTime()
 
-      getTimeZoneOffset : ->
+      getTimeZoneOffset: ->
         offset = new Date().getTimezoneOffset() * -1
         offsetInSeconds = offset * 60
+
+      toUTC: (date) ->
+        new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds())
   ]

@@ -92,8 +92,12 @@
             return $http.get('/api/secure/settings');
         }
 
-        function getTransactionsForChart() {
-            return $http.get('/api/secure/stats/dailyExpenses');
+        function getTransactionsForChart(timeOffset) {
+            return $http.get('/api/secure/stats/dailyExpenses', {
+                params: {
+                    timeOffset: timeOffset
+                }
+            });
         }
 
         function getTagsExpenses(dateFrom, dateTo, includeTags, excludeTags, limit, offset) {

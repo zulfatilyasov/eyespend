@@ -187,7 +187,8 @@
         };
 
         function getStats() {
-            return statsService.transactionsForChart()
+            var timeOffset = date.getTimeZoneOffset();
+            return statsService.transactionsForChart(timeOffset)
                 .success(function(data) {
                     vm.chartDateRange = {
                         startDate: moment(statsService.minDate()),
