@@ -329,27 +329,6 @@ input.invalid, input.ng-invalid-number, input.ng-invalid-required {
     border-color: rgb(255, 207, 0) !important;
     color: rgb(255, 207, 0) !important;
 }
-#placeInput {
-    position: fixed;
-    z-index: 100;
-    top: 28px;
-    left: 100px;
-}
-#placeInput input {
-    width: 400px;
-    border: none;
-    display: inline-block;
-    background: #555;
-    color: #f8f8f8;
-    line-height: 1em;
-}
-#placeInput input:focus {
-    color: #fff;
-}
-#placeInput span {
-    width: 30px;
-    display: inline-block;
-}
 .logo.sidebar-icons {
     left: 0;
     padding-left: 0;
@@ -532,24 +511,33 @@ input.transparentInput:focus {
     -o-transition: visibility 0s linear 0.3s;
     transition: visibility 0s linear 0.3s;
 }
-.page-header .navbar .nav > li.lang-option {
+.page-header .navbar .nav > li.lang-option, .map-option {
     height: 31px;
 }
-.page-header .navbar .nav > li.lang-option a {
+.page-header .navbar .nav > li.lang-option a, .map-option a {
     color: #5a5a5a;
 }
-.page-header .navbar .nav > li.active.lang-option a {
+.page-header .navbar .nav > li.active.lang-option a, .map-option a {
     color: #fff;
 }
-.page-header .navbar .nav > li.lang-option a:hover {
+.page-header .navbar .nav > li.lang-option a:hover, .map-option a:hover {
     color: #5a5a5a;
 }
 .page-header .navbar .nav > li.lang-option.active:hover {
     background: rgba(203, 88, 11, 0.6);
 }
-.page-header .navbar .nav > li.lang-option:hover {
+.map-option:hover a {
+    color: #fff;
+}
+.page-header .navbar .nav > li.lang-option:hover, .map-option:hover {
     background: rgba(247, 205, 177, 1);
     border-bottom: 3px solid #cb580b;
+}
+.nav > li.map-option > a:hover {
+    background-color: transparent;
+}
+.navbar-nav > li.map-option > a {
+    padding-top: 5px;
 }
 .right-menu {
     background: url(../img/language-menu-center.png);
@@ -729,7 +717,6 @@ tags-input .tags.focused {
     -webkit-font-smoothing: antialiased;
     opacity: 1;
     font-weight: 300;
-    line-height: 1em;
 }
 ::-moz-placeholder {
     color: rgba(255, 255, 255, 0.8);
@@ -738,7 +725,6 @@ tags-input .tags.focused {
     letter-spacing: 0.7px;
     opacity: 1;
     font-weight: 300;
-    line-height: 1em;
 }
 :-ms-input-placeholder {
     color: rgba(255, 255, 255, 0.8);
@@ -770,7 +756,6 @@ tags-input .tags.focused {
     color: rgba(255, 255, 255, 0.7);
     font: 14px/26px HelveticaNeue, Arial;
     letter-spacing: 0.7px;
-    line-height: 1em;
 }
 .styledInput:-ms-input-placeholder {
     font: 14px/26px HelveticaNeue, Arial;
@@ -783,7 +768,6 @@ tags-input .tags.focused {
     font: 14px/26px HelveticaNeue, Arial;
     letter-spacing: 0.7px;
     color: rgba(255, 255, 255, 0.7);
-    line-height: 1em;
 }
 .searchBlock .host .tags {
     /*background: url(../img/search-white.png) no-repeat center right rgba(51, 51, 51, 0.4);*/
@@ -2552,18 +2536,6 @@ tr.selected .chekin-icon {
     :-ms-input-placeholder {
         color: #5d5d5d;
     }
-    #placeInput input::-webkit-input-placeholder {
-        color: #eee;
-    }
-    #placeInput input:-moz-placeholder {
-        color: #eee;
-    }
-    #placeInput input:-ms-input-placeholder {
-        color: #eee;
-    }
-    #placeInput input::-moz-placeholder {
-        color: #eee;
-    }
     .searchBlock .host .tags {
         background: rgba(51, 51, 51, 0.4);
     }
@@ -3122,4 +3094,56 @@ table.table thead .sorting .sort-icon {
 }
 b, strong {
     font-weight: 500;
+}
+.table-condensed .prev, .daterangepicker th.available.prev:hover {
+    background: url(../img/arrow-left-small.png);
+    background-repeat: no-repeat;
+    background-position: 12px 14px;
+}
+.table-condensed .next, .daterangepicker th.available.next:hover {
+    background: url(../img/arrow-right-small.png);
+    background-repeat: no-repeat;
+    background-position: 12px 14px;
+}
+.save-close-map {
+    position: fixed;
+    z-index: 100;
+    left: 50%;
+    top: 7px;
+    height: 31px;
+    max-width: 520px;
+    margin-left: -41px;
+    -webkit-box-shadow: 0px 2px 13px 0px rgba(50, 50, 50, 0.39);
+    -moz-box-shadow: 0px 2px 13px 0px rgba(50, 50, 50, 0.39);
+    box-shadow: 0px 2px 13px 0px rgba(50, 50, 50, 0.39);
+}
+.save-close-map.wide {
+    margin-left: -250px;
+}
+.save-close-map input {
+    border: none;
+    width: 320px;
+    background: #f7f7f7;
+    height: 31px;
+    line-height: 100%;
+    font-size: 14px;
+}
+.save-close-map .place-input, .save-option {
+    border-right: 1px solid #ddd;
+}
+.place-input input::-webkit-input-placeholder {
+    color: #5a5a5a;
+    font-size: 14px;
+}
+.place-input input:-moz-placeholder {
+    color: #5a5a5a;
+    font-size: 14px;
+}
+.place-input input:-ms-input-placeholder {
+    color: #5a5a5a;
+    font-size: 14px;
+}
+.place-input input::-moz-placeholder {
+    color: #5a5a5a;
+    font-size: 14px;
 }

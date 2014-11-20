@@ -170,6 +170,7 @@
             target.timestamp = source.timestamp;
             target.date = source.date;
             target.time = source.time;
+            target.timeOffset = source.timeOffset;
             target.tags = angular.copy(source.tags);
             target.tags = tagSerivce.colorAndSaveTags(target.tags);
             return target;

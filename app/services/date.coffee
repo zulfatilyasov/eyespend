@@ -38,5 +38,6 @@ angular.module('app').factory 'date',
         offsetInSeconds = offset * 60
 
       toUTC: (date) ->
-        new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds())
+        new Date(date.getUTCFullYear(), date.getUTCMonth(),
+        date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(),date.getUTCSeconds())
   ]

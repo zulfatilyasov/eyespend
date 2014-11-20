@@ -21,7 +21,7 @@
     <link rel="stylesheet" type="text/css" href="css/overlay.css">
     <link rel="stylesheet" type="text/css" href="css/simptip.css">
     <link rel="stylesheet" type="text/css" href="css/animations.css">
-	<link rel="stylesheet" type="text/css" href="css/fonts.css"/>
+    <link rel="stylesheet" type="text/css" href="css/fonts.css" />
     <link rel="stylesheet" type="text/css" href="css/app.css">
     <!-- endbuild -->
 
@@ -41,18 +41,31 @@
         <span us-spinner="{lines:15,color: '#5a5a5a', width:2, length:15, radius:15, hwaccel: true, speed:1.4}"></span>
     </div>
     <div style="display: none" class="overlay overlay-contentscale map-overlay" ng-class="{open:overlayIsOpen}" ng-cloak="ng-cloak" overlay>
-        <a class="overlay-close" ng-click="closeMap();" href="javascript:void(0)">
+        <ul ng-class="{wide:showPlacesInput}" class="save-close-map nav right-menu navbar-nav navbar-right">
+            <li ng-show="showPlacesInput" class="place-input">
+                <input ng-autocomplete ng-enter="refreshMap()" ng-model="placePicker.place" details="placePicker.details" type="text" placeholder="{{'ENTER_LOCATION'|translate}}">
+            </li>
+            <li ng-show="showPlacesInput" class="save-option map-option">
+                <a ng-click="saveLocation()" style="width:auto;font-size: 14px" href="javascript:void(0)">Сохранить</a>
+            </li>
+            <li class="map-option">
+                <a ng-click="closeMap();" style="width:auto; font-size:14px" href="javascript:void(0)">Закрыть</a>
+            </li>
+        </ul>
+
+        <!--         <a class="overlay-close" ng-click="closeMap();" href="javascript:void(0)">
             <i class="fa fa-times fa-4x"></i>
         </a>
         <a id="overlay-save" ng-show="showPlacesInput" ng-click="saveLocation()" href="javascript:void(0)">
             <i class="fa fa-check fa-4x"></i>
         </a>
-
-        <div ng-show="showPlacesInput" id="placeInput">
-            <input id="pac-input" class="controls" ng-autocomplete ng-enter="refreshMap()" ng-model="placePicker.place" details="placePicker.details" type="text" placeholder="{{'ENTER_LOCATION'|translate}}" />
-            <span class="input-group-btn">
-            </span>
-        </div>
+ -->
+        <!-- <div id="placeInput">
+    <input id="pac-input" class="controls" ng-autocomplete ng-enter="refreshMap()" ng-model="placePicker.place" details="placePicker.details" type="text" placeholder="{{'ENTER_LOCATION'|translate}}" />
+    <span class="input-group-btn">
+    </span>
+</div>
+ -->
         <gm-map gm-map-id="'myMap'" gm-center="mapCenter" gm-zoom="zoom" style="height:100%;width:100%;">
             <gm-markers gm-marker-options="object.options()" gm-objects="markers" gm-id="object.id" gm-on-dragend="setMarkerLocation(marker)" gm-position="{lat: object.location.lat, lng: object.location.lng}">
             </gm-markers>
@@ -101,7 +114,7 @@ function initAirbrake() {
     <script src="bower_components/angularjs-geolocation/src/geolocation.js"></script>
     <script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
     <script src="bower_components/d3/d3.js"></script>
-	<script src="bower_components/angular-dragdrop/src/angular-dragdrop.js"></script>
+    <script src="bower_components/angular-dragdrop/src/angular-dragdrop.js"></script>
     <script src="lib/n3-line-chart/n3-line-chart.js"></script>
     <script src="lib/nanoscroller/jquery.nanoscroller.js"></script>
     <script src="lib/angular-nanoscroller/scrollable.js"></script>
@@ -190,6 +203,6 @@ function initAirbrake() {
     </noscript>
     <!-- /Yandex.Metrika counter -->
 
-    </body>
+</body>
 
 </html>
