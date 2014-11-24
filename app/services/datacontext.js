@@ -100,14 +100,15 @@
             });
         }
 
-        function getTagsExpenses(dateFrom, dateTo, includeTags, excludeTags, limit, offset) {
+        function getTagsExpenses(dateFrom, dateTo, includeTags, excludeTags, limit, offset, timeOffset) {
             var params = {
                 dateFrom: dateFrom,
                 dateTo: dateTo,
                 'includeTags[]': includeTags,
                 'excludeTags[]': excludeTags,
                 limit: limit,
-                offset: offset
+                offset: offset,
+                timeOffset: timeOffset
             };
             console.log(params);
             return $http.get('/api/secure/stats/tagsExpenses', {
