@@ -104,8 +104,9 @@ class TagStatsCtrl extends BaseCtrl
           vm.setSliderValues(new Date(from * 1000), new Date(to * 1000))
 
     getTagsExpenses = (min, max, includedTags = [], excludedTags = [], limit = recordLimit, offset = recordOffset) ->
+      timeOffset = date.getTimeZoneOffset()
       tagStatsService
-      .getTagStats(min, max, includedTags, excludedTags, limit, offset)
+      .getTagStats(min, max, includedTags, excludedTags, limit, offset, timeOffset)
       .success (data) ->
         vm.tagStats = data
 
