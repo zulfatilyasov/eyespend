@@ -18,12 +18,12 @@ angular.module("app").factory serviceId, [
   ) ->
     transactions = []
     _userTags = []
+    offset = 0
+    count = 30
     sortOptions =
       column: "timestamp"
       descending: true
 
-    offset = 0
-    count = 30
 
     sortByDateDesc = (a, b) ->
       d1 = parseInt(a.timestamp)
@@ -181,8 +181,8 @@ angular.module("app").factory serviceId, [
       year = dateTime.slice(4, 8)
       hours = dateTime.slice(8, 10)
       minutes = dateTime.slice(10, 12)
-      date = new Date(year, month, day, hours, minutes)
-      date.getTime()
+      resultDate = new Date(year, month, day, hours, minutes)
+      resultDate.getTime()
 
     setTxnTime = (txn) ->
       txn.timestamp = dateTimeToTimestamp(txn.dateTime)  if txn.dateTime

@@ -102,9 +102,15 @@
                 }
             };
         })
-        .directive('overlay', function() {
+        .directive('overlay', function($rootScope) {
             return function(scope, element) {
                 element.css('display', 'block');
+                element.click(function() {
+                    $rootScope.$apply(function() {
+                       $rootScope.showImage = false;
+                       $rootScope.imgUrl = '';
+                    })
+                });
             };
         })
         .directive('validateAmount', function() {
