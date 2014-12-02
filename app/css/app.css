@@ -1981,7 +1981,6 @@ q:hover, a.nl-field-toggle:hover {
     background-color: rgba(255, 255, 255, 0.7);
 }
 .tagstats .widget, .stats .widget {
-    max-height: 830px;
     overflow: hidden;
     background: -webkit-linear-gradient(90deg, rgba(80, 166, 189, 0.06) 0%, rgba(255, 255, 255, 0) 72%, rgba(0, 0, 0, 0.058199999999999995) 99%, rgba(0, 0, 0, 0.06) 100%);
     background: -moz-linear-gradient(90deg, rgba(80, 166, 189, 0.06) 0%, rgba(255, 255, 255, 0) 72%, rgba(0, 0, 0, 0.058199999999999995) 99%, rgba(0, 0, 0, 0.06) 100%);
@@ -1990,6 +1989,7 @@ q:hover, a.nl-field-toggle:hover {
     background: linear-gradient(0deg, rgba(80, 166, 189, 0.06) 0%, rgba(255, 255, 255, 0) 72%, rgba(0, 0, 0, 0.058199999999999995) 99%, rgba(0, 0, 0, 0.06) 100%);
     background-color: rgba(255, 255, 255, 0.7);
 }
+
 .link-code-container {
     height: 60px;
     margin-top: 10px;
@@ -2278,6 +2278,15 @@ td.map img.checkin-white {
     max-height: 27px;
     margin-top: 6px;
 }
+.sort-icon {
+    height: 20px;
+    width: 8px;
+    display: inline-block;
+    margin-left: 10px;
+    line-height: 17px;
+    position: relative;
+    top: 5px;
+}
 @media (max-width: 1280px) {
     .container {
         padding-left: 60px;
@@ -2292,6 +2301,12 @@ td.map img.checkin-white {
     }
     .widget {
         width: 930px;
+    }
+    .sort-icon{
+        display: none;
+    }
+    #transactions-table th:nth-child(7){
+        width: 98px;
     }
 }
 @media (max-width: 1024px) {
@@ -2346,10 +2361,6 @@ td.map img.checkin-white {
     }
 }
 @media (max-width: 768px) {
-    /*.container {*/
-    /*width: auto;*/
-    /*}*/
-    
     .widget {
         width: 680px;
     }
@@ -2357,10 +2368,13 @@ td.map img.checkin-white {
         width: 140px;
     }
     #transactions-table th:nth-child(7) {
-        width: 70px;
+        width: 68px;
     }
     .nano > .nano-pane {
         right: -6px;
+    }
+    .transaction-tags a{
+        margin-left: 17px;
     }
 }
 @media (max-width: 990px) {
@@ -2807,15 +2821,6 @@ tr.selected .camera-icon, tr.edited .camera-icon {
 }
 .th-title {
     display: inline-block;
-}
-.sort-icon {
-    height: 20px;
-    width: 8px;
-    display: inline-block;
-    margin-left: 10px;
-    line-height: 17px;
-    position: relative;
-    top: 5px;
 }
 .data-table th {
     position: relative;

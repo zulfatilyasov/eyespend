@@ -60,11 +60,11 @@ angular.module("app").controller controllerId,
 
     _setWidgetAndTableHeight = ->
       vm.tableHeight = _getTableHeight()
-      vm.widgetHeight = vm.tableHeight + 75
+      vm.widgetHeight = vm.tableHeight + 68
 
     _getTableHeight = ->
-      theight = $window.innerHeight - 208
-      theight - (theight % 42)
+      theight = $window.innerHeight - 182
+      theight - (theight % 44) - 2
 
     _setWidgetAndTableHeight()  if $(window).width() > 587
 

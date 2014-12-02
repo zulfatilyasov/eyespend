@@ -2,10 +2,10 @@ class TagStatsCtrl extends BaseCtrl
   @register()
 
   @inject 'common', '$rootScope', '$scope', '$interval', 'datacontext', 'stats.service',
-   'miniChartOption', 'tag.service', 'datepicker.service', 'tagstats.service', 'login.service', 'date'
+   'miniChartOption', 'tag.service', 'datepicker.service', 'tagstats.service', 'login.service', 'date','$window'
 
   constructor: (@common, $rootScope, $scope, $interval, datacontext,
-  statsService, miniChartOption, tagService, datepicker, tagStatsService, login, date) ->
+  statsService, miniChartOption, tagService, datepicker, tagStatsService, login, date, $window) ->
     vm = @
     vm.tagStats = null
     vm.includeTags = []
@@ -17,6 +17,20 @@ class TagStatsCtrl extends BaseCtrl
 
     vm.draggableOptions =
       placeholder: 'keep'
+
+    $(window).resize ->
+      $scope.$apply ->
+        _setWidgetAndTableHeight()
+
+    _setWidgetAndTableHeight = ->
+      vm.tableHeight = _getTableHeight()
+      vm.widgetHeight = vm.tableHeight + 79
+
+    _getTableHeight = ->
+      theight = $window.innerHeight - 150
+      theight - (theight % 42)
+
+    _setWidgetAndTableHeight()  if $(window).width() > 587
 
     vm.sliderValuesChanged = (e, data) ->
       fromDate = data.values.min.getTime() / 1000
