@@ -10,21 +10,21 @@ module.exports = function(grunt) {
     //    }
 
     grunt.initConfig({
-        indent: {
-            src: ['app/services/datepickerSrvc.coffee'],
-            options: {
-              style: 'space',
-              size: 2,
-              change: -2
-            }
-        },
-        sprite:{
-          all: {
-            src: 'app/img/**/*.png',
-            destImg: 'app/img/spritesheet.png',
-            destCSS: 'app/css/app.css'
-          }
-        },
+        // indent: {
+        //     src: ['app/services/datepickerSrvc.coffee'],
+        //     options: {
+        //       style: 'space',
+        //       size: 2,
+        //       change: -2
+        //     }
+        // },
+        // sprite:{
+        //   all: {
+        //     src: 'app/img/**/*.png',
+        //     destImg: 'app/img/spritesheet.png',
+        //     destCSS: 'app/css/app.css'
+        //   }
+        // },
         coffee: {
             compile: {
                 expand: true,
@@ -198,8 +198,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-run');
     grunt.loadNpmTasks('grunt-open');
     grunt.loadNpmTasks('grunt-usemin');
-    grunt.loadNpmTasks('grunt-indent');
-    grunt.loadNpmTasks('grunt-spritesmith');
+    // grunt.loadNpmTasks('grunt-indent');
+    // grunt.loadNpmTasks('grunt-spritesmith');
 
     grunt.registerTask('bust', ['cacheBust:app', 'cacheBust:landing']);
     grunt.registerTask('minify', ['useminPrepare', 'concat:generated', 'cssmin:generated', 'uglify:generated', 'usemin']);
