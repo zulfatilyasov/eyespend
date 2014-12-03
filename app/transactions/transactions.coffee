@@ -15,18 +15,18 @@ angular.module("app").controller controllerId,
   "map"
   "datepicker.service"
   (
-    common,
-    commonConfig,
-    $window,
-    config,
-    $rootScope,
-    $scope,
-    date,
-    transactionService,
-    $translate,
-    login,
-    debounce,
-    map,
+    common
+    commonConfig
+    $window
+    config
+    $rootScope
+    $scope
+    date
+    transactionService
+    $translate
+    login
+    debounce
+    map
     datepicker
   ) ->
     vm = @
@@ -336,7 +336,6 @@ angular.module("app").controller controllerId,
             transactionService.copy transaction, vm.selectedTnx
         ), (msg) ->
           vm.editError = msg
-
 
     vm.remove = (transaction) ->
       if _transactionEmpty(transaction)
