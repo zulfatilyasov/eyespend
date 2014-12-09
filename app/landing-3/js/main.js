@@ -28,6 +28,7 @@ $(function() {
     $('#login').click(function() {
         if (!$('#email').val())
             $('#password-area').hide();
+            $('.forgot').hide();
     });
 
     $('.md-modal').keypress(function(e) {
@@ -50,12 +51,14 @@ $(function() {
         var email = $('#email').val();
 
         if (!email || isNumeric(email)) {
-            $('#password-area').hide(300);
+            $('#password-area').hide();
+            $('.forgot').hide();
             isEmail = false;
         }
 
         if (email && !isNumeric(email)) {
-            $('#password-area').show(300);
+            $('#password-area').show();
+            $('.forgot').show();
             isEmail = true;
         }
     });

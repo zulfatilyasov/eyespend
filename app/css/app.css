@@ -1163,7 +1163,7 @@ datepicker {
 }
 .filters .arrow-up {
     position: absolute;
-    right: 78px;
+    right: 64px;
     top: -20px;
 }
 .calendar-icon {
@@ -2552,7 +2552,7 @@ td.map img.checkin-white {
         display: none;
     }
 }
-@media (max-width: 320px) {
+@media (max-width: 415px) {
     .container {
         padding-right: 0;
         padding-left: 0;
@@ -2648,10 +2648,13 @@ td.map img.checkin-white {
     }
     #transactions-table td:nth-child(5), #transactions-table th:nth-child(5) {
         min-width: initial;
-        display: none;
     }
     #transactions-table td:nth-child(6), #transactions-table th:nth-child(6) {
         min-width: initial;
+    }
+    #transactions-table th:nth-child(7) {
+        width: 41px;
+        display: block;
     }
     #transactions-table tr td.date-td, #transactions-table tr th.date-th {
         padding-left: 10px;
@@ -2678,6 +2681,17 @@ td.map img.checkin-white {
         background: rgba(72, 72, 72, 0.2);
     }
     .tags-header {
+        display: none;
+    }
+}
+@media (max-width: 375px) {
+    #transactions-table th:nth-child(7) {
+        display: none;
+    }
+}
+@media (max-width: 320px) {
+    #transactions-table td:nth-child(5), #transactions-table th:nth-child(5) {
+        min-width: initial;
         display: none;
     }
 }

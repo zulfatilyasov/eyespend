@@ -204,9 +204,6 @@ body {
 .header-container {
     background: #FDFEFE;
 }
-.header-container .wrapper{
-	padding: 0 30px;
-}
 .logo {
 	background: url("../img/logo-landing.png") no-repeat;
     color: #4b949c;
@@ -811,6 +808,10 @@ WIDE: Main
     .slide-header {
         padding-top: 40px;
     }
+    .header-container .wrapper{
+        padding: 0 30px;
+    }
+
 }
 @media only screen and (min-width: 1020px) {
     .arrow-right, .arrow-left {

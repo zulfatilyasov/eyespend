@@ -32,9 +32,15 @@
 
     app.value('cookie', cookie);
 
+    function getLang() { 
+        var hostName = window.location.hostname;
+        return hostName.indexOf('.com') >= 0 ? 'en' : 'ru';
+    }
+
     var lang = cookie.get('lang');
     if (!lang)
-        lang = 'ru';
+        lang = getLang();
+
 
     if (lang == 'ru')
         moment.locale('ru');
