@@ -173,8 +173,6 @@
             }
         }
 
-
-
         vm.sliderValuesChanging = function(e, data) {
             fromDate = data.values.min.getTime();
             toDate = data.values.max.getTime();

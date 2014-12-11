@@ -10,21 +10,6 @@ module.exports = function(grunt) {
     //    }
 
     grunt.initConfig({
-        // indent: {
-        //     src: ['app/services/datepickerSrvc.coffee'],
-        //     options: {
-        //       style: 'space',
-        //       size: 2,
-        //       change: -2
-        //     }
-        // },
-        // sprite:{
-        //   all: {
-        //     src: 'app/img/**/*.png',
-        //     destImg: 'app/img/spritesheet.png',
-        //     destCSS: 'app/css/app.css'
-        //   }
-        // },
         coffee: {
             compile: {
                 expand: true,
@@ -37,7 +22,7 @@ module.exports = function(grunt) {
 		coffeelint: {
             options:{
                    'max_line_length':{
-                        value: 120
+                        value: 250
                     }
                 },
             app:{

@@ -51,20 +51,6 @@
                 <a ng-click="closeMap();" style="width:auto; font-size:14px" href="javascript:void(0)">Закрыть</a>
             </li>
         </ul>
-
-        <!--         <a class="overlay-close" ng-click="closeMap();" href="javascript:void(0)">
-            <i class="fa fa-times fa-4x"></i>
-        </a>
-        <a id="overlay-save" ng-show="showPlacesInput" ng-click="saveLocation()" href="javascript:void(0)">
-            <i class="fa fa-check fa-4x"></i>
-        </a>
- -->
-        <!-- <div id="placeInput">
-    <input id="pac-input" class="controls" ng-autocomplete ng-enter="refreshMap()" ng-model="placePicker.place" details="placePicker.details" type="text" placeholder="{{'ENTER_LOCATION'|translate}}" />
-    <span class="input-group-btn">
-    </span>
-</div>
- -->
         <gm-map gm-map-id="'myMap'" gm-center="mapCenter" gm-zoom="zoom" style="height:100%;width:100%;">
             <gm-markers gm-marker-options="object.options()" gm-objects="markers" gm-id="object.id" gm-on-dragend="setMarkerLocation(marker)" gm-position="{lat: object.location.lat, lng: object.location.lng}">
             </gm-markers>
@@ -132,11 +118,11 @@ function initAirbrake() {
     <script src="lib/ng-bs-daterangepicker/src/ng-bs-daterangepicker.js"></script>
 
 
-    <script src="app.js"></script>
-    <script src="config.exceptionHandler.js"></script>
-    <script src="config.js"></script>
-    <script src="config.route.js"></script>
-    <script src="translations.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/config-exceptions.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/config-route.js"></script>
+    <script src="js/translations.js"></script>
     <script src="services/datacontext.js"></script>
     <script src="services/authInterceptor.js"></script>
     <script src="services/directives.js"></script>

@@ -2373,9 +2373,6 @@ td.map img.checkin-white {
     .nano > .nano-pane {
         right: -6px;
     }
-    .transaction-tags a{
-        margin-left: 17px;
-    }
 }
 @media (max-width: 990px) {
     .newTransactionForm.form-slider {
@@ -2402,9 +2399,27 @@ td.map img.checkin-white {
         margin-left: 85px;
     }
 }
+@media (max-width: 736px){
+    .table-wrap {
+        padding-top: 40px;
+    }
+    .side-bar{
+        display: none;
+    }
+    .container {
+        padding-right: 0;
+        padding-left: 0;
+    }
+    .trs-col{
+        padding-left: 0;
+    }
+}
 @media (max-width: 586px) {
     .container {
         max-width: 485px;
+    }
+    .trs-col{
+        padding-left: 15px;
     }
     .logo.sidebar-icons {
         left: 10px;
@@ -2454,9 +2469,7 @@ td.map img.checkin-white {
     .rowActions-td {
         display: none;
     }
-    .table-wrap {
-        padding-top: 40px;
-    }
+    
     .widgeTitle {
         font-size: 18px;
         margin-left: 14px;
@@ -2553,10 +2566,7 @@ td.map img.checkin-white {
     }
 }
 @media (max-width: 415px) {
-    .container {
-        padding-right: 0;
-        padding-left: 0;
-    }
+    
     body {
         overflow: hidden;
         font-size: 16px;
@@ -2644,17 +2654,17 @@ td.map img.checkin-white {
         min-width: initial;
     }
     #transactions-table td:nth-child(4), #transactions-table th:nth-child(4) {
-        min-width: 86px;
+        min-width: 96px;
     }
     #transactions-table td:nth-child(5), #transactions-table th:nth-child(5) {
-        min-width: initial;
+        min-width: 84px;
     }
     #transactions-table td:nth-child(6), #transactions-table th:nth-child(6) {
         min-width: initial;
     }
     #transactions-table th:nth-child(7) {
         width: 41px;
-        display: block;
+        display: none;
     }
     #transactions-table tr td.date-td, #transactions-table tr th.date-th {
         padding-left: 10px;
@@ -2684,15 +2694,26 @@ td.map img.checkin-white {
         display: none;
     }
 }
-@media (max-width: 375px) {
-    #transactions-table th:nth-child(7) {
+@media (max-width: 375px){
+    #transactions-table td:nth-child(5), #transactions-table th:nth-child(5) {
+        min-width: 84px;
         display: none;
+    }
+    #transactions-table th:nth-child(7) {
+        min-width: 45px;
+        display: block;
     }
 }
 @media (max-width: 320px) {
+    #transactions-table th:nth-child(7) {
+         display: none; 
+    }
     #transactions-table td:nth-child(5), #transactions-table th:nth-child(5) {
         min-width: initial;
         display: none;
+    }
+    #transactions-table td:nth-child(4), #transactions-table th:nth-child(4) {
+        min-width: 86px;
     }
 }
 @media (max-width: 640px) {

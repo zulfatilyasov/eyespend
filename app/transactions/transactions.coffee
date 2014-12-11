@@ -66,7 +66,7 @@ angular.module("app").controller controllerId,
       theight = $window.innerHeight - 182
       theight - (theight % 44) - 2
 
-    _setWidgetAndTableHeight()  if $(window).width() > 587
+    _setWidgetAndTableHeight()  if $(window).width() > 736
 
     $scope.$watch "vm.filterDateRange", (newVal) ->
       return  if not newVal or not newVal.startDate or not newVal.endDate

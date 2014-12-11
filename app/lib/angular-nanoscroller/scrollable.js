@@ -38,7 +38,7 @@
         contentClass: 'nano-content'
     });
 
-    if($(window).width() > 587 ){
+    if($(window).width() > 736 ){
         module.directive("scrollable", createScrollableDirective(AS_ELEMENT));
         module.directive("scrollable", createScrollableDirective(AS_ATTRIBUTE));
     }
